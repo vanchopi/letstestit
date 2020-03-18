@@ -196,6 +196,21 @@ a{
 .slider-wrapper{
 	display: block;
 	width: 100%;
+	position: relative;	 
+	.show-more__button{
+		@include align-center;
+		justify-content: center;
+		position: absolute;
+		bottom: 50px;
+		background-color: $main-color;
+		border-radius: 50%;
+		width: 74px;
+		height: 74px;
+		left: 0;
+		right: 0;
+		margin: auto;
+		cursor: pointer;
+	}
 	.switcher-wrapper__internal{
 		position: relative;
 	}
@@ -254,7 +269,8 @@ a{
 	}
 	.content-wrapper{
 		background-image: url(~assets/images/png/puzzle-bg.png);
-		padding: 57px 0 50px 0;
+		background-size: cover;
+		padding: 57px 0 150px 0;
 		.content-filters__wrapper{
 			margin-bottom: 25px;
 			@include align-center;
@@ -314,13 +330,78 @@ a{
 				@include align-center;
 				justify-content: flex-start;
 				flex-wrap: wrap;
-				width: 100%;				
+				width: 100%;
+
+				max-height: 100%;
+				overflow: hidden;
+				transition: max-height 0.25s ease-in;			
 				li{
 					width: $width-slider-lg;
 					margin: 35px 0;
 					.item{
 						@include align-top;
 						justify-content: center;
+						position: relative;
+						.img-wrapper{
+							img{}
+						}
+						.description-wrapper{							
+							height: 100%;
+							width: 100%;
+							padding: 35px 70px 35px 60px;
+							position: absolute;
+							.description-wrapper__top{
+								padding-bottom: 25px;
+								@include align-center;
+								justify-content: space-between;
+								flex-direction: column;
+								height: 50%;
+								.tags{
+									@include align-center;
+									justify-content: space-between;
+									width: 80%;
+									.tag{
+										font-size: 8px;
+										color: $main-text-color;
+										background-color: transparent;
+										min-width: 55px;
+										height: 12px;
+										line-height: 10px;
+										text-align: center;
+										border: 1px solid $main-fill-color;
+										padding: 0 4px;
+										border-radius: 6px;
+									}
+								}
+								.title{
+									text-shadow: 2px 2px 1px #000000;
+									text-align: center;
+									color: $card-test-title;
+									font-size: 20px;
+									font-weight: 900;
+								}
+							}
+							.description-wrapper__bottom{
+								padding-top: 25px;
+								@include align-center;
+								justify-content: flex-start;
+								flex-direction: column;
+								height: 50%;
+								.button{
+									text-shadow: 1px 3px 2px rgba(0, 0, 0, 0.5);
+									font-weight: 500;
+									font-size: 22px;
+									width: 100%;
+									max-width: 185px;
+									height: 47px;
+									border: 1px solid $main-fill-color;
+									border-radius: 67px;
+									@include align-center;
+									justify-content: center;
+								}
+							}
+						}
+						
 					}
 				}
 			}

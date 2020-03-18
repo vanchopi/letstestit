@@ -1,5 +1,6 @@
 <template>
-  <div class="slider-wrapper">    
+  <div class="slider-wrapper" id="slider">   
+
     <div class="switcher-wrapper">
       <div class="container">
         <div class="switcher-wrapper__internal">          
@@ -53,13 +54,37 @@
                   <!--<img :src="'/_nuxt/client/assets/images/cards/' + category.img" alt="">-->
                   <img :src="'cards/' + category.img" alt="">
                 </div>
+                <div class="description-wrapper">
+                  <div class="description-wrapper__top">
+                    <div class="tags">
+                      <router-link  class="tag" 
+                                    v-for="item of category.tags"
+                                    :to="{ name: item.url }"
+                                    :key="item.title"
+                      >                       
+                        {{ item.title }}
+                      </router-link>                      
+                    </div>
+                    <div class="title">
+                      {{ category.title }}
+                    </div>
+                  </div>
+                  <div class="description-wrapper__bottom">
+                    <router-link :to="{ name: 'welcome' }" class="button"> 
+                      УЗНАТЬ
+                    </router-link>
+                  </div>
+                </div>
               </div>
             </li>
           </ul>
         </div>
 
       </div>    
-    </div>    
+    </div>  
+    <div class="show-more__button" @click="getMore()">
+      <img src="~assets/images/png/down.png" alt="">
+    </div>
   </div>
 </template>
 
@@ -74,6 +99,7 @@ export default {
   props: ['params'],
   data: () => ({
     imgSrc: '~assets/images/cards/',
+    showMore: 0,
     showFilter: [
       { filter: false },
       { filter: false }
@@ -127,8 +153,32 @@ export default {
     getCategories(){
       for (let i = 0; i < 6; i++){        
         this.categoriesList[i] = {            
-          img: (i + 1) +'.png'
+          img: (i + 1) +'.png',
+          url: '#',
+          title: 'Какой ты покемон',
+          tags: [
+            { title: 'Хогвартс', url: 'welcome' },
+            { title: 'Хогвартс1', url: 'welcome' },
+            { title: 'Хогвартс2', url: 'welcome' },
+          ]
         }
+      }
+      return this.categoriesList;
+    },
+    getMore(){
+      this.showMore++;
+      console.log('er');
+      for (let i = 0; i < 3; i++){        
+        this.categoriesList.push({            
+          img: (i + 1) +'.png',
+          url: '#',
+          title: 'Какой ты покемон',
+          tags: [
+            { title: 'Хогвартс', url: 'welcome' },
+            { title: 'Хогвартс1', url: 'welcome' },
+            { title: 'Хогвартс2', url: 'welcome' },
+          ]
+        })
       }
       return this.categoriesList;
     }
