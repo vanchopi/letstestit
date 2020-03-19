@@ -26,7 +26,9 @@
     <div class="content-wrapper">
       <div class="container">
 
-        <div class="content-filters__wrapper">
+        <div  class="content-filters__wrapper" 
+              v-if="!ifCatalog"
+          >
           <div  class="filter" 
                 v-for="(item, index) of filters"
                 :class="{'show': showFilter[index].filter}"
@@ -48,17 +50,21 @@
 
         <div class="content-categories__wrapper">
           <ul>
-            <li v-for="(category, index) of getCategories()">
+
+            <li v-if="!ifCatalog"
+                v-for="(test, index) of getTests()"                 
+                :key=index
+              >
               <div class="item">
                 <div class="img-wrapper">
-                  <!--<img :src="'/_nuxt/client/assets/images/cards/' + category.img" alt="">-->
-                  <img :src="'cards/' + category.img" alt="">
+                  <!--<img :src="'/_nuxt/client/assets/images/cards/' + test.img" alt="">-->
+                  <img :src="'cards/' + test.img" alt="">
                 </div>
                 <div class="description-wrapper">
                   <div class="description-wrapper__top">
                     <div class="tags">
                       <router-link  class="tag" 
-                                    v-for="item of category.tags"
+                                    v-for="item of test.tags"
                                     :to="{ name: item.url }"
                                     :key="item.title"
                       >                       
@@ -66,7 +72,7 @@
                       </router-link>                      
                     </div>
                     <div class="title">
-                      {{ category.title }}
+                      {{ test.title }}
                     </div>
                   </div>
                   <div class="description-wrapper__bottom">
@@ -77,6 +83,23 @@
                 </div>
               </div>
             </li>
+            
+            <li v-if="ifCatalog"               
+                v-for="(category, index) of getCategories()"
+                class="category-item"
+                :key=index
+              >
+              <div class="img-wrapper">
+                <img :src="'categories/' + category.img" alt="">
+              </div>
+              <div class="link-wrapper">
+                <!--<router-link :to="{ name: category.url }" class="link"> -->
+                <router-link :to="{ name: 'welcome' }" class="link">   
+                  {{ category.title }}
+                </router-link>
+              </div>  
+            </li>
+
           </ul>
         </div>
 
@@ -96,7 +119,7 @@ import {sliderAdaptive} from './adaptive'
 export default {
   components: {    
   },
-  props: ['params'],
+  props: ['ifCatalog'],
   data: () => ({
     imgSrc: '~assets/images/cards/',
     showMore: 0,
@@ -130,13 +153,19 @@ export default {
         ]
       }
     ],
-    categoriesList: []
+    testsList: [],
+    categoriesList:[]
   }),
 
   computed: mapGetters({
     user: 'auth/user'
   }),
   created(){
+    if(this.ifCatalog){
+      console.log('catalog', this.ifCatalog);
+    }else{
+      console.log('categories', this.ifCatalog);
+    }
     this.checkWidth();
   },
   methods: {
@@ -150,9 +179,9 @@ export default {
       console.log(' filter ', id);
       this.showFilter[id].filter = !this.showFilter[id].filter;
     },
-    getCategories(){
+    getTests(){
       for (let i = 0; i < 6; i++){        
-        this.categoriesList[i] = {            
+        this.testsList[i] = {            
           img: (i + 1) +'.png',
           url: '#',
           title: 'Какой ты покемон',
@@ -163,13 +192,13 @@ export default {
           ]
         }
       }
-      return this.categoriesList;
+      return this.testsList;
     },
     getMore(){
       this.showMore++;
       console.log('er');
-      for (let i = 0; i < 3; i++){        
-        this.categoriesList.push({            
+      for (let i = 0; i < 3; i++){
+        this.testsList.push({
           img: (i + 1) +'.png',
           url: '#',
           title: 'Какой ты покемон',
@@ -180,6 +209,16 @@ export default {
           ]
         })
       }
+      return this.testsList;
+    },
+    getCategories(){
+      for (let i = 0; i < 9; i++){        
+        this.categoriesList[i] = {            
+          img: (i + 1) +'.png',
+          url: '#',
+          title: 'тесты по фильмам' + i,          
+        }
+      }      
       return this.categoriesList;
     }
   }

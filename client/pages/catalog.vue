@@ -1,6 +1,7 @@
 <template>
   <div>    
-    <slider :ifCatalog="false" />
+    
+    <slider :ifCatalog="true" />
         
   </div>
 </template>

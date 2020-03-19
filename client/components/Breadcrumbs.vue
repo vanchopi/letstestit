@@ -8,7 +8,7 @@
           </router-link>
         </li>
         <li>
-          <router-link :to="{ name: 'login' }"> 
+          <router-link :to="{ name: 'catalog' }"> 
             тесты
           </router-link>
         </li>

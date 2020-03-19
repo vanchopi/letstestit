@@ -14,6 +14,12 @@ const routes = [
   },
 
   { 
+    path: '/catalog', 
+    name: 'catalog', 
+    component: page('catalog.vue') 
+  },
+
+  { 
     path: '/login', 
     name: 'login', 
     component: page('auth/login.vue') 
