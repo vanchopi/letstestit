@@ -1,20 +1,24 @@
 <template>
   <div>    
-    
-    <slider :ifCatalog="false" />
-        
+    <!--
+    <quiz :ifCatalog="true" />-->
+        <div class="test-wrapper" style="background: url(/tests/1.png);">
+          <div class="container">
+            test
+          </div>
+        </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import Slider from '~/components/slider/Slider'
+//import Quiz from '~/components/quiz/Quiz'
 
 export default {
   layout: 'default',
 
   components: {
-    Slider
+    //Quiz
   },
 
   head () {

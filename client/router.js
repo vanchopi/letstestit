@@ -18,6 +18,11 @@ const routes = [
     name: 'catalog', 
     component: page('catalog.vue') 
   },
+  { 
+    path: '/test/:id', 
+    name: 'test', 
+    component: page('test.vue') 
+  },
 
   { 
     path: '/login', 
