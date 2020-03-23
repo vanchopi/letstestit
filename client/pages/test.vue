@@ -2,23 +2,28 @@
   <div>    
     <!--
     <quiz :ifCatalog="true" />-->
-        <div class="test-wrapper" style="background: url(/tests/1.png);">
-          <div class="container">
-            test
-          </div>
-        </div>
+    <div class="test-wrapper" style="background: url(/tests/1.png);">
+      <div class="container">
+        test
+        <quiz :quizList="currentTest"/>
+        <!--<advertising />-->
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-//import Quiz from '~/components/quiz/Quiz'
+import Quiz from '~/components/quiz/Quiz'
+//import Advertising from '~/components/advertising/Advertising'
+import { getTest } from '~/api/test/test'
 
 export default {
   layout: 'default',
 
   components: {
-    //Quiz
+    Quiz,
+    //Advertising
   },
 
   head () {
@@ -26,12 +31,47 @@ export default {
   },
 
   data: () => ({
-    title: process.env.appName
-  }),
+    title: process.env.appName,
+    query:{
+      id: 1,
+      category: 'films'
+    },
+    currentTest:[]
+  }),  
 
   computed: mapGetters({
     authenticated: 'auth/check'
-  })
+  }),
+
+  created(){
+    this.getTest();
+  },
+  methods:{
+    fakeTest(){
+      let testArr = [];
+      for (let i = 0; i < 6; i++){        
+        testArr[i] = {                     
+          num: i,
+          queston: 'Ты чё, э' + i + '?',
+          answers: [
+            { id: 0, dsc: 'ни чё'},
+            { id: 1, dsc: 'а чё?'},
+            { id: 2, dsc: 'и чё?'},
+            { id: 3, dsc: 'а сам чё?'}
+          ]
+        }
+      }
+      return testArr;
+    },
+    async getTest(){
+      try{
+        const list =  /*await getTest(this.query)*/ this.fakeTest();        
+        return this.currentTest = list;
+      }catch(e){
+        console.log(e);
+      }
+    }
+  }
 }
 </script>
 
