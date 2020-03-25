@@ -537,3 +537,131 @@ footer{
     background-size: cover !important;
     min-height: 500px;
 }
+
+.check-container {
+    display: block;
+    position: relative;
+    padding-left: 63px;
+    line-height: 42px;
+    cursor: pointer;
+    font-weight: 500;
+	font-size: 36px;   
+    user-select: none;
+    text-transform: none;
+    color: $col-text-second;
+    &:hover input~.checkmark {
+	    background-color: #ccc;
+	}
+	input {
+	    position: absolute;
+	    opacity: 0;
+	    cursor: pointer;
+	    &:checked~.checkmark {
+		    background-color: $main-fill-color;
+		    &:after {
+			    display: block;
+			}
+		}
+	}
+	.checkmark {
+	    position: absolute;
+	    top: calc(50% - 18px);
+	    left: 0;
+	    height: 36px;
+	    width: 36px;
+	    background-color: white;
+	    border-radius: 50%;
+	    border: 1px solid grey;
+	    &:after {
+		    content: "";
+		    position: absolute;
+		    display: none;
+		    top: -1;
+		    left: -1;
+		    width: 36px;
+		    height: 36px;
+		    border-radius: 50%;
+		    background: $main-fill-color;
+		}
+	}
+}
+
+.custom-bt{
+	@include align-center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	background-color: transparent;
+	border: 3px solid $main-fill-color;		
+	border-radius: 67px;
+	box-shadow: none;
+	span{
+		font-weight: 500;
+		font-size: 30px;
+		color: $col-text-second;
+	}
+}
+
+.quiz-wrapper{
+	padding: 90px 0 100px 0;	
+	.quiz-item{
+		width: 100%;
+		padding: 46px 0 54px 0;		
+		max-width: 920px;		
+		margin: auto;
+		background-color: $main-text-color;
+		border-radius: 82px;
+		.quiz-item__info{
+			@include align-center;
+			justify-content: space-between;
+			padding: 0 66px;
+			margin-bottom: 48px;
+			.back-bt{
+				@include align-center;
+				justify-content: flex-start;
+				text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.7);
+				color: $col-text-second;
+				font-weight: normal;
+				font-size: 24px;
+				cursor: pointer;
+				&:before{
+					content: '';
+					border: 15px solid transparent; 
+					border-right: 30px solid $main-fill-color;
+					margin-right: 10px;
+				}
+			}
+			.counter{
+				font-weight: 500;
+				font-size: 40px;
+				b{
+					color: $main-fill-color;
+				}
+				span{
+					color: $col-text-second;
+				}
+			}
+		}
+		.title{
+			text-align: center;
+			font-weight: 500;
+			font-size: 36px;
+			margin-bottom: 70px;
+			color: $col-text-second;
+		}
+		.answers{
+			padding: 0 100px;
+			ul{
+				li{
+					margin-bottom: 48px;
+
+				}
+			}
+		}
+	}
+	.button-wrapper{
+		width: 292px;
+		height: 72px;
+		margin: auto;
+	}
+}

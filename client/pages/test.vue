@@ -4,7 +4,7 @@
     <quiz :ifCatalog="true" />-->
     <div class="test-wrapper" style="background: url(/tests/1.png);">
       <div class="container">
-        test
+        
         <quiz :quizList="currentTest"/>
         <!--<advertising />-->
       </div>
