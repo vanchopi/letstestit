@@ -21,7 +21,17 @@ const routes = [
   { 
     path: '/test/:id', 
     name: 'test', 
-    component: page('test.vue') 
+    component: page('test.vue'),
+    /*children: [{ 
+        path: 'results', 
+        name: 'results', 
+        component: page('results.vue') 
+    }]*/
+  },
+  { 
+    path: '/test/:id/results/', 
+    name: 'results', 
+    component: page('results.vue') 
   },
 
   { 

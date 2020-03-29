@@ -1,34 +1,37 @@
 <template>
-  <div class="quiz-wrapper" :key="quizStep">  
-
-    <div  class="quiz-item" 
-          v-for="(item, index) of getPart(quizStep)"
-          :key="index"
-      >
+  <div class="quiz-wrapper" :key="quizStep">      
+    <div  class="quiz-item">
       <div class="quiz-item__info">
         <div class="back-bt">назад</div>
         <div class="counter">
-          <b>5</b>
-          <span>/11</span>
+          <b>{{testPart.num + 1}}</b>
+          <span>/{{testLenght}}</span>
         </div>
       </div>
       <div class="title">
-       {{item.queston}}
+       {{testPart.queston}}
       </div>
       <div class="answers">
         <ul>
-          <li>
-            <label class="check-container">Bouquets
-              <input type="radio" name="radio" value="Bouquets" data-wlradio="0">
+          <li v-for="(item, index) of testPart.answers"
+              :key="index"
+            >
+            <label class="check-container">{{item.dsc}}
+              <input type="radio" name="radio" :value="item.dsc" data-wlradio="0" v-model="answer">
               <span class="checkmark"></span>
             </label>
           </li>          
-        </ul>
+        </ul>        
       </div>
       <div class="button-wrapper">
-        <button class="custom-bt">
+        <button class="custom-bt" @click="getPart(testPart.num)" v-if="quizStep < testLenght - 1">
           <span>
             ОТВЕТИТЬ
+          </span>
+        </button>
+        <button class="custom-bt" @click="finishTest(testPart.num)" v-else>
+          <span>
+            ЗАВЕРШИТЬ ТЕСТ
           </span>
         </button>
       </div>  
@@ -40,16 +43,29 @@
 <script>
 import { mapGetters } from 'vuex'
 //import LocaleDropdown from './LocaleDropdown'
-//import {sliderAdaptive} from './adaptive'
+import { getTest } from '~/api/test/test'
 
 export default {
   components: {    
   },
-  props: ['quizList'],
+  props: ['info'],
   data: () => ({    
-    testList: [{}],
+    testList: [],
+    testPart: [{
+      num: 0,
+      queston: '',
+      answers: [
+        { id: 0, dsc: ''},
+        { id: 1, dsc: ''},
+        { id: 2, dsc: ''},
+        { id: 3, dsc: ''}
+      ]
+    }],
+    testLenght: 0,
+    query:{},
     qurrentPart: null,
     userAnswers: [],
+    answer: '',
     quizStep: 0
   }),
 
@@ -57,19 +73,66 @@ export default {
     user: 'auth/user'
   }),
   created(){
-    console.log('1.quizList', JSON.parse(JSON.stringify(this.quizList)) );      
+    this.query = this.info;
+    
+    //this.getTestList(this.query); 
+    //console.log('this.testList', this.testList);             
+    //this.fakeTest();   
+    //this.testPart = this.getPart( this.quizStep );
+  },
+  mounted() {
+    this.getData(this.query);
   },
   methods: {        
-    getPart( num ){
-      this.qurrentPart = {};
-      this.qurrentPart = {
-        num: JSON.parse(JSON.stringify(this.quizList[num].num)),
-        queston: JSON.parse(JSON.stringify(this.quizList[num].queston)),
-        answers: JSON.parse(JSON.stringify(this.quizList[num].answers))
+    getPart( num ){         
+        console.log('num', num);
+        this.userAnswers[num] = this.answer;
+        if ( this.quizStep < this.testLenght - 1){
+          this.quizStep++;
+          this.testPart = this.testList[this.quizStep];
+          console.log('quizStep', this.quizStep);          
+        };
+        console.log('userAnswers', this.userAnswers);
+    },
+    finishTest( num ){
+        this.getPart( num );
+        this.$router.push({name: 'results', params:{id: this.info.id, answers: this.userAnswers}})
+    },
+    fakeTest(){ 
+      /*let testArr = [];     
+      for (let i = 0; i < 6; i++){        
+        this.testList.push({                     
+          num: i,
+          queston: 'Ты чё, э' + i + '?',
+          answers: [
+            { id: 0, dsc: 'ни чё'},
+            { id: 1, dsc: 'а чё?'},
+            { id: 2, dsc: 'и чё?'},
+            { id: 3, dsc: 'а сам чё?'}
+          ]
+        })
+      }           
+      console.log('1.this.testList', this.testList);
+      return this.testList;*/
+    },
+    async getTestList( info ){
+      try{
+        const  list  =  await getTest(info);        
+        console.log('list', list.data);
+        //return Object.freeze(list.data);
+        return list.data;
+      }catch(e){
+        console.log(e);
       }
-
-      console.log('5.qurrentPart', this.qurrentPart);
-      return this.qurrentPart;
+    },
+    getData( info ){
+      getTest(info).then((request) => {
+        console.log('request', request);
+        this.testList = request.data;
+        this.testLenght = request.data.length;
+        this.testPart = this.testList[0];
+        console.log('this.testPart', this.testPart);
+      })
     }
   }
 }

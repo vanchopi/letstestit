@@ -5,7 +5,7 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 
 export default ({ app, store, redirect }) => {
   axios.defaults.baseURL = process.env.apiUrl
-
+  console.log('url', axios.defaults.baseURL);
   if (process.server) {
     return
   }
@@ -15,9 +15,10 @@ export default ({ app, store, redirect }) => {
     request.baseURL = process.env.apiUrl
 
     const token = store.getters['auth/token']
-
+    console.log('token', token);
     if (token) {
       request.headers.common.Authorization = `Bearer ${token}`
+      //request.headers.common.Authorization = `Bearer 7987wqe87qwe7qweqw8e`
     }
 
     const locale = store.getters['lang/locale']

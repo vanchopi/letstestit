@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,4 +37,40 @@ Route::group(['middleware' => 'guest:api'], function () {
 
     Route::post('oauth/{driver}', 'Auth\OAuthController@redirectToProvider');
     Route::get('oauth/{driver}/callback', 'Auth\OAuthController@handleProviderCallback')->name('oauth.callback');
+});
+
+Route::get('/test/{id}', function ($id) {
+    $test = [];   
+    $answers = [];
+    $ans = [];
+    $ans0 = [];
+    $ans1 = [];
+    $ans2 = [];
+    $ans3 = [];
+    for ( $i=0; $i < 6; $i++) {      
+      $test[] = (object) [
+        "num" => $i,
+        "queston" => 'Ты чё, э'. $i . '?',        
+        "answers" => $answers[] = (object) [
+            $ans0[] = (object) [ 
+                "id" => 0,
+                "dsc" => "ни чё" . $i
+            ],
+            $ans1[] = (object) [ 
+                "id" => 1,
+                "dsc" => "а чё?". $i
+            ],
+            $ans2[] = (object) [ 
+                "id" => 2,
+                "dsc" => "и чё?". $i
+            ],
+            $ans3[] = (object) [ 
+                "id" => 3,
+                "dsc" => "а сам чё?". $i
+            ],
+        ]
+      ];
+    }
+
+    return response()->json($test);   
 });

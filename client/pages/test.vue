@@ -5,7 +5,7 @@
     <div class="test-wrapper" style="background: url(/tests/1.png);">
       <div class="container">
         
-        <quiz :quizList="currentTest"/>
+        <quiz :info="testInfo"/>
         <!--<advertising />-->
       </div>
     </div>
@@ -16,7 +16,7 @@
 import { mapGetters } from 'vuex'
 import Quiz from '~/components/quiz/Quiz'
 //import Advertising from '~/components/advertising/Advertising'
-import { getTest } from '~/api/test/test'
+
 
 export default {
   layout: 'default',
@@ -31,46 +31,23 @@ export default {
   },
 
   data: () => ({
-    title: process.env.appName,
-    query:{
-      id: 1,
-      category: 'films'
-    },
-    currentTest:[]
+    title: process.env.appName,    
+    testInfo: {}
   }),  
 
   computed: mapGetters({
     authenticated: 'auth/check'
   }),
 
-  created(){
-    this.getTest();
+  created(){    
+    this.testInfo = {
+        id: this.$route.params.id,
+        category: 'films'
+    }
   },
   methods:{
-    fakeTest(){
-      let testArr = [];
-      for (let i = 0; i < 6; i++){        
-        testArr[i] = {                     
-          num: i,
-          queston: 'Ты чё, э' + i + '?',
-          answers: [
-            { id: 0, dsc: 'ни чё'},
-            { id: 1, dsc: 'а чё?'},
-            { id: 2, dsc: 'и чё?'},
-            { id: 3, dsc: 'а сам чё?'}
-          ]
-        }
-      }
-      return testArr;
-    },
-    async getTest(){
-      try{
-        const list =  /*await getTest(this.query)*/ this.fakeTest();        
-        return this.currentTest = list;
-      }catch(e){
-        console.log(e);
-      }
-    }
+    
+    
   }
 }
 </script>
