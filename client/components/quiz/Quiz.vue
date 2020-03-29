@@ -1,6 +1,10 @@
 <template>
-  <div class="quiz-wrapper" :key="quizStep">      
-    <div  class="quiz-item">
+  <div  class="quiz-wrapper" 
+        :key="quizStep"        
+    >      
+    <div  class="quiz-item" 
+                              
+      >
       <div class="quiz-item__info">
         <div class="back-bt">назад</div>
         <div class="counter">
@@ -8,21 +12,23 @@
           <span>/{{testLenght}}</span>
         </div>
       </div>
-      <div class="title">
-       {{testPart.queston}}
-      </div>
-      <div class="answers">
-        <ul>
-          <li v-for="(item, index) of testPart.answers"
-              :key="index"
-            >
-            <label class="check-container">{{item.dsc}}
-              <input type="radio" name="radio" :value="item.dsc" data-wlradio="0" v-model="answer">
-              <span class="checkmark"></span>
-            </label>
-          </li>          
-        </ul>        
-      </div>
+      <div class="quiz-item__content" :class="{'fade-out': fade}">
+        <div class="title">
+         {{testPart.queston}}
+        </div>
+        <div class="answers">
+          <ul>
+            <li v-for="(item, index) of testPart.answers"
+                :key="index"
+              >
+              <label class="check-container">{{item.dsc}}
+                <input type="radio" name="radio" :value="item.dsc" data-wlradio="0" v-model="answer">
+                <span class="checkmark"></span>
+              </label>
+            </li>          
+          </ul>        
+        </div>        
+      </div>  
       <div class="button-wrapper">
         <button class="custom-bt" @click="getPart(testPart.num)" v-if="quizStep < testLenght - 1">
           <span>
@@ -49,7 +55,8 @@ export default {
   components: {    
   },
   props: ['info'],
-  data: () => ({    
+  data: () => ({
+    fade: false,    
     testList: [],
     testPart: [{
       num: 0,
@@ -86,12 +93,16 @@ export default {
   methods: {        
     getPart( num ){         
         console.log('num', num);
+        this.fade = !this.fade;
+        console.log('this.fade', this.fade);
         this.userAnswers[num] = this.answer;
         if ( this.quizStep < this.testLenght - 1){
           this.quizStep++;
           this.testPart = this.testList[this.quizStep];
           console.log('quizStep', this.quizStep);          
         };
+        //this.fade = !this.fade;
+        setTimeout(() => { this.fade = !this.fade; }, 300);
         console.log('userAnswers', this.userAnswers);
     },
     finishTest( num ){

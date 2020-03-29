@@ -681,7 +681,7 @@ footer{
 }
 
 .quiz-wrapper{
-	padding: 90px 0 100px 0;	
+	padding: 90px 0 100px 0;		
 	.quiz-item{
 		width: 100%;
 		padding: 46px 0 54px 0;		
@@ -689,6 +689,15 @@ footer{
 		margin: auto;
 		background-color: $main-text-color;
 		border-radius: 82px;
+		.quiz-item__content{
+			opacity: 1;
+			visibility: visible;
+			transition: all .2s;
+			&.fade-out{
+				opacity: 0;
+				visibility: hidden;
+			}
+		}	
 		.quiz-item__info{
 			@include align-center;
 			justify-content: space-between;
