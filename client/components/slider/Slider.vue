@@ -5,15 +5,15 @@
       <div class="container">
         <div class="switcher-wrapper__internal">          
           <div class="arrows-wrapper">
-            <div class="arrow left" @click="switcher('left')">
+            <div class="arrow left" @click="sliderSwitcher('left')">
               <img src="~assets/images/png/arrow-l.png" alt="">
             </div>
-            <div class="arrow right" @click="switcher('right')">
+            <div class="arrow right" @click="sliderSwitcher('right')">
               <img src="~assets/images/png/arrow-r.png" alt="">
             </div>
           </div>
           <div class="description-wrapper">
-            <ul>
+            <ul id="switch-category">
               <li v-for="(item, index) of categories">
                 {{ item.txt }}
               </li>
@@ -114,7 +114,7 @@
 <script>
 import { mapGetters } from 'vuex'
 //import LocaleDropdown from './LocaleDropdown'
-import {sliderAdaptive} from './adaptive'
+import { sliderAdaptive, switcher } from './sliderController'
 
 export default {
   components: {    
@@ -122,6 +122,7 @@ export default {
   props: ['ifCatalog'],
   data: () => ({
     imgSrc: '~assets/images/cards/',
+    catId: 0,
     showMore: 0,
     showFilter: [
       { filter: false },
@@ -167,10 +168,28 @@ export default {
       console.log('categories', this.ifCatalog);
     }
     this.checkWidth();
+    //this.catLength = this.categories.length;
+    //console.log(this.catLength);
   },
   methods: {
-    switcher( arrow ){
-      console.log(arrow);
+    sliderSwitcher( direction ){      
+      console.log('direction', switcher(direction));
+      switch(direction) {
+        case 'right':  
+          this.catId++;
+          if ( this.catId > this.categories.length ){
+              this.catId = this.categories.length;
+          }
+          this.getCategoryList(this.catId);
+          break;
+        case 'left':          
+          this.catId--;
+          if (this.catId < 0) {
+            this.catId = 0;
+          }
+          this.getCategoryList(this.catId);
+          break;     
+      }
     },
     checkWidth(){
       console.log(sliderAdaptive());      
@@ -178,6 +197,9 @@ export default {
     openFilter( id ){
       console.log(' filter ', id);
       this.showFilter[id].filter = !this.showFilter[id].filter;
+    },
+    getCategoryList( id ){
+        console.log('category id - ', id);
     },
     getTests(){
       for (let i = 0; i < 6; i++){        
