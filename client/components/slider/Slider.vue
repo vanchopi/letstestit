@@ -58,7 +58,7 @@
               <div class="item">
                 <div class="img-wrapper">
                   <!--<img :src="'/_nuxt/client/assets/images/cards/' + test.img" alt="">-->
-                  <img :src="'cards/' + test.img" alt="">
+                  <img :src="imgSrc + '/images/cards/' + test.img" alt="">
                 </div>
                 <div class="description-wrapper">
                   <div class="description-wrapper__top">
@@ -90,7 +90,7 @@
                 :key=index
               >
               <div class="img-wrapper">
-                <img :src="'categories/' + category.img" alt="">
+                <img :src="imgSrc + '/images/categories/' + category.img" alt="">
               </div>
               <div class="link-wrapper">
                 <!--<router-link :to="{ name: category.url }" class="link"> -->
@@ -121,7 +121,7 @@ export default {
   },
   props: ['ifCatalog'],
   data: () => ({
-    imgSrc: '~assets/images/cards/',
+    imgSrc: process.env.appRoot,
     catId: 0,
     showMore: 0,
     showFilter: [
@@ -168,6 +168,7 @@ export default {
       console.log('categories', this.ifCatalog);
     }
     this.checkWidth();
+    console.log('root - ', );
     //this.catLength = this.categories.length;
     //console.log(this.catLength);
   },
