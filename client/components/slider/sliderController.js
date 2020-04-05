@@ -1,7 +1,18 @@
 var mr = 0;
 
 export function sliderAdaptive(){
-    return 'adaptive';
+    let block = document.getElementById('swither-wrapper-internal'),
+        catWrp = document.getElementById('switch-category'),
+        li =  catWrp.getElementsByTagName('li'),
+        wd = block.clientWidth,
+        elWd = wd - 156;
+    /*li.each(function(key){
+        li.style.cssText = "min-width:" + elWd + "px;";        
+    })  */    
+    for( let i = 0; i < li.length; i++ ){
+        li[i].style.cssText = "min-width:" + elWd + "px;" ;
+    }     
+    return true;
 }
 
 export function switcher( direction ){

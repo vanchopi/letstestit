@@ -3,7 +3,7 @@
 
     <div class="switcher-wrapper">
       <div class="container">
-        <div class="switcher-wrapper__internal">          
+        <div class="switcher-wrapper__internal" id="swither-wrapper-internal">          
           <div class="arrows-wrapper">
             <div class="arrow left" @click="sliderSwitcher('left')">
               <img src="~assets/images/png/arrow-l.png" alt="">
@@ -166,11 +166,16 @@ export default {
       console.log('catalog', this.ifCatalog);
     }else{
       console.log('categories', this.ifCatalog);
-    }
-    this.checkWidth();
-    console.log('root - ', );
+    }    
     //this.catLength = this.categories.length;
     //console.log(this.catLength);
+  },
+  mounted(){
+    this.checkWidth();
+    window.addEventListener("resize", this.checkWidth);        
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.checkWidth);
   },
   methods: {
     sliderSwitcher( direction ){      
@@ -192,7 +197,7 @@ export default {
           break;     
       }
     },
-    checkWidth(){
+    checkWidth(e){
       console.log(sliderAdaptive());      
     },
     openFilter( id ){
