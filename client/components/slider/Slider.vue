@@ -114,7 +114,7 @@
 <script>
 import { mapGetters } from 'vuex'
 //import LocaleDropdown from './LocaleDropdown'
-import { sliderAdaptive, switcher } from './sliderController'
+import { sliderAdaptive, switcher, startSwitcher } from './sliderController'
 
 export default {
   components: {    
@@ -172,6 +172,7 @@ export default {
   },
   mounted(){
     this.checkWidth();
+    startSwitcher();
     window.addEventListener("resize", this.checkWidth);        
   },
   destroyed() {

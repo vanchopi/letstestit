@@ -15,6 +15,12 @@ export function sliderAdaptive(){
     return true;
 }
 
+export function startSwitcher( ){
+    let cat = document.getElementById('switch-category');
+    mr = 0;
+    cat.style.cssText = "margin-left:" + mr + "px;";
+}
+
 export function switcher( direction ){
 
 	let cat = document.getElementById('switch-category'),
