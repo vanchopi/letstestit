@@ -5,10 +5,7 @@ export function sliderAdaptive(){
         catWrp = document.getElementById('switch-category'),
         li =  catWrp.getElementsByTagName('li'),
         wd = block.clientWidth,
-        elWd = wd - 156;
-    /*li.each(function(key){
-        li.style.cssText = "min-width:" + elWd + "px;";        
-    })  */    
+        elWd = wd - 156;     
     for( let i = 0; i < li.length; i++ ){
         li[i].style.cssText = "min-width:" + elWd + "px;" ;
     }     
@@ -27,7 +24,7 @@ export function switcher( direction ){
 		wd = cat.clientWidth,
 		li = cat.getElementsByTagName('li').length,
 		liWd = wd / li;
-	console.log(cat, wd, li, liWd);
+	//console.log(cat, wd, li, liWd);
 	switch(direction) {
       case 'right':  
         sliderToLeft( wd, liWd );
@@ -40,7 +37,7 @@ export function switcher( direction ){
 }
 
 function sliderToRight( wd, liWd ){    
-	console.log('sliderToRight', mr);
+	//console.log('sliderToRight', mr);
 	let cat = document.getElementById('switch-category');
     if(mr < 0){
         mr += liWd;        
@@ -49,7 +46,7 @@ function sliderToRight( wd, liWd ){
 };
 
 function sliderToLeft( wd, liWd ){
-	console.log('sliderToLeft', mr);
+	//console.log('sliderToLeft', mr);
 	let cat = document.getElementById('switch-category');
     if( mr > -wd + liWd){
         mr -= liWd;        

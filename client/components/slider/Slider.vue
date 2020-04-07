@@ -14,7 +14,9 @@
           </div>
           <div class="description-wrapper">
             <ul id="switch-category">
-              <li v-for="(item, index) of categories">
+              <li v-for="(item, index) of categories" 
+                  :key=index
+                >
                 {{ item.txt }}
               </li>
             </ul>
@@ -52,7 +54,7 @@
           <ul>
 
             <li v-if="!ifCatalog"
-                v-for="(test, index) of getTests()"                 
+                v-for="(test, index) of testsList"                 
                 :key=index
               >
               <div class="item">
@@ -115,6 +117,8 @@
 import { mapGetters } from 'vuex'
 //import LocaleDropdown from './LocaleDropdown'
 import { sliderAdaptive, switcher, startSwitcher } from './sliderController'
+import { getCategoriesList } from '~/api/categories/category'
+import { getTestsList } from '~/api/test/test'
 
 export default {
   components: {    
@@ -129,12 +133,7 @@ export default {
       { filter: false }
     ],
     categories: [ 
-      { id:0, txt: 'Тесты по фильмам'}, 
-      { id:1, txt: 'Тесты по гнигам'},
-      { id:1, txt: 'Тесты по гнигам'},
-      { id:1, txt: 'Тесты по гнигам'},
-      { id:1, txt: 'Тесты по гнигам'},
-      { id:1, txt: 'Тесты по гнигам'} 
+      { id:0, txt: ''} 
     ],
     filters:[
       {
@@ -155,7 +154,7 @@ export default {
       }
     ],
     testsList: [],
-    categoriesList:[]
+    categoriesList:[],    
   }),
 
   computed: mapGetters({
@@ -167,8 +166,8 @@ export default {
     }else{
       console.log('categories', this.ifCatalog);
     }    
-    //this.catLength = this.categories.length;
-    //console.log(this.catLength);
+    this.getCategoriesList();
+    this.getTests();    
   },
   mounted(){
     this.checkWidth();
@@ -184,17 +183,18 @@ export default {
       switch(direction) {
         case 'right':  
           this.catId++;
+          //console.log('1.length - ', this.categories);
           if ( this.catId > this.categories.length ){
               this.catId = this.categories.length;
           }
-          this.getCategoryList(this.catId);
+          this.getTestsList(this.catId);
           break;
         case 'left':          
           this.catId--;
           if (this.catId < 0) {
             this.catId = 0;
           }
-          this.getCategoryList(this.catId);
+          this.getTestsList(this.catId);
           break;     
       }
     },
@@ -205,10 +205,31 @@ export default {
       console.log(' filter ', id);
       this.showFilter[id].filter = !this.showFilter[id].filter;
     },
-    getCategoryList( id ){
+    getTestsList( id ){
         console.log('category id - ', id);
     },
-    getTests(){
+    async getCategoriesList(){      
+      try{
+        const  list  =  await getCategoriesList();                        
+        console.log(list);
+        this.categories = Object.freeze(list.data[0]);        
+        return this.categories;
+      }catch(e){
+        console.log(e);
+      }
+    },  
+    async getTests(){
+      try{
+        const  list  =  await getTestsList();                                
+        //this.categories = Object.freeze(list.data[0]);        
+        this.testsList = list.data;
+        console.log(' tests ',this.testsList);
+        return this.testsList;
+      }catch(e){
+        console.log(e);
+      }
+    },  
+    /*getTests(){
       for (let i = 0; i < 6; i++){        
         this.testsList[i] = {            
           img: (i + 1) +'.png',
@@ -222,7 +243,7 @@ export default {
         }
       }
       return this.testsList;
-    },
+    },*/
     getMore(){
       this.showMore++;
       console.log('er');
