@@ -77,6 +77,37 @@ Route::get('/categories/getlist', function () {
     return response()->json($categories); 
 });
 
+Route::post('/tests/getmore', function (  ) {
+    $tests = [];
+    $tags = [];
+    $tag0 = [];
+    $tag1 = [];
+    $tag2 = [];
+    for ( $i = 0; $i < 3; $i++) {
+        $tests[] = (object) [
+            "img" => $i+1 .'.png',
+            "url" => $i ,
+            "title" => "Какой ты покемон" . $i . "?",
+            "tags" => $tags[] = (object) [
+                $tag0[] = (object) [ 
+                    "title" => "Хогвартс",
+                    "url" => "welcome"
+                ],
+                $tag1[] = (object) [ 
+                    "title" => "Хогвартс1",
+                    "url" => "welcome"
+                ],
+                $tag2[] = (object) [ 
+                    "title" => "Хогвартс2",
+                    "url" => "welcome"
+                ],
+            ]
+        ];
+    }
+
+    return response()->json($tests);
+});
+
 Route::get('/tests/getlist', function () {
     $tests = [];
     $tags = [];

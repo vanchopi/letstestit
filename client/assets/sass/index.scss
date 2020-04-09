@@ -299,9 +299,12 @@ a{
 		background-size: auto;
 		padding: 57px 0 150px 0;
 		.content-filters__wrapper{
+			width: calc(100% - ((100% - (288px * 3))/3));
+    		margin: auto;
 			margin-bottom: 25px;
 			@include align-center;
 			justify-content: space-between;
+
 			.filter{
 				position: relative;
 				width: 219px;
@@ -337,7 +340,8 @@ a{
 					top: 41px;
 					left: 0;
 					width: 100%;
-					display: none;					
+					display: none;	
+					z-index: 10;				
 					ul{
 						li{
 							color: $main-text-color;
