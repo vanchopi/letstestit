@@ -23,12 +23,13 @@ export function getTestsList(){
 	});	
 }
 
-export function getMoreTests( num ){
+export function getMoreTests( num, cat ){
 	return axios({				
 		method: 'post',
 		url: '/tests/getmore',
 		  data: {
 		    step: num,
+		    category: cat
 		}	  
 	});		
 }

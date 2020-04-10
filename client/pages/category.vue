@@ -1,20 +1,20 @@
 <template>
   <div>    
     
-    <categories-slider />
+    <slider :ifCatalog="false" />
         
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import CategoriesSlider from '~/components/slider/CategoriesSlider'
+import Slider from '~/components/slider/Slider'
 
 export default {
   layout: 'default',
 
   components: {    
-    CategoriesSlider
+    Slider
   },
 
   head () {

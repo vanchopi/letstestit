@@ -27,10 +27,8 @@
 
     <div class="content-wrapper">
       <div class="container">
-
-        <div  class="content-filters__wrapper" 
-              v-if="!ifCatalog"
-          >
+        <!--
+        <div  class="content-filters__wrapper" >
           <div  class="filter" 
                 v-for="(item, index) of filters"
                 :class="{'show': showFilter[index].filter}"
@@ -49,11 +47,11 @@
             </div>
           </div>
         </div>
+        -->
 
         <div class="content-categories__wrapper">
           <ul>
-            <li v-if="ifCatalog"               
-                v-for="(category, index) of getCategories()"
+            <li v-for="(category, index) of getCategories()"
                 class="category-item"
                 :key=index
               >
@@ -62,8 +60,8 @@
               </div>
               <div class="link-wrapper">
                 <!--<router-link :to="{ name: category.url }" class="link"> -->
-                <router-link :to="{ name: 'welcome' }" class="link">   
-                  {{ category.title }}
+                <router-link :to="{ name: 'category', params: {id: index} }" class="link">   
+                  {{ category.title }}*
                 </router-link>
               </div>  
             </li>
@@ -88,7 +86,7 @@ import { getTestsList, getMoreTests } from '~/api/test/test'
 export default {
   components: {    
   },
-  props: ['ifCatalog'],
+  //props: ['ifCatalog'],
   data: () => ({
     imgSrc: process.env.appRoot,
     catId: 0,

@@ -5,7 +5,7 @@
     <div class="test-wrapper" :style="{ background: 'url(' + imgSrc + '1.png)'}"> 
       <div class="container">
         
-        <quiz :info="testInfo"/>
+        <quiz/>
         <!--<advertising />-->
       </div>
     </div>

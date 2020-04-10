@@ -28,9 +28,7 @@
     <div class="content-wrapper">
       <div class="container">
 
-        <div  class="content-filters__wrapper" 
-              v-if="!ifCatalog"
-          >
+        <div  class="content-filters__wrapper">
           <div  class="filter" 
                 v-for="(item, index) of filters"
                 :class="{'show': showFilter[index].filter}"
@@ -53,8 +51,7 @@
         <div class="content-categories__wrapper">
           <ul>
 
-            <li v-if="!ifCatalog"
-                v-for="(test, index) of testsList"                 
+            <li v-for="(test, index) of testsList"                 
                 :key=index
               >
               <div class="item">
@@ -106,7 +103,7 @@ import { getTestsList, getMoreTests } from '~/api/test/test'
 export default {
   components: {    
   },
-  props: ['ifCatalog'],
+  //props: ['ifCatalog'],
   data: () => ({
     imgSrc: process.env.appRoot,
     catId: 0,
@@ -137,7 +134,8 @@ export default {
       }
     ],
     testsList: [],
-    categoriesList:[],  
+    categoriesList:[], 
+    currentCategory: null, 
     numStep: 0 
   }),
 
@@ -216,7 +214,7 @@ export default {
     async getMore(){
       this.numStep ++;
       try{
-        const  list  =  await getMoreTests(this.numStep);                                                       
+        const  list  =  await getMoreTests(this.numStep, this.currentCategory);                                                       
         for (let i = 0; i < list.data.length; i++){
           this.testsList.push(list.data[i])
         }        
