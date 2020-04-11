@@ -4,7 +4,7 @@ axios.defaults.baseURL = process.env.APP_URL;
 export function getTest(query){	
 	return axios({				
 		method: 'get',
-		url: '/test/' + query.id,
+		url: '/test/' + query//.id,
 		  /*data: {
 		    firstName: 'Fred',
 		    lastName: 'Flintstone'
