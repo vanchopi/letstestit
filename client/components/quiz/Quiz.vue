@@ -80,14 +80,15 @@ export default {
     user: 'auth/user'
   }),
   created(){
-    this.query = this.info;
-    
+    this.query = this.$route.params.id;
+    console.log(this.query);
     //this.getTestList(this.query); 
     //console.log('this.testList', this.testList);             
     //this.fakeTest();   
     //this.testPart = this.getPart( this.quizStep );
   },
   mounted() {
+    console.log('**',this.query);
     this.getData(this.query);
   },
   methods: {        
