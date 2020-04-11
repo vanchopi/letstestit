@@ -36,6 +36,15 @@ a{
 	@include align-center;
 	justify-content: space-between;	
 	width: 100%;
+	.logo{
+		display: block;
+		font-size: 0;
+		max-width: 159px;
+		width: 100%;
+		img{
+			width: 100%;
+		}
+	}
 	.nav-menu{
 		@include align-center;
 		justify-content: flex-end;
@@ -286,19 +295,25 @@ a{
 					font-style: normal;
 					font-weight: 500;
 					font-size: 64px;
+					line-height: 64px;
 					color: $main-text-color;
 				}
 			}
 		}
 	}
 	.content-wrapper{
-		background-image: url(~assets/images/png/puzzle-bg.png);
+		/*background-image: url(~assets/images/png/puzzle-bg.png);*/
+		/*background-color: $main-color-bg;*/
+		background: radial-gradient(at top, $main-color-bg, #A7CECC);
 		background-size: auto;
 		padding: 57px 0 150px 0;
 		.content-filters__wrapper{
+			width: calc(100% - ((100% - (288px * 3))/3));
+    		margin: auto;
 			margin-bottom: 25px;
 			@include align-center;
 			justify-content: space-between;
+
 			.filter{
 				position: relative;
 				width: 219px;
@@ -334,7 +349,8 @@ a{
 					top: 41px;
 					left: 0;
 					width: 100%;
-					display: none;					
+					display: none;	
+					z-index: 10;				
 					ul{
 						li{
 							color: $main-text-color;
@@ -367,6 +383,8 @@ a{
 						text-align: center;
 						position: relative;
 						.img-wrapper{
+							box-shadow: 10px 5px 5px #3c3a3a;
+    						border-radius: 50%;
 							max-width: 255px;
 							width: 100%;
 							margin: auto;
@@ -402,7 +420,13 @@ a{
 						justify-content: center;
 						position: relative;
 						.img-wrapper{
-							img{}
+							box-shadow: 10px 5px 5px #3c3a3a;
+    						border-radius: 76px;
+    						max-width: 288px;
+    						width: 100%;
+							img{
+								width: 100%;
+							}
 						}
 						.description-wrapper{							
 							height: 100%;

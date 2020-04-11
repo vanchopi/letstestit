@@ -16,11 +16,13 @@ $border-radius-sm: .15rem;
 $nav-pills-border-radius: 0;
 
 //color
+$main-color-bg: #eef0f1;
 $main-color: #363E4B;
 $main-fill-color: #04D0D9;
 $main-text-color: #FBF8EF;
 $col-text-second: #000000;
 $card-test-title: #FFFFFF;
+$main-box-shadow: 10px 5px 5px #3c3a3a;
 
 
 //border
@@ -36,6 +38,10 @@ $main-border: 1px solid rgba(154, 158, 165, 0.3);
 @mixin align-top {
   display: flex;
   align-items: flex-start;
+}
+
+@mixin round-shadow {
+	box-shadow: $main-box-shadow;
 }
 
 //width

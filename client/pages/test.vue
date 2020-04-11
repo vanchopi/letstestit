@@ -2,10 +2,10 @@
   <div>    
     <!--
     <quiz :ifCatalog="true" />-->
-    <div class="test-wrapper" style="background: url(/tests/1.png);">
+    <div class="test-wrapper" :style="{ background: 'url(' + imgSrc + '1.png)'}"> 
       <div class="container">
         
-        <quiz :info="testInfo"/>
+        <quiz/>
         <!--<advertising />-->
       </div>
     </div>
@@ -31,7 +31,9 @@ export default {
   },
 
   data: () => ({
-    title: process.env.appName,    
+    title: process.env.appName ,  
+    imgSrc: process.env.appRoot + '/images/tests/',  
+    bgImg: '1.png',    
     testInfo: {}
   }),  
 

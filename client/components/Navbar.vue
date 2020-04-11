@@ -3,7 +3,7 @@
     <div class="container">      
       <div class="nav-wrapper">
         <a href="/" class="logo">
-            <img src="~assets/images/png/logo.png" alt="">
+            <img src="~assets/images/png/logo2.png" alt="">
         </a>
         <div class="nav-menu">
           <ul class="nav-menu__list">

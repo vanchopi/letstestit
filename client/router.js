@@ -19,6 +19,11 @@ const routes = [
     component: page('catalog.vue') 
   },
   { 
+    path: '/cateory/:id', 
+    name: 'category', 
+    component: page('category.vue') 
+  },
+  { 
     path: '/test/:id', 
     name: 'test', 
     component: page('test.vue'),

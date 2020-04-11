@@ -27,8 +27,8 @@
 
     <div class="content-wrapper">
       <div class="container">
-
-        <div  class="content-filters__wrapper">
+        <!--
+        <div  class="content-filters__wrapper" >
           <div  class="filter" 
                 v-for="(item, index) of filters"
                 :class="{'show': showFilter[index].filter}"
@@ -47,40 +47,23 @@
             </div>
           </div>
         </div>
+        -->
 
         <div class="content-categories__wrapper">
           <ul>
-
-            <li v-for="(test, index) of testsList"                 
+            <li v-for="(category, index) of getCategories()"
+                class="category-item"
                 :key=index
               >
-              <div class="item">
-                <div class="img-wrapper">
-                  <!--<img :src="'/_nuxt/client/assets/images/cards/' + test.img" alt="">-->
-                  <img :src="imgSrc + '/images/cards/' + test.img" alt="">
-                </div>
-                <div class="description-wrapper">
-                  <div class="description-wrapper__top">
-                    <div class="tags">
-                      <router-link  class="tag" 
-                                    v-for="item of test.tags"
-                                    :to="{ name: item.url }"
-                                    :key="item.title"
-                      >                       
-                        {{ item.title }}
-                      </router-link>                      
-                    </div>
-                    <div class="title">
-                      {{ test.title }}
-                    </div>
-                  </div>
-                  <div class="description-wrapper__bottom">
-                    <router-link :to="{ name: 'test', params: {id: index} }" class="button"> 
-                      УЗНАТЬ
-                    </router-link>
-                  </div>
-                </div>
+              <div class="img-wrapper">
+                <img :src="imgSrc + '/images/categories/' + category.img" alt="">
               </div>
+              <div class="link-wrapper">
+                <!--<router-link :to="{ name: category.url }" class="link"> -->
+                <router-link :to="{ name: 'category', params: {id: index} }" class="link">   
+                  {{ category.title }}*
+                </router-link>
+              </div>  
             </li>
 
           </ul>
@@ -134,8 +117,7 @@ export default {
       }
     ],
     testsList: [],
-    categoriesList:[], 
-    currentCategory: null, 
+    categoriesList:[],  
     numStep: 0 
   }),
 
@@ -214,7 +196,7 @@ export default {
     async getMore(){
       this.numStep ++;
       try{
-        const  list  =  await getMoreTests(this.numStep, this.currentCategory);                                                       
+        const  list  =  await getMoreTests(this.numStep);                                                       
         for (let i = 0; i < list.data.length; i++){
           this.testsList.push(list.data[i])
         }        

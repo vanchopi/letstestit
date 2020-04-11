@@ -3,7 +3,7 @@
     
     <!--
     <quiz :ifCatalog="true" />-->
-    <div class="test-wrapper" style="background: url(/results/dobbie.jpg);">
+    <div class="test-wrapper" :style="{ background: 'url(' + imgSrc + 'dobbie.jpg)'}">
       <div class="results-wrapper">
         <breadcrumbs />
         <div class="container">
@@ -71,6 +71,7 @@ export default {
 
   data: () => ({
     title: process.env.appName,    
+    imgSrc: process.env.appRoot + '/images/results/', 
     testInfo: {}
   }),  
 
