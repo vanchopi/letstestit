@@ -108,7 +108,7 @@ export default {
     },
     finishTest( num ){
         this.getPart( num );
-        this.$router.push({name: 'results', params:{id: this.info.id, answers: this.userAnswers}})
+        this.$router.push({name: 'results', params:{id: this.query, answers: this.userAnswers}})
     },
     fakeTest(){ 
       /*let testArr = [];     
