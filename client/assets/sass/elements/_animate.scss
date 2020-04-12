@@ -2,7 +2,7 @@ a {
 	transition: all 0.5s ease 0s;
 }
 
-.ploader{
+/*.ploader{
 	position: absolute;
 	width: 40px;
 	height: 40px;
@@ -10,7 +10,7 @@ a {
 	left: 47%;
 	border-radius: 50%;
 	border: 5px solid #fff;
-	border-top-color: #099FFF;
+	border-top-color: #04D0D9;
 	animation: crcl 2s ease-in-out infinite
 }
 
@@ -21,4 +21,42 @@ a {
 	100%{
 		transform: rotate(360deg);
 	}
+}*/
+.ploader{
+	width: 70px;
+	display: flex;
+	justify-content: space-between;
+	margin: auto;
+}
+
+.dot {
+	width: 15px;
+	height: 15px;
+	top: 47%;
+	left: 49%;
+	border-radius: 50%;
+	background-color: #fff;
+	animation: bounce 2.15s normal infinite
+}
+
+#dot1{
+	animation-delay: 0.42s;
+}
+
+#dot2{
+	animation-delay: 1.06s;
+}
+
+#dot3{
+	animation-delay: 1.67s;	
+}
+
+@keyframes bounce{
+	0%{}
+
+	50%{
+		background-color:rgb(92,182,209);
+	}
+
+	100%{}
 }
