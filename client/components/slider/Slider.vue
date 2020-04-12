@@ -18,6 +18,9 @@
                   :key=index
                 >
                 {{ item.txt }}
+                <div v-if="ploader = true" class="ploader">
+                  
+                </div>
               </li>
             </ul>
           </div>
@@ -136,7 +139,8 @@ export default {
     testsList: [],
     categoriesList:[], 
     currentCategory: null, 
-    numStep: 0 
+    numStep: 0,
+    ploader: true
   }),
 
   computed: mapGetters({
@@ -194,7 +198,8 @@ export default {
       try{
         const  list  =  await getCategoriesList();                        
         console.log(list);
-        this.categories = Object.freeze(list.data[0]);        
+        this.categories = Object.freeze(list.data[0]);
+        ploader = false;        
         return this.categories;
       }catch(e){
         console.log(e);
