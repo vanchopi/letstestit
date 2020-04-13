@@ -14,7 +14,7 @@
           </div>
           <div class="description-wrapper">
             <ul id="switch-category">
-              <li v-for="(item, index) of categories" 
+              <li v-for="(item, index) of newCategoriesList" 
                   :key=index
                 >
                 {{ item.txt }}
@@ -83,7 +83,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import { sliderAdaptive, switcher, startSwitcher } from './sliderController'
 import { getCategoriesList } from '~/api/categories/category'
 import { getTestsList, getMoreTests } from '~/api/test/test'
@@ -126,10 +126,16 @@ export default {
     numStep: 0 
   }),
 
-  computed: mapGetters({
-    user: 'auth/user'
-  }),
-  created(){
+  computed: {
+    ...mapGetters({
+      user: 'auth/user',      
+    }),    
+    ...mapState({
+      newCategoriesList: state => state.categories.categories,      
+    })
+  },
+  created(){    
+    this.$store.dispatch("categories/fetchCategories");
     if(this.ifCatalog){
       console.log('catalog', this.ifCatalog);
     }else{
@@ -137,6 +143,7 @@ export default {
     }    
     this.getCategoriesList();
     this.getTests();    
+    console.log('state - ', this.newCategoriesList);
   },
   mounted(){
     this.checkWidth();

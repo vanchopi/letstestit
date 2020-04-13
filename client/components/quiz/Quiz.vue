@@ -6,7 +6,9 @@
                               
       >
       <div class="quiz-item__info">
-        <div class="back-bt">назад</div>
+        <div  class="back-bt" 
+              @click="goBack"
+        >назад</div>
         <div class="counter">
           <b>{{testPart.num + 1}}</b>
           <span>/{{testLenght}}</span>
@@ -22,7 +24,13 @@
                 :key="index"
               >
               <label class="check-container">{{item.dsc}}
-                <input type="radio" name="radio" :value="item.dsc" data-wlradio="0" v-model="answer">
+                <input  type="radio" 
+                        name="radio" 
+                        :value="item" 
+                        data-wlradio="0" 
+                        v-model="answer"
+                        :change="getAnswer()"
+                >
                 <span class="checkmark"></span>
               </label>
             </li>          
@@ -92,23 +100,28 @@ export default {
     this.getData(this.query);
   },
   methods: {        
-    getPart( num ){         
-        console.log('num', num);
-        this.fade = !this.fade;
-        console.log('this.fade', this.fade);
-        this.userAnswers[num] = this.answer;
-        if ( this.quizStep < this.testLenght - 1){
-          this.quizStep++;
-          this.testPart = this.testList[this.quizStep];
-          console.log('quizStep', this.quizStep);          
-        };
-        //this.fade = !this.fade;
-        setTimeout(() => { this.fade = !this.fade; }, 300);
-        console.log('userAnswers', this.userAnswers);
+    getPart( num ){     
+        if(this.answer != ''){
+          console.log('num', num);
+          this.fade = !this.fade;
+          console.log('this.fade', this.fade);
+          this.userAnswers[num] = this.answer;
+          this.answer = ''
+          if ( this.quizStep < this.testLenght - 1){
+            this.quizStep++;
+            this.testPart = this.testList[this.quizStep];
+            console.log('quizStep', this.quizStep);          
+          };
+          //this.fade = !this.fade;
+          setTimeout(() => { this.fade = !this.fade; }, 300);
+          console.log('userAnswers', this.userAnswers);
+        }else{
+          console.log('!empty answer!');
+        }  
     },
     finishTest( num ){
         this.getPart( num );
-        this.$router.push({name: 'results', params:{id: this.info.id, answers: this.userAnswers}})
+        this.$router.push({name: 'results', params:{id: this.query, answers: this.userAnswers}})
     },
     fakeTest(){ 
       /*let testArr = [];     
@@ -135,6 +148,18 @@ export default {
         return list.data;
       }catch(e){
         console.log(e);
+      }
+    },
+    getAnswer(){
+
+    },
+    goBack(){
+      console.log('go back');
+      if ( this.quizStep > 0){
+        this.fade = !this.fade;
+        this.quizStep--;
+        this.testPart = this.testList[this.quizStep];
+        setTimeout(() => { this.fade = !this.fade; }, 300);
       }
     },
     getData( info ){
