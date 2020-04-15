@@ -1,14 +1,14 @@
 <template>
   <div >      
 
-    <div class="test-wrapper" :style="{ background: 'url(' + imgSrc + 'dobbie.jpg)'}">
+    <div class="test-wrapper" :style="{ background: 'url(' + imgSrc + testResults.img + ')'}">
       <div class="results-wrapper">
         <breadcrumbs />
         <div class="container">
           <div class="results-wrapper__internal">
-            <div class="result">Ты - Добби</div>
+            <div class="result">{{ testResults.result }}</div>
             <div class="description">
-              Судьба была неблагосклонна: твое предназначение — быть на посылках у настоящих волшебников. Но смелость, благородство и вера в добро помогли тебе добиться самого желанного — свободы. Наглядный пример того, что даже один в поле может быть еще каким воином.
+              {{ testResults.description }}
             </div>
             <div class="socials-wrapper">
               <ul>
@@ -35,11 +35,13 @@
               </ul>
             </div>
             <div class="button-wrapper">
-              <button class="custom-bt bg-tr" >
+              <!--<button class="custom-bt bg-tr" >-->
+              <router-link :to="{ name: 'test', params: {id: query} }" class="custom-bt bg-tr">                
                 <span>
                   ПРОЙТИ ТЕСТ ЕЩЕ РАЗ
                 </span>
-              </button>
+              <!--</button>-->
+            </router-link>
             </div>
           </div>
           <!--<advertising />-->
@@ -52,8 +54,9 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import Breadcrumbs from '~/components/Breadcrumbs'
+//import Advertising from '~/components/advertising/Advertising'
 
 export default {
   components: {    
@@ -64,13 +67,22 @@ export default {
   data: () => ({
     imgSrc: process.env.appRoot + '/images/results/',    
   }),
-
-  computed: mapGetters({
-    user: 'auth/user'
-  }),
+  watch:{
+      'testResults'(){
+        console.log('data - ', this.testResults);
+      }
+  },
+  computed:{
+    ...mapGetters({
+      user: 'auth/user',      
+    }),    
+    ...mapState({
+      testResults: state => state.test.results,      
+    })
+  },
   created(){
     this.query = this.$route.params.id;
-    console.log(this.query);    
+    console.log('---',this.query);    
   },
   mounted() {
     

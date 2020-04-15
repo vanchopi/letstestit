@@ -33,3 +33,14 @@ export function getMoreTests( num, cat ){
 		}	  
 	});		
 }
+
+export function getTestResults( id, answers ){
+	return axios({				
+		method: 'post',
+		url: '/tests/getresults',
+		  data: {
+		    id: id,
+		    answers: answers
+		}	  
+	});		
+}

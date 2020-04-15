@@ -121,7 +121,9 @@ export default {
     },
     finishTest( num ){
         this.getPart( num );
-        this.$router.push({name: 'results', params:{id: this.query, answers: this.userAnswers}})
+        this.$router.push({name: 'results', params:{id: this.query, answers: this.userAnswers}});
+        console.log('id - ', this.query);
+        this.$store.dispatch("test/setTestResults", { id: this.query, answers: this.userAnswers });
     },
     fakeTest(){ 
       /*let testArr = [];     

@@ -9,8 +9,6 @@
 <script>
 import { mapGetters } from 'vuex'
 import Results from '~/components/results/Results'
-//import Advertising from '~/components/advertising/Advertising'
-
 
 export default {
   layout: 'light',
@@ -25,8 +23,7 @@ export default {
   },
 
   data: () => ({
-    title: process.env.appName,    
-    imgSrc: process.env.appRoot + '/images/results/', 
+    title: process.env.appName,        
     testInfo: {}
   }),  
 

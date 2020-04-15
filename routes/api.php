@@ -83,6 +83,17 @@ Route::get('/categories/getlist', function () {
     return response()->json($categories); 
 });
 
+Route::post('/tests/getresults', function (  ) {
+    $results = [];
+    $results[] = (object) [
+        "img" => 'dobbie.jpg',
+        "result" => 'Ты - Добби!',
+        "description" => 'Судьба была неблагосклонна: твое предназначение — быть на посылках у настоящих волшебников. Но смелость, благородство и вера в добро помогли тебе добиться самого желанного — свободы. Наглядный пример того, что даже один в поле может быть еще каким воином.',
+        "id" => 0
+    ];
+    return response()->json($results);
+});
+
 Route::post('/tests/getmore', function (  ) {
     $tests = [];
     $tags = [];

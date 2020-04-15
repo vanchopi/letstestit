@@ -1,30 +1,33 @@
 import Cookies from 'js-cookie';
-import { getCategoriesList } from '~/api/categories/category'
+import { getTestResults } from '~/api/test/test'
 
 const state = {
-	categories: [ 
-      { id:0, txt: ''} 
-    ],
+	results: {
+		img: '1.jpg',
+		result: 'О_о?',
+		description: '',
+		id: ''
+	}
 }
 
 const mutations = {
-	FETCH_CATEGORIES: ( state, categoriesList ) => {
-		state.categories = categoriesList;
+	SET_TEST_RESULTS: ( state, testResults ) => {
+		state.results = testResults;
 	}
 };
 
 const getters = {
-	getCategories(state){
-		return state.categories;
+	getTestResults(state){
+		return state.results;
 	}
 }
 
 const actions = {
-	async fetchCategories( context ){
+	async setTestResults( context, { id, answers } ){
 		try{
-			const  list  =  await getCategoriesList();                        
+			const  list  =  await getTestResults( id, answers );
         	console.log(list);
-			context.commit('FETCH_CATEGORIES', Object.freeze(list.data[0]));
+			context.commit('SET_TEST_RESULTS', Object.freeze(list.data[0]));
 		}catch(e){
 			console.log(e);
 		}
