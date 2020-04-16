@@ -125,7 +125,7 @@ Route::post('/tests/getmore', function (  ) {
     return response()->json($tests);
 });
 
-Route::get('/tests/getlist', function () {
+Route::post('/tests/getlist', function () {
     $tests = [];
     $tags = [];
     $tag0 = [];
