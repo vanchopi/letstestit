@@ -71,7 +71,7 @@
                       </router-link>                      
                     </div>
                     <div class="title">
-                      {{ test.title }}
+                      {{ test.title }}                      
                     </div>
                   </div>
                   <div class="description-wrapper__bottom">
@@ -108,6 +108,7 @@ export default {
     imgSrc: process.env.appRoot,
     catId: 0,
     showMore: 0,
+    tmp: 0,
     showFilter: [
       { filter: false },
       { filter: false }
@@ -168,6 +169,7 @@ export default {
           //console.log('1.length - ', this.categories);
           if ( this.catId >= this.categories.length ){
               this.catId = this.categories.length - 1 ;
+              return;
           }
           this.getTestsListLoal(this.catId);
           break;
@@ -175,6 +177,7 @@ export default {
           this.catId--;
           if (this.catId < 0) {
             this.catId = 0;
+            return;
           }
           this.getTestsListLoal(this.catId);
           break;     
@@ -204,10 +207,12 @@ export default {
     },  
     async getTests( currentCategory ){
       try{
+        this.numStep = 0;
+        this.testsList = {};
         const  list  =  await getTestsList( currentCategory );                                
         //this.categories = Object.freeze(list.data[0]);        
         this.testsList = list.data;
-        console.log(' tests ',this.testsList);
+        console.log(' tests ',this.testsList);        
         return this.testsList;
       }catch(e){
         console.log(e);

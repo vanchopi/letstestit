@@ -125,7 +125,7 @@ Route::post('/tests/getmore', function (  ) {
     return response()->json($tests);
 });
 
-Route::post('/tests/getlist', function () {
+Route::post('/tests/getlist', function ( Request $request ) {
     $tests = [];
     $tags = [];
     $tag0 = [];
@@ -133,6 +133,7 @@ Route::post('/tests/getlist', function () {
     $tag2 = [];
     for ( $i = 0; $i < 6; $i++) {
         $tests[] = (object) [
+            "cat" => $request->all(),
             "img" => $i+1 .'.png',
             "url" => $i,
             "title" => "Какой ты покемон" . $i . "?",
