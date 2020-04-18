@@ -12,14 +12,13 @@ export function getTest(query){
 	});	
 }
 
-export function getTestsList(){	
+export function getTestsList( curCat ){	
 	return axios({				
-		method: 'get',
+		method: 'post',
 		url: '/tests/getlist',
-		  /*data: {
-		    firstName: 'Fred',
-		    lastName: 'Flintstone'
-		}*/	  
+		  data: {
+		    category: curCat
+		}	  
 	});	
 }
 
@@ -30,6 +29,17 @@ export function getMoreTests( num, cat ){
 		  data: {
 		    step: num,
 		    category: cat
+		}	  
+	});		
+}
+
+export function getTestResults( id, answers ){
+	return axios({				
+		method: 'post',
+		url: '/tests/getresults',
+		  data: {
+		    id: id,
+		    answers: answers
 		}	  
 	});		
 }

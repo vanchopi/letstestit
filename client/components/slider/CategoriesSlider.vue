@@ -123,6 +123,7 @@ export default {
     ],
     testsList: [],
     categoriesList:[],  
+    currentCategory: null, 
     numStep: 0 
   }),
 
@@ -160,17 +161,17 @@ export default {
         case 'right':  
           this.catId++;
           //console.log('1.length - ', this.categories);
-          if ( this.catId > this.categories.length ){
-              this.catId = this.categories.length;
+          if ( this.catId >= this.categories.length ){
+              this.catId = this.categories.length - 1 ;
           }
-          this.getTestsList(this.catId);
+          this.getTestsListLocal(this.catId);
           break;
         case 'left':          
           this.catId--;
           if (this.catId < 0) {
             this.catId = 0;
           }
-          this.getTestsList(this.catId);
+          this.getTestsListLocal(this.catId);
           break;     
       }
     },
@@ -181,8 +182,10 @@ export default {
       console.log(' filter ', id);
       this.showFilter[id].filter = !this.showFilter[id].filter;
     },
-    getTestsList( id ){
-        console.log('category id - ', id);
+    getTestsListLocal( id ){
+        console.log('swithed category id - ', num ,' -', this.categories[num]);
+        this.currentCategory = this.categories[num];
+        this.getTests(this.currentCategory);
     },
     async getCategoriesList(){      
       try{
@@ -194,9 +197,9 @@ export default {
         console.log(e);
       }
     },  
-    async getTests(){
+    async getTests( currentCategory ){
       try{
-        const  list  =  await getTestsList();                                
+        const  list  =  await getTestsList( currentCategory );                                
         //this.categories = Object.freeze(list.data[0]);        
         this.testsList = list.data;
         console.log(' tests ',this.testsList);

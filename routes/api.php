@@ -83,6 +83,17 @@ Route::get('/categories/getlist', function () {
     return response()->json($categories); 
 });
 
+Route::post('/tests/getresults', function (  ) {
+    $results = [];
+    $results[] = (object) [
+        "img" => 'dobbie.jpg',
+        "result" => 'Ты - Добби!',
+        "description" => 'Судьба была неблагосклонна: твое предназначение — быть на посылках у настоящих волшебников. Но смелость, благородство и вера в добро помогли тебе добиться самого желанного — свободы. Наглядный пример того, что даже один в поле может быть еще каким воином.',
+        "id" => 0
+    ];
+    return response()->json($results);
+});
+
 Route::post('/tests/getmore', function (  ) {
     $tests = [];
     $tags = [];
@@ -114,7 +125,7 @@ Route::post('/tests/getmore', function (  ) {
     return response()->json($tests);
 });
 
-Route::get('/tests/getlist', function () {
+Route::post('/tests/getlist', function ( Request $request ) {
     $tests = [];
     $tags = [];
     $tag0 = [];
@@ -122,6 +133,7 @@ Route::get('/tests/getlist', function () {
     $tag2 = [];
     for ( $i = 0; $i < 6; $i++) {
         $tests[] = (object) [
+            "cat" => $request->all(),
             "img" => $i+1 .'.png',
             "url" => $i,
             "title" => "Какой ты покемон" . $i . "?",

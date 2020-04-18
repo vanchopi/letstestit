@@ -76,7 +76,7 @@
                       </router-link>                      
                     </div>
                     <div class="title">
-                      {{ test.title }}
+                      {{ test.title }}                      
                     </div>
                   </div>
                   <div class="description-wrapper__bottom">
@@ -113,6 +113,7 @@ export default {
     imgSrc: process.env.appRoot,
     catId: 0,
     showMore: 0,
+    tmp: 0,
     showFilter: [
       { filter: false },
       { filter: false }
@@ -155,7 +156,7 @@ export default {
       console.log('categories', this.ifCatalog);
     }    
     this.getCategoriesList();
-    this.getTests();    
+    this.getTests(this.currentCategory);    
   },
   mounted(){
     this.checkWidth();
@@ -172,17 +173,19 @@ export default {
         case 'right':  
           this.catId++;
           //console.log('1.length - ', this.categories);
-          if ( this.catId > this.categories.length ){
-              this.catId = this.categories.length;
+          if ( this.catId >= this.categories.length ){
+              this.catId = this.categories.length - 1 ;
+              return;
           }
-          this.getTestsList(this.catId);
+          this.getTestsListLoal(this.catId);
           break;
         case 'left':          
           this.catId--;
           if (this.catId < 0) {
             this.catId = 0;
+            return;
           }
-          this.getTestsList(this.catId);
+          this.getTestsListLoal(this.catId);
           break;     
       }
     },
@@ -193,8 +196,10 @@ export default {
       console.log(' filter ', id);
       this.showFilter[id].filter = !this.showFilter[id].filter;
     },
-    getTestsList( id ){
-        console.log('category id - ', id);
+    getTestsListLoal( num ){        
+        console.log('swithed category id - ', num ,' -', this.categories[num]);
+        this.currentCategory = this.categories[num];
+        this.getTests(this.currentCategory);
     },
     async getCategoriesList(){      
       try{
@@ -207,12 +212,14 @@ export default {
         console.log(e);
       }
     },  
-    async getTests(){
+    async getTests( currentCategory ){
       try{
-        const  list  =  await getTestsList();                                
+        this.numStep = 0;
+        this.testsList = {};
+        const  list  =  await getTestsList( currentCategory );                                
         //this.categories = Object.freeze(list.data[0]);        
         this.testsList = list.data;
-        console.log(' tests ',this.testsList);
+        console.log(' tests ',this.testsList);        
         return this.testsList;
       }catch(e){
         console.log(e);
