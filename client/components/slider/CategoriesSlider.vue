@@ -158,13 +158,15 @@ export default {
           //console.log('1.length - ', this.categories);
           if ( this.catId >= this.categories.length ){
               this.catId = this.categories.length - 1 ;
+              return;
           }
           this.getTestsListLocal(this.catId);
           break;
-        case 'left':          
+        case 'left':
           this.catId--;
           if (this.catId < 0) {
             this.catId = 0;
+            return;
           }
           this.getTestsListLocal(this.catId);
           break;     
@@ -177,7 +179,7 @@ export default {
       console.log(' filter ', id);
       this.showFilter[id].filter = !this.showFilter[id].filter;
     },
-    getTestsListLocal( id ){
+    getTestsListLocal( num ){
         console.log('swithed category id - ', num ,' -', this.categories[num]);
         this.currentCategory = this.categories[num];
         this.getTests(this.currentCategory);
