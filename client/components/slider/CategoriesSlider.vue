@@ -18,7 +18,7 @@
                   :key=index
                 >
                 {{ item.txt }}
-                <div v-if="ploader = true" class="ploader">
+                <div v-if="ploader == true" class="ploader">
                   <div class="dot" id="dot1"></div>
                   <div class="dot" id="dot2"></div>
                   <div class="dot" id="dot3"></div>
@@ -124,7 +124,8 @@ export default {
     testsList: [],
     categoriesList:[],  
     currentCategory: null, 
-    numStep: 0 
+    numStep: 0,
+    ploader: true
   }),
 
   computed: {
@@ -191,7 +192,8 @@ export default {
       try{
         const  list  =  await getCategoriesList();                        
         console.log(list);
-        this.categories = Object.freeze(list.data[0]);        
+        this.categories = Object.freeze(list.data[0]);       
+        this.ploader = false;
         return this.categories;
       }catch(e){
         console.log(e);
