@@ -13,16 +13,19 @@
             </div>
           </div>
           <div class="description-wrapper">
+            <text-loader :loader="loader"/>
             <ul id="switch-category">
               <li v-for="(item, index) of categories" 
                   :key=index
                 >
                 {{ item.txt }}
+                <!--
                 <div v-if="ploader == true" class="ploader">
                   <div class="dot" id="dot1"></div>
                   <div class="dot" id="dot2"></div>
                   <div class="dot" id="dot3"></div>
                 </div>
+                -->
               </li>
             </ul>
           </div>
@@ -104,9 +107,11 @@ import { mapGetters } from 'vuex'
 import { sliderAdaptive, switcher, startSwitcher } from './sliderController'
 import { getCategoriesList } from '~/api/categories/category'
 import { getTestsList, getMoreTests } from '~/api/test/test'
+import TextLoader from '~/components/global/TextLoader'
 
 export default {
-  components: {    
+  components: {  
+    TextLoader,  
   },
   //props: ['ifCatalog'],
   data: () => ({
@@ -143,7 +148,7 @@ export default {
     categoriesList:[], 
     currentCategory: null, 
     numStep: 0,
-    ploader: true
+    loader: true
   }),
 
   computed: mapGetters({
@@ -206,7 +211,7 @@ export default {
         const  list  =  await getCategoriesList();                        
         console.log(list);
         this.categories = Object.freeze(list.data[0]);
-        this.ploader = false;        
+        this.loader = false;        
         return this.categories;
       }catch(e){
         console.log(e);

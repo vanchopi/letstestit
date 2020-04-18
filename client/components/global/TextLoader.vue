@@ -8,33 +8,26 @@
 
 <script>
 export default {
-  name: 'VButton',
+  name: 'TextLoader',
 
-  props: {
-    type: {
-      type: String,
-      default: 'primary'
-    },
-
-    nativeType: {
-      type: String,
-      default: 'submit'
-    },
-
-    loading: {
-      type: Boolean,
-      default: false
-    },
-
-    block: {
-      type: Boolean,
-      default: false
-    },
-
-    large: {
-      type: Boolean,
-      default: false
-    }
-  }
+  props: ['loader'],
+  data: () => ({    
+    ploader: true,
+  }),
+  watch:{
+      'loader'(){
+        console.log('loader from slider component - ',this.loader);
+      }
+  },
 }
 </script>
+
+<style scoped lang="scss">
+  .ploader{
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+  }  
+</style>
