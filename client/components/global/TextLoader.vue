@@ -17,6 +17,7 @@ export default {
   watch:{
       'loader'(){
         console.log('loader from slider component - ',this.loader);
+        this.ploader = this.loader;
       }
   },
 }
@@ -25,9 +26,12 @@ export default {
 <style scoped lang="scss">
   .ploader{
       position: absolute;
-      width: 100%;
+      left: 46%;
+      width: 8%;
       height: 100%;
-      justify-content: center;
+      display: flex;
+      justify-content: space-between;
       align-items: center;
+      margin: auto;
   }  
 </style>

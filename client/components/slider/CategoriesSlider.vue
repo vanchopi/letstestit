@@ -13,16 +13,13 @@
             </div>
           </div>
           <div class="description-wrapper">
+            <text-loader :loader="loader"/>
             <ul id="switch-category">
               <li v-for="(item, index) of newCategoriesList" 
                   :key=index
                 >
                 {{ item.txt }}
-                <div v-if="ploader == true" class="ploader">
-                  <div class="dot" id="dot1"></div>
-                  <div class="dot" id="dot2"></div>
-                  <div class="dot" id="dot3"></div>
-                </div>
+              
               </li>
             </ul>
           </div>
@@ -125,7 +122,7 @@ export default {
     categoriesList:[],  
     currentCategory: null, 
     numStep: 0,
-    ploader: true
+    loader: true
   }),
 
   computed: {
@@ -195,7 +192,7 @@ export default {
         const  list  =  await getCategoriesList();                        
         console.log(list);
         this.categories = Object.freeze(list.data[0]);       
-        this.ploader = false;
+        this.loader = false;
         return this.categories;
       }catch(e){
         console.log(e);
