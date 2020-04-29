@@ -1,11 +1,28 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light">    
     <div class="container">      
-      <div class="nav-wrapper">        
+      <div class="nav-wrapper">  
+        <div class="menu-bt mobile" @click="showMobileMenu = !showMobileMenu">
+          <img src="~assets/images/png/menu.png" alt="menu">
+        </div>      
         <router-link :to="{ name: 'welcome' }" class="logo">
           <img src="~assets/images/png/logo2.png" alt="logo">
-        </router-link>        
-        <div class="nav-menu">
+        </router-link> 
+        <div class="serach-wrapper block mobile">
+          <div class="search-wrapper__open">
+            <img src="~assets/images/png/search.png" alt="search">
+          </div>
+          <div class="search-block__wrapper hidden">
+            <input type="text" name="search" v-model="searchStr">
+            <div class="search-bt">
+              <img src="~assets/images/png/search.png" alt="search">
+            </div>
+          </div>
+        </div>       
+        <div class="nav-menu" 
+             :class="{'show': showMobileMenu}"
+        >
+        <div class="nav-menu__wrapper">
           <ul class="nav-menu__list">
             <li>
               <router-link :to="{ name: 'catalog' }"> 
@@ -18,7 +35,7 @@
               </router-link>
             </li>
           </ul>
-          <div class="menu-bt block">
+          <div class="menu-bt nav-block block">
             <div class="bt-wrp" @click="showMenu = !showMenu">
               <img src="~assets/images/png/menu.png" alt="menu">
             </div>
@@ -52,9 +69,14 @@
             <locale-dropdown />
           </ul>
         </div>  
+        </div>  
       </div>
     </div>
-  </nav>
+    <div  class="dark-overlay mobile"
+          :class="{'show': showMobileMenu}"
+          @click="showMobileMenu = !showMobileMenu"
+    ></div>
+  </nav>  
 </template>
 
 <script>
@@ -70,6 +92,7 @@ export default {
     appName: process.env.appName,
     searchStr:'',
     showMenu: false,
+    showMobileMenu: false,
   }),
 
   computed: {

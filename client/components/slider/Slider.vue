@@ -189,7 +189,7 @@ export default {
       }
     },
     checkWidth(e){
-      console.log(sliderAdaptive());      
+      sliderAdaptive();
     },
     openFilter( id ){
       console.log(' filter ', id);
