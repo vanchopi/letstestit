@@ -23,6 +23,10 @@
              :class="{'show': showMobileMenu}"
         >
         <div class="nav-menu__wrapper">
+          <div class="menu-title mobile">
+            <span>Menu</span>
+            <span @click="showMobileMenu = !showMobileMenu"><b>+</b></span>
+          </div>
           <ul class="nav-menu__list">
             <li>
               <router-link :to="{ name: 'catalog' }"> 
