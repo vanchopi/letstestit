@@ -1,3 +1,7 @@
+*{
+	outline: none !important;
+}
+
 body{
 	/*background-color: red;*/
 	font-family: 'Roboto';
@@ -637,6 +641,7 @@ footer{
 	background-position: center !important;
     background-size: cover !important;
     min-height: 500px;    
+    background-color: #b3b3b3;
 }
 
 .results-wrapper{
@@ -725,10 +730,10 @@ footer{
 		    content: "";
 		    position: absolute;
 		    display: none;
-		    top: -1;
-		    left: -1;
-		    width: 36px;
-		    height: 36px;
+		    top: 0px;
+		    left: 0px;
+		    width: 34px;
+		    height: 34px;
 		    border-radius: 50%;
 		    background: $main-fill-color;
 		}
@@ -744,6 +749,7 @@ footer{
 	border: 3px solid $main-fill-color;		
 	border-radius: 67px;
 	box-shadow: none;
+	outline: none;
 	span{
 		font-weight: 500;
 		font-size: 30px;
@@ -834,6 +840,9 @@ footer{
 /******media******/
 
 @media screen and (max-width: 1140px){
+	.results-wrapper{
+		padding: 25px 0 50px 0;
+	}
 	.slider-wrapper {
 		.content-wrapper {
 			.content-categories__wrapper {
@@ -872,7 +881,32 @@ footer{
 	}
 }
 
-@media screen and (max-width: 991px){	
+@media screen and (max-width: 991px){
+	.light {
+		.breadcrumbs-wrapper{
+
+		}
+	}
+	.results-wrapper {
+		.result{
+			font-size: 60px;
+			line-height: 70px;
+    		margin: 20px 0 25px 0;
+		}
+		.description{
+			font-size: 23px;
+    		line-height: 29px;
+		}
+		.button-wrapper{
+			margin: 40px auto 0 auto;
+		}
+	}
+	.quiz-wrapper {
+		.quiz-item{
+			margin: 0 20px;
+    		width: calc(100% - 40px);    		
+		}	
+	}
 	.banner-wrapper {
 		.banner-description__wrapper {
 			h1{
@@ -1036,6 +1070,58 @@ footer{
 }
 
 @media screen and (max-width: 768px){
+	.custom-bt{
+		span{
+			font-size: 20px;
+		}
+	}
+	.check-container{
+		font-size: 25px;
+		line-height: 36px;
+		.checkmark{
+			height: 30px;
+    		width: 30px;
+    		top: calc(50% - 15px);
+    		&:after{
+    			top: 0px;
+			    left: 0px;
+			    width: 28px;
+			    height: 28px;
+    		}
+		}
+	}
+	.quiz-wrapper {
+		.quiz-item{			
+    		.quiz-item__info{
+    			padding: 0 35px;
+    			margin-bottom: 25px;
+    			.back-bt{
+    				font-size: 20px;
+    			}
+    			.counter{
+    				font-size: 28px;
+    			}
+    		}
+    		.title{
+    			margin-bottom: 30px;
+    			font-size: 25px;
+    		}
+    		.answers{
+    			padding: 0px 50px;
+    			ul{
+    				li{
+    					margin-bottom: 20px;
+
+    				}
+    			}
+    		}
+    		.button-wrapper{
+    			width: 100%;
+    			max-width: 220px;
+    			height: 50px;
+    		}
+		}	
+	}
 	.banner-wrapper {
 		.banner-description__wrapper {
 			justify-content: center;
@@ -1095,12 +1181,118 @@ footer{
 }
 
 @media screen and (max-width: 550px){
+	.light {
+		.breadcrumbs-wrapper{
+			ul{
+				li{
+					margin-left: 25px;
+					a{
+						font-size: 18px;
+					}
+				}
+			}
+		}
+	}
+	.results-wrapper {
+		.result{
+			font-size: 38px;
+		    line-height: 44px;
+		    margin: 15px 0 15px 0;
+		}
+		.description{
+			font-size: 18px;
+    		line-height: 24px;
+    		margin-bottom: 20px;
+		}
+		.button-wrapper{
+			width: 100%;
+			max-width: 300px;
+			height: 45px;
+			margin: 30px auto 0 auto;
+			span{
+				font-size: 18px;
+			}
+		}
+	}
 	.banner-wrapper {
 		.banner-description__wrapper {
 			.subscribe-bt__wrapper{
 				display: none;
 			}
 		}
+	}
+}
+
+@media screen and (max-width: 480px){
+	.light {
+		.breadcrumbs-wrapper{
+			ul{
+				flex-wrap: wrap;
+				li{
+					margin-left: 18px;
+					&:before{
+						top: calc(50% - 2px);
+    					margin-left: -11px;
+					}
+					a{
+						font-size: 14px;
+						line-height: 16px;
+					}
+				}
+			}
+		}
+	}
+	.custom-bt{
+		span{
+			font-size: 16px;
+		}
+	}
+	.check-container{
+		font-size: 16px;
+    	line-height: 22px;
+    	padding-left: 35px;
+		.checkmark{
+			height: 22px;
+		    width: 22px;
+		    top: calc(50% - 11px);
+    		&:after{
+    			width: 20px;
+    			height: 20px;
+    		}
+		}
+	}
+	.quiz-wrapper {
+		.quiz-item{
+			margin: 0;
+			width: 100%;	
+			border-radius: 50px;		
+    		.quiz-item__info{
+    			padding: 0 20px;
+    			margin-bottom: 18px;
+    			.back-bt{
+    				font-size: 18px;
+    			}
+    			.counter{
+    				font-size: 22px;
+    			}
+    		}
+    		.title{
+    			margin-bottom: 15px;
+    			font-size: 20px;
+    		}
+    		.answers{
+    			padding: 0px 30px;
+    			ul{
+    				li{
+    					margin-bottom: 10px;
+
+    				}
+    			}
+    		}
+    		.button-wrapper{    			
+    			height: 40px;
+    		}
+		}	
 	}
 }
 
