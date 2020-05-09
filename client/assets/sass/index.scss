@@ -771,7 +771,8 @@ footer{
 		padding: 46px 0 54px 0;		
 		max-width: 920px;		
 		margin: auto;
-		background-color: $main-text-color;
+		background-color: rgba(251, 248, 239, 0.8);
+		border: 2px solid $main-fill-color;
 		border-radius: 82px;
 		.quiz-item__content{
 			opacity: 1;
