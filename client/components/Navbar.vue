@@ -29,34 +29,39 @@
           </div>
           <ul class="nav-menu__list">
             <li>
-              <router-link :to="{ name: 'catalog' }"> 
+              <router-link :to="{ name: 'catalog' }"
+                            @click.native="showMobileMenu = true"
+                > 
                 ТЕСТЫ
               </router-link>
             </li>
             <li>
-              <router-link :to="{ name: 'welcome' }"> 
+              <router-link  :to="{ name: 'welcome' }"
+                            @click.native="showMobileMenu = true"
+                > 
                 РЕКЛАМА
               </router-link>
             </li>
           </ul>
+          <div  class="mobile-menu-block__wrapper"
+                :class="{'show': showMenu}"
+            >
+            <ul class="container">
+              <li v-for="(item, index) of newCategoriesList" 
+                  :key=index                  
+              >
+                <router-link  :to="{ name: 'category', params: {id: item.url} }" 
+                              @click.native="showMobileMenu = !showMobileMenu"
+                  >
+                  {{ item.txt }}
+                </router-link>
+              </li>
+            </ul>
+          </div>
           <div class="menu-bt nav-block block">
             <div class="bt-wrp" @click="showMenu = !showMenu">
               <img src="~assets/images/png/menu.png" alt="menu">
-            </div>
-            <div  class="menu-block__wrapper"
-                  :class="{'show': showMenu}"
-              >
-              <ul class="container">
-                <li v-for="(item, index) of newCategoriesList" 
-                    :key=index
-                    @click="showMenu = !showMenu"
-                >
-                  <router-link :to="{ name: 'category', params: {id: item.url} }">
-                    {{ item.txt }}
-                  </router-link>
-                </li>
-              </ul>
-            </div>
+            </div>            
           </div>
           <div class="serach-wrapper block">
             <div class="search-wrapper__open">
@@ -75,6 +80,21 @@
         </div>  
         </div>  
       </div>
+    </div>
+    <div  class="menu-block__wrapper"
+          :class="{'show': showMenu}"
+      >
+      <ul class="container">
+        <li v-for="(item, index) of newCategoriesList" 
+            :key=index            
+        >
+          <router-link  :to="{ name: 'category', params: {id: item.url} }"
+                        @click.native="showMenu = !showMenu"
+            >
+            {{ item.txt }}
+          </router-link>
+        </li>
+      </ul>
     </div>
     <div  class="dark-overlay mobile"
           :class="{'show': showMobileMenu}"
