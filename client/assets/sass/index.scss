@@ -283,6 +283,27 @@ a{
 	}
 }
 
+.catalog-slider__wrapper{	
+	background: radial-gradient(at top, $main-color-bg, #A7CECC);
+	.category-title{
+		text-shadow: 1px 1px 1px #000000;
+		padding: 45px 0;
+		text-align: center;
+		font-size: 55px;
+		color: $main-color;
+		border-bottom: 3px double rgba(154, 158, 165, 0.3);
+	}	
+	.slider-wrapper{
+		.switcher-wrapper{
+			background: none;
+			min-height: auto;
+		}	
+		.content-wrapper{
+			background: none;
+		}
+	}
+}
+
 /*main slider*/
 .slider-wrapper{
 	display: block;

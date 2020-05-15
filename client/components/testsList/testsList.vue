@@ -3,30 +3,8 @@
 
     <div class="switcher-wrapper">
       <div class="container">
-        <!--
-        <div class="switcher-wrapper__internal" id="swither-wrapper-internal">          
-          <div class="arrows-wrapper">
-            <div class="arrow left" @click="sliderSwitcher('left')">
-              <img src="~assets/images/png/arrow-l.png" alt="">
-            </div>
-            <div class="arrow right" @click="sliderSwitcher('right')">
-              <img src="~assets/images/png/arrow-r.png" alt="">
-            </div>
-          </div>
-          <div class="description-wrapper">
-            <text-loader :loader="loader"/>
-            <ul id="switch-category">
-              <li v-for="(item, index) of newCategoriesList" 
-                  :key=index
-                >
-                {{ item.txt }}
-              
-              </li>
-            </ul>
-          </div>
-        </div>-->
         <div class="category-title">
-          <span v-if="true">Категории</span>
+          <span v-if="true">Тесты по фильмам</span>
           <span v-else>123</span>
         </div>
       </div>    
@@ -34,21 +12,60 @@
 
     <div class="content-wrapper">
       <div class="container">
+
+        <div  class="content-filters__wrapper">
+          <div  class="filter" 
+                v-for="(item, index) of filters"
+                :class="{'show': showFilter[index].filter}"
+                >
+            <div class="title-wrapper" @click="openFilter(item.id)">
+              <span class="title">
+                {{ item.desc }}
+              </span>
+            </div>
+            <div class="options-wrapper">
+              <ul>
+                <li v-for="option of item.options">
+                  {{ option.desc }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         <div class="content-categories__wrapper">
           <ul>
-            <li v-for="(category, index) of getCategories()"
-                class="category-item"
+
+            <li v-for="(test, index) of testsList"                 
                 :key=index
               >
-              <div class="img-wrapper">
-                <img :src="imgSrc + '/images/categories/' + category.img" alt="">
+              <div class="item">
+                <div class="img-wrapper">
+                  <!--<img :src="'/_nuxt/client/assets/images/cards/' + test.img" alt="">-->
+                  <img :src="imgSrc + '/images/cards/' + test.img" alt="">
+                </div>
+                <div class="description-wrapper">
+                  <div class="description-wrapper__top">
+                    <div class="tags">
+                      <router-link  class="tag" 
+                                    v-for="item of test.tags"
+                                    :to="{ name: item.url }"
+                                    :key="item.title"
+                      >                       
+                        {{ item.title }}
+                      </router-link>                      
+                    </div>
+                    <div class="title">
+                      {{ test.title }}                      
+                    </div>
+                  </div>
+                  <div class="description-wrapper__bottom">
+                    <router-link :to="{ name: 'test', params: {id: index} }" class="button"> 
+                      УЗНАТЬ
+                    </router-link>
+                  </div>
+                </div>
               </div>
-              <div class="link-wrapper">
-                <!--<router-link :to="{ name: category.url }" class="link"> -->
-                <router-link :to="{ name: 'category', params: {id: index} }" class="link">   
-                  {{ category.title }}*
-                </router-link>
-              </div>  
             </li>
 
           </ul>
@@ -63,19 +80,22 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
-import { sliderAdaptive, switcher, startSwitcher } from './sliderController'
+import { mapGetters } from 'vuex'
+//import { sliderAdaptive, switcher, startSwitcher } from './sliderController'
 import { getCategoriesList } from '~/api/categories/category'
 import { getTestsList, getMoreTests } from '~/api/test/test'
+import TextLoader from '~/components/global/TextLoader'
 
 export default {
-  components: {    
+  components: {  
+    TextLoader,  
   },
   //props: ['ifCatalog'],
   data: () => ({
     imgSrc: process.env.appRoot,
     catId: 0,
     showMore: 0,
+    tmp: 0,
     showFilter: [
       { filter: false },
       { filter: false }
@@ -102,35 +122,28 @@ export default {
       }
     ],
     testsList: [],
-    categoriesList:[],  
+    categoriesList:[], 
     currentCategory: null, 
     numStep: 0,
     loader: true
   }),
 
-  computed: {
-    ...mapGetters({
-      user: 'auth/user',      
-    }),    
-    ...mapState({
-      newCategoriesList: state => state.categories.categories,      
-    })
-  },
-  created(){    
-    this.$store.dispatch("categories/fetchCategories");
+  computed: mapGetters({
+    user: 'auth/user'
+  }),
+  created(){
     if(this.ifCatalog){
       console.log('catalog', this.ifCatalog);
     }else{
       console.log('categories', this.ifCatalog);
     }    
     this.getCategoriesList();
-    this.getTests();    
-    console.log('state - ', this.newCategoriesList);
+    this.getTests(this.currentCategory);    
   },
   mounted(){
-    //this.checkWidth();
-    //startSwitcher();
-    //window.addEventListener("resize", this.checkWidth);        
+    /*this.checkWidth();
+    startSwitcher();
+    window.addEventListener("resize", this.checkWidth); */       
   },
   destroyed() {
     //window.removeEventListener("resize", this.checkWidth);
@@ -146,26 +159,26 @@ export default {
               this.catId = this.categories.length - 1 ;
               return;
           }
-          this.getTestsListLocal(this.catId);
+          this.getTestsListLoal(this.catId);
           break;
-        case 'left':
+        case 'left':          
           this.catId--;
           if (this.catId < 0) {
             this.catId = 0;
             return;
           }
-          this.getTestsListLocal(this.catId);
+          this.getTestsListLoal(this.catId);
           break;     
       }
     },
     checkWidth(e){
-      console.log(sliderAdaptive());      
+      sliderAdaptive();
     },
     openFilter( id ){
       console.log(' filter ', id);
       this.showFilter[id].filter = !this.showFilter[id].filter;
     },
-    getTestsListLocal( num ){
+    getTestsListLoal( num ){        
         console.log('swithed category id - ', num ,' -', this.categories[num]);
         this.currentCategory = this.categories[num];
         this.getTests(this.currentCategory);
@@ -174,8 +187,8 @@ export default {
       try{
         const  list  =  await getCategoriesList();                        
         console.log(list);
-        this.categories = Object.freeze(list.data[0]);       
-        this.loader = false;
+        this.categories = Object.freeze(list.data[0]);
+        this.loader = false;        
         return this.categories;
       }catch(e){
         console.log(e);
@@ -183,10 +196,12 @@ export default {
     },  
     async getTests( currentCategory ){
       try{
+        this.numStep = 0;
+        this.testsList = {};
         const  list  =  await getTestsList( currentCategory );                                
         //this.categories = Object.freeze(list.data[0]);        
         this.testsList = list.data;
-        console.log(' tests ',this.testsList);
+        console.log(' tests ',this.testsList);        
         return this.testsList;
       }catch(e){
         console.log(e);
@@ -195,7 +210,7 @@ export default {
     async getMore(){
       this.numStep ++;
       try{
-        const  list  =  await getMoreTests(this.numStep);                                                       
+        const  list  =  await getMoreTests(this.numStep, this.currentCategory);                                                       
         for (let i = 0; i < list.data.length; i++){
           this.testsList.push(list.data[i])
         }        

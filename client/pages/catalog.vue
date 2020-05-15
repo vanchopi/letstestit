@@ -1,5 +1,5 @@
 <template>
-  <div>    
+  <div class="catalog-slider__wrapper">    
     
     <categories-slider />
         
@@ -11,7 +11,7 @@ import { mapGetters } from 'vuex'
 import CategoriesSlider from '~/components/slider/CategoriesSlider'
 
 export default {
-  layout: 'default',
+  layout: 'light',
 
   components: {    
     CategoriesSlider

@@ -1,20 +1,20 @@
 <template>
-  <div>    
+  <div class="catalog-slider__wrapper">    
     
-    <slider :ifCatalog="false" />
+    <tests-list :ifCatalog="false" />
         
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import Slider from '~/components/slider/Slider'
+import TestsList from '~/components/testsList/testsList'
 
 export default {
-  layout: 'default',
+  layout: 'light',
 
   components: {    
-    Slider
+    TestsList
   },
 
   head () {

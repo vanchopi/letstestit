@@ -19,7 +19,7 @@ import Quiz from '~/components/quiz/Quiz'
 
 
 export default {
-  layout: 'default',
+  layout: 'light',
 
   components: {
     Quiz,
