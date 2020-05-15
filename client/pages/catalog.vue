@@ -1,6 +1,6 @@
 <template>
   <div class="catalog-slider__wrapper">    
-    
+    <breadcrumbs />
     <categories-slider />
         
   </div>
@@ -9,11 +9,13 @@
 <script>
 import { mapGetters } from 'vuex'
 import CategoriesSlider from '~/components/slider/CategoriesSlider'
+import Breadcrumbs from '~/components/Breadcrumbs'
 
 export default {
   layout: 'light',
 
-  components: {    
+  components: {   
+    Breadcrumbs, 
     CategoriesSlider
   },
 

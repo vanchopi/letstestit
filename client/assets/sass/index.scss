@@ -282,7 +282,35 @@ a{
 		}
 	}
 }
-
+.light {
+	.catalog-slider__wrapper{		
+		.breadcrumbs-wrapper {
+			padding-top: 10px;
+			ul{
+				justify-content: flex-start;
+				li{
+					&:before{
+						top: 0;
+					    bottom: 0;
+					    width: 6px;
+					    height: 6px;
+					    margin: auto 0 auto -15px;
+					}
+					&:first-child{
+						margin-left: 15px;
+					}
+					a{
+						font-size: 15px;
+					    text-shadow: none;
+					    color: $main-color;
+					    text-transform: inherit;
+					    font-weight: 500;
+					}
+				}
+			}
+		}
+	}
+}
 .catalog-slider__wrapper{	
 	background: radial-gradient(at top, $main-color-bg, #A7CECC);
 	.category-title{

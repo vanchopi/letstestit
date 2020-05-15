@@ -1,6 +1,6 @@
 <template>
   <div class="catalog-slider__wrapper">    
-    
+    <breadcrumbs />
     <tests-list :ifCatalog="false" />
         
   </div>
@@ -9,11 +9,13 @@
 <script>
 import { mapGetters } from 'vuex'
 import TestsList from '~/components/testsList/testsList'
+import Breadcrumbs from '~/components/Breadcrumbs'
 
 export default {
   layout: 'light',
 
-  components: {    
+  components: {  
+    Breadcrumbs,   
     TestsList
   },
 
