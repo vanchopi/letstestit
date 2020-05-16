@@ -29,7 +29,7 @@
 
     <div class="content-wrapper">
       <div class="container">
-
+        <!--
         <div  class="content-filters__wrapper">
           <div  class="filter" 
                 v-for="(item, index) of filters"
@@ -49,6 +49,7 @@
             </div>
           </div>
         </div>
+        -->
 
         <div class="content-categories__wrapper">
           <ul>

@@ -74,9 +74,9 @@ Route::get('/categories/getlist', function () {
             "url" => 4
         ],
         $cat4[] = (object) [ 
-            "id" => 6,
+            "id" => 5,
             "txt" => "Тесты по истории",
-            "url" => 6
+            "url" => 5
         ],
     ];
 

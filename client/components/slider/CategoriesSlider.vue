@@ -117,26 +117,17 @@ export default {
     })
   },
   created(){    
-    this.$store.dispatch("categories/fetchCategories");
-    if(this.ifCatalog){
-      console.log('catalog', this.ifCatalog);
-    }else{
-      console.log('categories', this.ifCatalog);
-    }    
+    this.$store.dispatch("categories/fetchCategories");   
     this.getCategoriesList();
     this.getTests();    
     console.log('state - ', this.newCategoriesList);
   },
-  mounted(){
-    //this.checkWidth();
-    //startSwitcher();
-    //window.addEventListener("resize", this.checkWidth);        
+  mounted(){       
   },
-  destroyed() {
-    //window.removeEventListener("resize", this.checkWidth);
+  destroyed() {    
   },
   methods: {
-    sliderSwitcher( direction ){      
+    /*sliderSwitcher( direction ){      
       console.log('direction', switcher(direction));
       switch(direction) {
         case 'right':  
@@ -157,7 +148,7 @@ export default {
           this.getTestsListLocal(this.catId);
           break;     
       }
-    },
+    },*/
     checkWidth(e){
       console.log(sliderAdaptive());      
     },

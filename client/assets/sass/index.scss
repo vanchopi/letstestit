@@ -320,6 +320,12 @@ a{
 		font-size: 55px;
 		color: $main-color;
 		border-bottom: 3px double rgba(154, 158, 165, 0.3);
+		position: relative;
+		span{
+			position: relative;
+			min-height: 82px;
+    		display: block;
+		}
 	}	
 	.slider-wrapper{
 		.switcher-wrapper{
@@ -387,6 +393,12 @@ a{
 		    width: calc(100% - 78px - 78px);
 		    margin: auto;
 		    text-align: center;
+		    /*
+				backdrop-filter: blur(3px);
+			    max-width: 288px;
+			    padding: 35px 0;
+			    border-radius: 72px;
+		    */
 			ul{
 				@include align-center;
 				justify-content: flex-start;

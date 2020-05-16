@@ -3,9 +3,11 @@
 
     <div class="switcher-wrapper">
       <div class="container">
-        <div class="category-title">
-          <span v-if="true">Тесты по фильмам</span>
-          <span v-else>123</span>
+        <div class="category-title">          
+          <span >
+            {{ catName }}
+            <text-loader :loader="loader"/>
+          </span>
         </div>
       </div>    
     </div>
@@ -80,7 +82,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 //import { sliderAdaptive, switcher, startSwitcher } from './sliderController'
 import { getCategoriesList } from '~/api/categories/category'
 import { getTestsList, getMoreTests } from '~/api/test/test'
@@ -125,81 +127,56 @@ export default {
     categoriesList:[], 
     currentCategory: null, 
     numStep: 0,
+    queryCategory: null,
+    catName: null,
     loader: true
   }),
 
-  computed: mapGetters({
-    user: 'auth/user'
-  }),
+  computed: {
+    ...mapGetters({
+      user: 'auth/user',      
+    }),    
+    ...mapState({
+      //newCategoriesList: state => state.categories.categories,      
+    })
+  },
   created(){
-    if(this.ifCatalog){
-      console.log('catalog', this.ifCatalog);
-    }else{
-      console.log('categories', this.ifCatalog);
-    }    
-    this.getCategoriesList();
-    this.getTests(this.currentCategory);    
+    this.queryCategory = this.$route.params.id;     
+    this.getCategoriesList();       
   },
-  mounted(){
-    /*this.checkWidth();
-    startSwitcher();
-    window.addEventListener("resize", this.checkWidth); */       
+  mounted(){    
   },
-  destroyed() {
-    //window.removeEventListener("resize", this.checkWidth);
+  destroyed() {    
   },
   methods: {
-    sliderSwitcher( direction ){      
-      console.log('direction', switcher(direction));
-      switch(direction) {
-        case 'right':  
-          this.catId++;
-          //console.log('1.length - ', this.categories);
-          if ( this.catId >= this.categories.length ){
-              this.catId = this.categories.length - 1 ;
-              return;
-          }
-          this.getTestsListLoal(this.catId);
-          break;
-        case 'left':          
-          this.catId--;
-          if (this.catId < 0) {
-            this.catId = 0;
-            return;
-          }
-          this.getTestsListLoal(this.catId);
-          break;     
-      }
-    },
-    checkWidth(e){
-      sliderAdaptive();
+    getCurrentCategory(){            
+      let result = this.categories.filter( category => category.id == this.queryCategory);
+      this.currentCategory = this.queryCategory;
+      this.getTests();
+      return result.length > 0 ? this.catName = result[0].txt : this.catName = 'Название категории';
     },
     openFilter( id ){
       console.log(' filter ', id);
       this.showFilter[id].filter = !this.showFilter[id].filter;
-    },
-    getTestsListLoal( num ){        
-        console.log('swithed category id - ', num ,' -', this.categories[num]);
-        this.currentCategory = this.categories[num];
-        this.getTests(this.currentCategory);
     },
     async getCategoriesList(){      
       try{
         const  list  =  await getCategoriesList();                        
         console.log(list);
         this.categories = Object.freeze(list.data[0]);
+        this.getCurrentCategory();        
         this.loader = false;        
         return this.categories;
       }catch(e){
         console.log(e);
       }
+      
     },  
-    async getTests( currentCategory ){
+    async getTests(){
       try{
         this.numStep = 0;
         this.testsList = {};
-        const  list  =  await getTestsList( currentCategory );                                
-        //this.categories = Object.freeze(list.data[0]);        
+        const  list  =  await getTestsList( this.currentCategory );       
         this.testsList = list.data;
         console.log(' tests ',this.testsList);        
         return this.testsList;
