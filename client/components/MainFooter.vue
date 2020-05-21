@@ -4,9 +4,9 @@
     <div class="footer-top__wrapper">
       <div class="container">
         <div class="row">        
-          <div class="col-md-6">
+          <div class="col-md-7">
             <div class="bottom-menu__wrapper row">
-              <div class="col-md-6">
+              <div class="col-md-6 col-sm-6 col-12">
                 <ul>
                   <li v-for="index in 5" :key="index"">
                     <router-link :to="{ name: 'welcome' }"> 
@@ -15,7 +15,7 @@
                   </li>
                 </ul>
               </div>
-              <div class="col-md-6">  
+              <div class="col-md-6 col-sm-6 col-12">  
                 <ul>
                   <li v-for="index in 5" :key="index"">
                     <router-link :to="{ name: 'welcome' }"> 
@@ -26,7 +26,7 @@
               </div>  
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-5">
             <div class="bottom-contacts__wrapper">
               <div class="wrapper">
                 <div class="title">
