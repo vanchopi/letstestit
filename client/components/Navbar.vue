@@ -32,7 +32,7 @@
               <router-link :to="{ name: 'catalog' }"
                             @click.native="showMobileMenu = true"
                 > 
-                ТЕСТЫ
+                КАТЕГОРИИ
               </router-link>
             </li>
             <li>
@@ -60,7 +60,8 @@
           </div>
           <div class="menu-bt nav-block block">
             <div class="bt-wrp" @click="showMenu = !showMenu">
-              <img src="~assets/images/png/menu.png" alt="menu">
+              <!-- <img src="~assets/images/png/menu.png" alt="menu"> -->
+              <span>MENU</span>
             </div>            
           </div>
           <div class="serach-wrapper block">

@@ -42,7 +42,7 @@ function sliderToRight( wd, liWd ){
     if(mr < 0){
         mr += liWd;        
         cat.style.cssText = "margin-left:" + mr + "px;";         
-    }    
+    }
 };
 
 function sliderToLeft( wd, liWd ){

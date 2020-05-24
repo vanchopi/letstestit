@@ -24,7 +24,7 @@
             </ul>
           </div>
         </div>
-      </div>    
+      </div>
     </div>
 
     <div class="content-wrapper">
@@ -161,7 +161,7 @@ export default {
   mounted(){
     this.checkWidth();
     startSwitcher();
-    window.addEventListener("resize", this.checkWidth);        
+    window.addEventListener("resize", this.checkWidth);   //magia No slaida     
   },
   destroyed() {
     window.removeEventListener("resize", this.checkWidth);
