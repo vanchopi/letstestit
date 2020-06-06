@@ -50,10 +50,10 @@
               <li v-for="(item, index) of newCategoriesList" 
                   :key=index                  
               >
-                <router-link  :to="{ name: 'category', params: {id: item.url} }" 
+                <router-link  :to="{ name: 'category', params: {url: item.url} }" 
                               @click.native="showMobileMenu = !showMobileMenu"
                   >
-                  {{ item.txt }}
+                  {{ item.title }}
                 </router-link>
               </li>
             </ul>
@@ -89,10 +89,10 @@
         <li v-for="(item, index) of newCategoriesList" 
             :key=index            
         >
-          <router-link  :to="{ name: 'category', params: {id: item.url} }"
+          <router-link  :to="{ name: 'category', params: {url: item.url} }"
                         @click.native="showMenu = !showMenu"
             >
-            {{ item.txt }}
+            {{ item.title }}
           </router-link>
         </li>
       </ul>
@@ -130,6 +130,7 @@ export default {
   },
   created(){    
     this.$store.dispatch("categories/fetchCategories");
+    console.log('newCategoriesList', this.newCategoriesList);
   },
   methods: {
     async logout () {

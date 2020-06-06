@@ -36,17 +36,17 @@
       <div class="container">
         <div class="content-categories__wrapper">
           <ul>
-            <li v-for="(category, index) of getCategories()"
+            <li v-for="(category, index) of categories"
                 class="category-item"
                 :key=index
               >
               <div class="img-wrapper">
-                <img :src="imgSrc + '/images/categories/' + category.img" alt="">
+                <img :src="imgSrc + '/images/categories/' + (category.id + 1) + '.png'" alt="">
               </div>
               <div class="link-wrapper">
                 <!--<router-link :to="{ name: category.url }" class="link"> -->
-                <router-link :to="{ name: 'category', params: {id: index} }" class="link">   
-                  {{ category.title }}*
+                <router-link :to="{ name: 'category', params: {url: category.url} }" class="link">   
+                  {{ category.title }}
                 </router-link>
               </div>  
             </li>
@@ -81,7 +81,7 @@ export default {
       { filter: false }
     ],
     categories: [ 
-      { id:0, txt: ''} 
+      { id:0, txt: '', url: ''} 
     ],
     filters:[
       {
@@ -164,9 +164,10 @@ export default {
     async getCategoriesList(){      
       try{
         const  list  =  await getCategoriesList();                        
-        console.log(list);
-        this.categories = Object.freeze(list.data[0]);       
+        
+        this.categories = Object.freeze(list.data);       
         this.loader = false;
+        console.log('11-', this.categories);
         return this.categories;
       }catch(e){
         console.log(e);

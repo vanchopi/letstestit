@@ -39,7 +39,7 @@ Route::group(['middleware' => 'guest:api'], function () {
     Route::get('oauth/{driver}/callback', 'Auth\OAuthController@handleProviderCallback')->name('oauth.callback');
 });
 
-Route::get('/categories/getlist', function () {
+Route::get('/categories/getlist', 'Categories\CategoriesController@getCategoriesList');/*function () {
     $categories = [];
     $cat0 = [];
     $cat1 = [];
@@ -81,7 +81,7 @@ Route::get('/categories/getlist', function () {
     ];
 
     return response()->json($categories); 
-});
+});*/
 
 Route::post('/tests/getresults', function (  ) {
     $results = [];
