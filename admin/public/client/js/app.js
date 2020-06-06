@@ -2982,7 +2982,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.row-alert[data-v-15a01839] {\r\n    padding: 10px;\n}\r\n", ""]);
+exports.push([module.i, "\n.row-alert[data-v-15a01839] {\n    padding: 10px;\n}\n", ""]);
 
 // exports
 
@@ -33347,7 +33347,7 @@ var actions = {
     },
     setUrl: function setUrl(_ref6, value) {
         var commit = _ref6.commit;
-
+        //изменяем состояние только commit
         commit('setUrl', value);
     },
     resetState: function resetState(_ref7) {

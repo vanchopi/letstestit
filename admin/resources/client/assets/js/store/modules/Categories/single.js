@@ -126,7 +126,7 @@ const actions = {
     setDescription({ commit }, value) {
         commit('setDescription', value)
     },
-    setUrl({ commit }, value) {
+    setUrl({ commit }, value) { //изменяем состояние только commit
         commit('setUrl', value)
     },
     resetState({ commit }) {
