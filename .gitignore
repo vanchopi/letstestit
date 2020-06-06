@@ -3,6 +3,7 @@ admin/node_modules
 /public/hot
 /public/storage
 /storage/*.key
+admin/storage/*.key
 /vendor
 admin/vendor
 .env
