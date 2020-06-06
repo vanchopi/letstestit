@@ -18,7 +18,7 @@
               <li v-for="(item, index) of categories" 
                   :key=index
                 >
-                {{ item.txt }}
+                {{ item.title }}
                
               </li>
             </ul>
@@ -119,7 +119,7 @@ export default {
       { filter: false }
     ],
     categories: [ 
-      { id:0, txt: ''} 
+      { id:0, title: '', url: ''} 
     ],
     filters:[
       {
@@ -205,7 +205,7 @@ export default {
       try{
         const  list  =  await getCategoriesList();                        
         console.log(list);
-        this.categories = Object.freeze(list.data[0]);
+        this.categories = Object.freeze(list.data);
         this.loader = false;        
         return this.categories;
       }catch(e){

@@ -3,7 +3,7 @@ import { getCategoriesList } from '~/api/categories/category'
 
 const state = {
 	categories: [ 
-      { id:0, txt: ''} 
+      { id:0, title: '', url:''} 
     ],
 }
 
@@ -24,7 +24,7 @@ const actions = {
 		try{
 			const  list  =  await getCategoriesList();                        
         	console.log(list);
-			context.commit('FETCH_CATEGORIES', Object.freeze(list.data[0]));
+			context.commit('FETCH_CATEGORIES', Object.freeze(list.data));
 		}catch(e){
 			console.log(e);
 		}
