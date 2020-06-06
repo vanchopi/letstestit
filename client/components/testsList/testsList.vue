@@ -141,7 +141,7 @@ export default {
     })
   },
   created(){
-    this.queryCategory = this.$route.params.id;     
+    this.queryCategory = this.$route.params.url;
     this.getCategoriesList();       
   },
   mounted(){    
@@ -150,10 +150,10 @@ export default {
   },
   methods: {
     getCurrentCategory(){            
-      let result = this.categories.filter( category => category.id == this.queryCategory);
+      let result = this.categories.filter( category => category.url == this.queryCategory);
       this.currentCategory = this.queryCategory;
       this.getTests();
-      return result.length > 0 ? this.catName = result[0].txt : this.catName = 'Название категории';
+      return result.length > 0 ? this.catName = result[0].title : this.catName = 'Название категории';
     },
     openFilter( id ){
       console.log(' filter ', id);
@@ -163,7 +163,7 @@ export default {
       try{
         const  list  =  await getCategoriesList();                        
         console.log(list);
-        this.categories = Object.freeze(list.data[0]);
+        this.categories = Object.freeze(list.data);
         this.getCurrentCategory();        
         this.loader = false;        
         return this.categories;
