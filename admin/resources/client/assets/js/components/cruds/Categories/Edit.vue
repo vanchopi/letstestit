@@ -43,6 +43,17 @@
                                             >
                                     </textarea>
                                 </div>
+                                <div class="form-group">
+                                    <label for="url">URL</label>
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            name="url"
+                                            placeholder="Enter URL"
+                                            :value="item.url"
+                                            @input="updateUrl"
+                                            >
+                                </div>
                             </div>
 
                             <div class="box-footer">
@@ -88,12 +99,15 @@ export default {
         }
     },
     methods: {
-        ...mapActions('CategoriesSingle', ['fetchData', 'updateData', 'resetState', 'setTitle', 'setDescription']),
+        ...mapActions('CategoriesSingle', ['fetchData', 'updateData', 'resetState', 'setTitle', 'setDescription','setUrl']),
         updateTitle(e) {
             this.setTitle(e.target.value)
         },
         updateDescription(e) {
             this.setDescription(e.target.value)
+        },
+        updateUrl(e) {
+            this.setUrl(e.target.value)
         },
         submitForm() {
             this.updateData()

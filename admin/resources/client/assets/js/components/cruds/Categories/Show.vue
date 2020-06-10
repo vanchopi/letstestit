@@ -21,17 +21,21 @@
                                 <div class="col-xs-6">
                                     <table class="table table-bordered table-striped">
                                         <tbody>
-                                        <tr>
-                                            <th>#</th>
-                                            <td>{{ item.id }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Title</th>
-                                            <td>{{ item.title }}</td>
+                                            <tr>
+                                                <th>#</th>
+                                                <td>{{ item.id }}</td>
                                             </tr>
-                                        <tr>
-                                            <th>Description</th>
-                                            <td>{{ item.description }}</td>
+                                            <tr>
+                                                <th>Title</th>
+                                                <td>{{ item.title }}</td>
+                                                </tr>
+                                            <tr>
+                                                <th>Description</th>
+                                                <td>{{ item.description }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>URL</th>
+                                                <td>{{ item.url }}</td>
                                             </tr>
                                         </tbody>
                                     </table>
