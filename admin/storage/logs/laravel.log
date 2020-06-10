@@ -415,3 +415,5 @@ Did you mean this?
 #57 G:\\OSPanel\\domains\\letstestit\\admin\\public\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #58 {main}
 "} 
+[2020-06-08 08:00:35] local.ERROR: SQLSTATE[HY000] [2002] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение.
+ (SQL: select * from `roles`) null 

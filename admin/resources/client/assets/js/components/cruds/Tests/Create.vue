@@ -79,6 +79,58 @@
                                         </li>
                                     </ul>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="questions">Questions</label>
+                                    <div class="questions-paramrtrs__wrapper">                                        
+                                        <div class="col">
+                                            <input type="number" class="form-control" placeholder="Questions Quantity">
+                                        </div>
+                                        <div class="col">
+                                            <input type="number" class="form-control" placeholder="Answers Quantity">
+                                        </div>                                        
+                                    </div>
+                                    <div class="questions-wrapper">
+                                        <ul class="nav nav-tabs"
+                                            >
+                                            <li v-for="(item, index) in questions"    
+                                                class="nav-item"
+                                                :class="index == 0 ? 'active' : ''"
+                                                >
+                                                <a class="nav-link" data-toggle="tab" :href="'#' + item.id ">№{{index }}</a>
+                                            </li>                                            
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div v-for="(item, index) in questions"                                                    
+                                                 class="tab-pane" 
+                                                 :class="index == 0 ? 'active' : ''"
+                                                 :id="item.id"
+                                                >
+                                                <span>Tabs for question № {{index}}</span>                                                
+                                                <div class="fields-wrapper">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" placeholder="Question" :value="item.question">
+                                                    </div>
+                                                    <div class="answers-wrapper">
+                                                        <div class="answers-title">
+                                                            <b>Answers</b>
+                                                        </div>
+                                                        <div v-for="(answer, index) in item.answers"
+                                                             class="input-group mb-3">
+                                                            <input type="text" 
+                                                                   class="form-control" 
+                                                                   :placeholder="'answer' + ' № ' + index" 
+                                                                   :value="answer.dsc"
+                                                                >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>                                            
+                                        </div>
+                                    </div>
+                                </div>                           
+
+
                             </div>
 
                             <div class="box-footer">
@@ -106,6 +158,34 @@ export default {
     data() {
         return {
             // Code...
+            questionsColumnCount: 2,
+            questionsRowCount: 1,
+            questions: [
+                {
+                    id: 0,
+                    question: 'asd',
+                    answers: [
+                        {
+                            id: 0,
+                            dsc: ''
+                        },
+                        {
+                            id: 1,
+                            dsc: '1'
+                        }
+                    ]
+                },
+                {
+                    id: 1,
+                    question: 'dsa',
+                    answers: [
+                        {
+                            id: 0,
+                            dsc: ''
+                        }
+                    ]
+                }
+            ],
         }
     },
     computed: {
@@ -180,6 +260,18 @@ export default {
 </script>
 
 
-<style scoped>
-
+<style scoped lang="scss">
+    .questions-paramrtrs__wrapper{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin-bottom: 30px;
+        .col{
+            width: 45%;
+            max-width: 300px;
+            &:last-child{
+                margin-left: 15px;
+            }
+        }
+    }
 </style>
