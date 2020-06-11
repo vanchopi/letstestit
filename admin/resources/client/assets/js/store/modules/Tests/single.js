@@ -6,6 +6,7 @@ function initialState() {
             title: null,
             main_image: null,
             bg_image: null,
+            questions: [],
         },
         categoriesAll: [],
         
@@ -159,6 +160,10 @@ const actions = {
     setBg_image({ commit }, value) {
         commit('setBg_image', value)
     },
+
+    setQuestions({ commit }, value) {
+        commit('setQuestions', value)
+    },
     
     resetState({ commit }) {
         commit('resetState')
@@ -180,6 +185,9 @@ const mutations = {
     },
     setBg_image(state, value) {
         state.item.bg_image = value
+    },
+    setQuestions(state, value) {
+        state.item.questions = value
     },
     setCategoriesAll(state, value) {
         state.categoriesAll = value

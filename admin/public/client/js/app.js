@@ -1810,7 +1810,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             },
             questions: [{
                 id: 0,
-                question: 'asd',
+                question: '',
                 answers: [{
                     id: 0,
                     dsc: '',
@@ -1819,7 +1819,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 }]
             }, {
                 id: 1,
-                question: 'dsa',
+                question: '',
                 answers: [{
                     id: 0,
                     dsc: '',
@@ -1838,7 +1838,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         this.resetState();
     },
 
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TestsSingle', ['storeData', 'resetState', 'setCategory', 'setTitle', 'setMain_image', 'setBg_image', 'fetchCategoriesAll']), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TestsSingle', ['storeData', 'resetState', 'setCategory', 'setTitle', 'setQuestions', 'setMain_image', 'setBg_image', 'fetchCategoriesAll']), {
         updateCategory: function updateCategory(value) {
             this.setCategory(value);
         },
@@ -1930,12 +1930,18 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             }
             return this.questions;
         },
+        updateQuestions: function updateQuestions() {
+            this.setQuestions(this.questions);
+            console.log('store', this.item.questions);
+        },
         answerOnInput: function answerOnInput() {
             console.log('on input fields', this.questions);
+            this.updateQuestions();
         },
         submitForm: function submitForm() {
             var _this3 = this;
 
+            //this.item.questions = this.questions;
             this.storeData().then(function () {
                 _this3.$router.push({ name: 'tests.index' });
                 _this3.$eventHub.$emit('create-success');
@@ -34481,7 +34487,8 @@ function initialState() {
             category: null,
             title: null,
             main_image: null,
-            bg_image: null
+            bg_image: null,
+            questions: []
         },
         categoriesAll: [],
 
@@ -34647,8 +34654,13 @@ var actions = {
 
         commit('setBg_image', value);
     },
-    resetState: function resetState(_ref9) {
+    setQuestions: function setQuestions(_ref9, value) {
         var commit = _ref9.commit;
+
+        commit('setQuestions', value);
+    },
+    resetState: function resetState(_ref10) {
+        var commit = _ref10.commit;
 
         commit('resetState');
     }
@@ -34669,6 +34681,9 @@ var mutations = {
     },
     setBg_image: function setBg_image(state, value) {
         state.item.bg_image = value;
+    },
+    setQuestions: function setQuestions(state, value) {
+        state.item.questions = value;
     },
     setCategoriesAll: function setCategoriesAll(state, value) {
         state.categoriesAll = value;

@@ -194,7 +194,7 @@ export default {
             questions: [
                 {
                     id: 0,
-                    question: 'asd',
+                    question: '',
                     answers: [
                         {
                             id: 0,
@@ -206,7 +206,7 @@ export default {
                 },
                 {
                     id: 1,
-                    question: 'dsa',
+                    question: '',
                     answers: [
                         {
                             id: 0,
@@ -229,7 +229,7 @@ export default {
         this.resetState()
     },
     methods: {
-        ...mapActions('TestsSingle', ['storeData', 'resetState', 'setCategory', 'setTitle', 'setMain_image', 'setBg_image', 'fetchCategoriesAll']),
+        ...mapActions('TestsSingle', ['storeData', 'resetState', 'setCategory', 'setTitle', 'setQuestions', 'setMain_image', 'setBg_image', 'fetchCategoriesAll']),
         updateCategory(value) {
             this.setCategory(value)
         },
@@ -318,10 +318,16 @@ export default {
             }            
             return this.questions;
         },
+        updateQuestions() {
+            this.setQuestions(this.questions);
+            console.log('store', this.item.questions);
+        },
         answerOnInput(){
             console.log('on input fields', this.questions);
+            this.updateQuestions();
         },
         submitForm() {
+            //this.item.questions = this.questions;
             this.storeData()
                 .then(() => {
                     this.$router.push({ name: 'tests.index' })
