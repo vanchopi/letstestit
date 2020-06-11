@@ -127,20 +127,29 @@
                                                 <span>Tabs for question № {{index}}</span>                                                
                                                 <div class="fields-wrapper">
                                                     <div class="input-group mb-3">
-                                                        <label for="num_question">Question</label>
+                                                        <label :for="'num_question' + item.id" class="required">Question</label>
                                                         <input type="text" 
-                                                               class="form-control" placeholder="Question" :value="item.question" name="num_question">
+                                                               class="form-control" 
+                                                               placeholder="Question" 
+                                                                
+                                                               :name="'num_question' + item.id"
+                                                               required=""
+                                                               v-model="item.question" 
+                                                               @input="answerOnInput"
+                                                            >
                                                     </div>
                                                     <div class="answers-wrapper">
-                                                        <div class="answers-title">
-                                                            <b>Answers</b>
-                                                        </div>
+                                                        <label :for="'num_answer' + item.id" class="required">Answers</label>
                                                         <div v-for="(answer, index) in item.answers"
-                                                             class="input-group mb-3">
-                                                            <input type="text" 
-                                                                   class="form-control" 
-                                                                   :placeholder="'answer' + ' № ' + index" 
-                                                                   :value="answer.dsc"
+                                                             class="input-group mb-3">                                                            
+                                                            <input type="text"
+                                                                   class="form-control"
+                                                                   :placeholder="'answer' + ' № ' + index"
+                                                                   
+                                                                   :name="'num_answer' + item.id + answer.id"
+                                                                   required=""
+                                                                   v-model="answer.dsc"
+                                                                   @input="answerOnInput"
                                                                 >
                                                         </div>
                                                     </div>
@@ -286,12 +295,10 @@ export default {
                 answers = 20;
                 this.quizParams.rows = answers;
             }
-            this.drawColumnsRows(questions, answers);
-            console.log('quizParams', questions, answers);   
+            this.drawColumnsRows(questions, answers);            
 
         },
-        drawColumnsRows(questions, answers){
-            console.log(questions);
+        drawColumnsRows(questions, answers){            
             this.questions = [];
             for( let i = 0; i < questions; i++){
                 this.questions[i] = {
@@ -308,9 +315,11 @@ export default {
                         value: 0,                        
                     }
                 }
-            }
-            console.log('this.questions', this.questions);
+            }            
             return this.questions;
+        },
+        answerOnInput(){
+            console.log('on input fields', this.questions);
         },
         submitForm() {
             this.storeData()

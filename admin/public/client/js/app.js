@@ -1788,6 +1788,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -1900,10 +1909,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 this.quizParams.rows = answers;
             }
             this.drawColumnsRows(questions, answers);
-            console.log('quizParams', questions, answers);
         },
         drawColumnsRows: function drawColumnsRows(questions, answers) {
-            console.log(questions);
             this.questions = [];
             for (var i = 0; i < questions; i++) {
                 this.questions[i] = {
@@ -1921,8 +1928,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                     };
                 }
             }
-            console.log('this.questions', this.questions);
             return this.questions;
+        },
+        answerOnInput: function answerOnInput() {
+            console.log('on input fields', this.questions);
         },
         submitForm: function submitForm() {
             var _this3 = this;
@@ -30618,18 +30627,47 @@ var render = function() {
                                       [
                                         _c(
                                           "label",
-                                          { attrs: { for: "num_question" } },
+                                          {
+                                            staticClass: "required",
+                                            attrs: {
+                                              for: "num_question" + item.id
+                                            }
+                                          },
                                           [_vm._v("Question")]
                                         ),
                                         _vm._v(" "),
                                         _c("input", {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value: item.question,
+                                              expression: "item.question"
+                                            }
+                                          ],
                                           staticClass: "form-control",
                                           attrs: {
                                             type: "text",
                                             placeholder: "Question",
-                                            name: "num_question"
+                                            name: "num_question" + item.id,
+                                            required: ""
                                           },
-                                          domProps: { value: item.question }
+                                          domProps: { value: item.question },
+                                          on: {
+                                            input: [
+                                              function($event) {
+                                                if ($event.target.composing) {
+                                                  return
+                                                }
+                                                _vm.$set(
+                                                  item,
+                                                  "question",
+                                                  $event.target.value
+                                                )
+                                              },
+                                              _vm.answerOnInput
+                                            ]
+                                          }
                                         })
                                       ]
                                     ),
@@ -30638,7 +30676,16 @@ var render = function() {
                                       "div",
                                       { staticClass: "answers-wrapper" },
                                       [
-                                        _vm._m(2, true),
+                                        _c(
+                                          "label",
+                                          {
+                                            staticClass: "required",
+                                            attrs: {
+                                              for: "num_answer" + item.id
+                                            }
+                                          },
+                                          [_vm._v("Answers")]
+                                        ),
                                         _vm._v(" "),
                                         _vm._l(item.answers, function(
                                           answer,
@@ -30649,13 +30696,43 @@ var render = function() {
                                             { staticClass: "input-group mb-3" },
                                             [
                                               _c("input", {
+                                                directives: [
+                                                  {
+                                                    name: "model",
+                                                    rawName: "v-model",
+                                                    value: answer.dsc,
+                                                    expression: "answer.dsc"
+                                                  }
+                                                ],
                                                 staticClass: "form-control",
                                                 attrs: {
                                                   type: "text",
                                                   placeholder:
-                                                    "answer" + " № " + index
+                                                    "answer" + " № " + index,
+                                                  name:
+                                                    "num_answer" +
+                                                    item.id +
+                                                    answer.id,
+                                                  required: ""
                                                 },
-                                                domProps: { value: answer.dsc }
+                                                domProps: { value: answer.dsc },
+                                                on: {
+                                                  input: [
+                                                    function($event) {
+                                                      if (
+                                                        $event.target.composing
+                                                      ) {
+                                                        return
+                                                      }
+                                                      _vm.$set(
+                                                        answer,
+                                                        "dsc",
+                                                        $event.target.value
+                                                      )
+                                                    },
+                                                    _vm.answerOnInput
+                                                  ]
+                                                }
                                               })
                                             ]
                                           )
@@ -30721,14 +30798,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "box-header with-border" }, [
       _c("h3", { staticClass: "box-title" }, [_vm._v("Create")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "answers-title" }, [
-      _c("b", [_vm._v("Answers")])
     ])
   }
 ]
