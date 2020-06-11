@@ -1768,31 +1768,54 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            // Code...
-            questionsColumnCount: 2,
-            questionsRowCount: 1,
+            // Code...            
+            quizParams: {
+                columns: 2,
+                rows: 1
+            },
             questions: [{
                 id: 0,
                 question: 'asd',
                 answers: [{
                     id: 0,
-                    dsc: ''
-                }, {
-                    id: 1,
-                    dsc: '1'
+                    dsc: '',
+                    checked: false,
+                    value: 0
                 }]
             }, {
                 id: 1,
                 question: 'dsa',
                 answers: [{
                     id: 0,
-                    dsc: ''
+                    dsc: '',
+                    checked: false,
+                    value: 0
                 }]
             }]
         };
@@ -1856,6 +1879,50 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         updateBg_image: function updateBg_image(e) {
             this.setBg_image(e.target.files[0]);
             this.$forceUpdate();
+        },
+        setQuestionsOptions: function setQuestionsOptions() {
+            var questions = this.quizParams.columns == '' ? 1 : parseInt(this.quizParams.columns),
+                answers = this.quizParams.rows == '' ? 1 : parseInt(this.quizParams.rows);
+            if (questions < 1) {
+                questions = 1;
+                this.quizParams.columns = questions;
+            }
+            if (questions > 100) {
+                questions = 100;
+                this.quizParams.columns = questions;
+            }
+            if (answers < 1) {
+                answers = 1;
+                this.quizParams.rows = answers;
+            }
+            if (answers > 20) {
+                answers = 20;
+                this.quizParams.rows = answers;
+            }
+            this.drawColumnsRows(questions, answers);
+            console.log('quizParams', questions, answers);
+        },
+        drawColumnsRows: function drawColumnsRows(questions, answers) {
+            console.log(questions);
+            this.questions = [];
+            for (var i = 0; i < questions; i++) {
+                this.questions[i] = {
+                    id: i,
+                    question: '',
+                    answers: []
+                };
+
+                for (var j = 0; j < answers; j++) {
+                    this.questions[i].answers[j] = {
+                        id: j,
+                        dsc: '',
+                        checked: false,
+                        value: 0
+                    };
+                }
+            }
+            console.log('this.questions', this.questions);
+            return this.questions;
         },
         submitForm: function submitForm() {
             var _this3 = this;
@@ -3429,7 +3496,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.questions-paramrtrs__wrapper[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  margin-bottom: 30px;\n}\n.questions-paramrtrs__wrapper .col[data-v-fd12abd2] {\n    width: 45%;\n    max-width: 300px;\n}\n.questions-paramrtrs__wrapper .col[data-v-fd12abd2]:last-child {\n      margin-left: 15px;\n}\n", ""]);
+exports.push([module.i, "\n.questions-paramrtrs__wrapper[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  margin: 15px 0 30px 0;\n  padding-top: 15px;\n  border-top: 1px solid #d8d2d2;\n}\n.questions-paramrtrs__wrapper .col[data-v-fd12abd2] {\n    width: 45%;\n    max-width: 300px;\n}\n.questions-paramrtrs__wrapper .col[data-v-fd12abd2]:last-child {\n      margin-left: 15px;\n}\n.tab-pane > span[data-v-fd12abd2] {\n  display: block;\n  margin: 15px 0;\n}\n.fields-wrapper .input-group[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n  margin-bottom: 15px;\n}\n", ""]);
 
 // exports
 
@@ -30406,10 +30473,96 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
                         _c("label", { attrs: { for: "questions" } }, [
-                          _vm._v("Questions")
+                          _vm._v("Questions:")
                         ]),
                         _vm._v(" "),
-                        _vm._m(2),
+                        _c(
+                          "div",
+                          { staticClass: "questions-paramrtrs__wrapper" },
+                          [
+                            _c("div", { staticClass: "col" }, [
+                              _c("label", { attrs: { for: "columns" } }, [
+                                _vm._v("Number of Questions")
+                              ]),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.quizParams.columns,
+                                    expression: "quizParams.columns"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "number",
+                                  name: "columns",
+                                  placeholder: "Number of Questions",
+                                  min: "1",
+                                  max: "100"
+                                },
+                                domProps: { value: _vm.quizParams.columns },
+                                on: {
+                                  input: [
+                                    function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.quizParams,
+                                        "columns",
+                                        $event.target.value
+                                      )
+                                    },
+                                    _vm.setQuestionsOptions
+                                  ]
+                                }
+                              })
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col" }, [
+                              _c("label", { attrs: { for: "rows" } }, [
+                                _vm._v("Answers for one question")
+                              ]),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.quizParams.rows,
+                                    expression: "quizParams.rows"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "number",
+                                  name: "rows",
+                                  placeholder: "Answers for one question",
+                                  min: "1",
+                                  max: "20"
+                                },
+                                domProps: { value: _vm.quizParams.rows },
+                                on: {
+                                  input: [
+                                    function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.quizParams,
+                                        "rows",
+                                        $event.target.value
+                                      )
+                                    },
+                                    _vm.setQuestionsOptions
+                                  ]
+                                }
+                              })
+                            ])
+                          ]
+                        ),
                         _vm._v(" "),
                         _c("div", { staticClass: "questions-wrapper" }, [
                           _c(
@@ -30463,11 +30616,18 @@ var render = function() {
                                       "div",
                                       { staticClass: "input-group mb-3" },
                                       [
+                                        _c(
+                                          "label",
+                                          { attrs: { for: "num_question" } },
+                                          [_vm._v("Question")]
+                                        ),
+                                        _vm._v(" "),
                                         _c("input", {
                                           staticClass: "form-control",
                                           attrs: {
                                             type: "text",
-                                            placeholder: "Question"
+                                            placeholder: "Question",
+                                            name: "num_question"
                                           },
                                           domProps: { value: item.question }
                                         })
@@ -30478,7 +30638,7 @@ var render = function() {
                                       "div",
                                       { staticClass: "answers-wrapper" },
                                       [
-                                        _vm._m(3, true),
+                                        _vm._m(2, true),
                                         _vm._v(" "),
                                         _vm._l(item.answers, function(
                                           answer,
@@ -30561,26 +30721,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "box-header with-border" }, [
       _c("h3", { staticClass: "box-title" }, [_vm._v("Create")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "questions-paramrtrs__wrapper" }, [
-      _c("div", { staticClass: "col" }, [
-        _c("input", {
-          staticClass: "form-control",
-          attrs: { type: "number", placeholder: "Questions Quantity" }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col" }, [
-        _c("input", {
-          staticClass: "form-control",
-          attrs: { type: "number", placeholder: "Answers Quantity" }
-        })
-      ])
     ])
   },
   function() {

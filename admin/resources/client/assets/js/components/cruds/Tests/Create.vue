@@ -81,13 +81,31 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="questions">Questions</label>
+                                    <label for="questions">Questions:</label>
                                     <div class="questions-paramrtrs__wrapper">                                        
                                         <div class="col">
-                                            <input type="number" class="form-control" placeholder="Questions Quantity">
+                                            <label for="columns">Number of Questions</label>
+                                            <input type="number" 
+                                                   class="form-control" 
+                                                   name="columns" 
+                                                   placeholder="Number of Questions" 
+                                                   v-model="quizParams.columns"
+                                                   min="1"
+                                                   max="100" 
+                                                   @input="setQuestionsOptions"
+                                                >
                                         </div>
                                         <div class="col">
-                                            <input type="number" class="form-control" placeholder="Answers Quantity">
+                                            <label for="rows">Answers for one question</label>
+                                            <input type="number" 
+                                                   class="form-control" 
+                                                   name="rows"
+                                                   placeholder="Answers for one question" 
+                                                   v-model="quizParams.rows"
+                                                   min="1"
+                                                   max="20" 
+                                                   @input="setQuestionsOptions"
+                                                >
                                         </div>                                        
                                     </div>
                                     <div class="questions-wrapper">
@@ -109,7 +127,9 @@
                                                 <span>Tabs for question № {{index}}</span>                                                
                                                 <div class="fields-wrapper">
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="Question" :value="item.question">
+                                                        <label for="num_question">Question</label>
+                                                        <input type="text" 
+                                                               class="form-control" placeholder="Question" :value="item.question" name="num_question">
                                                     </div>
                                                     <div class="answers-wrapper">
                                                         <div class="answers-title">
@@ -157,9 +177,11 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
     data() {
         return {
-            // Code...
-            questionsColumnCount: 2,
-            questionsRowCount: 1,
+            // Code...            
+            quizParams:{
+                columns: 2,
+                rows: 1,
+            },
             questions: [
                 {
                     id: 0,
@@ -167,11 +189,9 @@ export default {
                     answers: [
                         {
                             id: 0,
-                            dsc: ''
-                        },
-                        {
-                            id: 1,
-                            dsc: '1'
+                            dsc: '',
+                            checked: false,
+                            value: 0,
                         }
                     ]
                 },
@@ -181,7 +201,9 @@ export default {
                     answers: [
                         {
                             id: 0,
-                            dsc: ''
+                            dsc: '',
+                            checked: false,
+                            value: 0,
                         }
                     ]
                 }
@@ -245,6 +267,51 @@ export default {
             this.setBg_image(e.target.files[0]);
             this.$forceUpdate();
         },
+        setQuestionsOptions(){            
+            let questions = this.quizParams.columns == '' ? 1 : parseInt(this.quizParams.columns),
+                answers = this.quizParams.rows == '' ? 1 : parseInt(this.quizParams.rows);
+            if(questions < 1) {
+                questions = 1;
+                this.quizParams.columns = questions;    
+            }
+            if(questions > 100) {
+                questions = 100;
+                this.quizParams.columns = questions;    
+            }
+            if(answers < 1){ 
+                answers = 1;
+                this.quizParams.rows = answers;
+            }
+            if(answers > 20){ 
+                answers = 20;
+                this.quizParams.rows = answers;
+            }
+            this.drawColumnsRows(questions, answers);
+            console.log('quizParams', questions, answers);   
+
+        },
+        drawColumnsRows(questions, answers){
+            console.log(questions);
+            this.questions = [];
+            for( let i = 0; i < questions; i++){
+                this.questions[i] = {
+                    id: i,
+                    question: '',
+                    answers: []
+                };
+                
+                for(let j = 0; j < answers; j++){
+                    this.questions[i].answers[j] = {
+                        id: j,
+                        dsc: '',
+                        checked: false,
+                        value: 0,                        
+                    }
+                }
+            }
+            console.log('this.questions', this.questions);
+            return this.questions;
+        },
         submitForm() {
             this.storeData()
                 .then(() => {
@@ -264,14 +331,27 @@ export default {
     .questions-paramrtrs__wrapper{
         display: flex;
         align-items: center;
-        justify-content: flex-start;
-        margin-bottom: 30px;
+        justify-content: flex-start;        
+        margin: 15px 0 30px 0;
+        padding-top: 15px;
+        border-top: 1px solid #d8d2d2;
         .col{
             width: 45%;
             max-width: 300px;
             &:last-child{
                 margin-left: 15px;
             }
+        }
+    }
+    .tab-pane > span{
+        display: block;
+        margin: 15px 0;
+    }
+    .fields-wrapper{
+        .input-group{
+            width: 100%;
+            max-width: 615px;
+            margin-bottom: 15px;
         }
     }
 </style>
