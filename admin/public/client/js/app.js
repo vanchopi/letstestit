@@ -34520,7 +34520,7 @@ var actions = {
 
         return new Promise(function (resolve, reject) {
             var params = new FormData();
-
+            console.log('item', state.item);
             for (var fieldName in state.item) {
                 var fieldValue = state.item[fieldName];
                 if ((typeof fieldValue === 'undefined' ? 'undefined' : _typeof(fieldValue)) !== 'object') {
@@ -34541,13 +34541,18 @@ var actions = {
             } else {
                 params.set('category_id', state.item.category.id);
             }
+            if (_.isEmpty(state.item.questions)) {
+                params.set('questions', '');
+            } else {
+                params.set('questions', JSON.stringify(state.item.questions));
+            }
             if (state.item.main_image === null) {
                 params.delete('main_image');
             }
             if (state.item.bg_image === null) {
                 params.delete('bg_image');
             }
-
+            console.log('params', JSON.parse(params.getAll('questions')));
             axios.post('/api/v1/tests', params).then(function (response) {
                 commit('resetState');
                 resolve();
