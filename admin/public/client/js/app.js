@@ -34414,6 +34414,7 @@ var actions = {
         commit('setLoading', true);
 
         axios.get('/api/v1/tests').then(function (response) {
+            console.log('2 - ', response);
             commit('setAll', response.data.data);
         }).catch(function (error) {
             message = error.response.data.message || error.message;

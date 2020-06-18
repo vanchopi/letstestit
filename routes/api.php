@@ -125,7 +125,8 @@ Route::post('/tests/getmore', function (  ) {
     return response()->json($tests);
 });
 
-Route::post('/tests/getlist', function ( Request $request ) {
+Route::post('/tests/getlist', 'Tests\TestsController@getTestsList');
+/*Route::post('/tests/getlist', function ( Request $request ) {
     $tests = [];
     $tags = [];
     $tag0 = [];
@@ -156,7 +157,7 @@ Route::post('/tests/getlist', function ( Request $request ) {
 
     return response()->json($tests);
 
-});
+});*/
 
 Route::get('/test/{id}', function ($id) {
     $test = [];   

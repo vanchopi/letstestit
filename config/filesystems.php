@@ -1,5 +1,7 @@
 <?php
 
+$path = explode("storage", storage_path())[0] . 'admin\storage\app\public\images';
+
 return [
 
     /*

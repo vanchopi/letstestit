@@ -140,7 +140,7 @@ const actions = {
     },
     fetchData({ commit, dispatch }, id) {
         axios.get('/api/v1/tests/' + id)
-            .then(response => {
+            .then(response => {                
                 commit('setItem', response.data.data)
             })
 

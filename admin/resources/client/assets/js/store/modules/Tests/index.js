@@ -30,6 +30,7 @@ const actions = {
 
         axios.get('/api/v1/tests')
             .then(response => {
+                console.log('2 - ', response);
                 commit('setAll', response.data.data)
             })
             .catch(error => {

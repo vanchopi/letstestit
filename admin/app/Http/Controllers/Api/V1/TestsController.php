@@ -9,6 +9,7 @@ use App\Http\Requests\Admin\StoreTestsRequest;
 use App\Http\Requests\Admin\UpdateTestsRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\URL;
 
 use App\Http\Controllers\Traits\FileUploadTrait;
 
@@ -39,12 +40,17 @@ class TestsController extends Controller
             return abort(401);
         }
 
-        $test = Test::create($request->all());
+        //$path = explode("admin", storage_path())[0] . 'public\images\cards';
+
+        /*$path = str_replace('/admin/storage/','',storage_path('public/images/cards'));
+        echo '123-' . $path;*/
+
+        $test = Test::create($request->all());        
         
         if ($request->hasFile('main_image')) {
-            $test->addMedia($request->file('main_image'))->toMediaCollection('main_image');
+            $test->addMedia($request->file('main_image'))->toMediaCollection('main_image', 'cards');
         }if ($request->hasFile('bg_image')) {
-            $test->addMedia($request->file('bg_image'))->toMediaCollection('bg_image');
+            $test->addMedia($request->file('bg_image'))->toMediaCollection('bg_image', 'test_bg');
         }
 
         return (new TestResource($test))

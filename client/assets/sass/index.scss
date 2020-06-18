@@ -545,6 +545,8 @@ a{
     						border-radius: 76px;
     						max-width: 288px;
     						width: 100%;
+    						overflow: hidden;
+    						min-height: 235px;
 							img{
 								width: 100%;
 							}
@@ -552,7 +554,9 @@ a{
 						.description-wrapper{							
 							height: 100%;
 							width: 100%;
-							padding: 35px 60px 35px 60px;
+							/*padding: 35px 60px 35px 60px;*/
+							padding: 35px 10px;
+    						max-width: 288px;
 							position: absolute;
 							.description-wrapper__top{
 								padding-bottom: 25px;
