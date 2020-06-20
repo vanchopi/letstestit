@@ -60,7 +60,7 @@
               <div class="item">
                 <div class="img-wrapper">
                   <!--<img :src="'/_nuxt/client/assets/images/cards/' + test.img" alt="">-->
-                  <img :src="imgSrc + '/images/cards/' + test.img" alt="">
+                  <img :src="imgSrc + '/storage/images/cards/' + test.bg_image" alt="">
                 </div>
                 <div class="description-wrapper">
                   <div class="description-wrapper__top">
