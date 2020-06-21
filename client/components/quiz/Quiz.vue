@@ -62,7 +62,7 @@ import { getTest } from '~/api/test/test'
 export default {
   components: {    
   },
-  props: ['info'],
+  props: ['info', 'test'],
   data: () => ({
     fade: false,    
     testList: [],
@@ -87,6 +87,12 @@ export default {
   computed: mapGetters({
     user: 'auth/user'
   }),
+  watch:{
+      'test'(){
+        console.log('test loaded - ',this.test);
+        this.getData();
+      }
+  },
   created(){
     this.query = this.$route.params.id;
     console.log(this.query);
@@ -94,10 +100,9 @@ export default {
     //console.log('this.testList', this.testList);             
     //this.fakeTest();   
     //this.testPart = this.getPart( this.quizStep );
-  },
+  },  
   mounted() {
-    console.log('**',this.query);
-    this.getData(this.query);
+    console.log('**',this.query);    
   },
   methods: {        
     getPart( num ){     
@@ -166,14 +171,11 @@ export default {
         setTimeout(() => { this.fade = !this.fade; }, 300);
       }
     },
-    getData( info ){
-      getTest(info).then((request) => {
-        console.log('request', request);
-        this.testList = request.data.questions;
+    getData(){
+        this.testList = this.test;
         this.testLenght = this.testList.length;
         this.testPart = this.testList[0];
-        console.log('this.testPart', this.testPart);
-      })
+        console.log('this.testPart', this.testPart);      
     }
   }
 }
