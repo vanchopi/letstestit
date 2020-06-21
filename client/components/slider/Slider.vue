@@ -78,7 +78,7 @@
                     </div>
                   </div>
                   <div class="description-wrapper__bottom">
-                    <router-link :to="{ name: 'test', params: {id: index} }" class="button"> 
+                    <router-link :to="{ name: 'test', params: {id: test.id, img: test.main_image} }" class="button"> 
                       УЗНАТЬ
                     </router-link>
                   </div>

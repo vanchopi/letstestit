@@ -10,13 +10,13 @@
               @click="goBack"
         >назад</div>
         <div class="counter">
-          <b>{{testPart.num + 1}}</b>
+          <b>{{testPart.id + 1}}</b>
           <span>/{{testLenght}}</span>
         </div>
       </div>
       <div class="quiz-item__content" :class="{'fade-out': fade}">
         <div class="title">
-         {{testPart.queston}}
+         {{testPart.question}}
         </div>
         <div class="answers">
           <ul>
@@ -38,12 +38,12 @@
         </div>        
       </div>  
       <div class="button-wrapper">
-        <button class="custom-bt" @click="getPart(testPart.num)" v-if="quizStep < testLenght - 1">
+        <button class="custom-bt" @click="getPart(testPart.id)" v-if="quizStep < testLenght - 1">
           <span>
             ОТВЕТИТЬ
           </span>
         </button>
-        <button class="custom-bt" @click="finishTest(testPart.num)" v-else>
+        <button class="custom-bt" @click="finishTest(testPart.id)" v-else>
           <span>
             ЗАВЕРШИТЬ ТЕСТ
           </span>
@@ -67,7 +67,7 @@ export default {
     fade: false,    
     testList: [],
     testPart: [{
-      num: 0,
+      id: 0,      
       queston: '',
       answers: [
         { id: 0, dsc: ''},
@@ -169,8 +169,8 @@ export default {
     getData( info ){
       getTest(info).then((request) => {
         console.log('request', request);
-        this.testList = request.data;
-        this.testLenght = request.data.length;
+        this.testList = request.data.questions;
+        this.testLenght = this.testList.length;
         this.testPart = this.testList[0];
         console.log('this.testPart', this.testPart);
       })

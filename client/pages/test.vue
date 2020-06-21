@@ -2,7 +2,7 @@
   <div>    
     <!--
     <quiz :ifCatalog="true" />-->
-    <div class="test-wrapper" :style="{ background: 'url(' + imgSrc + '1.png)'}"> 
+    <div class="test-wrapper" :style="{ background: 'url(' + imgSrc + '/storage/images/tests/' + bgImg + ')'}">
       <div class="container">
         
         <quiz/>
@@ -32,8 +32,8 @@ export default {
 
   data: () => ({
     title: process.env.appName ,  
-    imgSrc: process.env.appRoot + '/images/tests/',  
-    bgImg: '1.png',    
+    imgSrc: process.env.appRoot ,  
+    bgImg: '', //this.$route.params.img,    
     testInfo: {}
   }),  
 
@@ -41,7 +41,9 @@ export default {
     authenticated: 'auth/check'
   }),
 
-  created(){    
+  created(){        
+    this.bgImg = this.$route.params.img;
+    console.log('params', this.bgImg);
     this.testInfo = {
         id: this.$route.params.id,
         category: 'films'

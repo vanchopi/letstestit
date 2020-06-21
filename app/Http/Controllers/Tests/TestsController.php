@@ -17,19 +17,28 @@ class TestsController extends Controller
     		//echo 'id' . $tests[$i]->id;
             $media = self::getMedias($tests[$i]->id);
             $tests[$i]->bg_image = $media->bg_image;
-            $tests[$i]->main_image = $media->main_image;            
+            $tests[$i]->main_image = $media->main_image;                        
     	}
     	//echo '1' . $medias;
         return $tests;
     }
 
-    static public function getMedias($id){    	
-    	$media = Media::select(array('collection_name', 'file_name', 'id'))->where('model_id', $id)->get();        
+    static public function getMedias($id){
+    	$media = Media::select(array('collection_name', 'file_name', 'id'))->where('model_id', $id)->get();
         $item = (object) [
             "bg_image" => $media[0]->id . '/' . $media[0]->file_name,
             "main_image" => $media[1]->id . '/' . $media[1]->file_name,
         ];
         //print_r($item);
     	return $item;
+    }
+
+    public function getTest($id){
+        $test = Test::findOrFail($id);
+        //$questions = json_decode($test->questions);
+        $bgImage = self::getMedias($id);
+        $test->main_image = $bgImage->main_image;
+        $test->questions = json_decode($test->questions);
+        return $test;
     }
 }
