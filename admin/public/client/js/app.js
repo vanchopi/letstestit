@@ -1915,7 +1915,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         this.resetState();
     },
 
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TestsSingle', ['storeData', 'resetState', 'setCategory', 'setTitle', 'setQuestions', 'setResults', 'setMain_image', 'setBg_image', 'fetchCategoriesAll']), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TestsSingle', ['storeData', 'resetState', 'setCategory', 'setTitle', 'setQuestions', 'setResults', 'setResultsImage', 'setMain_image', 'setBg_image', 'fetchCategoriesAll']), {
         updateCategory: function updateCategory(value) {
             this.setCategory(value);
         },
@@ -1944,8 +1944,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.setMain_image(e.target.files[0]);
             this.$forceUpdate();
         },
-        updateResultImage: function updateResultImage(e) {
-            console.log('results - ', this.results);
+        updateResultImage: function updateResultImage(e, index) {
+            //console.log('results image - ', e.target.files[0]);
+            var imgRecord = {
+                img: e.target.files[0],
+                id: index
+            };
+            this.setResultsImage(imgRecord);
         },
         removeResultImage: function removeResultImage(e, id) {},
         removeBg_image: function removeBg_image(e, id) {
@@ -31016,7 +31021,14 @@ var render = function() {
                                   _c("input", {
                                     staticClass: "form-control",
                                     attrs: { type: "file" },
-                                    on: { change: _vm.updateResultImage }
+                                    on: {
+                                      change: function($event) {
+                                        return _vm.updateResultImage(
+                                          $event,
+                                          index
+                                        )
+                                      }
+                                    }
                                   }),
                                   _vm._v(" "),
                                   item.img
@@ -35327,23 +35339,28 @@ var actions = {
 
         commit('setMain_image', value);
     },
-    setBg_image: function setBg_image(_ref8, value) {
+    setResultsImage: function setResultsImage(_ref8, payload) {
         var commit = _ref8.commit;
+
+        console.log('value - ', payload.img, ' id - ', payload.id);
+    },
+    setBg_image: function setBg_image(_ref9, value) {
+        var commit = _ref9.commit;
 
         commit('setBg_image', value);
     },
-    setQuestions: function setQuestions(_ref9, value) {
-        var commit = _ref9.commit;
+    setQuestions: function setQuestions(_ref10, value) {
+        var commit = _ref10.commit;
 
         commit('setQuestions', value);
     },
-    setResults: function setResults(_ref10, value) {
-        var commit = _ref10.commit;
+    setResults: function setResults(_ref11, value) {
+        var commit = _ref11.commit;
 
         commit('setResults', value);
     },
-    resetState: function resetState(_ref11) {
-        var commit = _ref11.commit;
+    resetState: function resetState(_ref12) {
+        var commit = _ref12.commit;
 
         commit('resetState');
     }
@@ -35361,6 +35378,7 @@ var mutations = {
     },
     setMain_image: function setMain_image(state, value) {
         state.item.main_image = value;
+        console.log(' main image - ', state.item.main_image);
     },
     setBg_image: function setBg_image(state, value) {
         state.item.bg_image = value;

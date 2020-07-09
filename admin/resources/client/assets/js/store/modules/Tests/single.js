@@ -163,6 +163,10 @@ const actions = {
     setMain_image({ commit }, value) {
         commit('setMain_image', value)
     },
+
+    setResultsImage({ commit }, payload) {
+        console.log('value - ', payload.img, ' id - ', payload.id);
+    },
     
     setBg_image({ commit }, value) {
         commit('setBg_image', value)
@@ -192,7 +196,8 @@ const mutations = {
         state.item.title = value
     },
     setMain_image(state, value) {
-        state.item.main_image = value
+        state.item.main_image = value;
+        console.log(' main image - ', state.item.main_image);
     },
     setBg_image(state, value) {
         state.item.bg_image = value

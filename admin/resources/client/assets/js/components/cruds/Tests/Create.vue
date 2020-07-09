@@ -211,7 +211,7 @@
                                                 <input
                                                         type="file"
                                                         class="form-control"
-                                                        @change="updateResultImage"
+                                                        @change="updateResultImage($event, index)"
                                                 >
                                                 <ul v-if="item.img" class="list-unstyled">
                                                     <li>
@@ -308,7 +308,7 @@ export default {
         this.resetState()
     },
     methods: {
-        ...mapActions('TestsSingle', ['storeData', 'resetState', 'setCategory', 'setTitle', 'setQuestions', 'setResults', 'setMain_image', 'setBg_image', 'fetchCategoriesAll']),
+        ...mapActions('TestsSingle', ['storeData', 'resetState', 'setCategory', 'setTitle', 'setQuestions', 'setResults', 'setResultsImage' ,'setMain_image', 'setBg_image', 'fetchCategoriesAll']),
         updateCategory(value) {
             this.setCategory(value)
         },
@@ -335,8 +335,13 @@ export default {
             this.setMain_image(e.target.files[0]);
             this.$forceUpdate();
         },
-        updateResultImage(e){
-            console.log('results - ', this.results);
+        updateResultImage(e, index){
+            //console.log('results image - ', e.target.files[0]);
+            let imgRecord = {
+                img: e.target.files[0],
+                id: index
+            }
+            this.setResultsImage(imgRecord);
         },
         removeResultImage(e, id){
 
