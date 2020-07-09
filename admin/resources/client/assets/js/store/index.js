@@ -13,6 +13,8 @@ import CategoriesIndex from './modules/Categories'
 import CategoriesSingle from './modules/Categories/single'
 import TestsIndex from './modules/Tests'
 import TestsSingle from './modules/Tests/single'
+import ResultsIndex from './modules/Results'
+import ResultsSingle from './modules/Results/single'
 
 Vue.use(Vuex)
 
@@ -33,6 +35,8 @@ export default new Vuex.Store({
         CategoriesSingle,
         TestsIndex,
         TestsSingle,
+        ResultsIndex,
+        ResultsSingle
     },
     strict: debug,
 })

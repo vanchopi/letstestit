@@ -53,6 +53,8 @@ class TestsController extends Controller
             $test->addMedia($request->file('bg_image'))->toMediaCollection('bg_image', 'test_bg');
         }
 
+        //echo 'id - ' . $test->id;
+
         return (new TestResource($test))
             ->response()
             ->setStatusCode(201);

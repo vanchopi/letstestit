@@ -1797,6 +1797,76 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -1808,6 +1878,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 columns: 2,
                 rows: 1
             },
+            resultsRows: 1,
             questions: [{
                 id: 0,
                 question: '',
@@ -1826,11 +1897,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                     checked: false,
                     value: 0
                 }]
+            }],
+            results: [{
+                id: 0,
+                result: '',
+                img: '',
+                description: ''
             }]
         };
     },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('TestsSingle', ['item', 'loading', 'categoriesAll'])),
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('TestsSingle', ['item', 'resultsItem', 'loading', 'categoriesAll'])),
     created: function created() {
         this.fetchCategoriesAll();
     },
@@ -1838,7 +1915,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         this.resetState();
     },
 
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TestsSingle', ['storeData', 'resetState', 'setCategory', 'setTitle', 'setQuestions', 'setMain_image', 'setBg_image', 'fetchCategoriesAll']), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TestsSingle', ['storeData', 'resetState', 'setCategory', 'setTitle', 'setQuestions', 'setResults', 'setMain_image', 'setBg_image', 'fetchCategoriesAll']), {
         updateCategory: function updateCategory(value) {
             this.setCategory(value);
         },
@@ -1867,6 +1944,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.setMain_image(e.target.files[0]);
             this.$forceUpdate();
         },
+        updateResultImage: function updateResultImage(e) {
+            console.log('results - ', this.results);
+        },
+        removeResultImage: function removeResultImage(e, id) {},
         removeBg_image: function removeBg_image(e, id) {
             var _this2 = this;
 
@@ -1910,6 +1991,30 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             }
             this.drawColumnsRows(questions, answers);
         },
+        setResultsOptions: function setResultsOptions() {
+            var results = this.resultsRows == '' ? 1 : parseInt(this.resultsRows);
+            if (results < 1) {
+                results = 1;
+                this.resultsRows = results;
+            }
+            if (results > 15) {
+                results = 15;
+                this.resultsRows = results;
+            }
+            this.drawResultsRows(results);
+        },
+        drawResultsRows: function drawResultsRows(results) {
+            this.results = [];
+            for (var i = 0; i < results; i++) {
+                this.results[i] = {
+                    id: i,
+                    result: '',
+                    img: '',
+                    description: ''
+                };
+            };
+            return this.results;
+        },
         drawColumnsRows: function drawColumnsRows(questions, answers) {
             this.questions = [];
             for (var i = 0; i < questions; i++) {
@@ -1937,6 +2042,14 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         answerOnInput: function answerOnInput() {
             console.log('on input fields', this.questions);
             this.updateQuestions();
+        },
+        updateResults: function updateResults() {
+            this.setResults(this.results);
+            console.log('results store - ', this.resultsItem);
+        },
+        resultOnInput: function resultOnInput() {
+            console.log('on input fields', this.results);
+            this.updateResults();
         },
         submitForm: function submitForm() {
             var _this3 = this;
@@ -3511,7 +3624,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.questions-paramrtrs__wrapper[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  margin: 15px 0 30px 0;\n  padding-top: 15px;\n  border-top: 1px solid #d8d2d2;\n}\n.questions-paramrtrs__wrapper .col[data-v-fd12abd2] {\n    width: 45%;\n    max-width: 300px;\n}\n.questions-paramrtrs__wrapper .col[data-v-fd12abd2]:last-child {\n      margin-left: 15px;\n}\n.tab-pane > span[data-v-fd12abd2] {\n  display: block;\n  margin: 15px 0;\n}\n.fields-wrapper .input-group[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n  margin-bottom: 15px;\n}\n", ""]);
+exports.push([module.i, "\n.questions-paramrtrs__wrapper[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  margin: 15px 0 30px 0;\n  padding-top: 15px;\n  border-top: 1px solid #d8d2d2;\n}\n.questions-paramrtrs__wrapper .col[data-v-fd12abd2] {\n    width: 45%;\n    max-width: 300px;\n}\n.questions-paramrtrs__wrapper .col[data-v-fd12abd2]:last-child {\n      margin-left: 15px;\n}\n.questions-paramrtrs__wrapper.__results .col[data-v-fd12abd2]:last-child {\n    margin-left: 0px;\n}\n.tab-pane > span[data-v-fd12abd2] {\n  display: block;\n  margin: 15px 0;\n}\n.fields-wrapper .input-group[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n  margin-bottom: 15px;\n}\n.fields-wrapper.results-fields__wrapper textarea[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n  padding: 6px 12px;\n}\n.fields-wrapper.results-fields__wrapper .results-fields__item[data-v-fd12abd2] {\n  margin: 15px 0 15px 0;\n  padding-top: 15px;\n  border-top: 1px solid #d8d2d2;\n}\n", ""]);
 
 // exports
 
@@ -30753,6 +30866,199 @@ var render = function() {
                             0
                           )
                         ])
+                      ]),
+                      _vm._v(" "),
+                      _c("hr"),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "results" } }, [
+                          _vm._v("Results:")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "questions-paramrtrs__wrapper __results"
+                          },
+                          [
+                            _c("div", { staticClass: "col" }, [
+                              _c("label", { attrs: { for: "columns" } }, [
+                                _vm._v("Number of Results")
+                              ]),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.resultsRows,
+                                    expression: "resultsRows"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "number",
+                                  name: "columns",
+                                  placeholder: "Number of Results",
+                                  min: "1",
+                                  max: "15"
+                                },
+                                domProps: { value: _vm.resultsRows },
+                                on: {
+                                  input: [
+                                    function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.resultsRows = $event.target.value
+                                    },
+                                    _vm.setResultsOptions
+                                  ]
+                                }
+                              })
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "results-fields__wrapper fields-wrapper"
+                          },
+                          _vm._l(_vm.results, function(item, index) {
+                            return _c(
+                              "div",
+                              { staticClass: "results-fields__item" },
+                              [
+                                _c("div", { staticClass: "input-group mb-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: item.result,
+                                        expression: "item.result"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      type: "text",
+                                      placeholder: "Result № " + index,
+                                      name: "num_result" + item.id,
+                                      required: ""
+                                    },
+                                    domProps: { value: item.result },
+                                    on: {
+                                      input: [
+                                        function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            item,
+                                            "result",
+                                            $event.target.value
+                                          )
+                                        },
+                                        _vm.resultOnInput
+                                      ]
+                                    }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "input-group mb-3" }, [
+                                  _c("textarea", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: item.description,
+                                        expression: "item.description"
+                                      }
+                                    ],
+                                    attrs: {
+                                      name: "num_description" + index,
+                                      id: "num-description" + index,
+                                      placeholder:
+                                        "Description for result № " + index,
+                                      cols: "30",
+                                      rows: "6",
+                                      required: ""
+                                    },
+                                    domProps: { value: item.description },
+                                    on: {
+                                      input: [
+                                        function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            item,
+                                            "description",
+                                            $event.target.value
+                                          )
+                                        },
+                                        _vm.resultOnInput
+                                      ]
+                                    }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "form-group" }, [
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "result_image" + index } },
+                                    [_vm._v("Result Image №" + _vm._s(index))]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    staticClass: "form-control",
+                                    attrs: { type: "file" },
+                                    on: { change: _vm.updateResultImage }
+                                  }),
+                                  _vm._v(" "),
+                                  item.img
+                                    ? _c(
+                                        "ul",
+                                        { staticClass: "list-unstyled" },
+                                        [
+                                          _c("li", [
+                                            _vm._v(
+                                              "\n                                                    " +
+                                                _vm._s(
+                                                  item.img.name ||
+                                                    item.img.file_name
+                                                ) +
+                                                "\n                                                    "
+                                            ),
+                                            _c(
+                                              "button",
+                                              {
+                                                staticClass:
+                                                  "btn btn-xs btn-danger",
+                                                attrs: { type: "button" },
+                                                on: {
+                                                  click: _vm.removeResultImage
+                                                }
+                                              },
+                                              [
+                                                _vm._v(
+                                                  "\n                                                        Remove file\n                                                    "
+                                                )
+                                              ]
+                                            )
+                                          ])
+                                        ]
+                                      )
+                                    : _vm._e()
+                                ])
+                              ]
+                            )
+                          }),
+                          0
+                        )
                       ])
                     ]),
                     _vm._v(" "),
@@ -33494,6 +33800,10 @@ var routes = [{ path: '/change-password', component: __WEBPACK_IMPORTED_MODULE_2
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__modules_Categories_single__ = __webpack_require__("./resources/client/assets/js/store/modules/Categories/single.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__modules_Tests__ = __webpack_require__("./resources/client/assets/js/store/modules/Tests/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__modules_Tests_single__ = __webpack_require__("./resources/client/assets/js/store/modules/Tests/single.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__modules_Results__ = __webpack_require__("./resources/client/assets/js/store/modules/Results/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__modules_Results_single__ = __webpack_require__("./resources/client/assets/js/store/modules/Results/single.js");
+
+
 
 
 
@@ -33528,7 +33838,9 @@ var debug = "development" !== 'production';
         CategoriesIndex: __WEBPACK_IMPORTED_MODULE_11__modules_Categories__["a" /* default */],
         CategoriesSingle: __WEBPACK_IMPORTED_MODULE_12__modules_Categories_single__["a" /* default */],
         TestsIndex: __WEBPACK_IMPORTED_MODULE_13__modules_Tests__["a" /* default */],
-        TestsSingle: __WEBPACK_IMPORTED_MODULE_14__modules_Tests_single__["a" /* default */]
+        TestsSingle: __WEBPACK_IMPORTED_MODULE_14__modules_Tests_single__["a" /* default */],
+        ResultsIndex: __WEBPACK_IMPORTED_MODULE_15__modules_Results__["a" /* default */],
+        ResultsSingle: __WEBPACK_IMPORTED_MODULE_16__modules_Results_single__["a" /* default */]
     },
     strict: debug
 }));
@@ -34069,6 +34381,362 @@ var mutations = {
 
 /***/ }),
 
+/***/ "./resources/client/assets/js/store/modules/Results/index.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+function initialState() {
+    return {
+        all: [],
+        relationships: {
+            'category': 'title'
+        },
+        query: {},
+        loading: false
+    };
+}
+
+var getters = {
+    data: function data(state) {
+        var rows = state.all;
+
+        if (state.query.sort) {
+            rows = _.orderBy(state.all, state.query.sort, state.query.order);
+        }
+
+        return rows.slice(state.query.offset, state.query.offset + state.query.limit);
+    },
+    total: function total(state) {
+        return state.all.length;
+    },
+    loading: function loading(state) {
+        return state.loading;
+    },
+    relationships: function relationships(state) {
+        return state.relationships;
+    }
+};
+
+var actions = {
+    fetchData: function fetchData(_ref) {
+        var commit = _ref.commit,
+            state = _ref.state;
+
+        commit('setLoading', true);
+
+        axios.get('/api/v1/tests').then(function (response) {
+            console.log('2 - ', response);
+            commit('setAll', response.data.data);
+        }).catch(function (error) {
+            message = error.response.data.message || error.message;
+            commit('setError', message);
+            console.log(message);
+        }).finally(function () {
+            commit('setLoading', false);
+        });
+    },
+    destroyData: function destroyData(_ref2, id) {
+        var commit = _ref2.commit,
+            state = _ref2.state;
+
+        axios.delete('/api/v1/tests/' + id).then(function (response) {
+            commit('setAll', state.all.filter(function (item) {
+                return item.id != id;
+            }));
+        }).catch(function (error) {
+            message = error.response.data.message || error.message;
+            commit('setError', message);
+            console.log(message);
+        });
+    },
+    setQuery: function setQuery(_ref3, value) {
+        var commit = _ref3.commit;
+
+        commit('setQuery', purify(value));
+    },
+    resetState: function resetState(_ref4) {
+        var commit = _ref4.commit;
+
+        commit('resetState');
+    }
+};
+
+var mutations = {
+    setAll: function setAll(state, items) {
+        state.all = items;
+    },
+    setLoading: function setLoading(state, loading) {
+        state.loading = loading;
+    },
+    setQuery: function setQuery(state, query) {
+        state.query = query;
+    },
+    resetState: function resetState(state) {
+        state = Object.assign(state, initialState());
+    }
+};
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    namespaced: true,
+    state: initialState,
+    getters: getters,
+    actions: actions,
+    mutations: mutations
+});
+
+/***/ }),
+
+/***/ "./resources/client/assets/js/store/modules/Results/single.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+function initialState() {
+    return {
+        item: {
+            id: null,
+            category: null,
+            title: null,
+            main_image: null,
+            bg_image: null,
+            questions: []
+        },
+        resultsItem: {
+            variants: []
+        },
+        categoriesAll: [],
+
+        loading: false
+    };
+}
+
+var getters = {
+    item: function item(state) {
+        return state.item;
+    },
+    resultsItem: function resultsItem(state) {
+        return state.resultsItem;
+    },
+    loading: function loading(state) {
+        return state.loading;
+    },
+    categoriesAll: function categoriesAll(state) {
+        return state.categoriesAll;
+    }
+
+};
+
+var actions = {
+    storeData: function storeData(_ref) {
+        var commit = _ref.commit,
+            state = _ref.state,
+            dispatch = _ref.dispatch;
+
+        commit('setLoading', true);
+        dispatch('Alert/resetState', null, { root: true });
+
+        return new Promise(function (resolve, reject) {
+            var params = new FormData();
+            console.log('item', state.item);
+            for (var fieldName in state.item) {
+                var fieldValue = state.item[fieldName];
+                if ((typeof fieldValue === 'undefined' ? 'undefined' : _typeof(fieldValue)) !== 'object') {
+                    params.set(fieldName, fieldValue);
+                } else {
+                    if (fieldValue && _typeof(fieldValue[0]) !== 'object') {
+                        params.set(fieldName, fieldValue);
+                    } else {
+                        for (var index in fieldValue) {
+                            params.set(fieldName + '[' + index + ']', fieldValue[index]);
+                        }
+                    }
+                }
+            }
+
+            if (_.isEmpty(state.item.category)) {
+                params.set('category_id', '');
+            } else {
+                params.set('category_id', state.item.category.id);
+            }
+            if (_.isEmpty(state.item.questions)) {
+                params.set('questions', '');
+            } else {
+                params.set('questions', JSON.stringify(state.item.questions));
+            }
+            if (state.item.main_image === null) {
+                params.delete('main_image');
+            }
+            if (state.item.bg_image === null) {
+                params.delete('bg_image');
+            }
+            console.log('params', JSON.parse(params.getAll('questions')));
+            axios.post('/api/v1/tests', params).then(function (response) {
+                commit('resetState');
+                resolve();
+            }).catch(function (error) {
+                var message = error.response.data.message || error.message;
+                var errors = error.response.data.errors;
+
+                dispatch('Alert/setAlert', { message: message, errors: errors, color: 'danger' }, { root: true });
+
+                reject(error);
+            }).finally(function () {
+                commit('setLoading', false);
+            });
+        });
+    },
+    updateData: function updateData(_ref2) {
+        var commit = _ref2.commit,
+            state = _ref2.state,
+            dispatch = _ref2.dispatch;
+
+        commit('setLoading', true);
+        dispatch('Alert/resetState', null, { root: true });
+
+        return new Promise(function (resolve, reject) {
+            var params = new FormData();
+            params.set('_method', 'PUT');
+
+            for (var fieldName in state.item) {
+                var fieldValue = state.item[fieldName];
+                if ((typeof fieldValue === 'undefined' ? 'undefined' : _typeof(fieldValue)) !== 'object') {
+                    params.set(fieldName, fieldValue);
+                } else {
+                    if (fieldValue && _typeof(fieldValue[0]) !== 'object') {
+                        params.set(fieldName, fieldValue);
+                    } else {
+                        for (var index in fieldValue) {
+                            params.set(fieldName + '[' + index + ']', fieldValue[index]);
+                        }
+                    }
+                }
+            }
+
+            if (_.isEmpty(state.item.category)) {
+                params.set('category_id', '');
+            } else {
+                params.set('category_id', state.item.category.id);
+            }
+            if (state.item.main_image === null) {
+                params.delete('main_image');
+            }
+            if (state.item.bg_image === null) {
+                params.delete('bg_image');
+            }
+
+            axios.post('/api/v1/tests/' + state.item.id, params).then(function (response) {
+                commit('setItem', response.data.data);
+                resolve();
+            }).catch(function (error) {
+                var message = error.response.data.message || error.message;
+                var errors = error.response.data.errors;
+
+                dispatch('Alert/setAlert', { message: message, errors: errors, color: 'danger' }, { root: true });
+
+                reject(error);
+            }).finally(function () {
+                commit('setLoading', false);
+            });
+        });
+    },
+    fetchData: function fetchData(_ref3, id) {
+        var commit = _ref3.commit,
+            dispatch = _ref3.dispatch;
+
+        axios.get('/api/v1/tests/' + id).then(function (response) {
+            commit('setItem', response.data.data);
+        });
+
+        dispatch('fetchCategoriesAll');
+    },
+    fetchCategoriesAll: function fetchCategoriesAll(_ref4) {
+        var commit = _ref4.commit;
+
+        axios.get('/api/v1/categories').then(function (response) {
+            commit('setCategoriesAll', response.data.data);
+        });
+    },
+    setCategory: function setCategory(_ref5, value) {
+        var commit = _ref5.commit;
+
+        commit('setCategory', value);
+    },
+    setTitle: function setTitle(_ref6, value) {
+        var commit = _ref6.commit;
+
+        commit('setTitle', value);
+    },
+    setMain_image: function setMain_image(_ref7, value) {
+        var commit = _ref7.commit;
+
+        commit('setMain_image', value);
+    },
+    setBg_image: function setBg_image(_ref8, value) {
+        var commit = _ref8.commit;
+
+        commit('setBg_image', value);
+    },
+    setQuestions: function setQuestions(_ref9, value) {
+        var commit = _ref9.commit;
+
+        commit('setQuestions', value);
+    },
+    setResults: function setResults(_ref10, value) {
+        var commit = _ref10.commit;
+
+        commit('setResults', value);
+    },
+    resetState: function resetState(_ref11) {
+        var commit = _ref11.commit;
+
+        commit('resetState');
+    }
+};
+
+var mutations = {
+    setItem: function setItem(state, item) {
+        state.item = item;
+    },
+    setCategory: function setCategory(state, value) {
+        state.item.category = value;
+    },
+    setTitle: function setTitle(state, value) {
+        state.item.title = value;
+    },
+    setMain_image: function setMain_image(state, value) {
+        state.item.main_image = value;
+    },
+    setBg_image: function setBg_image(state, value) {
+        state.item.bg_image = value;
+    },
+    setQuestions: function setQuestions(state, value) {
+        state.item.questions = value;
+    },
+    setResults: function setResults(state, value) {
+        state.resultsItem.variants = value;
+    },
+    setCategoriesAll: function setCategoriesAll(state, value) {
+        state.categoriesAll = value;
+    },
+    setLoading: function setLoading(state, loading) {
+        state.loading = loading;
+    },
+    resetState: function resetState(state) {
+        state = Object.assign(state, initialState());
+    }
+};
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    namespaced: true,
+    state: initialState,
+    getters: getters,
+    actions: actions,
+    mutations: mutations
+});
+
+/***/ }),
+
 /***/ "./resources/client/assets/js/store/modules/Roles/index.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -34491,6 +35159,7 @@ function initialState() {
             bg_image: null,
             questions: []
         },
+        resultsItem: [],
         categoriesAll: [],
 
         loading: false
@@ -34500,6 +35169,9 @@ function initialState() {
 var getters = {
     item: function item(state) {
         return state.item;
+    },
+    resultsItem: function resultsItem(state) {
+        return state.resultsItem;
     },
     loading: function loading(state) {
         return state.loading;
@@ -34665,8 +35337,13 @@ var actions = {
 
         commit('setQuestions', value);
     },
-    resetState: function resetState(_ref10) {
+    setResults: function setResults(_ref10, value) {
         var commit = _ref10.commit;
+
+        commit('setResults', value);
+    },
+    resetState: function resetState(_ref11) {
+        var commit = _ref11.commit;
 
         commit('resetState');
     }
@@ -34690,6 +35367,9 @@ var mutations = {
     },
     setQuestions: function setQuestions(state, value) {
         state.item.questions = value;
+    },
+    setResults: function setResults(state, value) {
+        state.resultsItem = JSON.parse(JSON.stringify(value));
     },
     setCategoriesAll: function setCategoriesAll(state, value) {
         state.categoriesAll = value;

@@ -8,7 +8,9 @@ function initialState() {
             bg_image: null,
             questions: [],
         },
-        resultsItem:[],
+        resultsItem:{
+            variants: []
+        },
         categoriesAll: [],
         
         loading: false,
@@ -201,7 +203,7 @@ const mutations = {
         state.item.questions = value
     },
     setResults(state, value) {
-        state.resultsItem = JSON.parse(JSON.stringify(value))
+        state.resultsItem.variants = value
     },
     setCategoriesAll(state, value) {
         state.categoriesAll = value

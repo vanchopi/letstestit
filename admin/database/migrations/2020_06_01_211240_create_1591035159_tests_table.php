@@ -19,6 +19,7 @@ class Create1591035159TestsTable extends Migration
                 $table->string('main_image')->nullable();
                 $table->string('bg_image')->nullable();
                 $table->json('questions')->nullable();
+                $table->string('type')->nullable();
                 $table->timestamps();
                 $table->softDeletes();
 

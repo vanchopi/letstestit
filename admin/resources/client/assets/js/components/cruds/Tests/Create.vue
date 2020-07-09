@@ -157,7 +157,77 @@
                                             </div>                                            
                                         </div>
                                     </div>
-                                </div>                           
+                                </div>   
+                                
+                                <hr>
+
+                                <div class="form-group">
+                                    <label for="results">Results:</label>
+                                    <div class="questions-paramrtrs__wrapper __results">                                        
+                                        <div class="col">
+                                            <label for="columns">Number of Results</label>
+                                            <input type="number" 
+                                                   class="form-control" 
+                                                   name="columns" 
+                                                   placeholder="Number of Results" 
+                                                   v-model="resultsRows"
+                                                   min="1"
+                                                   max="15" 
+                                                   @input="setResultsOptions"
+                                                >
+                                        </div>
+                                    </div>
+                                    <div class="results-fields__wrapper fields-wrapper">
+                                        <div    v-for="(item, index) in results"
+                                                class="results-fields__item"                                             
+                                        >
+                                            <div class="input-group mb-3">
+                                                <!--<label :for="'num_result' + item.id" class="required">Result №{{index}}</label>-->
+                                                <input type="text" 
+                                                       class="form-control" 
+                                                       :placeholder="'Result № ' + index" 
+                                                        
+                                                       :name="'num_result' + item.id"
+                                                       required=""
+                                                       v-model="item.result" 
+                                                       @input="resultOnInput"
+                                                    >
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <textarea :name="'num_description' + index" 
+                                                          :id="'num-description' + index" 
+                                                          :placeholder="'Description for result № ' + index"
+                                                          cols="30" 
+                                                          rows="6"
+                                                          required="" 
+                                                          v-model="item.description"
+                                                          @input="resultOnInput"
+                                                        >                                                    
+                                                </textarea>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label :for="'result_image' + index">Result Image №{{index}}</label>
+                                                <input
+                                                        type="file"
+                                                        class="form-control"
+                                                        @change="updateResultImage"
+                                                >
+                                                <ul v-if="item.img" class="list-unstyled">
+                                                    <li>
+                                                        {{ item.img.name || item.img.file_name }}
+                                                        <button class="btn btn-xs btn-danger"
+                                                                type="button"
+                                                                @click="removeResultImage"
+                                                        >
+                                                            Remove file
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                        
 
 
                             </div>
@@ -191,6 +261,7 @@ export default {
                 columns: 2,
                 rows: 1,
             },
+            resultsRows: 1,
             questions: [
                 {
                     id: 0,
@@ -217,10 +288,18 @@ export default {
                     ]
                 }
             ],
+            results:[
+                {
+                    id: 0,
+                    result: '',
+                    img: '',
+                    description: '',
+                }
+            ]
         }
     },
     computed: {
-        ...mapGetters('TestsSingle', ['item', 'loading', 'categoriesAll'])
+        ...mapGetters('TestsSingle', ['item', 'resultsItem', 'loading', 'categoriesAll'])
     },
     created() {
         this.fetchCategoriesAll()
@@ -229,7 +308,7 @@ export default {
         this.resetState()
     },
     methods: {
-        ...mapActions('TestsSingle', ['storeData', 'resetState', 'setCategory', 'setTitle', 'setQuestions', 'setMain_image', 'setBg_image', 'fetchCategoriesAll']),
+        ...mapActions('TestsSingle', ['storeData', 'resetState', 'setCategory', 'setTitle', 'setQuestions', 'setResults', 'setMain_image', 'setBg_image', 'fetchCategoriesAll']),
         updateCategory(value) {
             this.setCategory(value)
         },
@@ -255,6 +334,12 @@ export default {
         updateMain_image(e) {
             this.setMain_image(e.target.files[0]);
             this.$forceUpdate();
+        },
+        updateResultImage(e){
+            console.log('results - ', this.results);
+        },
+        removeResultImage(e, id){
+
         },
         removeBg_image(e, id) {
             this.$swal({
@@ -298,6 +383,30 @@ export default {
             this.drawColumnsRows(questions, answers);            
 
         },
+        setResultsOptions(){
+            let results = this.resultsRows == '' ? 1 : parseInt(this.resultsRows);
+            if(results < 1) {
+                results = 1;
+                this.resultsRows = results;   
+            }
+            if(results > 15) {
+                results = 15;
+                this.resultsRows = results;    
+            }
+            this.drawResultsRows(results);
+        },
+        drawResultsRows( results ){
+            this.results = [];
+            for( let i = 0; i < results; i++){
+                this.results[i] = {
+                    id: i,
+                    result: '',
+                    img: '',
+                    description: '',
+                }
+            };
+            return this.results;
+        },
         drawColumnsRows(questions, answers){            
             this.questions = [];
             for( let i = 0; i < questions; i++){
@@ -325,6 +434,14 @@ export default {
         answerOnInput(){
             console.log('on input fields', this.questions);
             this.updateQuestions();
+        },
+        updateResults() {
+            this.setResults(this.results);
+            console.log('results store - ', this.resultsItem);
+        },
+        resultOnInput(){
+            console.log('on input fields', this.results);
+            this.updateResults();
         },
         submitForm() {
             //this.item.questions = this.questions;
@@ -357,6 +474,13 @@ export default {
                 margin-left: 15px;
             }
         }
+        &.__results{
+            .col{
+                &:last-child{
+                    margin-left: 0px;
+                }
+            }   
+        }
     }
     .tab-pane > span{
         display: block;
@@ -367,6 +491,18 @@ export default {
             width: 100%;
             max-width: 615px;
             margin-bottom: 15px;
+        }
+        &.results-fields__wrapper{
+            textarea{
+                width: 100%;
+                max-width: 615px;
+                padding: 6px 12px;
+            }
+            .results-fields__item{
+                margin: 15px 0 15px 0;
+                padding-top: 15px;
+                border-top: 1px solid #d8d2d2;
+            }
         }
     }
 </style>
