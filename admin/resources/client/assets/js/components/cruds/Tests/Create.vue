@@ -335,13 +335,25 @@ export default {
             this.setMain_image(e.target.files[0]);
             this.$forceUpdate();
         },
-        updateResultImage(e, index){
-            //console.log('results image - ', e.target.files[0]);
+        fileToJson( file ){
+            let subFile = {
+              'lastMod'    : file.lastModified,
+              'lastModDate': file.lastModifiedDate,
+              'name'       : file.name,
+              'size'       : file.size,
+              'type'       : file.type,
+            }
+            return subFile;
+        },
+        updateResultImage(e, index){            
             let imgRecord = {
+                //img: this.fileToJson(e.target.files[0]),
                 img: e.target.files[0],
                 id: index
             }
+            console.log('imgRecord - ', imgRecord);
             this.setResultsImage(imgRecord);
+            console.log('results store - ', this.resultsItem);
         },
         removeResultImage(e, id){
 
@@ -442,10 +454,10 @@ export default {
         },
         updateResults() {
             this.setResults(this.results);
-            console.log('results store - ', this.resultsItem);
+            //console.log('results store - ', this.resultsItem);
         },
         resultOnInput(){
-            console.log('on input fields', this.results);
+            //console.log('on input fields', this.results);
             this.updateResults();
         },
         submitForm() {

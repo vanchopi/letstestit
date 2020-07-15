@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Test;
+use App\Result;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Test as TestResource;
 use App\Http\Requests\Admin\StoreTestsRequest;
@@ -45,6 +46,20 @@ class TestsController extends Controller
         /*$path = str_replace('/admin/storage/','',storage_path('public/images/cards'));
         echo '123-' . $path;*/
 
+        $results = $request->variants;
+        //$variants = json_decode($results);
+
+        print_r(gettype($request->main_image));
+
+        echo "--------";
+
+        //print_r(hasFile($request->variants[0]['img']));
+        print_r(gettype($request->variants[0]['img']));
+
+        echo "********";
+
+        print_r($request->all());
+
         $test = Test::create($request->all());        
         
         if ($request->hasFile('main_image')) {
@@ -52,9 +67,31 @@ class TestsController extends Controller
         }if ($request->hasFile('bg_image')) {
             $test->addMedia($request->file('bg_image'))->toMediaCollection('bg_image', 'test_bg');
         }
+        for ($i=0; $i < sizeof($results) ; $i++) {
+            $test->addMedia($request->variants[$i]['img'])->toMediaCollection('result_image', 'results');
+        }
+
+
+        /*for ($i=0; $i < sizeof($results) ; $i++) { 
+            //$resultImg = $request->variants[$i]['img'];
+            if ($request->variants[$i]['img']->hasFile('img')) {
+                $test->addMedia($request->variants[$i]['img']->file('img'))->toMediaCollection('result_image', 'results');
+                echo "yeeeeehhhaaa";
+            }  else {
+                echo "this is shit";
+            } 
+
+            //try{
+            //    $test->addMedia(file_get_contents($request->variants[$i]['img']))->preservingOriginal()->toMediaCollection('result_image', 'results');
+            //    echo "yeeeeehhhaaa";
+            //} catch (Exception $e){
+            //    echo "this is shit";  
+            //}
+
+        }*/
 
         //echo 'id - ' . $test->id;
-
+        
         return (new TestResource($test))
             ->response()
             ->setStatusCode(201);

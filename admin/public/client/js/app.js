@@ -1944,13 +1944,25 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.setMain_image(e.target.files[0]);
             this.$forceUpdate();
         },
+        fileToJson: function fileToJson(file) {
+            var subFile = {
+                'lastMod': file.lastModified,
+                'lastModDate': file.lastModifiedDate,
+                'name': file.name,
+                'size': file.size,
+                'type': file.type
+            };
+            return subFile;
+        },
         updateResultImage: function updateResultImage(e, index) {
-            //console.log('results image - ', e.target.files[0]);
             var imgRecord = {
+                //img: this.fileToJson(e.target.files[0]),
                 img: e.target.files[0],
                 id: index
             };
+            console.log('imgRecord - ', imgRecord);
             this.setResultsImage(imgRecord);
+            console.log('results store - ', this.resultsItem);
         },
         removeResultImage: function removeResultImage(e, id) {},
         removeBg_image: function removeBg_image(e, id) {
@@ -2050,10 +2062,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         },
         updateResults: function updateResults() {
             this.setResults(this.results);
-            console.log('results store - ', this.resultsItem);
+            //console.log('results store - ', this.resultsItem);
         },
         resultOnInput: function resultOnInput() {
-            console.log('on input fields', this.results);
+            //console.log('on input fields', this.results);
             this.updateResults();
         },
         submitForm: function submitForm() {
@@ -35206,6 +35218,8 @@ var actions = {
         return new Promise(function (resolve, reject) {
             var params = new FormData();
             console.log('item', state.item);
+
+            /* filds from item state*/
             for (var fieldName in state.item) {
                 var fieldValue = state.item[fieldName];
                 if ((typeof fieldValue === 'undefined' ? 'undefined' : _typeof(fieldValue)) !== 'object') {
@@ -35231,13 +35245,31 @@ var actions = {
             } else {
                 params.set('questions', JSON.stringify(state.item.questions));
             }
+            /*if (_.isEmpty(state.resultsItem)) {
+                params.set('variants', '')
+            } else {
+                console.log('json - ', JSON.stringify(state.resultsItem));                
+                params.set('variants', state.resultsItem)
+            }*/
             if (state.item.main_image === null) {
                 params.delete('main_image');
             }
             if (state.item.bg_image === null) {
                 params.delete('bg_image');
             }
-            console.log('params', JSON.parse(params.getAll('questions')));
+
+            /*for (var i = 0; i < state.resultsItem.length; i++) {
+                params.append('variants[]', state.resultsItem[i]);
+            }*/
+            for (var i = 0; i < state.resultsItem.length; i++) {
+                var myItemInArr = state.resultsItem[i];
+                for (var prop in myItemInArr) {
+                    params.append('variants[' + i + '][' + prop + ']', myItemInArr[prop]);
+                }
+            }
+
+            /*console.log('params main_image - ', params.get('main_image'));*/
+            //console.log('params', params.getAll('variants'));
             axios.post('/api/v1/tests', params).then(function (response) {
                 commit('resetState');
                 resolve();
@@ -35342,7 +35374,8 @@ var actions = {
     setResultsImage: function setResultsImage(_ref8, payload) {
         var commit = _ref8.commit;
 
-        console.log('value - ', payload.img, ' id - ', payload.id);
+        //console.log('value - ', payload.img, ' id - ', payload.id);
+        commit('setResultsImage', payload);
     },
     setBg_image: function setBg_image(_ref9, value) {
         var commit = _ref9.commit;
@@ -35379,6 +35412,11 @@ var mutations = {
     setMain_image: function setMain_image(state, value) {
         state.item.main_image = value;
         console.log(' main image - ', state.item.main_image);
+    },
+    setResultsImage: function setResultsImage(state, payload) {
+        console.log('1.mutation results - ', state.resultsItem);
+        state.resultsItem[payload.id].img = payload.img;
+        console.log('2.mutation results - ', state.resultsItem);
     },
     setBg_image: function setBg_image(state, value) {
         state.item.bg_image = value;

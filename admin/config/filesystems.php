@@ -86,6 +86,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'results' =>[
+            'driver'     => 'local',
+            'root'       => storage_path('app/public/images/results'),
+            'url'        => env('APP_URL') . '/storage/images/results',
+            'visibility' => 'public',
+        ],
+
         /*'cards' =>[
             'driver' => 'local',
             'root'   => $cardsPath,
