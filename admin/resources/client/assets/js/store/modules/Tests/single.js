@@ -7,6 +7,7 @@ function initialState() {
             main_image: null,
             bg_image: null,
             questions: [],
+            type: null,
         },
         resultsItem:[],
         categoriesAll: [],
@@ -57,23 +58,14 @@ const actions = {
                 params.set('questions', '')
             } else {
                 params.set('questions', JSON.stringify(state.item.questions))
-            }
-            /*if (_.isEmpty(state.resultsItem)) {
-                params.set('variants', '')
-            } else {
-                console.log('json - ', JSON.stringify(state.resultsItem));                
-                params.set('variants', state.resultsItem)
-            }*/
+            }            
             if (state.item.main_image === null) {
                 params.delete('main_image');
             }
             if (state.item.bg_image === null) {
                 params.delete('bg_image');
             }
-
-            /*for (var i = 0; i < state.resultsItem.length; i++) {
-                params.append('variants[]', state.resultsItem[i]);
-            }*/
+            
             for (var i = 0; i < state.resultsItem.length; i++) {     
                 var myItemInArr = state.resultsItem[i];     
                 for (var prop in myItemInArr) {         
@@ -180,6 +172,9 @@ const actions = {
     setTitle({ commit }, value) {
         commit('setTitle', value)
     },
+    setType({ commit }, value) {
+        commit('setType', value)
+    },
     setMain_image({ commit }, value) {
         commit('setMain_image', value)
     },
@@ -215,6 +210,9 @@ const mutations = {
     },
     setTitle(state, value) {
         state.item.title = value
+    },
+    setType(state, value) {
+        state.item.type = value
     },
     setMain_image(state, value) {
         state.item.main_image = value;

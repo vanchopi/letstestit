@@ -80,6 +80,28 @@
                                     </ul>
                                 </div>
 
+                                <hr>
+
+                                <div class="form-group __1">
+                                    <div class="col">
+                                        <label for="type">CHOOSE TEST TYPE </label>
+                                        <select name="type" 
+                                                id="type" 
+                                                v-model="selectedType"
+                                                @change="onChangeType"
+                                                class="form-control" 
+                                          >
+                                              <option v-for="type in testTypes"
+                                                      :value="type"                                              
+                                              >
+                                                {{type.type}}
+                                              </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <hr>
+
                                 <div class="form-group">
                                     <label for="questions">Questions:</label>
                                     <div class="questions-paramrtrs__wrapper">                                        
@@ -139,18 +161,38 @@
                                                             >
                                                     </div>
                                                     <div class="answers-wrapper">
-                                                        <label :for="'num_answer' + item.id" class="required">Answers</label>
+                                                        <div class="labels-wrapper">
+                                                            <label :for="'num_answer' + item.id" class="required">Answers</label>
+                                                            <label v-if="selectedType.id == 0">Correct</label>
+                                                        </div>
                                                         <div v-for="(answer, index) in item.answers"
-                                                             class="input-group mb-3">                                                            
-                                                            <input type="text"
-                                                                   class="form-control"
-                                                                   :placeholder="'answer' + ' № ' + index"
-                                                                   
-                                                                   :name="'num_answer' + item.id + answer.id"
-                                                                   required=""
-                                                                   v-model="answer.dsc"
-                                                                   @input="answerOnInput"
-                                                                >
+                                                             class="mb-3">  
+                                                            <div class="fields-wrapper__internal">
+                                                                <div class="fields-wrapper__item">
+                                                                    <input type="text"
+                                                                           class="form-control"
+                                                                           :placeholder="'answer' + ' № ' + index"
+                                                                           
+                                                                           :name="'num_answer' + item.id + answer.id"
+                                                                           required=""
+                                                                           v-model="answer.dsc"
+                                                                           @input="answerOnInput"
+                                                                        >
+                                                                </div>
+                                                                <div class="fields-wrapper__item"
+                                                                     v-if="selectedType.id == 0"
+                                                                    >  
+                                                                    <label class="check-container">answer № {{index}}
+                                                                        <input  type="radio" 
+                                                                                :name="'num_checked' + item.id"
+                                                                                
+                                                                                class="hidden"
+                                                                                @input="checkOnInput(item.id, index)"
+                                                                        >
+                                                                        <span class="checkmark"></span>
+                                                                    </label>                               
+                                                                </div>
+                                                            </div>      
                                                         </div>
                                                     </div>
                                                 </div>
@@ -262,6 +304,20 @@ export default {
                 rows: 1,
             },
             resultsRows: 1,
+            testTypes: [
+              { 
+                id: 0,
+                type: 'knowledges',
+              },
+              {
+                id: 1,
+                type: 'tree',
+              }
+            ],
+            selectedType: {
+                id: null,
+                type: '',
+            },
             questions: [
                 {
                     id: 0,
@@ -294,6 +350,8 @@ export default {
                     result: '',
                     img: '',
                     description: '',
+                    value: 0,
+                    sign: '',
                 }
             ]
         }
@@ -308,7 +366,7 @@ export default {
         this.resetState()
     },
     methods: {
-        ...mapActions('TestsSingle', ['storeData', 'resetState', 'setCategory', 'setTitle', 'setQuestions', 'setResults', 'setResultsImage' ,'setMain_image', 'setBg_image', 'fetchCategoriesAll']),
+        ...mapActions('TestsSingle', ['storeData', 'resetState', 'setCategory', 'setTitle', 'setType', 'setQuestions', 'setResults', 'setResultsImage' ,'setMain_image', 'setBg_image', 'fetchCategoriesAll']),
         updateCategory(value) {
             this.setCategory(value)
         },
@@ -420,6 +478,8 @@ export default {
                     result: '',
                     img: '',
                     description: '',
+                    value: 0,
+                    sign: '',
                 }
             };
             return this.results;
@@ -431,25 +491,46 @@ export default {
                     id: i,
                     question: '',
                     answers: []
-                };
-                
+                };                
                 for(let j = 0; j < answers; j++){
                     this.questions[i].answers[j] = {
                         id: j,
                         dsc: '',
                         checked: false,
-                        value: 0,                        
+                        sign: '',                        
                     }
                 }
             }            
             return this.questions;
+        },
+        onChangeType(){          
+          let val = this.selectedType;
+          switch(val.id) {
+            case 0:  
+              
+              break;
+            case 1:
+              
+              break
+          }
         },
         updateQuestions() {
             this.setQuestions(this.questions);
             console.log('store', this.item.questions);
         },
         answerOnInput(){
-            console.log('on input fields', this.questions);
+            console.log('on input fields', this.questions);            
+            this.updateQuestions();
+        },
+        checkOnInput( el , num){
+            console.log('on check changed', el, ' + ' , num);
+            for (let i = 0; i < this.quizParams.rows; i++){
+                if (  i == num ){
+                    this.questions[el].answers[i].checked = true;
+                } else{
+                    this.questions[el].answers[i].checked = false;
+                }
+            }
             this.updateQuestions();
         },
         updateResults() {
@@ -519,6 +600,44 @@ export default {
                 margin: 15px 0 15px 0;
                 padding-top: 15px;
                 border-top: 1px solid #d8d2d2;
+            }
+        }
+    }
+    .form-group{
+      &.__1{        
+        display: flex;
+        justify-content: space-between;
+        .col{
+          width: calc(50% - 10px);
+        }        
+      }
+    }
+    .fields-wrapper__internal{
+        display: flex;
+        justify-content: flex-start;
+        .fields-wrapper__item{
+            width: calc(50% - 10px);
+            max-width: 615px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-bottom: 15px;
+            &:first-child{
+                margin-right: 10px;
+            }
+        }
+    }
+    .labels-wrapper{
+        display: flex;
+        justify-content: flex-start;
+        label{
+          width: calc(50% - 10px);
+            max-width: 615px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;            
+            &:first-child{
+                margin-right: 10px;
             }
         }
     }

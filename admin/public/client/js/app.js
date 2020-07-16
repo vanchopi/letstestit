@@ -1867,6 +1867,48 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -1879,6 +1921,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 rows: 1
             },
             resultsRows: 1,
+            testTypes: [{
+                id: 0,
+                type: 'knowledges'
+            }, {
+                id: 1,
+                type: 'tree'
+            }],
+            selectedType: {
+                id: null,
+                type: ''
+            },
             questions: [{
                 id: 0,
                 question: '',
@@ -1902,7 +1955,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 id: 0,
                 result: '',
                 img: '',
-                description: ''
+                description: '',
+                value: 0,
+                sign: ''
             }]
         };
     },
@@ -1915,7 +1970,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         this.resetState();
     },
 
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TestsSingle', ['storeData', 'resetState', 'setCategory', 'setTitle', 'setQuestions', 'setResults', 'setResultsImage', 'setMain_image', 'setBg_image', 'fetchCategoriesAll']), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TestsSingle', ['storeData', 'resetState', 'setCategory', 'setTitle', 'setType', 'setQuestions', 'setResults', 'setResultsImage', 'setMain_image', 'setBg_image', 'fetchCategoriesAll']), {
         updateCategory: function updateCategory(value) {
             this.setCategory(value);
         },
@@ -2027,7 +2082,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                     id: i,
                     result: '',
                     img: '',
-                    description: ''
+                    description: '',
+                    value: 0,
+                    sign: ''
                 };
             };
             return this.results;
@@ -2040,17 +2097,27 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                     question: '',
                     answers: []
                 };
-
                 for (var j = 0; j < answers; j++) {
                     this.questions[i].answers[j] = {
                         id: j,
                         dsc: '',
                         checked: false,
-                        value: 0
+                        sign: ''
                     };
                 }
             }
             return this.questions;
+        },
+        onChangeType: function onChangeType() {
+            var val = this.selectedType;
+            switch (val.id) {
+                case 0:
+
+                    break;
+                case 1:
+
+                    break;
+            }
         },
         updateQuestions: function updateQuestions() {
             this.setQuestions(this.questions);
@@ -2058,6 +2125,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         },
         answerOnInput: function answerOnInput() {
             console.log('on input fields', this.questions);
+            this.updateQuestions();
+        },
+        checkOnInput: function checkOnInput(el, num) {
+            console.log('on check changed', el, ' + ', num);
+            for (var i = 0; i < this.quizParams.rows; i++) {
+                if (i == num) {
+                    this.questions[el].answers[i].checked = true;
+                } else {
+                    this.questions[el].answers[i].checked = false;
+                }
+            }
             this.updateQuestions();
         },
         updateResults: function updateResults() {
@@ -3641,7 +3719,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.questions-paramrtrs__wrapper[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  margin: 15px 0 30px 0;\n  padding-top: 15px;\n  border-top: 1px solid #d8d2d2;\n}\n.questions-paramrtrs__wrapper .col[data-v-fd12abd2] {\n    width: 45%;\n    max-width: 300px;\n}\n.questions-paramrtrs__wrapper .col[data-v-fd12abd2]:last-child {\n      margin-left: 15px;\n}\n.questions-paramrtrs__wrapper.__results .col[data-v-fd12abd2]:last-child {\n    margin-left: 0px;\n}\n.tab-pane > span[data-v-fd12abd2] {\n  display: block;\n  margin: 15px 0;\n}\n.fields-wrapper .input-group[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n  margin-bottom: 15px;\n}\n.fields-wrapper.results-fields__wrapper textarea[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n  padding: 6px 12px;\n}\n.fields-wrapper.results-fields__wrapper .results-fields__item[data-v-fd12abd2] {\n  margin: 15px 0 15px 0;\n  padding-top: 15px;\n  border-top: 1px solid #d8d2d2;\n}\n", ""]);
+exports.push([module.i, "\n.questions-paramrtrs__wrapper[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  margin: 15px 0 30px 0;\n  padding-top: 15px;\n  border-top: 1px solid #d8d2d2;\n}\n.questions-paramrtrs__wrapper .col[data-v-fd12abd2] {\n    width: 45%;\n    max-width: 300px;\n}\n.questions-paramrtrs__wrapper .col[data-v-fd12abd2]:last-child {\n      margin-left: 15px;\n}\n.questions-paramrtrs__wrapper.__results .col[data-v-fd12abd2]:last-child {\n    margin-left: 0px;\n}\n.tab-pane > span[data-v-fd12abd2] {\n  display: block;\n  margin: 15px 0;\n}\n.fields-wrapper .input-group[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n  margin-bottom: 15px;\n}\n.fields-wrapper.results-fields__wrapper textarea[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n  padding: 6px 12px;\n}\n.fields-wrapper.results-fields__wrapper .results-fields__item[data-v-fd12abd2] {\n  margin: 15px 0 15px 0;\n  padding-top: 15px;\n  border-top: 1px solid #d8d2d2;\n}\n.form-group.__1[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n.form-group.__1 .col[data-v-fd12abd2] {\n    width: calc(50% - 10px);\n}\n.fields-wrapper__internal[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n}\n.fields-wrapper__internal .fields-wrapper__item[data-v-fd12abd2] {\n    width: calc(50% - 10px);\n    max-width: 615px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    margin-bottom: 15px;\n}\n.fields-wrapper__internal .fields-wrapper__item[data-v-fd12abd2]:first-child {\n      margin-right: 10px;\n}\n.labels-wrapper[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n}\n.labels-wrapper label[data-v-fd12abd2] {\n    width: calc(50% - 10px);\n    max-width: 615px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\n.labels-wrapper label[data-v-fd12abd2]:first-child {\n      margin-right: 10px;\n}\n", ""]);
 
 // exports
 
@@ -30616,6 +30694,67 @@ var render = function() {
                           : _vm._e()
                       ]),
                       _vm._v(" "),
+                      _c("hr"),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group __1" }, [
+                        _c("div", { staticClass: "col" }, [
+                          _c("label", { attrs: { for: "type" } }, [
+                            _vm._v("CHOOSE TEST TYPE ")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.selectedType,
+                                  expression: "selectedType"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { name: "type", id: "type" },
+                              on: {
+                                change: [
+                                  function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.selectedType = $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  },
+                                  _vm.onChangeType
+                                ]
+                              }
+                            },
+                            _vm._l(_vm.testTypes, function(type) {
+                              return _c(
+                                "option",
+                                { domProps: { value: type } },
+                                [
+                                  _vm._v(
+                                    "\n                                            " +
+                                      _vm._s(type.type) +
+                                      "\n                                          "
+                                  )
+                                ]
+                              )
+                            }),
+                            0
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("hr"),
+                      _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
                         _c("label", { attrs: { for: "questions" } }, [
                           _vm._v("Questions:")
@@ -30813,14 +30952,24 @@ var render = function() {
                                       { staticClass: "answers-wrapper" },
                                       [
                                         _c(
-                                          "label",
-                                          {
-                                            staticClass: "required",
-                                            attrs: {
-                                              for: "num_answer" + item.id
-                                            }
-                                          },
-                                          [_vm._v("Answers")]
+                                          "div",
+                                          { staticClass: "labels-wrapper" },
+                                          [
+                                            _c(
+                                              "label",
+                                              {
+                                                staticClass: "required",
+                                                attrs: {
+                                                  for: "num_answer" + item.id
+                                                }
+                                              },
+                                              [_vm._v("Answers")]
+                                            ),
+                                            _vm._v(" "),
+                                            _vm.selectedType.id == 0
+                                              ? _c("label", [_vm._v("Correct")])
+                                              : _vm._e()
+                                          ]
                                         ),
                                         _vm._v(" "),
                                         _vm._l(item.answers, function(
@@ -30829,47 +30978,126 @@ var render = function() {
                                         ) {
                                           return _c(
                                             "div",
-                                            { staticClass: "input-group mb-3" },
+                                            { staticClass: "mb-3" },
                                             [
-                                              _c("input", {
-                                                directives: [
-                                                  {
-                                                    name: "model",
-                                                    rawName: "v-model",
-                                                    value: answer.dsc,
-                                                    expression: "answer.dsc"
-                                                  }
-                                                ],
-                                                staticClass: "form-control",
-                                                attrs: {
-                                                  type: "text",
-                                                  placeholder:
-                                                    "answer" + " № " + index,
-                                                  name:
-                                                    "num_answer" +
-                                                    item.id +
-                                                    answer.id,
-                                                  required: ""
+                                              _c(
+                                                "div",
+                                                {
+                                                  staticClass:
+                                                    "fields-wrapper__internal"
                                                 },
-                                                domProps: { value: answer.dsc },
-                                                on: {
-                                                  input: [
-                                                    function($event) {
-                                                      if (
-                                                        $event.target.composing
-                                                      ) {
-                                                        return
-                                                      }
-                                                      _vm.$set(
-                                                        answer,
-                                                        "dsc",
-                                                        $event.target.value
-                                                      )
+                                                [
+                                                  _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "fields-wrapper__item"
                                                     },
-                                                    _vm.answerOnInput
-                                                  ]
-                                                }
-                                              })
+                                                    [
+                                                      _c("input", {
+                                                        directives: [
+                                                          {
+                                                            name: "model",
+                                                            rawName: "v-model",
+                                                            value: answer.dsc,
+                                                            expression:
+                                                              "answer.dsc"
+                                                          }
+                                                        ],
+                                                        staticClass:
+                                                          "form-control",
+                                                        attrs: {
+                                                          type: "text",
+                                                          placeholder:
+                                                            "answer" +
+                                                            " № " +
+                                                            index,
+                                                          name:
+                                                            "num_answer" +
+                                                            item.id +
+                                                            answer.id,
+                                                          required: ""
+                                                        },
+                                                        domProps: {
+                                                          value: answer.dsc
+                                                        },
+                                                        on: {
+                                                          input: [
+                                                            function($event) {
+                                                              if (
+                                                                $event.target
+                                                                  .composing
+                                                              ) {
+                                                                return
+                                                              }
+                                                              _vm.$set(
+                                                                answer,
+                                                                "dsc",
+                                                                $event.target
+                                                                  .value
+                                                              )
+                                                            },
+                                                            _vm.answerOnInput
+                                                          ]
+                                                        }
+                                                      })
+                                                    ]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _vm.selectedType.id == 0
+                                                    ? _c(
+                                                        "div",
+                                                        {
+                                                          staticClass:
+                                                            "fields-wrapper__item"
+                                                        },
+                                                        [
+                                                          _c(
+                                                            "label",
+                                                            {
+                                                              staticClass:
+                                                                "check-container"
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                "answer № " +
+                                                                  _vm._s(
+                                                                    index
+                                                                  ) +
+                                                                  "\n                                                                    "
+                                                              ),
+                                                              _c("input", {
+                                                                staticClass:
+                                                                  "hidden",
+                                                                attrs: {
+                                                                  type: "radio",
+                                                                  name:
+                                                                    "num_checked" +
+                                                                    item.id
+                                                                },
+                                                                on: {
+                                                                  input: function(
+                                                                    $event
+                                                                  ) {
+                                                                    return _vm.checkOnInput(
+                                                                      item.id,
+                                                                      index
+                                                                    )
+                                                                  }
+                                                                }
+                                                              }),
+                                                              _vm._v(" "),
+                                                              _c("span", {
+                                                                staticClass:
+                                                                  "checkmark"
+                                                              })
+                                                            ]
+                                                          )
+                                                        ]
+                                                      )
+                                                    : _vm._e()
+                                                ]
+                                              )
                                             ]
                                           )
                                         })
@@ -35181,7 +35409,8 @@ function initialState() {
             title: null,
             main_image: null,
             bg_image: null,
-            questions: []
+            questions: [],
+            type: null
         },
         resultsItem: [],
         categoriesAll: [],
@@ -35245,12 +35474,6 @@ var actions = {
             } else {
                 params.set('questions', JSON.stringify(state.item.questions));
             }
-            /*if (_.isEmpty(state.resultsItem)) {
-                params.set('variants', '')
-            } else {
-                console.log('json - ', JSON.stringify(state.resultsItem));                
-                params.set('variants', state.resultsItem)
-            }*/
             if (state.item.main_image === null) {
                 params.delete('main_image');
             }
@@ -35258,9 +35481,6 @@ var actions = {
                 params.delete('bg_image');
             }
 
-            /*for (var i = 0; i < state.resultsItem.length; i++) {
-                params.append('variants[]', state.resultsItem[i]);
-            }*/
             for (var i = 0; i < state.resultsItem.length; i++) {
                 var myItemInArr = state.resultsItem[i];
                 for (var prop in myItemInArr) {
@@ -35366,34 +35586,39 @@ var actions = {
 
         commit('setTitle', value);
     },
-    setMain_image: function setMain_image(_ref7, value) {
+    setType: function setType(_ref7, value) {
         var commit = _ref7.commit;
+
+        commit('setType', value);
+    },
+    setMain_image: function setMain_image(_ref8, value) {
+        var commit = _ref8.commit;
 
         commit('setMain_image', value);
     },
-    setResultsImage: function setResultsImage(_ref8, payload) {
-        var commit = _ref8.commit;
+    setResultsImage: function setResultsImage(_ref9, payload) {
+        var commit = _ref9.commit;
 
         //console.log('value - ', payload.img, ' id - ', payload.id);
         commit('setResultsImage', payload);
     },
-    setBg_image: function setBg_image(_ref9, value) {
-        var commit = _ref9.commit;
+    setBg_image: function setBg_image(_ref10, value) {
+        var commit = _ref10.commit;
 
         commit('setBg_image', value);
     },
-    setQuestions: function setQuestions(_ref10, value) {
-        var commit = _ref10.commit;
+    setQuestions: function setQuestions(_ref11, value) {
+        var commit = _ref11.commit;
 
         commit('setQuestions', value);
     },
-    setResults: function setResults(_ref11, value) {
-        var commit = _ref11.commit;
+    setResults: function setResults(_ref12, value) {
+        var commit = _ref12.commit;
 
         commit('setResults', value);
     },
-    resetState: function resetState(_ref12) {
-        var commit = _ref12.commit;
+    resetState: function resetState(_ref13) {
+        var commit = _ref13.commit;
 
         commit('resetState');
     }
@@ -35408,6 +35633,9 @@ var mutations = {
     },
     setTitle: function setTitle(state, value) {
         state.item.title = value;
+    },
+    setType: function setType(state, value) {
+        state.item.type = value;
     },
     setMain_image: function setMain_image(state, value) {
         state.item.main_image = value;

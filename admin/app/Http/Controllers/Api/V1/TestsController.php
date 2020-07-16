@@ -54,7 +54,8 @@ class TestsController extends Controller
         echo "--------";
 
         //print_r(hasFile($request->variants[0]['img']));
-        print_r(gettype($request->variants[0]['img']));
+        //print_r(gettype($request->variants[0]['img']));
+        print_r(json_encode($results));
 
         echo "********";
 
@@ -68,29 +69,27 @@ class TestsController extends Controller
             $test->addMedia($request->file('bg_image'))->toMediaCollection('bg_image', 'test_bg');
         }
         for ($i=0; $i < sizeof($results) ; $i++) {
-            $test->addMedia($request->variants[$i]['img'])->toMediaCollection('result_image', 'results');
+            try{
+                $test->addMedia($request->variants[$i]['img'])->toMediaCollection('result_image', 'results');
+            } catch (Exception $e){
+                echo "shit just happened";  
+            }
         }
 
-
-        /*for ($i=0; $i < sizeof($results) ; $i++) { 
-            //$resultImg = $request->variants[$i]['img'];
-            if ($request->variants[$i]['img']->hasFile('img')) {
-                $test->addMedia($request->variants[$i]['img']->file('img'))->toMediaCollection('result_image', 'results');
-                echo "yeeeeehhhaaa";
-            }  else {
-                echo "this is shit";
-            } 
-
-            //try{
-            //    $test->addMedia(file_get_contents($request->variants[$i]['img']))->preservingOriginal()->toMediaCollection('result_image', 'results');
-            //    echo "yeeeeehhhaaa";
-            //} catch (Exception $e){
-            //    echo "this is shit";  
-            //}
-
-        }*/
-
         //echo 'id - ' . $test->id;
+
+        /*$result = Result::create([
+            'variants' => json_encode($results),
+            'test_id' => $test->id,
+        ]);*/
+
+        $result = new Result;
+
+        $result->variants = json_encode($results);
+
+        $result->test_id = $test->id;
+
+        $result->save();
         
         return (new TestResource($test))
             ->response()
