@@ -74,7 +74,8 @@ const actions = {
             }
 
             /*console.log('params main_image - ', params.get('main_image'));*/
-            //console.log('params', params.getAll('variants'));
+            console.log('params', params.getAll('questions'));
+
             axios.post('/api/v1/tests', params)
                 .then(response => {
                     commit('resetState')
@@ -227,7 +228,7 @@ const mutations = {
         state.item.bg_image = value
     },
     setQuestions(state, value) {
-        state.item.questions = value
+        state.item.questions = JSON.parse(JSON.stringify(value))
     },
     setResults(state, value) {
         state.resultsItem = JSON.parse(JSON.stringify(value))

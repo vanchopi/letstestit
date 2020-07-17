@@ -43,8 +43,10 @@ Route::group(['middleware' => 'cors'], function () {
     Route::post('/tests/getlist', 'Tests\TestsController@getTestsList');
     Route::get('/categories/getlist', 'Categories\CategoriesController@getCategoriesList');
     Route::get('/test/{id}',  'Tests\TestsController@getTest');
+    Route::post('/tests/getresults', 'Results\ResultsController@getResult');
 });
 
+/*
 Route::post('/tests/getresults', function (  ) {
     $results = [];
     $results[] = (object) [
@@ -54,7 +56,7 @@ Route::post('/tests/getresults', function (  ) {
         "id" => 0
     ];
     return response()->json($results);
-});
+});*/
 
 Route::post('/tests/getmore', function (  ) {
     $tests = [];

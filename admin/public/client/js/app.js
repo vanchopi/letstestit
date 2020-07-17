@@ -1909,6 +1909,36 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -1929,9 +1959,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 type: 'tree'
             }],
             selectedType: {
-                id: null,
-                type: ''
+                id: 0,
+                type: 'knowledges'
             },
+            selectedSign: [{
+                id: 0,
+                result: '***'
+            }],
             questions: [{
                 id: 0,
                 question: '',
@@ -1939,7 +1973,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                     id: 0,
                     dsc: '',
                     checked: false,
-                    value: 0
+                    value: 0,
+                    sign: null
                 }]
             }, {
                 id: 1,
@@ -1948,7 +1983,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                     id: 0,
                     dsc: '',
                     checked: false,
-                    value: 0
+                    value: 0,
+                    sign: null
                 }]
             }],
             results: [{
@@ -2017,6 +2053,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             };
             console.log('imgRecord - ', imgRecord);
             this.setResultsImage(imgRecord);
+            //this.updateResults();
             console.log('results store - ', this.resultsItem);
         },
         removeResultImage: function removeResultImage(e, id) {},
@@ -2102,7 +2139,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                         id: j,
                         dsc: '',
                         checked: false,
-                        sign: ''
+                        sign: null
                     };
                 }
             }
@@ -2110,14 +2147,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         },
         onChangeType: function onChangeType() {
             var val = this.selectedType;
-            switch (val.id) {
-                case 0:
-
-                    break;
-                case 1:
-
-                    break;
-            }
+            /*switch(val.id) {
+              case 0:  
+                
+                break;
+              case 1:
+                
+                break
+            }*/
+            this.setType(this.selectedType.type);
         },
         updateQuestions: function updateQuestions() {
             this.setQuestions(this.questions);
@@ -2127,8 +2165,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             console.log('on input fields', this.questions);
             this.updateQuestions();
         },
+        onSignType: function onSignType() {
+            console.log('onSignType', this.questions);
+            this.setQuestions(this.questions);
+        },
         checkOnInput: function checkOnInput(el, num) {
-            console.log('on check changed', el, ' + ', num);
+            //console.log('on check changed', el, ' + ' , num);
             for (var i = 0; i < this.quizParams.rows; i++) {
                 if (i == num) {
                     this.questions[el].answers[i].checked = true;
@@ -2140,10 +2182,20 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         },
         updateResults: function updateResults() {
             this.setResults(this.results);
+            this.selectedSign = [];
+            for (var i = 0; i < this.results.length; i++) {
+                console.log(i);
+                this.selectedSign.push({
+                    id: this.results[i].id,
+                    result: this.results[i].result
+                });
+            };
+            console.log('opa - ', this.selectedSign);
+            return this.selectedSign;
             //console.log('results store - ', this.resultsItem);
         },
         resultOnInput: function resultOnInput() {
-            //console.log('on input fields', this.results);
+            //console.log('on input fields', this.results);            
             this.updateResults();
         },
         submitForm: function submitForm() {
@@ -3719,7 +3771,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.questions-paramrtrs__wrapper[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  margin: 15px 0 30px 0;\n  padding-top: 15px;\n  border-top: 1px solid #d8d2d2;\n}\n.questions-paramrtrs__wrapper .col[data-v-fd12abd2] {\n    width: 45%;\n    max-width: 300px;\n}\n.questions-paramrtrs__wrapper .col[data-v-fd12abd2]:last-child {\n      margin-left: 15px;\n}\n.questions-paramrtrs__wrapper.__results .col[data-v-fd12abd2]:last-child {\n    margin-left: 0px;\n}\n.tab-pane > span[data-v-fd12abd2] {\n  display: block;\n  margin: 15px 0;\n}\n.fields-wrapper .input-group[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n  margin-bottom: 15px;\n}\n.fields-wrapper.results-fields__wrapper textarea[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n  padding: 6px 12px;\n}\n.fields-wrapper.results-fields__wrapper .results-fields__item[data-v-fd12abd2] {\n  margin: 15px 0 15px 0;\n  padding-top: 15px;\n  border-top: 1px solid #d8d2d2;\n}\n.form-group.__1[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n.form-group.__1 .col[data-v-fd12abd2] {\n    width: calc(50% - 10px);\n}\n.fields-wrapper__internal[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n}\n.fields-wrapper__internal .fields-wrapper__item[data-v-fd12abd2] {\n    width: calc(50% - 10px);\n    max-width: 615px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    margin-bottom: 15px;\n}\n.fields-wrapper__internal .fields-wrapper__item[data-v-fd12abd2]:first-child {\n      margin-right: 10px;\n}\n.labels-wrapper[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n}\n.labels-wrapper label[data-v-fd12abd2] {\n    width: calc(50% - 10px);\n    max-width: 615px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\n.labels-wrapper label[data-v-fd12abd2]:first-child {\n      margin-right: 10px;\n}\n", ""]);
+exports.push([module.i, "\n.questions-paramrtrs__wrapper[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  margin: 15px 0 30px 0;\n  padding-top: 15px;\n  border-top: 1px solid #d8d2d2;\n}\n.questions-paramrtrs__wrapper .col[data-v-fd12abd2] {\n    width: 45%;\n    max-width: 300px;\n}\n.questions-paramrtrs__wrapper .col[data-v-fd12abd2]:last-child {\n      margin-left: 15px;\n}\n.questions-paramrtrs__wrapper.__results .col[data-v-fd12abd2]:last-child {\n    margin-left: 0px;\n}\n.tab-pane > span[data-v-fd12abd2] {\n  display: block;\n  margin: 15px 0;\n}\n.fields-wrapper .input-group[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n  margin-bottom: 15px;\n}\n.fields-wrapper.results-fields__wrapper textarea[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n  padding: 6px 12px;\n}\n.fields-wrapper.results-fields__wrapper .results-fields__item[data-v-fd12abd2] {\n  margin: 15px 0 15px 0;\n  padding-top: 15px;\n  border-top: 1px solid black;\n}\n.form-group.__1[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n.form-group.__1 .col[data-v-fd12abd2] {\n    width: calc(50% - 10px);\n}\n.fields-wrapper__internal[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n}\n.fields-wrapper__internal .fields-wrapper__item[data-v-fd12abd2] {\n    width: calc(50% - 10px);\n    max-width: 615px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    margin-bottom: 15px;\n}\n.fields-wrapper__internal .fields-wrapper__item[data-v-fd12abd2]:first-child {\n      margin-right: 10px;\n}\n.labels-wrapper[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n}\n.labels-wrapper label[data-v-fd12abd2] {\n    width: calc(50% - 10px);\n    max-width: 615px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\n.labels-wrapper label[data-v-fd12abd2]:first-child {\n      margin-right: 10px;\n}\n", ""]);
 
 // exports
 
@@ -30968,6 +31020,10 @@ var render = function() {
                                             _vm._v(" "),
                                             _vm.selectedType.id == 0
                                               ? _c("label", [_vm._v("Correct")])
+                                              : _vm._e(),
+                                            _vm._v(" "),
+                                            _vm.selectedType.id == 1
+                                              ? _c("label", [_vm._v("Sign")])
                                               : _vm._e()
                                           ]
                                         ),
@@ -31092,6 +31148,104 @@ var render = function() {
                                                                   "checkmark"
                                                               })
                                                             ]
+                                                          )
+                                                        ]
+                                                      )
+                                                    : _vm._e(),
+                                                  _vm._v(" "),
+                                                  _vm.selectedType.id == 1
+                                                    ? _c(
+                                                        "div",
+                                                        {
+                                                          staticClass:
+                                                            "fields-wrapper__item"
+                                                        },
+                                                        [
+                                                          _c(
+                                                            "select",
+                                                            {
+                                                              directives: [
+                                                                {
+                                                                  name: "model",
+                                                                  rawName:
+                                                                    "v-model",
+                                                                  value:
+                                                                    answer.sign,
+                                                                  expression:
+                                                                    "answer.sign"
+                                                                }
+                                                              ],
+                                                              staticClass:
+                                                                "form-control",
+                                                              attrs: {
+                                                                name: "sign",
+                                                                id: "sign"
+                                                              },
+                                                              on: {
+                                                                change: [
+                                                                  function(
+                                                                    $event
+                                                                  ) {
+                                                                    var $$selectedVal = Array.prototype.filter
+                                                                      .call(
+                                                                        $event
+                                                                          .target
+                                                                          .options,
+                                                                        function(
+                                                                          o
+                                                                        ) {
+                                                                          return o.selected
+                                                                        }
+                                                                      )
+                                                                      .map(
+                                                                        function(
+                                                                          o
+                                                                        ) {
+                                                                          var val =
+                                                                            "_value" in
+                                                                            o
+                                                                              ? o._value
+                                                                              : o.value
+                                                                          return val
+                                                                        }
+                                                                      )
+                                                                    _vm.$set(
+                                                                      answer,
+                                                                      "sign",
+                                                                      $event
+                                                                        .target
+                                                                        .multiple
+                                                                        ? $$selectedVal
+                                                                        : $$selectedVal[0]
+                                                                    )
+                                                                  },
+                                                                  _vm.onSignType
+                                                                ]
+                                                              }
+                                                            },
+                                                            _vm._l(
+                                                              _vm.selectedSign,
+                                                              function(sign) {
+                                                                return _c(
+                                                                  "option",
+                                                                  {
+                                                                    domProps: {
+                                                                      value: sign
+                                                                    }
+                                                                  },
+                                                                  [
+                                                                    _vm._v(
+                                                                      "\n                                                                      " +
+                                                                        _vm._s(
+                                                                          sign.result
+                                                                        ) +
+                                                                        "\n                                                                    "
+                                                                    )
+                                                                  ]
+                                                                )
+                                                              }
+                                                            ),
+                                                            0
                                                           )
                                                         ]
                                                       )
@@ -31305,7 +31459,56 @@ var render = function() {
                                         ]
                                       )
                                     : _vm._e()
-                                ])
+                                ]),
+                                _vm._v(" "),
+                                _vm.selectedType.id == 0
+                                  ? _c(
+                                      "div",
+                                      { staticClass: "input-group mb-3" },
+                                      [
+                                        _c("label", { attrs: { for: "" } }, [
+                                          _vm._v("Num of correct answers")
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("input", {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value: item.value,
+                                              expression: "item.value"
+                                            }
+                                          ],
+                                          staticClass: "form-control",
+                                          attrs: {
+                                            type: "number",
+                                            placeholder:
+                                              "Max " + _vm.quizParams.columns,
+                                            name: "num_value" + item.id,
+                                            required: "",
+                                            min: "1",
+                                            max: _vm.quizParams.columns
+                                          },
+                                          domProps: { value: item.value },
+                                          on: {
+                                            input: [
+                                              function($event) {
+                                                if ($event.target.composing) {
+                                                  return
+                                                }
+                                                _vm.$set(
+                                                  item,
+                                                  "value",
+                                                  $event.target.value
+                                                )
+                                              },
+                                              _vm.resultOnInput
+                                            ]
+                                          }
+                                        })
+                                      ]
+                                    )
+                                  : _vm._e()
                               ]
                             )
                           }),
@@ -35489,7 +35692,8 @@ var actions = {
             }
 
             /*console.log('params main_image - ', params.get('main_image'));*/
-            //console.log('params', params.getAll('variants'));
+            console.log('params', params.getAll('questions'));
+
             axios.post('/api/v1/tests', params).then(function (response) {
                 commit('resetState');
                 resolve();
@@ -35650,7 +35854,7 @@ var mutations = {
         state.item.bg_image = value;
     },
     setQuestions: function setQuestions(state, value) {
-        state.item.questions = value;
+        state.item.questions = JSON.parse(JSON.stringify(value));
     },
     setResults: function setResults(state, value) {
         state.resultsItem = JSON.parse(JSON.stringify(value));

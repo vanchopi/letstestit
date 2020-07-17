@@ -164,6 +164,7 @@
                                                         <div class="labels-wrapper">
                                                             <label :for="'num_answer' + item.id" class="required">Answers</label>
                                                             <label v-if="selectedType.id == 0">Correct</label>
+                                                            <label v-if="selectedType.id == 1">Sign</label>
                                                         </div>
                                                         <div v-for="(answer, index) in item.answers"
                                                              class="mb-3">  
@@ -191,6 +192,22 @@
                                                                         >
                                                                         <span class="checkmark"></span>
                                                                     </label>                               
+                                                                </div>
+                                                                <div class="fields-wrapper__item"
+                                                                     v-if="selectedType.id == 1"
+                                                                    >
+                                                                    <select name="sign" 
+                                                                          id="sign" 
+                                                                          v-model="answer.sign"
+                                                                          @change="onSignType"
+                                                                          class="form-control" 
+                                                                    >
+                                                                        <option v-for="sign in selectedSign"
+                                                                                :value="sign"                                              
+                                                                        >
+                                                                          {{sign.result}}
+                                                                        </option>
+                                                                    </select>
                                                                 </div>
                                                             </div>      
                                                         </div>
@@ -267,6 +284,19 @@
                                                     </li>
                                                 </ul>
                                             </div>
+                                            <div v-if="selectedType.id == 0" class="input-group mb-3">       
+                                                <label for="">Num of correct answers</label>
+                                                <input type="number" 
+                                                       class="form-control" 
+                                                       :placeholder="'Max ' + quizParams.columns" 
+                                                       :name="'num_value' + item.id"
+                                                       required=""
+                                                       v-model="item.value"
+                                                       @input="resultOnInput"
+                                                       min="1"
+                                                       :max="quizParams.columns"
+                                                    >
+                                            </div>
                                         </div>
                                     </div>
                                 </div>                        
@@ -315,9 +345,15 @@ export default {
               }
             ],
             selectedType: {
-                id: null,
-                type: '',
+                id: 0,
+                type: 'knowledges',
             },
+            selectedSign:[
+              {
+                id: 0,
+                result: '***',
+              }
+            ],
             questions: [
                 {
                     id: 0,
@@ -328,6 +364,7 @@ export default {
                             dsc: '',
                             checked: false,
                             value: 0,
+                            sign: null,
                         }
                     ]
                 },
@@ -340,6 +377,7 @@ export default {
                             dsc: '',
                             checked: false,
                             value: 0,
+                            sign: null,
                         }
                     ]
                 }
@@ -411,6 +449,7 @@ export default {
             }
             console.log('imgRecord - ', imgRecord);
             this.setResultsImage(imgRecord);
+            //this.updateResults();
             console.log('results store - ', this.resultsItem);
         },
         removeResultImage(e, id){
@@ -497,7 +536,7 @@ export default {
                         id: j,
                         dsc: '',
                         checked: false,
-                        sign: '',                        
+                        sign: null,                        
                     }
                 }
             }            
@@ -505,14 +544,15 @@ export default {
         },
         onChangeType(){          
           let val = this.selectedType;
-          switch(val.id) {
+          /*switch(val.id) {
             case 0:  
               
               break;
             case 1:
               
               break
-          }
+          }*/
+          this.setType(this.selectedType.type);          
         },
         updateQuestions() {
             this.setQuestions(this.questions);
@@ -522,8 +562,12 @@ export default {
             console.log('on input fields', this.questions);            
             this.updateQuestions();
         },
+        onSignType(){
+            console.log('onSignType', this.questions);
+            this.setQuestions(this.questions);
+        },
         checkOnInput( el , num){
-            console.log('on check changed', el, ' + ' , num);
+            //console.log('on check changed', el, ' + ' , num);
             for (let i = 0; i < this.quizParams.rows; i++){
                 if (  i == num ){
                     this.questions[el].answers[i].checked = true;
@@ -535,11 +579,22 @@ export default {
         },
         updateResults() {
             this.setResults(this.results);
+            this.selectedSign = [];
+            for(let i = 0; i < this.results.length; i++ ){
+                console.log(i);
+                this.selectedSign.push({
+                    id: this.results[i].id,
+                    result: this.results[i].result,
+                })
+            };
+            console.log('opa - ', this.selectedSign);
+            return this.selectedSign;
             //console.log('results store - ', this.resultsItem);
         },
         resultOnInput(){
-            //console.log('on input fields', this.results);
+            //console.log('on input fields', this.results);            
             this.updateResults();
+            
         },
         submitForm() {
             //this.item.questions = this.questions;
@@ -599,7 +654,7 @@ export default {
             .results-fields__item{
                 margin: 15px 0 15px 0;
                 padding-top: 15px;
-                border-top: 1px solid #d8d2d2;
+                border-top: 1px solid black;
             }
         }
     }
