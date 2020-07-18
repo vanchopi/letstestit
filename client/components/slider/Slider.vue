@@ -161,7 +161,7 @@ export default {
   mounted(){
     this.checkWidth();
     startSwitcher();
-    window.addEventListener("resize", this.checkWidth);   //magia No slaida     
+    window.addEventListener("resize", this.checkWidth);//magia No slaida
   },
   destroyed() {
     window.removeEventListener("resize", this.checkWidth);

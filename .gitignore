@@ -4,6 +4,8 @@ admin/node_modules
 /public/storage
 /storage/*.key
 admin/storage/*.key
+/admin/public/storage
+admin/public/storage
 /vendor
 admin/vendor
 .env
