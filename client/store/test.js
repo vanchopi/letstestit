@@ -27,7 +27,7 @@ const actions = {
 		try{
 			const  list  =  await getTestResults( id, answers );
         	console.log(list);
-			context.commit('SET_TEST_RESULTS', Object.freeze(list.data[0]));
+			context.commit('SET_TEST_RESULTS', Object.freeze(list.data));
 		}catch(e){
 			console.log(e);
 		}

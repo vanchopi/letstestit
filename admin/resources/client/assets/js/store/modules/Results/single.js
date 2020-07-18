@@ -7,9 +7,10 @@ function initialState() {
             main_image: null,
             bg_image: null,
             questions: [],
-            type: null,
         },
-        resultsItem:[],
+        resultsItem:{
+            variants: []
+        },
         categoriesAll: [],
         
         loading: false,
@@ -32,8 +33,6 @@ const actions = {
         return new Promise((resolve, reject) => {
             let params = new FormData();
             console.log('item' , state.item);
-
-            /* filds from item state*/
             for (let fieldName in state.item) {
                 let fieldValue = state.item[fieldName];
                 if (typeof fieldValue !== 'object') {
@@ -58,24 +57,14 @@ const actions = {
                 params.set('questions', '')
             } else {
                 params.set('questions', JSON.stringify(state.item.questions))
-            }            
+            }
             if (state.item.main_image === null) {
                 params.delete('main_image');
             }
             if (state.item.bg_image === null) {
                 params.delete('bg_image');
             }
-            
-            for (var i = 0; i < state.resultsItem.length; i++) {     
-                var myItemInArr = state.resultsItem[i];     
-                for (var prop in myItemInArr) {         
-                    params.append(`variants[${i}][${prop}]`, myItemInArr[prop]);     
-                } 
-            }
-
-            /*console.log('params main_image - ', params.get('main_image'));*/
-            console.log('params', params.getAll('questions'));
-
+            console.log('params', JSON.parse(params.getAll('questions')));
             axios.post('/api/v1/tests', params)
                 .then(response => {
                     commit('resetState')
@@ -173,16 +162,8 @@ const actions = {
     setTitle({ commit }, value) {
         commit('setTitle', value)
     },
-    setType({ commit }, value) {
-        commit('setType', value)
-    },
     setMain_image({ commit }, value) {
         commit('setMain_image', value)
-    },
-
-    setResultsImage({ commit }, payload) {
-        //console.log('value - ', payload.img, ' id - ', payload.id);
-        commit('setResultsImage', payload);
     },
     
     setBg_image({ commit }, value) {
@@ -212,26 +193,17 @@ const mutations = {
     setTitle(state, value) {
         state.item.title = value
     },
-    setType(state, value) {
-        state.item.type = value
-    },
     setMain_image(state, value) {
-        state.item.main_image = value;
-        console.log(' main image - ', state.item.main_image);
-    },
-    setResultsImage(state, payload){        
-        console.log('1.mutation results - ', state.resultsItem);
-        state.resultsItem[payload.id].img = payload.img;
-        console.log('2.mutation results - ', state.resultsItem);
+        state.item.main_image = value
     },
     setBg_image(state, value) {
         state.item.bg_image = value
     },
     setQuestions(state, value) {
-        state.item.questions = JSON.parse(JSON.stringify(value))
+        state.item.questions = value
     },
     setResults(state, value) {
-        state.resultsItem = JSON.parse(JSON.stringify(value))
+        state.resultsItem.variants = value
     },
     setCategoriesAll(state, value) {
         state.categoriesAll = value

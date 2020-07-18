@@ -2,10 +2,10 @@
   <div>    
     <!--
     <quiz :ifCatalog="true" />-->
-    <div class="test-wrapper" :style="{ background: 'url(' + imgSrc + '1.png)'}"> 
+    <div class="test-wrapper" :style="{ background: 'url(' + imgSrc + '/storage/images/tests/' + bgImg + ')'}">
       <div class="container">
         
-        <quiz/>
+        <quiz :test="testList"/>
         <!--<advertising />-->
       </div>
     </div>
@@ -15,6 +15,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import Quiz from '~/components/quiz/Quiz'
+import { getTest } from '~/api/test/test'
 //import Advertising from '~/components/advertising/Advertising'
 
 
@@ -32,8 +33,9 @@ export default {
 
   data: () => ({
     title: process.env.appName ,  
-    imgSrc: process.env.appRoot + '/images/tests/',  
-    bgImg: '1.png',    
+    imgSrc: process.env.appRoot ,  
+    bgImg: '1.png', //this.$route.params.img,  
+    testList: null,  
     testInfo: {}
   }),  
 
@@ -41,15 +43,23 @@ export default {
     authenticated: 'auth/check'
   }),
 
-  created(){    
+  created(){            
+    console.log('params', this.bgImg);    
     this.testInfo = {
         id: this.$route.params.id,
         category: 'films'
-    }
+    };
+    this.getThisTest(this.testInfo.id);
   },
   methods:{
-    
-    
+    getThisTest(id){
+      getTest(id).then((request) => {
+        this.testList = request.data.questions;
+        this.bgImg = request.data.main_image;
+        console.log('123', this.bgImg);
+        console.log( 'test - ', this.testList );
+      })
+    }
   }
 }
 </script>

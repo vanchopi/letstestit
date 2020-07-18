@@ -1,7 +1,7 @@
 <template>
   <div >      
 
-    <div class="test-wrapper" :style="{ background: 'url(' + imgSrc + testResults.img + ')'}">
+    <div class="test-wrapper" :style="{ background: 'url(' + imgSrc + '/storage/images/results/' + testResults.img + ')'}">
       <div class="results-wrapper">
         <breadcrumbs />
         <div class="container">
@@ -12,7 +12,7 @@
             </div>
             <div class="socials-wrapper">
               <ul>
-                <li class="item">
+                <li class="item"> 
                   <a href="#">
                     <img src="~assets/images/png/vk.png" alt="">
                   </a>
@@ -65,7 +65,7 @@ export default {
   },
   props: ['info'],
   data: () => ({
-    imgSrc: process.env.appRoot + '/images/results/',    
+    imgSrc: process.env.appRoot,    
   }),
   watch:{
       'testResults'(){
