@@ -28,7 +28,7 @@ class ResultsController extends Controller
 		        $num = self::checkKnowledges($result, $userAnswers, $questions);
 		        break;
 		    case 'tree':
-		        echo $type;
+		        $num = self::checkTree($result, $userAnswers, $questions);
 		        break;		    
 		    default:
 		       echo "хрен знает чё";
@@ -97,15 +97,13 @@ class ResultsController extends Controller
 		    	//echo "3.*";
 		    } else{
 		    	//echo " empty ";
-		    	$error = true;
+		    	$numResult = -1;
 		    	//echo "4.*";
 		    }
 		}else{
 			$numResult = 0;
 			//echo "5.*";
-		}
-    	//$ansArray = 
-    	//echo "correct answers - " . $correct;
+		}    	
     	return $numResult;
     }
 
@@ -119,5 +117,28 @@ class ResultsController extends Controller
 		        return -1;
 		});
     	return $arr;
+    }
+
+    static public function checkTree($result, $userAnswers, $testAnswers){
+        $numResult = 0;
+        $num = sizeof($result);        
+        $signs = [];
+        for ($i=0; $i < sizeof($userAnswers); $i++) { 
+            $signs[$i] = $userAnswers[$i]['sign']['id'];
+        }
+        $unic = array_count_values($signs);
+        $keyArr = [];
+        $n = 0;
+        foreach($unic as $key=>$value){   
+            $keyArr[$n] = $key;
+            $n++;
+        } 
+        /*echo "--***--**---***---***--\n";
+        print_r($unic);
+        echo "--\n";
+        print_r($keyArr);
+        echo "--" . $keyArr[0] . "--\n";
+        echo "--***--**---***---***--\n";*/
+        return $keyArr[0];
     }
 }
