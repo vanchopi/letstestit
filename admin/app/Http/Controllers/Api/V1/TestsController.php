@@ -74,14 +74,7 @@ class TestsController extends Controller
             } catch (Exception $e){
                 echo "shit just happened";  
             }
-        }
-
-        //echo 'id - ' . $test->id;
-
-        /*$result = Result::create([
-            'variants' => json_encode($results),
-            'test_id' => $test->id,
-        ]);*/
+        }        
 
         $result = new Result;
 

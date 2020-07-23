@@ -12,7 +12,7 @@ class ResultsController extends Controller
 {
     public function getResult(Request $request){    	    	    	   	
     	$test = Test::findOrFail($request->id);
-    	$type = $test->type;
+    	$type = $test->test_type;
     	//print_r($type);
     	
     	$result = Result::select('variants')->where('test_id',$request->id)->first(); 
@@ -125,8 +125,9 @@ class ResultsController extends Controller
         $signs = [];
         for ($i=0; $i < sizeof($userAnswers); $i++) { 
             $signs[$i] = $userAnswers[$i]['sign']['id'];
-        }
+        }        
         $unic = array_count_values($signs);
+        arsort($unic);
         $keyArr = [];
         $n = 0;
         foreach($unic as $key=>$value){   
