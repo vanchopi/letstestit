@@ -442,14 +442,16 @@ export default {
             return subFile;
         },
         updateResultImage(e, index){            
-            let imgRecord = {
-                //img: this.fileToJson(e.target.files[0]),
+            /*let imgRecord = {                
                 img: e.target.files[0],
                 id: index
             }
+            this.resultsItem
             console.log('imgRecord - ', imgRecord);
-            this.setResultsImage(imgRecord);
-            //this.updateResults();
+            this.setResultsImage(imgRecord);*/
+            this.results[index].img = e.target.files[0];
+            //console.log('updated result arr - ', this.results);
+            this.setResults(this.results);            
             console.log('results store - ', this.resultsItem);
         },
         removeResultImage(e, id){

@@ -2046,14 +2046,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             return subFile;
         },
         updateResultImage: function updateResultImage(e, index) {
-            var imgRecord = {
-                //img: this.fileToJson(e.target.files[0]),
+            /*let imgRecord = {                
                 img: e.target.files[0],
                 id: index
-            };
+            }
+            this.resultsItem
             console.log('imgRecord - ', imgRecord);
-            this.setResultsImage(imgRecord);
-            //this.updateResults();
+            this.setResultsImage(imgRecord);*/
+            this.results[index].img = e.target.files[0];
+            //console.log('updated result arr - ', this.results);
+            this.setResults(this.results);
             console.log('results store - ', this.resultsItem);
         },
         removeResultImage: function removeResultImage(e, id) {},
@@ -35613,7 +35615,7 @@ function initialState() {
             main_image: null,
             bg_image: null,
             questions: [],
-            type: null
+            test_type: 'knowledges'
         },
         resultsItem: [],
         categoriesAll: [],
@@ -35839,7 +35841,7 @@ var mutations = {
         state.item.title = value;
     },
     setType: function setType(state, value) {
-        state.item.type = value;
+        state.item.test_type = value;
     },
     setMain_image: function setMain_image(state, value) {
         state.item.main_image = value;
@@ -35857,7 +35859,7 @@ var mutations = {
         state.item.questions = JSON.parse(JSON.stringify(value));
     },
     setResults: function setResults(state, value) {
-        state.resultsItem = JSON.parse(JSON.stringify(value));
+        state.resultsItem = value;
     },
     setCategoriesAll: function setCategoriesAll(state, value) {
         state.categoriesAll = value;
