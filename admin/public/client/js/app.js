@@ -1734,17 +1734,289 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            // Code...
+            // Code...            
+            quizParams: {
+                columns: 2,
+                rows: 1
+            },
+            resultsRows: 1,
+            testTypes: [{
+                id: 0,
+                type: 'knowledges'
+            }, {
+                id: 1,
+                type: 'tree'
+            }],
+            selectedType: {
+                id: 0,
+                type: 'knowledges'
+            },
+            selectedSign: [{
+                id: 0,
+                result: '***'
+            }],
+            questions: [{
+                id: 0,
+                question: '',
+                answers: [{
+                    id: 0,
+                    dsc: '',
+                    checked: false,
+                    value: 0,
+                    sign: null
+                }]
+            }, {
+                id: 1,
+                question: '',
+                answers: [{
+                    id: 0,
+                    dsc: '',
+                    checked: false,
+                    value: 0,
+                    sign: null
+                }]
+            }],
+            results: [{
+                id: 0,
+                result: '',
+                img: '',
+                description: '',
+                value: 0,
+                sign: ''
+            }]
         };
     },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('TestsSingle', ['item', 'loading', 'categoriesAll'])),
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('TestsSingle', ['item', 'resultsItem', 'loading', 'categoriesAll'])),
     created: function created() {
         this.fetchCategoriesAll();
     },
@@ -1752,7 +2024,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         this.resetState();
     },
 
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TestsSingle', ['storeData', 'resetState', 'setCategory', 'setTitle', 'setMain_image', 'setBg_image', 'fetchCategoriesAll']), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TestsSingle', ['storeData', 'resetState', 'setCategory', 'setTitle', 'setType', 'setQuestions', 'setResults', 'setResultsImage', 'setMain_image', 'setBg_image', 'fetchCategoriesAll']), {
         updateCategory: function updateCategory(value) {
             this.setCategory(value);
         },
@@ -1781,6 +2053,30 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.setMain_image(e.target.files[0]);
             this.$forceUpdate();
         },
+        fileToJson: function fileToJson(file) {
+            var subFile = {
+                'lastMod': file.lastModified,
+                'lastModDate': file.lastModifiedDate,
+                'name': file.name,
+                'size': file.size,
+                'type': file.type
+            };
+            return subFile;
+        },
+        updateResultImage: function updateResultImage(e, index) {
+            /*let imgRecord = {                
+                img: e.target.files[0],
+                id: index
+            }
+            this.resultsItem
+            console.log('imgRecord - ', imgRecord);
+            this.setResultsImage(imgRecord);*/
+            this.results[index].img = e.target.files[0];
+            //console.log('updated result arr - ', this.results);
+            this.setResults(this.results);
+            console.log('results store - ', this.resultsItem);
+        },
+        removeResultImage: function removeResultImage(e, id) {},
         removeBg_image: function removeBg_image(e, id) {
             var _this2 = this;
 
@@ -1803,9 +2099,129 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.setBg_image(e.target.files[0]);
             this.$forceUpdate();
         },
+        setQuestionsOptions: function setQuestionsOptions() {
+            var questions = this.quizParams.columns == '' ? 1 : parseInt(this.quizParams.columns),
+                answers = this.quizParams.rows == '' ? 1 : parseInt(this.quizParams.rows);
+            if (questions < 1) {
+                questions = 1;
+                this.quizParams.columns = questions;
+            }
+            if (questions > 100) {
+                questions = 100;
+                this.quizParams.columns = questions;
+            }
+            if (answers < 1) {
+                answers = 1;
+                this.quizParams.rows = answers;
+            }
+            if (answers > 20) {
+                answers = 20;
+                this.quizParams.rows = answers;
+            }
+            this.drawColumnsRows(questions, answers);
+        },
+        setResultsOptions: function setResultsOptions() {
+            var results = this.resultsRows == '' ? 1 : parseInt(this.resultsRows);
+            if (results < 1) {
+                results = 1;
+                this.resultsRows = results;
+            }
+            if (results > 15) {
+                results = 15;
+                this.resultsRows = results;
+            }
+            this.drawResultsRows(results);
+        },
+        drawResultsRows: function drawResultsRows(results) {
+            this.results = [];
+            for (var i = 0; i < results; i++) {
+                this.results[i] = {
+                    id: i,
+                    result: '',
+                    img: '',
+                    description: '',
+                    value: 0,
+                    sign: ''
+                };
+            };
+            return this.results;
+        },
+        drawColumnsRows: function drawColumnsRows(questions, answers) {
+            this.questions = [];
+            for (var i = 0; i < questions; i++) {
+                this.questions[i] = {
+                    id: i,
+                    question: '',
+                    answers: []
+                };
+                for (var j = 0; j < answers; j++) {
+                    this.questions[i].answers[j] = {
+                        id: j,
+                        dsc: '',
+                        checked: false,
+                        sign: null
+                    };
+                }
+            }
+            return this.questions;
+        },
+        onChangeType: function onChangeType() {
+            var val = this.selectedType;
+            /*switch(val.id) {
+              case 0:  
+                
+                break;
+              case 1:
+                
+                break
+            }*/
+            this.setType(this.selectedType.type);
+        },
+        updateQuestions: function updateQuestions() {
+            this.setQuestions(this.questions);
+            console.log('store', this.item.questions);
+        },
+        answerOnInput: function answerOnInput() {
+            console.log('on input fields', this.questions);
+            this.updateQuestions();
+        },
+        onSignType: function onSignType() {
+            console.log('onSignType', this.questions);
+            this.setQuestions(this.questions);
+        },
+        checkOnInput: function checkOnInput(el, num) {
+            //console.log('on check changed', el, ' + ' , num);
+            for (var i = 0; i < this.quizParams.rows; i++) {
+                if (i == num) {
+                    this.questions[el].answers[i].checked = true;
+                } else {
+                    this.questions[el].answers[i].checked = false;
+                }
+            }
+            this.updateQuestions();
+        },
+        updateResults: function updateResults() {
+            this.setResults(this.results);
+            this.selectedSign = [];
+            for (var i = 0; i < this.results.length; i++) {
+                console.log(i);
+                this.selectedSign.push({
+                    id: this.results[i].id,
+                    result: this.results[i].result
+                });
+            };
+            console.log('opa - ', this.selectedSign);
+            return this.selectedSign;
+            //console.log('results store - ', this.resultsItem);
+        },
+        resultOnInput: function resultOnInput() {
+            //console.log('on input fields', this.results);            
+            this.updateResults();
+        },
         submitForm: function submitForm() {
             var _this3 = this;
 
+            //this.item.questions = this.questions;
             this.storeData().then(function () {
                 _this3.$router.push({ name: 'tests.index' });
                 _this3.$eventHub.$emit('create-success');
@@ -3367,7 +3783,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-fd12abd2\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Tests/Create.vue":
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-fd12abd2\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Tests/Create.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
@@ -3375,7 +3791,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.questions-paramrtrs__wrapper[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  margin: 15px 0 30px 0;\n  padding-top: 15px;\n  border-top: 1px solid #d8d2d2;\n}\n.questions-paramrtrs__wrapper .col[data-v-fd12abd2] {\n    width: 45%;\n    max-width: 300px;\n}\n.questions-paramrtrs__wrapper .col[data-v-fd12abd2]:last-child {\n      margin-left: 15px;\n}\n.questions-paramrtrs__wrapper.__results .col[data-v-fd12abd2]:last-child {\n    margin-left: 0px;\n}\n.tab-pane > span[data-v-fd12abd2] {\n  display: block;\n  margin: 15px 0;\n}\n.fields-wrapper .input-group[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n  margin-bottom: 15px;\n}\n.fields-wrapper.results-fields__wrapper textarea[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n  padding: 6px 12px;\n}\n.fields-wrapper.results-fields__wrapper .results-fields__item[data-v-fd12abd2] {\n  margin: 15px 0 15px 0;\n  padding-top: 15px;\n  border-top: 1px solid black;\n}\n.form-group.__1[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n.form-group.__1 .col[data-v-fd12abd2] {\n    width: calc(50% - 10px);\n}\n.fields-wrapper__internal[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n}\n.fields-wrapper__internal .fields-wrapper__item[data-v-fd12abd2] {\n    width: calc(50% - 10px);\n    max-width: 615px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    margin-bottom: 15px;\n}\n.fields-wrapper__internal .fields-wrapper__item[data-v-fd12abd2]:first-child {\n      margin-right: 10px;\n}\n.labels-wrapper[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n}\n.labels-wrapper label[data-v-fd12abd2] {\n    width: calc(50% - 10px);\n    max-width: 615px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\n.labels-wrapper label[data-v-fd12abd2]:first-child {\n      margin-right: 10px;\n}\n", ""]);
 
 // exports
 
@@ -30369,6 +30785,776 @@ var render = function() {
                               ])
                             ])
                           : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("hr"),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group __1" }, [
+                        _c("div", { staticClass: "col" }, [
+                          _c("label", { attrs: { for: "type" } }, [
+                            _vm._v("CHOOSE TEST TYPE ")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.selectedType,
+                                  expression: "selectedType"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { name: "type", id: "type" },
+                              on: {
+                                change: [
+                                  function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.selectedType = $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  },
+                                  _vm.onChangeType
+                                ]
+                              }
+                            },
+                            _vm._l(_vm.testTypes, function(type) {
+                              return _c(
+                                "option",
+                                { domProps: { value: type } },
+                                [
+                                  _vm._v(
+                                    "\n                                            " +
+                                      _vm._s(type.type) +
+                                      "\n                                          "
+                                  )
+                                ]
+                              )
+                            }),
+                            0
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("hr"),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "questions" } }, [
+                          _vm._v("Questions:")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "questions-paramrtrs__wrapper" },
+                          [
+                            _c("div", { staticClass: "col" }, [
+                              _c("label", { attrs: { for: "columns" } }, [
+                                _vm._v("Number of Questions")
+                              ]),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.quizParams.columns,
+                                    expression: "quizParams.columns"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "number",
+                                  name: "columns",
+                                  placeholder: "Number of Questions",
+                                  min: "1",
+                                  max: "100"
+                                },
+                                domProps: { value: _vm.quizParams.columns },
+                                on: {
+                                  input: [
+                                    function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.quizParams,
+                                        "columns",
+                                        $event.target.value
+                                      )
+                                    },
+                                    _vm.setQuestionsOptions
+                                  ]
+                                }
+                              })
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col" }, [
+                              _c("label", { attrs: { for: "rows" } }, [
+                                _vm._v("Answers for one question")
+                              ]),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.quizParams.rows,
+                                    expression: "quizParams.rows"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "number",
+                                  name: "rows",
+                                  placeholder: "Answers for one question",
+                                  min: "1",
+                                  max: "20"
+                                },
+                                domProps: { value: _vm.quizParams.rows },
+                                on: {
+                                  input: [
+                                    function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.quizParams,
+                                        "rows",
+                                        $event.target.value
+                                      )
+                                    },
+                                    _vm.setQuestionsOptions
+                                  ]
+                                }
+                              })
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "questions-wrapper" }, [
+                          _c(
+                            "ul",
+                            { staticClass: "nav nav-tabs" },
+                            _vm._l(_vm.questions, function(item, index) {
+                              return _c(
+                                "li",
+                                {
+                                  staticClass: "nav-item",
+                                  class: index == 0 ? "active" : ""
+                                },
+                                [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "nav-link",
+                                      attrs: {
+                                        "data-toggle": "tab",
+                                        href: "#" + item.id
+                                      }
+                                    },
+                                    [_vm._v("№" + _vm._s(index))]
+                                  )
+                                ]
+                              )
+                            }),
+                            0
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "tab-content" },
+                            _vm._l(_vm.questions, function(item, index) {
+                              return _c(
+                                "div",
+                                {
+                                  staticClass: "tab-pane",
+                                  class: index == 0 ? "active" : "",
+                                  attrs: { id: item.id }
+                                },
+                                [
+                                  _c("span", [
+                                    _vm._v(
+                                      "Tabs for question № " + _vm._s(index)
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "fields-wrapper" }, [
+                                    _c(
+                                      "div",
+                                      { staticClass: "input-group mb-3" },
+                                      [
+                                        _c(
+                                          "label",
+                                          {
+                                            staticClass: "required",
+                                            attrs: {
+                                              for: "num_question" + item.id
+                                            }
+                                          },
+                                          [_vm._v("Question")]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("input", {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value: item.question,
+                                              expression: "item.question"
+                                            }
+                                          ],
+                                          staticClass: "form-control",
+                                          attrs: {
+                                            type: "text",
+                                            placeholder: "Question",
+                                            name: "num_question" + item.id,
+                                            required: ""
+                                          },
+                                          domProps: { value: item.question },
+                                          on: {
+                                            input: [
+                                              function($event) {
+                                                if ($event.target.composing) {
+                                                  return
+                                                }
+                                                _vm.$set(
+                                                  item,
+                                                  "question",
+                                                  $event.target.value
+                                                )
+                                              },
+                                              _vm.answerOnInput
+                                            ]
+                                          }
+                                        })
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      { staticClass: "answers-wrapper" },
+                                      [
+                                        _c(
+                                          "div",
+                                          { staticClass: "labels-wrapper" },
+                                          [
+                                            _c(
+                                              "label",
+                                              {
+                                                staticClass: "required",
+                                                attrs: {
+                                                  for: "num_answer" + item.id
+                                                }
+                                              },
+                                              [_vm._v("Answers")]
+                                            ),
+                                            _vm._v(" "),
+                                            _vm.selectedType.id == 0
+                                              ? _c("label", [_vm._v("Correct")])
+                                              : _vm._e(),
+                                            _vm._v(" "),
+                                            _vm.selectedType.id == 1
+                                              ? _c("label", [_vm._v("Sign")])
+                                              : _vm._e()
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _vm._l(item.answers, function(
+                                          answer,
+                                          index
+                                        ) {
+                                          return _c(
+                                            "div",
+                                            { staticClass: "mb-3" },
+                                            [
+                                              _c(
+                                                "div",
+                                                {
+                                                  staticClass:
+                                                    "fields-wrapper__internal"
+                                                },
+                                                [
+                                                  _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "fields-wrapper__item"
+                                                    },
+                                                    [
+                                                      _c("input", {
+                                                        directives: [
+                                                          {
+                                                            name: "model",
+                                                            rawName: "v-model",
+                                                            value: answer.dsc,
+                                                            expression:
+                                                              "answer.dsc"
+                                                          }
+                                                        ],
+                                                        staticClass:
+                                                          "form-control",
+                                                        attrs: {
+                                                          type: "text",
+                                                          placeholder:
+                                                            "answer" +
+                                                            " № " +
+                                                            index,
+                                                          name:
+                                                            "num_answer" +
+                                                            item.id +
+                                                            answer.id,
+                                                          required: ""
+                                                        },
+                                                        domProps: {
+                                                          value: answer.dsc
+                                                        },
+                                                        on: {
+                                                          input: [
+                                                            function($event) {
+                                                              if (
+                                                                $event.target
+                                                                  .composing
+                                                              ) {
+                                                                return
+                                                              }
+                                                              _vm.$set(
+                                                                answer,
+                                                                "dsc",
+                                                                $event.target
+                                                                  .value
+                                                              )
+                                                            },
+                                                            _vm.answerOnInput
+                                                          ]
+                                                        }
+                                                      })
+                                                    ]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _vm.selectedType.id == 0
+                                                    ? _c(
+                                                        "div",
+                                                        {
+                                                          staticClass:
+                                                            "fields-wrapper__item"
+                                                        },
+                                                        [
+                                                          _c(
+                                                            "label",
+                                                            {
+                                                              staticClass:
+                                                                "check-container"
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                "answer № " +
+                                                                  _vm._s(
+                                                                    index
+                                                                  ) +
+                                                                  "\n                                                                    "
+                                                              ),
+                                                              _c("input", {
+                                                                staticClass:
+                                                                  "hidden",
+                                                                attrs: {
+                                                                  type: "radio",
+                                                                  name:
+                                                                    "num_checked" +
+                                                                    item.id
+                                                                },
+                                                                on: {
+                                                                  input: function(
+                                                                    $event
+                                                                  ) {
+                                                                    return _vm.checkOnInput(
+                                                                      item.id,
+                                                                      index
+                                                                    )
+                                                                  }
+                                                                }
+                                                              }),
+                                                              _vm._v(" "),
+                                                              _c("span", {
+                                                                staticClass:
+                                                                  "checkmark"
+                                                              })
+                                                            ]
+                                                          )
+                                                        ]
+                                                      )
+                                                    : _vm._e(),
+                                                  _vm._v(" "),
+                                                  _vm.selectedType.id == 1
+                                                    ? _c(
+                                                        "div",
+                                                        {
+                                                          staticClass:
+                                                            "fields-wrapper__item"
+                                                        },
+                                                        [
+                                                          _c(
+                                                            "select",
+                                                            {
+                                                              directives: [
+                                                                {
+                                                                  name: "model",
+                                                                  rawName:
+                                                                    "v-model",
+                                                                  value:
+                                                                    answer.sign,
+                                                                  expression:
+                                                                    "answer.sign"
+                                                                }
+                                                              ],
+                                                              staticClass:
+                                                                "form-control",
+                                                              attrs: {
+                                                                name: "sign",
+                                                                id: "sign"
+                                                              },
+                                                              on: {
+                                                                change: [
+                                                                  function(
+                                                                    $event
+                                                                  ) {
+                                                                    var $$selectedVal = Array.prototype.filter
+                                                                      .call(
+                                                                        $event
+                                                                          .target
+                                                                          .options,
+                                                                        function(
+                                                                          o
+                                                                        ) {
+                                                                          return o.selected
+                                                                        }
+                                                                      )
+                                                                      .map(
+                                                                        function(
+                                                                          o
+                                                                        ) {
+                                                                          var val =
+                                                                            "_value" in
+                                                                            o
+                                                                              ? o._value
+                                                                              : o.value
+                                                                          return val
+                                                                        }
+                                                                      )
+                                                                    _vm.$set(
+                                                                      answer,
+                                                                      "sign",
+                                                                      $event
+                                                                        .target
+                                                                        .multiple
+                                                                        ? $$selectedVal
+                                                                        : $$selectedVal[0]
+                                                                    )
+                                                                  },
+                                                                  _vm.onSignType
+                                                                ]
+                                                              }
+                                                            },
+                                                            _vm._l(
+                                                              _vm.selectedSign,
+                                                              function(sign) {
+                                                                return _c(
+                                                                  "option",
+                                                                  {
+                                                                    domProps: {
+                                                                      value: sign
+                                                                    }
+                                                                  },
+                                                                  [
+                                                                    _vm._v(
+                                                                      "\n                                                                      " +
+                                                                        _vm._s(
+                                                                          sign.result
+                                                                        ) +
+                                                                        "\n                                                                    "
+                                                                    )
+                                                                  ]
+                                                                )
+                                                              }
+                                                            ),
+                                                            0
+                                                          )
+                                                        ]
+                                                      )
+                                                    : _vm._e()
+                                                ]
+                                              )
+                                            ]
+                                          )
+                                        })
+                                      ],
+                                      2
+                                    )
+                                  ])
+                                ]
+                              )
+                            }),
+                            0
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("hr"),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "results" } }, [
+                          _vm._v("Results:")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "questions-paramrtrs__wrapper __results"
+                          },
+                          [
+                            _c("div", { staticClass: "col" }, [
+                              _c("label", { attrs: { for: "columns" } }, [
+                                _vm._v("Number of Results")
+                              ]),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.resultsRows,
+                                    expression: "resultsRows"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "number",
+                                  name: "columns",
+                                  placeholder: "Number of Results",
+                                  min: "1",
+                                  max: "15"
+                                },
+                                domProps: { value: _vm.resultsRows },
+                                on: {
+                                  input: [
+                                    function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.resultsRows = $event.target.value
+                                    },
+                                    _vm.setResultsOptions
+                                  ]
+                                }
+                              })
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "results-fields__wrapper fields-wrapper"
+                          },
+                          _vm._l(_vm.results, function(item, index) {
+                            return _c(
+                              "div",
+                              { staticClass: "results-fields__item" },
+                              [
+                                _c("div", { staticClass: "input-group mb-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: item.result,
+                                        expression: "item.result"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      type: "text",
+                                      placeholder: "Result № " + index,
+                                      name: "num_result" + item.id,
+                                      required: ""
+                                    },
+                                    domProps: { value: item.result },
+                                    on: {
+                                      input: [
+                                        function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            item,
+                                            "result",
+                                            $event.target.value
+                                          )
+                                        },
+                                        _vm.resultOnInput
+                                      ]
+                                    }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "input-group mb-3" }, [
+                                  _c("textarea", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: item.description,
+                                        expression: "item.description"
+                                      }
+                                    ],
+                                    attrs: {
+                                      name: "num_description" + index,
+                                      id: "num-description" + index,
+                                      placeholder:
+                                        "Description for result № " + index,
+                                      cols: "30",
+                                      rows: "6",
+                                      required: ""
+                                    },
+                                    domProps: { value: item.description },
+                                    on: {
+                                      input: [
+                                        function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            item,
+                                            "description",
+                                            $event.target.value
+                                          )
+                                        },
+                                        _vm.resultOnInput
+                                      ]
+                                    }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "form-group" }, [
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "result_image" + index } },
+                                    [_vm._v("Result Image №" + _vm._s(index))]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    staticClass: "form-control",
+                                    attrs: { type: "file" },
+                                    on: {
+                                      change: function($event) {
+                                        return _vm.updateResultImage(
+                                          $event,
+                                          index
+                                        )
+                                      }
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  item.img
+                                    ? _c(
+                                        "ul",
+                                        { staticClass: "list-unstyled" },
+                                        [
+                                          _c("li", [
+                                            _vm._v(
+                                              "\n                                                    " +
+                                                _vm._s(
+                                                  item.img.name ||
+                                                    item.img.file_name
+                                                ) +
+                                                "\n                                                    "
+                                            ),
+                                            _c(
+                                              "button",
+                                              {
+                                                staticClass:
+                                                  "btn btn-xs btn-danger",
+                                                attrs: { type: "button" },
+                                                on: {
+                                                  click: _vm.removeResultImage
+                                                }
+                                              },
+                                              [
+                                                _vm._v(
+                                                  "\n                                                        Remove file\n                                                    "
+                                                )
+                                              ]
+                                            )
+                                          ])
+                                        ]
+                                      )
+                                    : _vm._e()
+                                ]),
+                                _vm._v(" "),
+                                _vm.selectedType.id == 0
+                                  ? _c(
+                                      "div",
+                                      { staticClass: "input-group mb-3" },
+                                      [
+                                        _c("label", { attrs: { for: "" } }, [
+                                          _vm._v("Num of correct answers")
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("input", {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value: item.value,
+                                              expression: "item.value"
+                                            }
+                                          ],
+                                          staticClass: "form-control",
+                                          attrs: {
+                                            type: "number",
+                                            placeholder:
+                                              "Max " + _vm.quizParams.columns,
+                                            name: "num_value" + item.id,
+                                            required: "",
+                                            min: "1",
+                                            max: _vm.quizParams.columns
+                                          },
+                                          domProps: { value: item.value },
+                                          on: {
+                                            input: [
+                                              function($event) {
+                                                if ($event.target.composing) {
+                                                  return
+                                                }
+                                                _vm.$set(
+                                                  item,
+                                                  "value",
+                                                  $event.target.value
+                                                )
+                                              },
+                                              _vm.resultOnInput
+                                            ]
+                                          }
+                                        })
+                                      ]
+                                    )
+                                  : _vm._e()
+                              ]
+                            )
+                          }),
+                          0
+                        )
                       ])
                     ]),
                     _vm._v(" "),
@@ -31190,23 +32376,23 @@ if(false) {
 
 /***/ }),
 
-/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-fd12abd2\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Tests/Create.vue":
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-fd12abd2\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Tests/Create.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-fd12abd2\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Tests/Create.vue");
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-fd12abd2\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Tests/Create.vue");
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("3a5855c4", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("25b3d5be", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../../../node_modules/css-loader/index.js!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-fd12abd2\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Create.vue", function() {
-     var newContent = require("!!../../../../../../../node_modules/css-loader/index.js!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-fd12abd2\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Create.vue");
+   module.hot.accept("!!../../../../../../../node_modules/css-loader/index.js!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-fd12abd2\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/sass-loader/lib/loader.js!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Create.vue", function() {
+     var newContent = require("!!../../../../../../../node_modules/css-loader/index.js!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-fd12abd2\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/sass-loader/lib/loader.js!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Create.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -32265,7 +33451,7 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-fd12abd2\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Tests/Create.vue")
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-fd12abd2\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Tests/Create.vue")
 }
 var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
 /* script */
@@ -33110,6 +34296,10 @@ var routes = [{ path: '/change-password', component: __WEBPACK_IMPORTED_MODULE_2
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__modules_Categories_single__ = __webpack_require__("./resources/client/assets/js/store/modules/Categories/single.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__modules_Tests__ = __webpack_require__("./resources/client/assets/js/store/modules/Tests/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__modules_Tests_single__ = __webpack_require__("./resources/client/assets/js/store/modules/Tests/single.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__modules_Results__ = __webpack_require__("./resources/client/assets/js/store/modules/Results/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__modules_Results_single__ = __webpack_require__("./resources/client/assets/js/store/modules/Results/single.js");
+
+
 
 
 
@@ -33144,7 +34334,9 @@ var debug = "development" !== 'production';
         CategoriesIndex: __WEBPACK_IMPORTED_MODULE_11__modules_Categories__["a" /* default */],
         CategoriesSingle: __WEBPACK_IMPORTED_MODULE_12__modules_Categories_single__["a" /* default */],
         TestsIndex: __WEBPACK_IMPORTED_MODULE_13__modules_Tests__["a" /* default */],
-        TestsSingle: __WEBPACK_IMPORTED_MODULE_14__modules_Tests_single__["a" /* default */]
+        TestsSingle: __WEBPACK_IMPORTED_MODULE_14__modules_Tests_single__["a" /* default */],
+        ResultsIndex: __WEBPACK_IMPORTED_MODULE_15__modules_Results__["a" /* default */],
+        ResultsSingle: __WEBPACK_IMPORTED_MODULE_16__modules_Results_single__["a" /* default */]
     },
     strict: debug
 }));
@@ -33685,6 +34877,362 @@ var mutations = {
 
 /***/ }),
 
+/***/ "./resources/client/assets/js/store/modules/Results/index.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+function initialState() {
+    return {
+        all: [],
+        relationships: {
+            'category': 'title'
+        },
+        query: {},
+        loading: false
+    };
+}
+
+var getters = {
+    data: function data(state) {
+        var rows = state.all;
+
+        if (state.query.sort) {
+            rows = _.orderBy(state.all, state.query.sort, state.query.order);
+        }
+
+        return rows.slice(state.query.offset, state.query.offset + state.query.limit);
+    },
+    total: function total(state) {
+        return state.all.length;
+    },
+    loading: function loading(state) {
+        return state.loading;
+    },
+    relationships: function relationships(state) {
+        return state.relationships;
+    }
+};
+
+var actions = {
+    fetchData: function fetchData(_ref) {
+        var commit = _ref.commit,
+            state = _ref.state;
+
+        commit('setLoading', true);
+
+        axios.get('/api/v1/tests').then(function (response) {
+            console.log('2 - ', response);
+            commit('setAll', response.data.data);
+        }).catch(function (error) {
+            message = error.response.data.message || error.message;
+            commit('setError', message);
+            console.log(message);
+        }).finally(function () {
+            commit('setLoading', false);
+        });
+    },
+    destroyData: function destroyData(_ref2, id) {
+        var commit = _ref2.commit,
+            state = _ref2.state;
+
+        axios.delete('/api/v1/tests/' + id).then(function (response) {
+            commit('setAll', state.all.filter(function (item) {
+                return item.id != id;
+            }));
+        }).catch(function (error) {
+            message = error.response.data.message || error.message;
+            commit('setError', message);
+            console.log(message);
+        });
+    },
+    setQuery: function setQuery(_ref3, value) {
+        var commit = _ref3.commit;
+
+        commit('setQuery', purify(value));
+    },
+    resetState: function resetState(_ref4) {
+        var commit = _ref4.commit;
+
+        commit('resetState');
+    }
+};
+
+var mutations = {
+    setAll: function setAll(state, items) {
+        state.all = items;
+    },
+    setLoading: function setLoading(state, loading) {
+        state.loading = loading;
+    },
+    setQuery: function setQuery(state, query) {
+        state.query = query;
+    },
+    resetState: function resetState(state) {
+        state = Object.assign(state, initialState());
+    }
+};
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    namespaced: true,
+    state: initialState,
+    getters: getters,
+    actions: actions,
+    mutations: mutations
+});
+
+/***/ }),
+
+/***/ "./resources/client/assets/js/store/modules/Results/single.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+function initialState() {
+    return {
+        item: {
+            id: null,
+            category: null,
+            title: null,
+            main_image: null,
+            bg_image: null,
+            questions: []
+        },
+        resultsItem: {
+            variants: []
+        },
+        categoriesAll: [],
+
+        loading: false
+    };
+}
+
+var getters = {
+    item: function item(state) {
+        return state.item;
+    },
+    resultsItem: function resultsItem(state) {
+        return state.resultsItem;
+    },
+    loading: function loading(state) {
+        return state.loading;
+    },
+    categoriesAll: function categoriesAll(state) {
+        return state.categoriesAll;
+    }
+
+};
+
+var actions = {
+    storeData: function storeData(_ref) {
+        var commit = _ref.commit,
+            state = _ref.state,
+            dispatch = _ref.dispatch;
+
+        commit('setLoading', true);
+        dispatch('Alert/resetState', null, { root: true });
+
+        return new Promise(function (resolve, reject) {
+            var params = new FormData();
+            console.log('item', state.item);
+            for (var fieldName in state.item) {
+                var fieldValue = state.item[fieldName];
+                if ((typeof fieldValue === 'undefined' ? 'undefined' : _typeof(fieldValue)) !== 'object') {
+                    params.set(fieldName, fieldValue);
+                } else {
+                    if (fieldValue && _typeof(fieldValue[0]) !== 'object') {
+                        params.set(fieldName, fieldValue);
+                    } else {
+                        for (var index in fieldValue) {
+                            params.set(fieldName + '[' + index + ']', fieldValue[index]);
+                        }
+                    }
+                }
+            }
+
+            if (_.isEmpty(state.item.category)) {
+                params.set('category_id', '');
+            } else {
+                params.set('category_id', state.item.category.id);
+            }
+            if (_.isEmpty(state.item.questions)) {
+                params.set('questions', '');
+            } else {
+                params.set('questions', JSON.stringify(state.item.questions));
+            }
+            if (state.item.main_image === null) {
+                params.delete('main_image');
+            }
+            if (state.item.bg_image === null) {
+                params.delete('bg_image');
+            }
+            console.log('params', JSON.parse(params.getAll('questions')));
+            axios.post('/api/v1/tests', params).then(function (response) {
+                commit('resetState');
+                resolve();
+            }).catch(function (error) {
+                var message = error.response.data.message || error.message;
+                var errors = error.response.data.errors;
+
+                dispatch('Alert/setAlert', { message: message, errors: errors, color: 'danger' }, { root: true });
+
+                reject(error);
+            }).finally(function () {
+                commit('setLoading', false);
+            });
+        });
+    },
+    updateData: function updateData(_ref2) {
+        var commit = _ref2.commit,
+            state = _ref2.state,
+            dispatch = _ref2.dispatch;
+
+        commit('setLoading', true);
+        dispatch('Alert/resetState', null, { root: true });
+
+        return new Promise(function (resolve, reject) {
+            var params = new FormData();
+            params.set('_method', 'PUT');
+
+            for (var fieldName in state.item) {
+                var fieldValue = state.item[fieldName];
+                if ((typeof fieldValue === 'undefined' ? 'undefined' : _typeof(fieldValue)) !== 'object') {
+                    params.set(fieldName, fieldValue);
+                } else {
+                    if (fieldValue && _typeof(fieldValue[0]) !== 'object') {
+                        params.set(fieldName, fieldValue);
+                    } else {
+                        for (var index in fieldValue) {
+                            params.set(fieldName + '[' + index + ']', fieldValue[index]);
+                        }
+                    }
+                }
+            }
+
+            if (_.isEmpty(state.item.category)) {
+                params.set('category_id', '');
+            } else {
+                params.set('category_id', state.item.category.id);
+            }
+            if (state.item.main_image === null) {
+                params.delete('main_image');
+            }
+            if (state.item.bg_image === null) {
+                params.delete('bg_image');
+            }
+
+            axios.post('/api/v1/tests/' + state.item.id, params).then(function (response) {
+                commit('setItem', response.data.data);
+                resolve();
+            }).catch(function (error) {
+                var message = error.response.data.message || error.message;
+                var errors = error.response.data.errors;
+
+                dispatch('Alert/setAlert', { message: message, errors: errors, color: 'danger' }, { root: true });
+
+                reject(error);
+            }).finally(function () {
+                commit('setLoading', false);
+            });
+        });
+    },
+    fetchData: function fetchData(_ref3, id) {
+        var commit = _ref3.commit,
+            dispatch = _ref3.dispatch;
+
+        axios.get('/api/v1/tests/' + id).then(function (response) {
+            commit('setItem', response.data.data);
+        });
+
+        dispatch('fetchCategoriesAll');
+    },
+    fetchCategoriesAll: function fetchCategoriesAll(_ref4) {
+        var commit = _ref4.commit;
+
+        axios.get('/api/v1/categories').then(function (response) {
+            commit('setCategoriesAll', response.data.data);
+        });
+    },
+    setCategory: function setCategory(_ref5, value) {
+        var commit = _ref5.commit;
+
+        commit('setCategory', value);
+    },
+    setTitle: function setTitle(_ref6, value) {
+        var commit = _ref6.commit;
+
+        commit('setTitle', value);
+    },
+    setMain_image: function setMain_image(_ref7, value) {
+        var commit = _ref7.commit;
+
+        commit('setMain_image', value);
+    },
+    setBg_image: function setBg_image(_ref8, value) {
+        var commit = _ref8.commit;
+
+        commit('setBg_image', value);
+    },
+    setQuestions: function setQuestions(_ref9, value) {
+        var commit = _ref9.commit;
+
+        commit('setQuestions', value);
+    },
+    setResults: function setResults(_ref10, value) {
+        var commit = _ref10.commit;
+
+        commit('setResults', value);
+    },
+    resetState: function resetState(_ref11) {
+        var commit = _ref11.commit;
+
+        commit('resetState');
+    }
+};
+
+var mutations = {
+    setItem: function setItem(state, item) {
+        state.item = item;
+    },
+    setCategory: function setCategory(state, value) {
+        state.item.category = value;
+    },
+    setTitle: function setTitle(state, value) {
+        state.item.title = value;
+    },
+    setMain_image: function setMain_image(state, value) {
+        state.item.main_image = value;
+    },
+    setBg_image: function setBg_image(state, value) {
+        state.item.bg_image = value;
+    },
+    setQuestions: function setQuestions(state, value) {
+        state.item.questions = value;
+    },
+    setResults: function setResults(state, value) {
+        state.resultsItem.variants = value;
+    },
+    setCategoriesAll: function setCategoriesAll(state, value) {
+        state.categoriesAll = value;
+    },
+    setLoading: function setLoading(state, loading) {
+        state.loading = loading;
+    },
+    resetState: function resetState(state) {
+        state = Object.assign(state, initialState());
+    }
+};
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    namespaced: true,
+    state: initialState,
+    getters: getters,
+    actions: actions,
+    mutations: mutations
+});
+
+/***/ }),
+
 /***/ "./resources/client/assets/js/store/modules/Roles/index.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -34030,6 +35578,7 @@ var actions = {
         commit('setLoading', true);
 
         axios.get('/api/v1/tests').then(function (response) {
+            console.log('2 - ', response);
             commit('setAll', response.data.data);
         }).catch(function (error) {
             message = error.response.data.message || error.message;
@@ -34103,8 +35652,11 @@ function initialState() {
             category: null,
             title: null,
             main_image: null,
-            bg_image: null
+            bg_image: null,
+            questions: [],
+            test_type: 'knowledges'
         },
+        resultsItem: [],
         categoriesAll: [],
 
         loading: false
@@ -34114,6 +35666,9 @@ function initialState() {
 var getters = {
     item: function item(state) {
         return state.item;
+    },
+    resultsItem: function resultsItem(state) {
+        return state.resultsItem;
     },
     loading: function loading(state) {
         return state.loading;
@@ -34135,7 +35690,9 @@ var actions = {
 
         return new Promise(function (resolve, reject) {
             var params = new FormData();
+            console.log('item', state.item);
 
+            /* filds from item state*/
             for (var fieldName in state.item) {
                 var fieldValue = state.item[fieldName];
                 if ((typeof fieldValue === 'undefined' ? 'undefined' : _typeof(fieldValue)) !== 'object') {
@@ -34156,12 +35713,27 @@ var actions = {
             } else {
                 params.set('category_id', state.item.category.id);
             }
+            if (_.isEmpty(state.item.questions)) {
+                params.set('questions', '');
+            } else {
+                params.set('questions', JSON.stringify(state.item.questions));
+            }
             if (state.item.main_image === null) {
                 params.delete('main_image');
             }
             if (state.item.bg_image === null) {
                 params.delete('bg_image');
             }
+
+            for (var i = 0; i < state.resultsItem.length; i++) {
+                var myItemInArr = state.resultsItem[i];
+                for (var prop in myItemInArr) {
+                    params.append('variants[' + i + '][' + prop + ']', myItemInArr[prop]);
+                }
+            }
+
+            /*console.log('params main_image - ', params.get('main_image'));*/
+            console.log('params', params.getAll('questions'));
 
             axios.post('/api/v1/tests', params).then(function (response) {
                 commit('resetState');
@@ -34259,18 +35831,39 @@ var actions = {
 
         commit('setTitle', value);
     },
-    setMain_image: function setMain_image(_ref7, value) {
+    setType: function setType(_ref7, value) {
         var commit = _ref7.commit;
+
+        commit('setType', value);
+    },
+    setMain_image: function setMain_image(_ref8, value) {
+        var commit = _ref8.commit;
 
         commit('setMain_image', value);
     },
-    setBg_image: function setBg_image(_ref8, value) {
-        var commit = _ref8.commit;
+    setResultsImage: function setResultsImage(_ref9, payload) {
+        var commit = _ref9.commit;
+
+        //console.log('value - ', payload.img, ' id - ', payload.id);
+        commit('setResultsImage', payload);
+    },
+    setBg_image: function setBg_image(_ref10, value) {
+        var commit = _ref10.commit;
 
         commit('setBg_image', value);
     },
-    resetState: function resetState(_ref9) {
-        var commit = _ref9.commit;
+    setQuestions: function setQuestions(_ref11, value) {
+        var commit = _ref11.commit;
+
+        commit('setQuestions', value);
+    },
+    setResults: function setResults(_ref12, value) {
+        var commit = _ref12.commit;
+
+        commit('setResults', value);
+    },
+    resetState: function resetState(_ref13) {
+        var commit = _ref13.commit;
 
         commit('resetState');
     }
@@ -34286,11 +35879,26 @@ var mutations = {
     setTitle: function setTitle(state, value) {
         state.item.title = value;
     },
+    setType: function setType(state, value) {
+        state.item.test_type = value;
+    },
     setMain_image: function setMain_image(state, value) {
         state.item.main_image = value;
+        console.log(' main image - ', state.item.main_image);
+    },
+    setResultsImage: function setResultsImage(state, payload) {
+        console.log('1.mutation results - ', state.resultsItem);
+        state.resultsItem[payload.id].img = payload.img;
+        console.log('2.mutation results - ', state.resultsItem);
     },
     setBg_image: function setBg_image(state, value) {
         state.item.bg_image = value;
+    },
+    setQuestions: function setQuestions(state, value) {
+        state.item.questions = JSON.parse(JSON.stringify(value));
+    },
+    setResults: function setResults(state, value) {
+        state.resultsItem = value;
     },
     setCategoriesAll: function setCategoriesAll(state, value) {
         state.categoriesAll = value;

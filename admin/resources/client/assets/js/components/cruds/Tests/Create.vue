@@ -79,6 +79,229 @@
                                         </li>
                                     </ul>
                                 </div>
+
+                                <hr>
+
+                                <div class="form-group __1">
+                                    <div class="col">
+                                        <label for="type">CHOOSE TEST TYPE </label>
+                                        <select name="type" 
+                                                id="type" 
+                                                v-model="selectedType"
+                                                @change="onChangeType"
+                                                class="form-control" 
+                                          >
+                                              <option v-for="type in testTypes"
+                                                      :value="type"                                              
+                                              >
+                                                {{type.type}}
+                                              </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <div class="form-group">
+                                    <label for="questions">Questions:</label>
+                                    <div class="questions-paramrtrs__wrapper">                                        
+                                        <div class="col">
+                                            <label for="columns">Number of Questions</label>
+                                            <input type="number" 
+                                                   class="form-control" 
+                                                   name="columns" 
+                                                   placeholder="Number of Questions" 
+                                                   v-model="quizParams.columns"
+                                                   min="1"
+                                                   max="100" 
+                                                   @input="setQuestionsOptions"
+                                                >
+                                        </div>
+                                        <div class="col">
+                                            <label for="rows">Answers for one question</label>
+                                            <input type="number" 
+                                                   class="form-control" 
+                                                   name="rows"
+                                                   placeholder="Answers for one question" 
+                                                   v-model="quizParams.rows"
+                                                   min="1"
+                                                   max="20" 
+                                                   @input="setQuestionsOptions"
+                                                >
+                                        </div>                                        
+                                    </div>
+                                    <div class="questions-wrapper">
+                                        <ul class="nav nav-tabs"
+                                            >
+                                            <li v-for="(item, index) in questions"    
+                                                class="nav-item"
+                                                :class="index == 0 ? 'active' : ''"
+                                                >
+                                                <a class="nav-link" data-toggle="tab" :href="'#' + item.id ">№{{index }}</a>
+                                            </li>                                            
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div v-for="(item, index) in questions"                                                    
+                                                 class="tab-pane" 
+                                                 :class="index == 0 ? 'active' : ''"
+                                                 :id="item.id"
+                                                >
+                                                <span>Tabs for question № {{index}}</span>                                                
+                                                <div class="fields-wrapper">
+                                                    <div class="input-group mb-3">
+                                                        <label :for="'num_question' + item.id" class="required">Question</label>
+                                                        <input type="text" 
+                                                               class="form-control" 
+                                                               placeholder="Question" 
+                                                                
+                                                               :name="'num_question' + item.id"
+                                                               required=""
+                                                               v-model="item.question" 
+                                                               @input="answerOnInput"
+                                                            >
+                                                    </div>
+                                                    <div class="answers-wrapper">
+                                                        <div class="labels-wrapper">
+                                                            <label :for="'num_answer' + item.id" class="required">Answers</label>
+                                                            <label v-if="selectedType.id == 0">Correct</label>
+                                                            <label v-if="selectedType.id == 1">Sign</label>
+                                                        </div>
+                                                        <div v-for="(answer, index) in item.answers"
+                                                             class="mb-3">  
+                                                            <div class="fields-wrapper__internal">
+                                                                <div class="fields-wrapper__item">
+                                                                    <input type="text"
+                                                                           class="form-control"
+                                                                           :placeholder="'answer' + ' № ' + index"
+                                                                           
+                                                                           :name="'num_answer' + item.id + answer.id"
+                                                                           required=""
+                                                                           v-model="answer.dsc"
+                                                                           @input="answerOnInput"
+                                                                        >
+                                                                </div>
+                                                                <div class="fields-wrapper__item"
+                                                                     v-if="selectedType.id == 0"
+                                                                    >  
+                                                                    <label class="check-container">answer № {{index}}
+                                                                        <input  type="radio" 
+                                                                                :name="'num_checked' + item.id"
+                                                                                
+                                                                                class="hidden"
+                                                                                @input="checkOnInput(item.id, index)"
+                                                                        >
+                                                                        <span class="checkmark"></span>
+                                                                    </label>                               
+                                                                </div>
+                                                                <div class="fields-wrapper__item"
+                                                                     v-if="selectedType.id == 1"
+                                                                    >
+                                                                    <select name="sign" 
+                                                                          id="sign" 
+                                                                          v-model="answer.sign"
+                                                                          @change="onSignType"
+                                                                          class="form-control" 
+                                                                    >
+                                                                        <option v-for="sign in selectedSign"
+                                                                                :value="sign"                                              
+                                                                        >
+                                                                          {{sign.result}}
+                                                                        </option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>      
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>                                            
+                                        </div>
+                                    </div>
+                                </div>   
+                                
+                                <hr>
+
+                                <div class="form-group">
+                                    <label for="results">Results:</label>
+                                    <div class="questions-paramrtrs__wrapper __results">                                        
+                                        <div class="col">
+                                            <label for="columns">Number of Results</label>
+                                            <input type="number" 
+                                                   class="form-control" 
+                                                   name="columns" 
+                                                   placeholder="Number of Results" 
+                                                   v-model="resultsRows"
+                                                   min="1"
+                                                   max="15" 
+                                                   @input="setResultsOptions"
+                                                >
+                                        </div>
+                                    </div>
+                                    <div class="results-fields__wrapper fields-wrapper">
+                                        <div    v-for="(item, index) in results"
+                                                class="results-fields__item"                                             
+                                        >
+                                            <div class="input-group mb-3">
+                                                <!--<label :for="'num_result' + item.id" class="required">Result №{{index}}</label>-->
+                                                <input type="text" 
+                                                       class="form-control" 
+                                                       :placeholder="'Result № ' + index" 
+                                                        
+                                                       :name="'num_result' + item.id"
+                                                       required=""
+                                                       v-model="item.result" 
+                                                       @input="resultOnInput"
+                                                    >
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <textarea :name="'num_description' + index" 
+                                                          :id="'num-description' + index" 
+                                                          :placeholder="'Description for result № ' + index"
+                                                          cols="30" 
+                                                          rows="6"
+                                                          required="" 
+                                                          v-model="item.description"
+                                                          @input="resultOnInput"
+                                                        >                                                    
+                                                </textarea>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label :for="'result_image' + index">Result Image №{{index}}</label>
+                                                <input
+                                                        type="file"
+                                                        class="form-control"
+                                                        @change="updateResultImage($event, index)"
+                                                >
+                                                <ul v-if="item.img" class="list-unstyled">
+                                                    <li>
+                                                        {{ item.img.name || item.img.file_name }}
+                                                        <button class="btn btn-xs btn-danger"
+                                                                type="button"
+                                                                @click="removeResultImage"
+                                                        >
+                                                            Remove file
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div v-if="selectedType.id == 0" class="input-group mb-3">       
+                                                <label for="">Num of correct answers</label>
+                                                <input type="number" 
+                                                       class="form-control" 
+                                                       :placeholder="'Max ' + quizParams.columns" 
+                                                       :name="'num_value' + item.id"
+                                                       required=""
+                                                       v-model="item.value"
+                                                       @input="resultOnInput"
+                                                       min="1"
+                                                       :max="quizParams.columns"
+                                                    >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                        
+
+
                             </div>
 
                             <div class="box-footer">
@@ -105,11 +328,74 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
     data() {
         return {
-            // Code...
+            // Code...            
+            quizParams:{
+                columns: 2,
+                rows: 1,
+            },
+            resultsRows: 1,
+            testTypes: [
+              { 
+                id: 0,
+                type: 'knowledges',
+              },
+              {
+                id: 1,
+                type: 'tree',
+              }
+            ],
+            selectedType: {
+                id: 0,
+                type: 'knowledges',
+            },
+            selectedSign:[
+              {
+                id: 0,
+                result: '***',
+              }
+            ],
+            questions: [
+                {
+                    id: 0,
+                    question: '',
+                    answers: [
+                        {
+                            id: 0,
+                            dsc: '',
+                            checked: false,
+                            value: 0,
+                            sign: null,
+                        }
+                    ]
+                },
+                {
+                    id: 1,
+                    question: '',
+                    answers: [
+                        {
+                            id: 0,
+                            dsc: '',
+                            checked: false,
+                            value: 0,
+                            sign: null,
+                        }
+                    ]
+                }
+            ],
+            results:[
+                {
+                    id: 0,
+                    result: '',
+                    img: '',
+                    description: '',
+                    value: 0,
+                    sign: '',
+                }
+            ]
         }
     },
     computed: {
-        ...mapGetters('TestsSingle', ['item', 'loading', 'categoriesAll'])
+        ...mapGetters('TestsSingle', ['item', 'resultsItem', 'loading', 'categoriesAll'])
     },
     created() {
         this.fetchCategoriesAll()
@@ -118,7 +404,7 @@ export default {
         this.resetState()
     },
     methods: {
-        ...mapActions('TestsSingle', ['storeData', 'resetState', 'setCategory', 'setTitle', 'setMain_image', 'setBg_image', 'fetchCategoriesAll']),
+        ...mapActions('TestsSingle', ['storeData', 'resetState', 'setCategory', 'setTitle', 'setType', 'setQuestions', 'setResults', 'setResultsImage' ,'setMain_image', 'setBg_image', 'fetchCategoriesAll']),
         updateCategory(value) {
             this.setCategory(value)
         },
@@ -145,6 +431,32 @@ export default {
             this.setMain_image(e.target.files[0]);
             this.$forceUpdate();
         },
+        fileToJson( file ){
+            let subFile = {
+              'lastMod'    : file.lastModified,
+              'lastModDate': file.lastModifiedDate,
+              'name'       : file.name,
+              'size'       : file.size,
+              'type'       : file.type,
+            }
+            return subFile;
+        },
+        updateResultImage(e, index){            
+            /*let imgRecord = {                
+                img: e.target.files[0],
+                id: index
+            }
+            this.resultsItem
+            console.log('imgRecord - ', imgRecord);
+            this.setResultsImage(imgRecord);*/
+            this.results[index].img = e.target.files[0];
+            //console.log('updated result arr - ', this.results);
+            this.setResults(this.results);            
+            console.log('results store - ', this.resultsItem);
+        },
+        removeResultImage(e, id){
+
+        },
         removeBg_image(e, id) {
             this.$swal({
                 title: 'Are you sure?',
@@ -165,7 +477,129 @@ export default {
             this.setBg_image(e.target.files[0]);
             this.$forceUpdate();
         },
+        setQuestionsOptions(){            
+            let questions = this.quizParams.columns == '' ? 1 : parseInt(this.quizParams.columns),
+                answers = this.quizParams.rows == '' ? 1 : parseInt(this.quizParams.rows);
+            if(questions < 1) {
+                questions = 1;
+                this.quizParams.columns = questions;    
+            }
+            if(questions > 100) {
+                questions = 100;
+                this.quizParams.columns = questions;    
+            }
+            if(answers < 1){ 
+                answers = 1;
+                this.quizParams.rows = answers;
+            }
+            if(answers > 20){ 
+                answers = 20;
+                this.quizParams.rows = answers;
+            }
+            this.drawColumnsRows(questions, answers);            
+
+        },
+        setResultsOptions(){
+            let results = this.resultsRows == '' ? 1 : parseInt(this.resultsRows);
+            if(results < 1) {
+                results = 1;
+                this.resultsRows = results;   
+            }
+            if(results > 15) {
+                results = 15;
+                this.resultsRows = results;    
+            }
+            this.drawResultsRows(results);
+        },
+        drawResultsRows( results ){
+            this.results = [];
+            for( let i = 0; i < results; i++){
+                this.results[i] = {
+                    id: i,
+                    result: '',
+                    img: '',
+                    description: '',
+                    value: 0,
+                    sign: '',
+                }
+            };
+            return this.results;
+        },
+        drawColumnsRows(questions, answers){            
+            this.questions = [];
+            for( let i = 0; i < questions; i++){
+                this.questions[i] = {
+                    id: i,
+                    question: '',
+                    answers: []
+                };                
+                for(let j = 0; j < answers; j++){
+                    this.questions[i].answers[j] = {
+                        id: j,
+                        dsc: '',
+                        checked: false,
+                        sign: null,                        
+                    }
+                }
+            }            
+            return this.questions;
+        },
+        onChangeType(){          
+          let val = this.selectedType;
+          /*switch(val.id) {
+            case 0:  
+              
+              break;
+            case 1:
+              
+              break
+          }*/
+          this.setType(this.selectedType.type);          
+        },
+        updateQuestions() {
+            this.setQuestions(this.questions);
+            console.log('store', this.item.questions);
+        },
+        answerOnInput(){
+            console.log('on input fields', this.questions);            
+            this.updateQuestions();
+        },
+        onSignType(){
+            console.log('onSignType', this.questions);
+            this.setQuestions(this.questions);
+        },
+        checkOnInput( el , num){
+            //console.log('on check changed', el, ' + ' , num);
+            for (let i = 0; i < this.quizParams.rows; i++){
+                if (  i == num ){
+                    this.questions[el].answers[i].checked = true;
+                } else{
+                    this.questions[el].answers[i].checked = false;
+                }
+            }
+            this.updateQuestions();
+        },
+        updateResults() {
+            this.setResults(this.results);
+            this.selectedSign = [];
+            for(let i = 0; i < this.results.length; i++ ){
+                console.log(i);
+                this.selectedSign.push({
+                    id: this.results[i].id,
+                    result: this.results[i].result,
+                })
+            };
+            console.log('opa - ', this.selectedSign);
+            return this.selectedSign;
+            //console.log('results store - ', this.resultsItem);
+        },
+        resultOnInput(){
+            //console.log('on input fields', this.results);            
+            this.updateResults();
+            
+        },
         submitForm() {
+            //this.item.questions = this.questions;
             this.storeData()
                 .then(() => {
                     this.$router.push({ name: 'tests.index' })
@@ -180,6 +614,88 @@ export default {
 </script>
 
 
-<style scoped>
-
+<style scoped lang="scss">
+    .questions-paramrtrs__wrapper{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;        
+        margin: 15px 0 30px 0;
+        padding-top: 15px;
+        border-top: 1px solid #d8d2d2;
+        .col{
+            width: 45%;
+            max-width: 300px;
+            &:last-child{
+                margin-left: 15px;
+            }
+        }
+        &.__results{
+            .col{
+                &:last-child{
+                    margin-left: 0px;
+                }
+            }   
+        }
+    }
+    .tab-pane > span{
+        display: block;
+        margin: 15px 0;
+    }
+    .fields-wrapper{
+        .input-group{
+            width: 100%;
+            max-width: 615px;
+            margin-bottom: 15px;
+        }
+        &.results-fields__wrapper{
+            textarea{
+                width: 100%;
+                max-width: 615px;
+                padding: 6px 12px;
+            }
+            .results-fields__item{
+                margin: 15px 0 15px 0;
+                padding-top: 15px;
+                border-top: 1px solid black;
+            }
+        }
+    }
+    .form-group{
+      &.__1{        
+        display: flex;
+        justify-content: space-between;
+        .col{
+          width: calc(50% - 10px);
+        }        
+      }
+    }
+    .fields-wrapper__internal{
+        display: flex;
+        justify-content: flex-start;
+        .fields-wrapper__item{
+            width: calc(50% - 10px);
+            max-width: 615px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-bottom: 15px;
+            &:first-child{
+                margin-right: 10px;
+            }
+        }
+    }
+    .labels-wrapper{
+        display: flex;
+        justify-content: flex-start;
+        label{
+          width: calc(50% - 10px);
+            max-width: 615px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;            
+            &:first-child{
+                margin-right: 10px;
+            }
+        }
+    }
 </style>

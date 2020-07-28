@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Test;
+use App\Result;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Test as TestResource;
 use App\Http\Requests\Admin\StoreTestsRequest;
 use App\Http\Requests\Admin\UpdateTestsRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\URL;
 
 use App\Http\Controllers\Traits\FileUploadTrait;
 
@@ -39,14 +41,49 @@ class TestsController extends Controller
             return abort(401);
         }
 
-        $test = Test::create($request->all());
+        //$path = explode("admin", storage_path())[0] . 'public\images\cards';
+
+        /*$path = str_replace('/admin/storage/','',storage_path('public/images/cards'));
+        echo '123-' . $path;*/
+
+        $results = $request->variants;
+        //$variants = json_decode($results);
+
+        print_r(gettype($request->main_image));
+
+        echo "--------";
+
+        //print_r(hasFile($request->variants[0]['img']));
+        //print_r(gettype($request->variants[0]['img']));
+        print_r(json_encode($results));
+
+        echo "********";
+
+        print_r($request->all());
+
+        $test = Test::create($request->all());        
         
         if ($request->hasFile('main_image')) {
-            $test->addMedia($request->file('main_image'))->toMediaCollection('main_image');
+            $test->addMedia($request->file('main_image'))->toMediaCollection('main_image', 'cards');
         }if ($request->hasFile('bg_image')) {
-            $test->addMedia($request->file('bg_image'))->toMediaCollection('bg_image');
+            $test->addMedia($request->file('bg_image'))->toMediaCollection('bg_image', 'test_bg');
         }
+        for ($i=0; $i < sizeof($results) ; $i++) {
+            try{
+                $test->addMedia($request->variants[$i]['img'])->toMediaCollection('result_image', 'results');
+            } catch (Exception $e){
+                echo "shit just happened";  
+            }
+        }        
 
+        $result = new Result;
+
+        $result->variants = json_encode($results);
+
+        $result->test_id = $test->id;
+
+        $result->save();
+        
         return (new TestResource($test))
             ->response()
             ->setStatusCode(201);

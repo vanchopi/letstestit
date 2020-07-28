@@ -39,50 +39,14 @@ Route::group(['middleware' => 'guest:api'], function () {
     Route::get('oauth/{driver}/callback', 'Auth\OAuthController@handleProviderCallback')->name('oauth.callback');
 });
 
-Route::get('/categories/getlist', 'Categories\CategoriesController@getCategoriesList');/*function () {
-    $categories = [];
-    $cat0 = [];
-    $cat1 = [];
-    $cat2 = [];
-    $cat3 = [];
-    $cat4 = [];
-    $cat5 = [];
-    $categories[] = [
-        $cat0[] = (object) [ 
-            "id" => 0,
-            "txt" => "Тесты по фильмам",
-            "url" => 0
-        ],
-        $cat1[] = (object) [ 
-            "id" => 1,
-            "txt" => "Тесты по книгам",
-            "url" => 1
-        ],
-        $cat2[] = (object) [ 
-            "id" => 2,
-            "txt" => "Тесты по физике",
-            "url" => 2
-        ],
-        $cat3[] = (object) [ 
-            "id" => 3,
-            "txt" => "Тесты по астрономии",
-            "url" => 3
-        ],
-        $cat4[] = (object) [ 
-            "id" => 4,
-            "txt" => "Тесты по музыке",
-            "url" => 4
-        ],
-        $cat4[] = (object) [ 
-            "id" => 5,
-            "txt" => "Тесты по истории",
-            "url" => 5
-        ],
-    ];
+Route::group(['middleware' => 'cors'], function () {
+    Route::post('/tests/getlist', 'Tests\TestsController@getTestsList');
+    Route::get('/categories/getlist', 'Categories\CategoriesController@getCategoriesList');
+    Route::get('/test/{id}',  'Tests\TestsController@getTest');
+    Route::post('/tests/getresults', 'Results\ResultsController@getResult');
+});
 
-    return response()->json($categories); 
-});*/
-
+/*
 Route::post('/tests/getresults', function (  ) {
     $results = [];
     $results[] = (object) [
@@ -92,7 +56,7 @@ Route::post('/tests/getresults', function (  ) {
         "id" => 0
     ];
     return response()->json($results);
-});
+});*/
 
 Route::post('/tests/getmore', function (  ) {
     $tests = [];
@@ -125,40 +89,10 @@ Route::post('/tests/getmore', function (  ) {
     return response()->json($tests);
 });
 
-Route::post('/tests/getlist', function ( Request $request ) {
-    $tests = [];
-    $tags = [];
-    $tag0 = [];
-    $tag1 = [];
-    $tag2 = [];
-    for ( $i = 0; $i < 6; $i++) {
-        $tests[] = (object) [
-            "cat" => $request->all(),
-            "img" => $i+1 .'.png',
-            "url" => $i,
-            "title" => "Какой ты покемон" . $i . "?",
-            "tags" => $tags[] = (object) [
-                $tag0[] = (object) [ 
-                    "title" => "Хогвартс",
-                    "url" => "welcome"
-                ],
-                $tag1[] = (object) [ 
-                    "title" => "Хогвартс1",
-                    "url" => "welcome"
-                ],
-                $tag2[] = (object) [ 
-                    "title" => "Хогвартс2",
-                    "url" => "welcome"
-                ],
-            ]
-        ];
-    }
 
-    return response()->json($tests);
 
-});
 
-Route::get('/test/{id}', function ($id) {
+/*Route::get('/test/{id}', function ($id) {
     $test = [];   
     $answers = [];
     $ans = [];
@@ -192,4 +126,4 @@ Route::get('/test/{id}', function ($id) {
     }
 
     return response()->json($test);
-});
+});*/

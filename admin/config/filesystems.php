@@ -1,5 +1,7 @@
 <?php
 
+$cardsPath = explode("admin", storage_path())[0] . 'public\images\cards';
+
 return [
 
     /*
@@ -39,7 +41,7 @@ return [
     |
     | Supported Drivers: "local", "ftp", "s3", "rackspace"
     |
-    */
+    */    
 
     'disks' => [
 
@@ -69,6 +71,38 @@ return [
             'region' => env('AWS_REGION'),
             'bucket' => env('AWS_BUCKET'),
         ],
+
+        'cards' =>[
+            'driver'     => 'local',
+            'root'       => storage_path('app/public/images/cards'),
+            'url'        => env('APP_URL') . '/storage/images/cards',
+            'visibility' => 'public',
+        ],
+
+        'test_bg' =>[
+            'driver'     => 'local',
+            'root'       => storage_path('app/public/images/tests'),
+            'url'        => env('APP_URL') . '/storage/images/tests',
+            'visibility' => 'public',
+        ],
+
+        'results' =>[
+            'driver'     => 'local',
+            'root'       => storage_path('app/public/images/results'),
+            'url'        => env('APP_URL') . '/storage/images/results',
+            'visibility' => 'public',
+        ],
+
+        /*'cards' =>[
+            'driver' => 'local',
+            'root'   => $cardsPath,
+        ],*/
+
+
+        /*'test_bg' =>[
+            'driver' => 'local',
+            'root'   => env('IMG_BG_URL'),
+        ],*/
 
         'uploads' => [
             'driver' => 'local',
