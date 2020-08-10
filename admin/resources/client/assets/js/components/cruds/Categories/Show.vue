@@ -37,6 +37,10 @@
                                                 <th>URL</th>
                                                 <td>{{ item.url }}</td>
                                             </tr>
+                                            <tr>
+                                                <th>Main image</th>
+                                                <td v-html="item.main_image_link"></td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>

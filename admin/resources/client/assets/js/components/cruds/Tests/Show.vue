@@ -21,29 +21,29 @@
                                 <div class="col-xs-6">
                                     <table class="table table-bordered table-striped">
                                         <tbody>
-                                        <tr>
-                                            <th>#</th>
-                                            <td>{{ item.id }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Category id</th>
-                                            <td>
-                                                <span class="label label-info" v-if="item.category !== null">
-                                                    {{ item.category.title }}
-                                                </span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Title</th>
-                                            <td>{{ item.title }}</td>
+                                            <tr>
+                                                <th>#</th>
+                                                <td>{{ item.id }}</td>
                                             </tr>
-                                        <tr>
-                                            <th>Main image</th>
-                                            <td v-html="item.main_image_link"></td>
+                                            <tr>
+                                                <th>Category id</th>
+                                                <td>
+                                                    <span class="label label-info" v-if="item.category !== null">
+                                                        {{ item.category.title }}
+                                                    </span>
+                                                </td>
                                             </tr>
-                                        <tr>
-                                            <th>Bg image</th>
-                                            <td v-html="item.bg_image_link"></td>
+                                            <tr>
+                                                <th>Title</th>
+                                                <td>{{ item.title }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Main image</th>
+                                                <td v-html="item.main_image_link"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Bg image</th>
+                                                <td v-html="item.bg_image_link"></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -59,11 +59,11 @@
 
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+    import { mapGetters, mapActions } from 'vuex'
 
-export default {
-    data() {
-        return {
+    export default {
+        data() {
+            return {
             // Code...
         }
     },

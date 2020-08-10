@@ -60,6 +60,7 @@ import DatatableActions from '../../dtmodules/DatatableActions'
 import DatatableSingle from '../../dtmodules/DatatableSingle'
 import DatatableList from '../../dtmodules/DatatableList'
 import DatatableCheckbox from '../../dtmodules/DatatableCheckbox'
+import DatatableMainImageField from './dtmodules/DatatableMainImageField'
 
 
 export default {
@@ -69,6 +70,7 @@ export default {
                 { title: '#', field: 'id', sortable: true, colStyle: 'width: 50px;' },
                 { title: 'Title', field: 'title', sortable: true },
                 { title: 'Description', field: 'description', sortable: true },
+                { title: 'Main image', tdComp: DatatableMainImageField, sortable: false },
                 { title: 'Actions', tdComp: DatatableActions, visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }
             ],
             query: { sort: 'id', order: 'desc' },

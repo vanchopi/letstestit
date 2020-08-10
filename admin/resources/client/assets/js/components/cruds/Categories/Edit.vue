@@ -43,6 +43,7 @@
                                             >
                                     </textarea>
                                 </div>
+
                                 <div class="form-group">
                                     <label for="url">URL</label>
                                     <input
@@ -54,6 +55,27 @@
                                             @input="updateUrl"
                                             >
                                 </div>
+                                
+                                <div class="form-group">
+                                    <label for="main_image">Main image</label>
+                                    <input
+                                            type="file"
+                                            class="form-control"
+                                            @change="updateMain_image"
+                                    >
+                                    <ul v-if="item.main_image" class="list-unstyled">
+                                        <li>
+                                            {{ item.main_image.name || item.main_image.file_name }}
+                                            <button class="btn btn-xs btn-danger"
+                                                    type="button"
+                                                    @click="removeMain_image"
+                                            >
+                                                Remove file
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+
                             </div>
 
                             <div class="box-footer">
@@ -99,7 +121,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions('CategoriesSingle', ['fetchData', 'updateData', 'resetState', 'setTitle', 'setDescription','setUrl']),
+        ...mapActions('CategoriesSingle', ['fetchData', 'updateData', 'resetState', 'setTitle', 'setDescription','setUrl', 'setMain_image']),
         updateTitle(e) {
             this.setTitle(e.target.value)
         },
@@ -108,6 +130,26 @@ export default {
         },
         updateUrl(e) {
             this.setUrl(e.target.value)
+        },
+        removeMain_image(e, id) {
+            this.$swal({
+                title: 'Are you sure?',
+                text: "To fully delete the file submit the form.",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Delete',
+                confirmButtonColor: '#dd4b39',
+                focusCancel: true,
+                reverseButtons: true
+            }).then(result => {
+                if (typeof result.dismiss === "undefined") {
+                    this.setMain_image('');
+                }
+            })
+        },
+        updateMain_image(e) {
+            this.setMain_image(e.target.files[0]);
+            this.$forceUpdate();
         },
         submitForm() {
             this.updateData()
