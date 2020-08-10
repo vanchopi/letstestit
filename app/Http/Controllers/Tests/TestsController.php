@@ -11,15 +11,19 @@ class TestsController extends Controller
 {
     //
     public function getTestsList(Request $request){
-    	$tests = Test::all();
-    	//$medias = self::getMedias($tests);
-    	for ($i=0; $i < count($tests); $i++) { 
-    		//echo 'id' . $tests[$i]->id;
+        $tests = [];
+        $num = $request->category;
+        if ($num > 0 ){
+            $tests = self::getTestsListByCategory($num);
+        }else{
+        	$tests = Test::all();    	
+        }
+        for ($i=0; $i < count($tests); $i++) { 
+            //echo 'id' . $tests[$i]->id;
             $media = self::getMedias($tests[$i]->id);
             $tests[$i]->bg_image = $media->bg_image;
             $tests[$i]->main_image = $media->main_image;                        
-    	}
-    	//echo '1' . $medias;
+        }
         return $tests;
     }
 
@@ -31,6 +35,10 @@ class TestsController extends Controller
         ];
         //print_r($item);
     	return $item;
+    }
+
+    static public function getTestsListByCategory($id){
+        return $test = Test::select('*')->where('category_id',$id)->get();
     }
 
     public function getTest($id){

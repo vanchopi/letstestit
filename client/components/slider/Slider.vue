@@ -141,7 +141,7 @@ export default {
     ],
     testsList: [],
     categoriesList:[], 
-    currentCategory: null, 
+    currentCategory: 1, 
     numStep: 0,
     loader: true
   }),
@@ -198,7 +198,7 @@ export default {
     },
     getTestsListLoal( num ){        
         console.log('swithed category id - ', num ,' -', this.categories[num]);
-        this.currentCategory = this.categories[num];
+        this.currentCategory = this.categories[num].id;
         this.getTests(this.currentCategory);
     },
     async getCategoriesList(){      
@@ -228,7 +228,7 @@ export default {
     async getMore(){
       this.numStep ++;
       try{
-        const  list  =  await getMoreTests(this.numStep, this.currentCategory);                                                       
+        const  list  =  await getMoreTests(this.numStep, this.currentCategory);                                                      
         for (let i = 0; i < list.data.length; i++){
           this.testsList.push(list.data[i])
         }        
