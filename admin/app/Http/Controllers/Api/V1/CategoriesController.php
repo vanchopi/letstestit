@@ -40,7 +40,12 @@ class CategoriesController extends Controller
 
         $category = Category::create($request->all());
         
+        //print_r(gettype($request->main_image));
         
+
+        if ($request->hasFile('main_image')) {
+            $category->addMedia($request->file('main_image'))->toMediaCollection('main_image', 'cards');
+        }
 
         return (new CategoryResource($category))
             ->response()
@@ -57,7 +62,9 @@ class CategoriesController extends Controller
         $category->update($request->all());
         
         
-        
+         if (! $request->input('main_image') && $category->getFirstMedia('main_image')) {
+            $category->getFirstMedia('main_image')->delete();
+        }
 
         return (new CategoryResource($category))
             ->response()

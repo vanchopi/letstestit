@@ -34729,7 +34729,8 @@ function initialState() {
             id: null,
             title: null,
             description: null,
-            url: null
+            url: null,
+            main_image: null
         },
 
         loading: false
@@ -34771,6 +34772,10 @@ var actions = {
                         }
                     }
                 }
+            }
+
+            if (state.item.main_image === null) {
+                params.delete('main_image');
             }
 
             axios.post('/api/v1/categories', params).then(function (response) {
@@ -34815,6 +34820,10 @@ var actions = {
                 }
             }
 
+            if (state.item.main_image === null) {
+                params.delete('main_image');
+            }
+
             axios.post('/api/v1/categories/' + state.item.id, params).then(function (response) {
                 commit('setItem', response.data.data);
                 resolve();
@@ -34853,8 +34862,13 @@ var actions = {
         //изменяем состояние только commit
         commit('setUrl', value);
     },
-    resetState: function resetState(_ref7) {
+    setMain_image: function setMain_image(_ref7, value) {
         var commit = _ref7.commit;
+
+        commit('setMain_image', value);
+    },
+    resetState: function resetState(_ref8) {
+        var commit = _ref8.commit;
 
         commit('resetState');
     }
@@ -34872,6 +34886,10 @@ var mutations = {
     },
     setUrl: function setUrl(state, value) {
         state.item.url = value;
+    },
+    setMain_image: function setMain_image(state, value) {
+        state.item.main_image = value;
+        console.log(' main image - ', state.item.main_image);
     },
     setLoading: function setLoading(state, loading) {
         state.loading = loading;
