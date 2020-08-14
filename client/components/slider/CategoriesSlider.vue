@@ -119,7 +119,7 @@ export default {
   created(){    
     this.$store.dispatch("categories/fetchCategories");   
     this.getCategoriesList();
-    this.getTests();    
+    //this.getTests();    
     console.log('state - ', this.newCategoriesList);
   },
   mounted(){       
@@ -173,9 +173,9 @@ export default {
         console.log(e);
       }
     },  
-    async getTests( currentCategory ){
+    async getTests( currentCategory ){      
       try{
-        const  list  =  await getTestsList( currentCategory );                                
+        const  list  =  await getTestsList( currentCategory );
         //this.categories = Object.freeze(list.data[0]);        
         this.testsList = list.data;
         console.log(' tests ',this.testsList);

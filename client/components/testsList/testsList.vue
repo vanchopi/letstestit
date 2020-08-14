@@ -176,7 +176,7 @@ export default {
       try{
         this.numStep = 0;
         this.testsList = {};
-        const  list  =  await getTestsList( this.currentCategory );       
+        const  list  =  await getTestsList( this.currentCategory, true );
         this.testsList = list.data;
         console.log(' tests ',this.testsList);        
         return this.testsList;

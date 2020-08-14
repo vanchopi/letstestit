@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Tests;
 
 use App\Test;
 use App\Media;
+use App\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -13,11 +14,17 @@ class TestsController extends Controller
     public function getTestsList(Request $request){
         $tests = [];
         $num = $request->category;
-        if ($num > 0 ){
-            $tests = self::getTestsListByCategory($num);
-        }else{
-        	$tests = Test::all();    	
-        }
+
+        if (!$request->url){
+            if($num > 0){
+                $tests = self::getTestsListByCategoryId($num);
+            }else{
+                $tests = Test::all();
+            }
+        }else{            
+            $tests = self::getTestsListByCategoryUrl($num);            
+        }       
+
         for ($i=0; $i < count($tests); $i++) { 
             //echo 'id' . $tests[$i]->id;
             $media = self::getMedias($tests[$i]->id);
@@ -37,8 +44,13 @@ class TestsController extends Controller
     	return $item;
     }
 
-    static public function getTestsListByCategory($id){
-        return $test = Test::select('*')->where('category_id',$id)->get();
+    static public function getTestsListByCategoryId($id){                
+        return $test = Test::select('*')->where('category_id',$id)->get();        
+    }
+
+    static public function getTestsListByCategoryUrl($str){        
+        $cat = Category::where('url', $str)->first();        
+        return $tests = self::getTestsListByCategoryId($cat->id);
     }
 
     public function getTest($id){
