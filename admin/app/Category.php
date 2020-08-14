@@ -12,7 +12,7 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  * @package App
  * @property string $title
  * @property text $description
- * @property string $main_image
+ * @property string $category_image
 */
 class Category extends Model implements HasMedia
 {
@@ -20,7 +20,7 @@ class Category extends Model implements HasMedia
 
     
     protected $fillable = ['title', 'description', 'url'];
-    protected $appends = ['main_image', 'main_image_link'];
+    protected $appends = ['category_image', 'category_image_link'];
     protected $with = ['media'];
 
     public static function storeValidation($request)
@@ -29,7 +29,7 @@ class Category extends Model implements HasMedia
             'title' => 'max:191|nullable',
             'description' => 'max:65535|nullable',
             'url' => 'max:191|nullable',
-            'main_image' => 'file|image|nullable',
+            'category_image' => 'file|image|nullable',
         ];
     }
 
@@ -39,21 +39,21 @@ class Category extends Model implements HasMedia
             'title' => 'max:191|nullable',
             'description' => 'max:65535|nullable',
             'url' => 'max:191|nullable',
-            'main_image' => 'nullable'
+            'category_image' => 'nullable'
         ];
     }
 
-    public function getMainImageAttribute()
+    public function getCategoryImageAttribute()
     {
-        return $this->getFirstMedia('main_image');
+        return $this->getFirstMedia('category_image');
     }
 
     /**
      * @return string
      */
-    public function getMainImageLinkAttribute()
+    public function getCategoryImageLinkAttribute()
     {
-        $file = $this->getFirstMedia('main_image');
+        $file = $this->getFirstMedia('category_image');
         if (! $file) {
             return null;
         }

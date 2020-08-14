@@ -72,6 +72,13 @@ return [
             'bucket' => env('AWS_BUCKET'),
         ],
 
+        'categories' =>[
+            'driver'     => 'local',
+            'root'       => storage_path('app/public/images/categories'),
+            'url'        => env('APP_URL') . '/storage/images/categories',
+            'visibility' => 'public',
+        ],
+
         'cards' =>[
             'driver'     => 'local',
             'root'       => storage_path('app/public/images/cards'),

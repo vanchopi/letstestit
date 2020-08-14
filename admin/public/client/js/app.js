@@ -460,7 +460,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         this.resetState();
     },
 
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('CategoriesSingle', ['storeData', 'resetState', 'setTitle', 'setDescription', 'setUrl', 'setMain_image']), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('CategoriesSingle', ['storeData', 'resetState', 'setTitle', 'setDescription', 'setUrl', 'setCategory_image']), {
         updateTitle: function updateTitle(e) {
             this.setTitle(e.target.value);
         },
@@ -470,7 +470,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         updateUrl: function updateUrl(e) {
             this.setUrl(e.target.value);
         },
-        removeMain_image: function removeMain_image(e, id) {
+        removeCategory_image: function removeCategory_image(e, id) {
             var _this = this;
 
             this.$swal({
@@ -484,12 +484,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 reverseButtons: true
             }).then(function (result) {
                 if (typeof result.dismiss === "undefined") {
-                    _this.setMain_image('');
+                    _this.setCategory_image('');
                 }
             });
         },
-        updateMain_image: function updateMain_image(e) {
-            this.setMain_image(e.target.files[0]);
+        updateCategory_image: function updateCategory_image(e) {
+            this.setCategory_image(e.target.files[0]);
             this.$forceUpdate();
         },
         submitForm: function submitForm() {
@@ -637,7 +637,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.fetchData(this.$route.params.id);
         }
     },
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('CategoriesSingle', ['fetchData', 'updateData', 'resetState', 'setTitle', 'setDescription', 'setUrl', 'setMain_image']), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('CategoriesSingle', ['fetchData', 'updateData', 'resetState', 'setTitle', 'setDescription', 'setUrl', 'setCategory_image']), {
         updateTitle: function updateTitle(e) {
             this.setTitle(e.target.value);
         },
@@ -647,7 +647,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         updateUrl: function updateUrl(e) {
             this.setUrl(e.target.value);
         },
-        removeMain_image: function removeMain_image(e, id) {
+        removeCategory_image: function removeCategory_image(e, id) {
             var _this = this;
 
             this.$swal({
@@ -661,12 +661,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 reverseButtons: true
             }).then(function (result) {
                 if (typeof result.dismiss === "undefined") {
-                    _this.setMain_image('');
+                    _this.setCategory_image('');
                 }
             });
         },
-        updateMain_image: function updateMain_image(e) {
-            this.setMain_image(e.target.files[0]);
+        updateCategory_image: function updateCategory_image(e) {
+            this.setCategory_image(e.target.files[0]);
             this.$forceUpdate();
         },
         submitForm: function submitForm() {
@@ -698,8 +698,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__dtmodules_DatatableList___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__dtmodules_DatatableList__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__dtmodules_DatatableCheckbox__ = __webpack_require__("./resources/client/assets/js/components/dtmodules/DatatableCheckbox.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__dtmodules_DatatableCheckbox___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__dtmodules_DatatableCheckbox__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__dtmodules_DatatableMainImageField__ = __webpack_require__("./resources/client/assets/js/components/cruds/Categories/dtmodules/DatatableMainImageField.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__dtmodules_DatatableMainImageField___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__dtmodules_DatatableMainImageField__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__dtmodules_DatatableCategoryImageField__ = __webpack_require__("./resources/client/assets/js/components/cruds/Categories/dtmodules/DatatableCategoryImageField.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__dtmodules_DatatableCategoryImageField___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__dtmodules_DatatableCategoryImageField__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -769,7 +769,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            columns: [{ title: '#', field: 'id', sortable: true, colStyle: 'width: 50px;' }, { title: 'Title', field: 'title', sortable: true }, { title: 'Description', field: 'description', sortable: true }, { title: 'Main image', tdComp: __WEBPACK_IMPORTED_MODULE_5__dtmodules_DatatableMainImageField___default.a, sortable: false }, { title: 'Actions', tdComp: __WEBPACK_IMPORTED_MODULE_1__dtmodules_DatatableActions___default.a, visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }],
+            columns: [{ title: '#', field: 'id', sortable: true, colStyle: 'width: 50px;' }, { title: 'Title', field: 'title', sortable: true }, { title: 'Description', field: 'description', sortable: true }, { title: 'Category image', tdComp: __WEBPACK_IMPORTED_MODULE_5__dtmodules_DatatableCategoryImageField___default.a, sortable: false }, { title: 'Actions', tdComp: __WEBPACK_IMPORTED_MODULE_1__dtmodules_DatatableActions___default.a, visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }],
             query: { sort: 'id', order: 'desc' },
             xprops: {
                 module: 'CategoriesIndex',
@@ -893,7 +893,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/client/assets/js/components/cruds/Categories/dtmodules/DatatableMainImageField.vue":
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/client/assets/js/components/cruds/Categories/dtmodules/DatatableCategoryImageField.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -28857,24 +28857,24 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "main_image" } }, [
-                          _vm._v("Main image")
+                        _c("label", { attrs: { for: "category_image" } }, [
+                          _vm._v("Category image")
                         ]),
                         _vm._v(" "),
                         _c("input", {
                           staticClass: "form-control",
                           attrs: { type: "file" },
-                          on: { change: _vm.updateMain_image }
+                          on: { change: _vm.updateCategory_image }
                         }),
                         _vm._v(" "),
-                        _vm.item.main_image
+                        _vm.item.category_image
                           ? _c("ul", { staticClass: "list-unstyled" }, [
                               _c("li", [
                                 _vm._v(
                                   "\n                                        " +
                                     _vm._s(
-                                      _vm.item.main_image.name ||
-                                        _vm.item.main_image.file_name
+                                      _vm.item.category_image.name ||
+                                        _vm.item.category_image.file_name
                                     ) +
                                     "\n                                        "
                                 ),
@@ -28883,7 +28883,7 @@ var render = function() {
                                   {
                                     staticClass: "btn btn-xs btn-danger",
                                     attrs: { type: "button" },
-                                    on: { click: _vm.removeMain_image }
+                                    on: { click: _vm.removeCategory_image }
                                   },
                                   [
                                     _vm._v(
@@ -29570,27 +29570,6 @@ if (false) {
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-63019844\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/client/assets/js/components/cruds/Categories/dtmodules/DatatableMainImageField.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { domProps: { innerHTML: _vm._s(_vm.row.main_image_link) } })
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-63019844", module.exports)
-  }
-}
-
-/***/ }),
-
 /***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-648cec1a\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/client/assets/js/components/cruds/Categories/Show.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -29645,11 +29624,11 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("tr", [
-                            _c("th", [_vm._v("Main image")]),
+                            _c("th", [_vm._v("Category image")]),
                             _vm._v(" "),
                             _c("td", {
                               domProps: {
-                                innerHTML: _vm._s(_vm.item.main_image_link)
+                                innerHTML: _vm._s(_vm.item.category_image_link)
                               }
                             })
                           ])
@@ -30679,24 +30658,24 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "main_image" } }, [
-                          _vm._v("Main image")
+                        _c("label", { attrs: { for: "category_image" } }, [
+                          _vm._v("Category image")
                         ]),
                         _vm._v(" "),
                         _c("input", {
                           staticClass: "form-control",
                           attrs: { type: "file" },
-                          on: { change: _vm.updateMain_image }
+                          on: { change: _vm.updateCategory_image }
                         }),
                         _vm._v(" "),
-                        _vm.item.main_image
+                        _vm.item.category_image
                           ? _c("ul", { staticClass: "list-unstyled" }, [
                               _c("li", [
                                 _vm._v(
                                   "\n                                        " +
                                     _vm._s(
-                                      _vm.item.main_image.name ||
-                                        _vm.item.main_image.file_name
+                                      _vm.item.category_image.name ||
+                                        _vm.item.category_image.file_name
                                     ) +
                                     "\n                                        "
                                 ),
@@ -30705,7 +30684,7 @@ var render = function() {
                                   {
                                     staticClass: "btn btn-xs btn-danger",
                                     attrs: { type: "button" },
-                                    on: { click: _vm.removeMain_image }
+                                    on: { click: _vm.removeCategory_image }
                                   },
                                   [
                                     _vm._v(
@@ -30802,6 +30781,29 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-b228ba68", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-c343113a\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/client/assets/js/components/cruds/Categories/dtmodules/DatatableCategoryImageField.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", {
+    domProps: { innerHTML: _vm._s(_vm.row.category_image_link) }
+  })
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-c343113a", module.exports)
   }
 }
 
@@ -33253,15 +33255,15 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ "./resources/client/assets/js/components/cruds/Categories/dtmodules/DatatableMainImageField.vue":
+/***/ "./resources/client/assets/js/components/cruds/Categories/dtmodules/DatatableCategoryImageField.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
 /* script */
-var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/client/assets/js/components/cruds/Categories/dtmodules/DatatableMainImageField.vue")
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/client/assets/js/components/cruds/Categories/dtmodules/DatatableCategoryImageField.vue")
 /* template */
-var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-63019844\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/client/assets/js/components/cruds/Categories/dtmodules/DatatableMainImageField.vue")
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-c343113a\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/client/assets/js/components/cruds/Categories/dtmodules/DatatableCategoryImageField.vue")
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -33278,7 +33280,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/client/assets/js/components/cruds/Categories/dtmodules/DatatableMainImageField.vue"
+Component.options.__file = "resources/client/assets/js/components/cruds/Categories/dtmodules/DatatableCategoryImageField.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -33287,9 +33289,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-63019844", Component.options)
+    hotAPI.createRecord("data-v-c343113a", Component.options)
   } else {
-    hotAPI.reload("data-v-63019844", Component.options)
+    hotAPI.reload("data-v-c343113a", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -34730,7 +34732,7 @@ function initialState() {
             title: null,
             description: null,
             url: null,
-            main_image: null
+            category_image: null
         },
 
         loading: false
@@ -34774,8 +34776,8 @@ var actions = {
                 }
             }
 
-            if (state.item.main_image === null) {
-                params.delete('main_image');
+            if (state.item.category_image === null) {
+                params.delete('category_image');
             }
 
             axios.post('/api/v1/categories', params).then(function (response) {
@@ -34820,8 +34822,8 @@ var actions = {
                 }
             }
 
-            if (state.item.main_image === null) {
-                params.delete('main_image');
+            if (state.item.category_image === null) {
+                params.delete('category_image');
             }
 
             axios.post('/api/v1/categories/' + state.item.id, params).then(function (response) {
@@ -34862,10 +34864,10 @@ var actions = {
         //изменяем состояние только commit
         commit('setUrl', value);
     },
-    setMain_image: function setMain_image(_ref7, value) {
+    setCategory_image: function setCategory_image(_ref7, value) {
         var commit = _ref7.commit;
 
-        commit('setMain_image', value);
+        commit('setCategory_image', value);
     },
     resetState: function resetState(_ref8) {
         var commit = _ref8.commit;
@@ -34887,9 +34889,8 @@ var mutations = {
     setUrl: function setUrl(state, value) {
         state.item.url = value;
     },
-    setMain_image: function setMain_image(state, value) {
-        state.item.main_image = value;
-        console.log(' main image - ', state.item.main_image);
+    setCategory_image: function setCategory_image(state, value) {
+        state.item.category_image = value;
     },
     setLoading: function setLoading(state, loading) {
         state.loading = loading;
@@ -36174,7 +36175,7 @@ var mutations = {
     },
     setMain_image: function setMain_image(state, value) {
         state.item.main_image = value;
-        console.log(' main image - ', state.item.main_image);
+        //console.log(' main image - ', state.item.main_image);
     },
     setResultsImage: function setResultsImage(state, payload) {
         console.log('1.mutation results - ', state.resultsItem);

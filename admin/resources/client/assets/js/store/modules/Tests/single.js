@@ -217,7 +217,7 @@ const mutations = {
     },
     setMain_image(state, value) {
         state.item.main_image = value;
-        console.log(' main image - ', state.item.main_image);
+        //console.log(' main image - ', state.item.main_image);
     },
     setResultsImage(state, payload){        
         console.log('1.mutation results - ', state.resultsItem);

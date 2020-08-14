@@ -1,5 +1,5 @@
 <template>
-    <div v-html="row.main_image_link"></div>
+    <div v-html="row.category_image_link"></div>
 </template>
 
 

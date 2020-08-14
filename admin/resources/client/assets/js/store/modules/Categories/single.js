@@ -5,7 +5,7 @@ function initialState() {
             title: null,
             description: null,
             url: null,
-            main_image: null
+            category_image: null
         },
         
         
@@ -43,8 +43,8 @@ const actions = {
                 }
             }
 
-            if (state.item.main_image === null) {
-                params.delete('main_image');
+            if (state.item.category_image === null) {
+                params.delete('category_image');
             }
 
             axios.post('/api/v1/categories', params)
@@ -91,8 +91,8 @@ const actions = {
                 }
             }
 
-            if (state.item.main_image === null) {
-                params.delete('main_image');
+            if (state.item.category_image === null) {
+                params.delete('category_image');
             }
 
             axios.post('/api/v1/categories/' + state.item.id, params)
@@ -134,8 +134,8 @@ const actions = {
     setUrl({ commit }, value) { //изменяем состояние только commit
         commit('setUrl', value)
     },
-    setMain_image({ commit }, value) {
-        commit('setMain_image', value)
+    setCategory_image({ commit }, value) {
+        commit('setCategory_image', value)
     },
     resetState({ commit }) {
         commit('resetState')
@@ -155,9 +155,8 @@ const mutations = {
     setUrl(state, value) {
         state.item.url = value
     },
-    setMain_image(state, value) {
-        state.item.main_image = value;
-        console.log(' main image - ', state.item.main_image);
+    setCategory_image(state, value) {
+        state.item.category_image = value;
     },
     setLoading(state, loading) {
         state.loading = loading
