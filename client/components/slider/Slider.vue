@@ -218,7 +218,7 @@ export default {
         this.testsList = {};
         const  list  =  await getTestsList( currentCategory );                                
         //this.categories = Object.freeze(list.data[0]);        
-        this.testsList = list.data;
+        this.testsList = list.data.tests;
         console.log(' tests ',this.testsList);        
         return this.testsList;
       }catch(e){

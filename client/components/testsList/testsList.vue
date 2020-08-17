@@ -44,7 +44,7 @@
               <div class="item">
                 <div class="img-wrapper">
                   <!--<img :src="'/_nuxt/client/assets/images/cards/' + test.img" alt="">-->
-                  <img :src="imgSrc + '/images/cards/' + test.img" alt="">
+                  <img :src="imgSrc + '/storage/images/cards/' + test.bg_image" alt="">
                 </div>
                 <div class="description-wrapper">
                   <div class="description-wrapper__top">
@@ -62,7 +62,7 @@
                     </div>
                   </div>
                   <div class="description-wrapper__bottom">
-                    <router-link :to="{ name: 'test', params: {id: index} }" class="button"> 
+                    <router-link :to="{ name: 'test', params: {id: test.id, img: test.main_image} }" class="button"> 
                       УЗНАТЬ
                     </router-link>
                   </div>
@@ -75,7 +75,10 @@
 
       </div>    
     </div>  
-    <div class="show-more__button" @click="getMore()">
+    <div  class="show-more__button" 
+          @click="getMore()"
+          v-if="ifShowMore"
+      >
       <img src="~assets/images/png/down.png" alt="">
     </div>
   </div>
@@ -95,6 +98,7 @@ export default {
   //props: ['ifCatalog'],
   data: () => ({
     imgSrc: process.env.appRoot,
+    ifShowMore: false,
     catId: 0,
     showMore: 0,
     tmp: 0,
@@ -159,6 +163,15 @@ export default {
       console.log(' filter ', id);
       this.showFilter[id].filter = !this.showFilter[id].filter;
     },
+    checkIfMoreTests( quantity ){
+      let qty = this.testsList.length;
+      //console.log(' qty - ', qty, ' || ', quantity);
+      if( qty <= quantity){
+        this.ifShowMore = false;
+      }else{
+        this.ifShowMore = true;
+      }
+    },
     async getCategoriesList(){      
       try{
         const  list  =  await getCategoriesList();                        
@@ -177,7 +190,8 @@ export default {
         this.numStep = 0;
         this.testsList = {};
         const  list  =  await getTestsList( this.currentCategory, true );
-        this.testsList = list.data;
+        this.testsList = list.data.tests;
+        this.checkIfMoreTests(list.data.quantity);
         console.log(' tests ',this.testsList);        
         return this.testsList;
       }catch(e){

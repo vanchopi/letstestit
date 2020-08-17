@@ -13,16 +13,17 @@ class TestsController extends Controller
     //
     public function getTestsList(Request $request){
         $tests = [];
+        $n = 6;
         $num = $request->category;
 
         if (!$request->url){
             if($num > 0){
-                $tests = self::getTestsListByCategoryId($num);
+                $tests = self::getTestsListByCategoryId($num, $n);
             }else{
-                $tests = Test::all();
+                $tests = Test::all()->take($n);
             }
         }else{            
-            $tests = self::getTestsListByCategoryUrl($num);            
+            $tests = self::getTestsListByCategoryUrl($num, $n);            
         }       
 
         for ($i=0; $i < count($tests); $i++) { 
@@ -31,7 +32,12 @@ class TestsController extends Controller
             $tests[$i]->bg_image = $media->bg_image;
             $tests[$i]->main_image = $media->main_image;                        
         }
-        return $tests;
+        $response = [
+            'tests' => $tests,
+            'quantity' => $tests->count(),
+            'rnum' => $n,
+        ];        
+        return $response;
     }
 
     static public function getMedias($id){
@@ -44,13 +50,13 @@ class TestsController extends Controller
     	return $item;
     }
 
-    static public function getTestsListByCategoryId($id){                
-        return $test = Test::select('*')->where('category_id',$id)->get();        
+    static public function getTestsListByCategoryId($id, $n){                
+        return $test = Test::select('*')->where('category_id',$id)->take($n)->get();        
     }
 
-    static public function getTestsListByCategoryUrl($str){        
+    static public function getTestsListByCategoryUrl($str, $n){        
         $cat = Category::where('url', $str)->first();        
-        return $tests = self::getTestsListByCategoryId($cat->id);
+        return $tests = self::getTestsListByCategoryId($cat->id, $n);
     }
 
     public function getTest($id){
