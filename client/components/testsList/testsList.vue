@@ -98,7 +98,7 @@ export default {
   //props: ['ifCatalog'],
   data: () => ({
     imgSrc: process.env.appRoot,
-    ifShowMore: false,
+    ifShowMore: true,
     catId: 0,
     showMore: 0,
     tmp: 0,
@@ -166,10 +166,10 @@ export default {
     checkIfMoreTests( quantity ){
       let qty = this.testsList.length;
       //console.log(' qty - ', qty, ' || ', quantity);
-      if( qty <= quantity){
-        this.ifShowMore = false;
+      if( quantity > 0){
+        this.ifShowMore = true;        
       }else{
-        this.ifShowMore = true;
+        this.ifShowMore = false;
       }
     },
     async getCategoriesList(){      
@@ -191,20 +191,23 @@ export default {
         this.testsList = {};
         const  list  =  await getTestsList( this.currentCategory, true );
         this.testsList = list.data.tests;
-        this.checkIfMoreTests(list.data.quantity);
-        console.log(' tests ',this.testsList);        
+        //this.checkIfMoreTests(list.data.quantity);
+        //console.log(' tests ',this.testsList);        
         return this.testsList;
       }catch(e){
         console.log(e);
       }
     },      
-    async getMore(){
+    async getMore(){      
+      let id = this.testsList.length ? this.testsList[this.testsList.length - 1].id : null;
+      //console.log(' last id - ', id);
       this.numStep ++;
       try{
-        const  list  =  await getMoreTests(this.numStep, this.currentCategory);                                                       
-        for (let i = 0; i < list.data.length; i++){
-          this.testsList.push(list.data[i])
-        }        
+        const  list  =  await getMoreTests(this.numStep, this.currentCategory, true, id);
+        for (let i = 0; i < list.data.tests.length; i++){
+          this.testsList.push(list.data.tests[i])
+        }      
+        this.checkIfMoreTests(list.data.quantity);  
         return this.testsList;
       }catch(e){
         console.log(e);

@@ -91,7 +91,10 @@
 
       </div>    
     </div>  
-    <div class="show-more__button" @click="getMore()">
+    <div class="show-more__button" 
+         @click="getMore()"
+         v-if="ifShowMore"
+      >
       <img src="~assets/images/png/down.png" alt="">
     </div>
   </div>
@@ -111,6 +114,7 @@ export default {
   //props: ['ifCatalog'],
   data: () => ({
     imgSrc: process.env.appRoot,
+    ifShowMore: true,
     catId: 0,
     showMore: 0,
     tmp: 0,
@@ -177,7 +181,8 @@ export default {
               this.catId = this.categories.length - 1 ;
               return;
           }
-          this.getTestsListLoal(this.catId);
+          this.ifShowMore = true;
+          this.getTestsListLocal(this.catId);
           break;
         case 'left':          
           this.catId--;
@@ -185,7 +190,8 @@ export default {
             this.catId = 0;
             return;
           }
-          this.getTestsListLoal(this.catId);
+          this.ifShowMore = true;
+          this.getTestsListLocal(this.catId);
           break;     
       }
     },
@@ -196,7 +202,15 @@ export default {
       console.log(' filter ', id);
       this.showFilter[id].filter = !this.showFilter[id].filter;
     },
-    getTestsListLoal( num ){        
+    checkIfMoreTests( quantity ){
+      let qty = this.testsList.length;
+      if( quantity > 0){
+        this.ifShowMore = true;        
+      }else{
+        this.ifShowMore = false;
+      }
+    },
+    getTestsListLocal( num ){        
         console.log('swithed category id - ', num ,' -', this.categories[num]);
         this.currentCategory = this.categories[num].id;
         this.getTests(this.currentCategory);
@@ -225,13 +239,16 @@ export default {
         console.log(e);
       }
     },      
-    async getMore(){
+    async getMore(){      
+      let id = this.testsList.length ? this.testsList[this.testsList.length - 1].id : null;
+      //console.log(' last id - ', id);
       this.numStep ++;
       try{
-        const  list  =  await getMoreTests(this.numStep, this.currentCategory);                                                      
-        for (let i = 0; i < list.data.length; i++){
-          this.testsList.push(list.data[i])
-        }        
+        const  list  =  await getMoreTests(this.numStep, this.currentCategory, false, id);
+        for (let i = 0; i < list.data.tests.length; i++){
+          this.testsList.push(list.data.tests[i])
+        }      
+        this.checkIfMoreTests(list.data.quantity);  
         return this.testsList;
       }catch(e){
         console.log(e);

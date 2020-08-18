@@ -23,13 +23,15 @@ export function getTestsList( curCat, url = false ){
 	});	
 }
 
-export function getMoreTests( num, cat ){
+export function getMoreTests( num, cat, url = false, id = null ){
 	return axios({				
 		method: 'post',
 		url: '/tests/getmore',
 		  data: {
 		    step: num,
-		    category: cat
+		    category: cat,
+		    url: url,
+		    id: id,
 		}	  
 	});		
 }
