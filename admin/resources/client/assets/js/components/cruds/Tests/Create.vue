@@ -80,6 +80,19 @@
                                     </ul>
                                 </div>
 
+                                <div class="form-group">
+                                    <label for="popularity">Popularity (step - 0.00001)</label>
+                                    <input  type="number"
+                                            step="0.00001"
+                                            class="form-control"
+                                            name="popularity"
+                                            placeholder="Enter Popularity(float)"
+                                            :value="item.popularity"
+                                            @input="updatePopularity"
+                                            min="0"
+                                            >
+                                </div>
+
                                 <hr>
 
                                 <div class="form-group __1">
@@ -404,12 +417,21 @@ export default {
         this.resetState()
     },
     methods: {
-        ...mapActions('TestsSingle', ['storeData', 'resetState', 'setCategory', 'setTitle', 'setType', 'setQuestions', 'setResults', 'setResultsImage' ,'setMain_image', 'setBg_image', 'fetchCategoriesAll']),
+        ...mapActions('TestsSingle', ['storeData', 'resetState', 'setCategory', 'setTitle', 'setPopularity', 'setType', 'setQuestions', 'setResults', 'setResultsImage' ,'setMain_image', 'setBg_image', 'fetchCategoriesAll']),
         updateCategory(value) {
             this.setCategory(value)
         },
         updateTitle(e) {
             this.setTitle(e.target.value)
+        },
+        checkNum( val ){
+            if (val < 0 ){
+              val = 0;
+            }
+            return val;
+        },
+        updatePopularity(e){
+            this.setPopularity(parseFloat(this.checkNum(e.target.value)));
         },
         removeMain_image(e, id) {
             this.$swal({

@@ -6,6 +6,7 @@ function initialState() {
             title: null,
             main_image: null,
             bg_image: null,
+            popularity: null,
             questions: [],
             test_type: 'knowledges',            
         },
@@ -173,6 +174,9 @@ const actions = {
     setTitle({ commit }, value) {
         commit('setTitle', value)
     },
+    setPopularity({ commit }, value){
+        commit('setPopularity', value)  
+    },
     setType({ commit }, value) {
         commit('setType', value)
     },
@@ -211,6 +215,9 @@ const mutations = {
     },
     setTitle(state, value) {
         state.item.title = value
+    },
+    setPopularity(state, value) {
+        state.item.popularity = value
     },
     setType(state, value) {
         state.item.test_type = value

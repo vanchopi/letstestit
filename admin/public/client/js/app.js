@@ -1939,6 +1939,19 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2006,12 +2019,21 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         this.resetState();
     },
 
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TestsSingle', ['storeData', 'resetState', 'setCategory', 'setTitle', 'setType', 'setQuestions', 'setResults', 'setResultsImage', 'setMain_image', 'setBg_image', 'fetchCategoriesAll']), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TestsSingle', ['storeData', 'resetState', 'setCategory', 'setTitle', 'setPopularity', 'setType', 'setQuestions', 'setResults', 'setResultsImage', 'setMain_image', 'setBg_image', 'fetchCategoriesAll']), {
         updateCategory: function updateCategory(value) {
             this.setCategory(value);
         },
         updateTitle: function updateTitle(e) {
             this.setTitle(e.target.value);
+        },
+        checkNum: function checkNum(val) {
+            if (val < 0) {
+                val = 0;
+            }
+            return val;
+        },
+        updatePopularity: function updatePopularity(e) {
+            this.setPopularity(parseFloat(this.checkNum(e.target.value)));
         },
         removeMain_image: function removeMain_image(e, id) {
             var _this = this;
@@ -30748,6 +30770,25 @@ var render = function() {
                           : _vm._e()
                       ]),
                       _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "popularity" } }, [
+                          _vm._v("Popularity (step - 0.00001)")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "number",
+                            step: "0.00001",
+                            name: "popularity",
+                            placeholder: "Enter Popularity(float)",
+                            min: "0"
+                          },
+                          domProps: { value: _vm.item.popularity },
+                          on: { input: _vm.updatePopularity }
+                        })
+                      ]),
+                      _vm._v(" "),
                       _c("hr"),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group __1" }, [
@@ -35614,6 +35655,7 @@ function initialState() {
             title: null,
             main_image: null,
             bg_image: null,
+            popularity: null,
             questions: [],
             test_type: 'knowledges'
         },
@@ -35792,39 +35834,44 @@ var actions = {
 
         commit('setTitle', value);
     },
-    setType: function setType(_ref7, value) {
+    setPopularity: function setPopularity(_ref7, value) {
         var commit = _ref7.commit;
+
+        commit('setPopularity', value);
+    },
+    setType: function setType(_ref8, value) {
+        var commit = _ref8.commit;
 
         commit('setType', value);
     },
-    setMain_image: function setMain_image(_ref8, value) {
-        var commit = _ref8.commit;
+    setMain_image: function setMain_image(_ref9, value) {
+        var commit = _ref9.commit;
 
         commit('setMain_image', value);
     },
-    setResultsImage: function setResultsImage(_ref9, payload) {
-        var commit = _ref9.commit;
+    setResultsImage: function setResultsImage(_ref10, payload) {
+        var commit = _ref10.commit;
 
         //console.log('value - ', payload.img, ' id - ', payload.id);
         commit('setResultsImage', payload);
     },
-    setBg_image: function setBg_image(_ref10, value) {
-        var commit = _ref10.commit;
+    setBg_image: function setBg_image(_ref11, value) {
+        var commit = _ref11.commit;
 
         commit('setBg_image', value);
     },
-    setQuestions: function setQuestions(_ref11, value) {
-        var commit = _ref11.commit;
+    setQuestions: function setQuestions(_ref12, value) {
+        var commit = _ref12.commit;
 
         commit('setQuestions', value);
     },
-    setResults: function setResults(_ref12, value) {
-        var commit = _ref12.commit;
+    setResults: function setResults(_ref13, value) {
+        var commit = _ref13.commit;
 
         commit('setResults', value);
     },
-    resetState: function resetState(_ref13) {
-        var commit = _ref13.commit;
+    resetState: function resetState(_ref14) {
+        var commit = _ref14.commit;
 
         commit('resetState');
     }
@@ -35839,6 +35886,9 @@ var mutations = {
     },
     setTitle: function setTitle(state, value) {
         state.item.title = value;
+    },
+    setPopularity: function setPopularity(state, value) {
+        state.item.popularity = value;
     },
     setType: function setType(state, value) {
         state.item.test_type = value;

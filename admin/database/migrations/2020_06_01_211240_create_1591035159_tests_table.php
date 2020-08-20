@@ -18,6 +18,7 @@ class Create1591035159TestsTable extends Migration
                 $table->string('title')->nullable();
                 $table->string('main_image')->nullable();
                 $table->string('bg_image')->nullable();
+                $table->float('popularity', 5, 5)->default(0);;
                 $table->json('questions')->nullable();
                 $table->string('test_type')->nullable();
                 $table->timestamps();
