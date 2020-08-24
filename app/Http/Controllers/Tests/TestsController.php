@@ -13,14 +13,16 @@ class TestsController extends Controller
     //
     public function getTestsList(Request $request){
         $tests = [];
-        $n = 1;
+        $n = 3;
         $num = $request->category;
 
         if (!$request->url){
             if($num > 0){
                 $tests = self::getTestsListByCategoryId($num, $n);
+            }elseif ($num == 0) {
+                $tests = Test::orderBy('popularity', 'DESC')->orderBy('id', 'DESC')->take($n)->get();
             }else{
-                $tests = Test::all()->orderBy('id', 'DESC')->take($n);
+                $tests = Test::all()->take($n);
             }
         }else{            
             $tests = self::getTestsListByCategoryUrl($num, $n);            
@@ -52,7 +54,10 @@ class TestsController extends Controller
     static public function getTestsListByCategoryId($id, $n){                
         return $test = Test::select('*')->where('category_id',$id)->orderBy('id', 'DESC')->take($n)->get();        
     }
-
+    static public function getMorePopularTests($lim, $num){
+        //$ppt = Test::select('popularity')->where('id', $num)->first();
+        return $test = Test::where('id', '<', $num)->orderBy('popularity', 'DESC')->orderBy('id', 'DESC')->limit($lim)->get();;
+    }
     static public function getMoreTestsByCategoryId($catId, $lim, $num){          
         $whereData = [
             ['category_id', $catId],
@@ -96,7 +101,11 @@ class TestsController extends Controller
                     $tests = self::getMoreTestsByCategoryUrl($cat, $lim, $num);                    
                     break;
                 case !$ifUrl:
-                    $tests = self::getMoreTestsByCategoryId($cat, $lim, $num);                    
+                    if($cat != 0){
+                        $tests = self::getMoreTestsByCategoryId($cat, $lim, $num);
+                    }else{
+                        $tests = self::getMorePopularTests($lim, $num);
+                    }
                     break;
                 default:
                     $tests = [];

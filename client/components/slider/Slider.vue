@@ -145,7 +145,7 @@ export default {
     ],
     testsList: [],
     categoriesList:[], 
-    currentCategory: 1, 
+    currentCategory: 0, // 0 - popular tests
     numStep: 0,
     loader: true
   }),
@@ -181,7 +181,7 @@ export default {
               this.catId = this.categories.length - 1 ;
               return;
           }
-          this.ifShowMore = true;
+          this.ifShowMore = true;          
           this.getTestsListLocal(this.catId);
           break;
         case 'left':          
@@ -190,7 +190,7 @@ export default {
             this.catId = 0;
             return;
           }
-          this.ifShowMore = true;
+          this.ifShowMore = true;          
           this.getTestsListLocal(this.catId);
           break;     
       }
@@ -215,12 +215,22 @@ export default {
         this.currentCategory = this.categories[num].id;
         this.getTests(this.currentCategory);
     },
+    addPopular( arr ){
+      arr.unshift({
+          id: 0,
+          title: 'Популярные тесты',          
+          description: '',
+          url: '0',
+      })
+      return arr;
+    },
     async getCategoriesList(){      
       try{
         const  list  =  await getCategoriesList();                        
         console.log(list);
-        this.categories = Object.freeze(list.data);
-        this.loader = false;        
+        this.categories = list.data;
+        this.loader = false;
+        this.categories = this.addPopular(this.categories);
         return this.categories;
       }catch(e){
         console.log(e);
@@ -241,7 +251,6 @@ export default {
     },      
     async getMore(){      
       let id = this.testsList.length ? this.testsList[this.testsList.length - 1].id : null;
-      //console.log(' last id - ', id);
       this.numStep ++;
       try{
         const  list  =  await getMoreTests(this.numStep, this.currentCategory, false, id);
