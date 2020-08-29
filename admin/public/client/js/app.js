@@ -1952,6 +1952,83 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2007,19 +2084,26 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 description: '',
                 value: 0,
                 sign: ''
-            }]
+            }],
+            seo: {
+                title: '',
+                h1: '',
+                description: '',
+                keywords: ''
+            }
         };
     },
 
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('TestsSingle', ['item', 'resultsItem', 'loading', 'categoriesAll'])),
     created: function created() {
         this.fetchCategoriesAll();
+        this.seoOnInput();
     },
     destroyed: function destroyed() {
         this.resetState();
     },
 
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TestsSingle', ['storeData', 'resetState', 'setCategory', 'setTitle', 'setPopularity', 'setType', 'setQuestions', 'setResults', 'setResultsImage', 'setMain_image', 'setBg_image', 'fetchCategoriesAll']), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TestsSingle', ['storeData', 'resetState', 'setCategory', 'setTitle', 'setPopularity', 'setType', 'setQuestions', 'setResults', 'setSeo', 'setResultsImage', 'setMain_image', 'setBg_image', 'fetchCategoriesAll']), {
         updateCategory: function updateCategory(value) {
             this.setCategory(value);
         },
@@ -2221,6 +2305,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         resultOnInput: function resultOnInput() {
             //console.log('on input fields', this.results);            
             this.updateResults();
+        },
+        seoOnInput: function seoOnInput() {
+            this.setSeo(this.seo);
         },
         submitForm: function submitForm() {
             var _this3 = this;
@@ -3795,7 +3882,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.questions-paramrtrs__wrapper[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  margin: 15px 0 30px 0;\n  padding-top: 15px;\n  border-top: 1px solid #d8d2d2;\n}\n.questions-paramrtrs__wrapper .col[data-v-fd12abd2] {\n    width: 45%;\n    max-width: 300px;\n}\n.questions-paramrtrs__wrapper .col[data-v-fd12abd2]:last-child {\n      margin-left: 15px;\n}\n.questions-paramrtrs__wrapper.__results .col[data-v-fd12abd2]:last-child {\n    margin-left: 0px;\n}\n.tab-pane > span[data-v-fd12abd2] {\n  display: block;\n  margin: 15px 0;\n}\n.fields-wrapper .input-group[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n  margin-bottom: 15px;\n}\n.fields-wrapper.results-fields__wrapper textarea[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n  padding: 6px 12px;\n}\n.fields-wrapper.results-fields__wrapper .results-fields__item[data-v-fd12abd2] {\n  margin: 15px 0 15px 0;\n  padding-top: 15px;\n  border-top: 1px solid black;\n}\n.form-group.__1[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n.form-group.__1 .col[data-v-fd12abd2] {\n    width: calc(50% - 10px);\n}\n.fields-wrapper__internal[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n}\n.fields-wrapper__internal .fields-wrapper__item[data-v-fd12abd2] {\n    width: calc(50% - 10px);\n    max-width: 615px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    margin-bottom: 15px;\n}\n.fields-wrapper__internal .fields-wrapper__item[data-v-fd12abd2]:first-child {\n      margin-right: 10px;\n}\n.labels-wrapper[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n}\n.labels-wrapper label[data-v-fd12abd2] {\n    width: calc(50% - 10px);\n    max-width: 615px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\n.labels-wrapper label[data-v-fd12abd2]:first-child {\n      margin-right: 10px;\n}\n", ""]);
+exports.push([module.i, "\n.half-fields__wrapper label[data-v-fd12abd2] {\n  display: block;\n  width: 100%;\n  margin-bottom: 5px;\n}\n.half-fields__wrapper textarea[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n  padding: 6px 12px;\n}\n.bt-wrapper[data-v-fd12abd2] {\n  padding-bottom: 20px;\n}\n.bt-wrapper.__top[data-v-fd12abd2] {\n    padding-top: 20px;\n}\n.box[data-v-fd12abd2] {\n  border-top: none;\n}\n.questions-paramrtrs__wrapper[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  margin: 15px 0 30px 0;\n  padding-top: 15px;\n  border-top: 1px solid #d8d2d2;\n}\n.questions-paramrtrs__wrapper .col[data-v-fd12abd2] {\n    width: 45%;\n    max-width: 300px;\n}\n.questions-paramrtrs__wrapper .col[data-v-fd12abd2]:last-child {\n      margin-left: 15px;\n}\n.questions-paramrtrs__wrapper.__results .col[data-v-fd12abd2]:last-child {\n    margin-left: 0px;\n}\n.tab-pane > span[data-v-fd12abd2] {\n  display: block;\n  margin: 15px 0;\n}\n.fields-wrapper .input-group[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n  margin-bottom: 15px;\n}\n.fields-wrapper.results-fields__wrapper textarea[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n  padding: 6px 12px;\n}\n.fields-wrapper.results-fields__wrapper .results-fields__item[data-v-fd12abd2] {\n  margin: 15px 0 15px 0;\n  padding-top: 15px;\n  border-top: 1px solid black;\n}\n.form-group.__1[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n.form-group.__1 .col[data-v-fd12abd2] {\n    width: calc(50% - 10px);\n}\n.fields-wrapper__internal[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n}\n.fields-wrapper__internal .fields-wrapper__item[data-v-fd12abd2] {\n    width: calc(50% - 10px);\n    max-width: 615px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    margin-bottom: 15px;\n}\n.fields-wrapper__internal .fields-wrapper__item[data-v-fd12abd2]:first-child {\n      margin-right: 10px;\n}\n.labels-wrapper[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n}\n.labels-wrapper label[data-v-fd12abd2] {\n    width: calc(50% - 10px);\n    max-width: 615px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\n.labels-wrapper label[data-v-fd12abd2]:first-child {\n      margin-right: 10px;\n}\n", ""]);
 
 // exports
 
@@ -30638,901 +30725,802 @@ var render = function() {
               [
                 _c(
                   "div",
-                  { staticClass: "box" },
-                  [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "box-body" },
-                      [_c("back-buttton")],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("bootstrap-alert"),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "box-body" }, [
-                      _c(
-                        "div",
-                        { staticClass: "form-group" },
-                        [
-                          _c("label", { attrs: { for: "category" } }, [
-                            _vm._v("Category id")
-                          ]),
-                          _vm._v(" "),
-                          _c("v-select", {
-                            attrs: {
-                              name: "category",
-                              label: "title",
-                              value: _vm.item.category,
-                              options: _vm.categoriesAll
-                            },
-                            on: { input: _vm.updateCategory }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "title" } }, [
-                          _vm._v("Title")
-                        ]),
+                  { staticClass: "bt-wrapper" },
+                  [_c("back-buttton")],
+                  1
+                ),
+                _vm._v(" "),
+                _c("bootstrap-alert"),
+                _vm._v(" "),
+                _vm._m(1),
+                _vm._v(" "),
+                _c("div", { staticClass: "tab-content" }, [
+                  _c(
+                    "div",
+                    { staticClass: "tab-pane active", attrs: { id: "test" } },
+                    [
+                      _c("div", { staticClass: "box" }, [
+                        _vm._m(2),
                         _vm._v(" "),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            name: "title",
-                            placeholder: "Enter Title"
-                          },
-                          domProps: { value: _vm.item.title },
-                          on: { input: _vm.updateTitle }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "main_image" } }, [
-                          _vm._v("Main image")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: { type: "file" },
-                          on: { change: _vm.updateMain_image }
-                        }),
-                        _vm._v(" "),
-                        _vm.item.main_image
-                          ? _c("ul", { staticClass: "list-unstyled" }, [
-                              _c("li", [
-                                _vm._v(
-                                  "\n                                        " +
-                                    _vm._s(
-                                      _vm.item.main_image.name ||
-                                        _vm.item.main_image.file_name
-                                    ) +
-                                    "\n                                        "
-                                ),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-xs btn-danger",
-                                    attrs: { type: "button" },
-                                    on: { click: _vm.removeMain_image }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                                            Remove file\n                                        "
-                                    )
-                                  ]
-                                )
-                              ])
-                            ])
-                          : _vm._e()
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "bg_image" } }, [
-                          _vm._v("Bg image")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: { type: "file" },
-                          on: { change: _vm.updateBg_image }
-                        }),
-                        _vm._v(" "),
-                        _vm.item.bg_image
-                          ? _c("ul", { staticClass: "list-unstyled" }, [
-                              _c("li", [
-                                _vm._v(
-                                  "\n                                        " +
-                                    _vm._s(
-                                      _vm.item.bg_image.name ||
-                                        _vm.item.bg_image.file_name
-                                    ) +
-                                    "\n                                        "
-                                ),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-xs btn-danger",
-                                    attrs: { type: "button" },
-                                    on: { click: _vm.removeBg_image }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                                            Remove file\n                                        "
-                                    )
-                                  ]
-                                )
-                              ])
-                            ])
-                          : _vm._e()
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "popularity" } }, [
-                          _vm._v("Popularity (step - 0.00001)")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "number",
-                            step: "0.00001",
-                            name: "popularity",
-                            placeholder: "Enter Popularity(float)",
-                            min: "0"
-                          },
-                          domProps: { value: _vm.item.popularity },
-                          on: { input: _vm.updatePopularity }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("hr"),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group __1" }, [
-                        _c("div", { staticClass: "col" }, [
-                          _c("label", { attrs: { for: "type" } }, [
-                            _vm._v("CHOOSE TEST TYPE ")
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "select",
-                            {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.selectedType,
-                                  expression: "selectedType"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: { name: "type", id: "type" },
-                              on: {
-                                change: [
-                                  function($event) {
-                                    var $$selectedVal = Array.prototype.filter
-                                      .call($event.target.options, function(o) {
-                                        return o.selected
-                                      })
-                                      .map(function(o) {
-                                        var val =
-                                          "_value" in o ? o._value : o.value
-                                        return val
-                                      })
-                                    _vm.selectedType = $event.target.multiple
-                                      ? $$selectedVal
-                                      : $$selectedVal[0]
-                                  },
-                                  _vm.onChangeType
-                                ]
-                              }
-                            },
-                            _vm._l(_vm.testTypes, function(type) {
-                              return _c(
-                                "option",
-                                { domProps: { value: type } },
-                                [
-                                  _vm._v(
-                                    "\n                                            " +
-                                      _vm._s(type.type) +
-                                      "\n                                          "
-                                  )
-                                ]
-                              )
-                            }),
-                            0
-                          )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("hr"),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "questions" } }, [
-                          _vm._v("Questions:")
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "questions-paramrtrs__wrapper" },
-                          [
-                            _c("div", { staticClass: "col" }, [
-                              _c("label", { attrs: { for: "columns" } }, [
-                                _vm._v("Number of Questions")
-                              ]),
-                              _vm._v(" "),
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.quizParams.columns,
-                                    expression: "quizParams.columns"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "number",
-                                  name: "columns",
-                                  placeholder: "Number of Questions",
-                                  min: "1",
-                                  max: "100"
-                                },
-                                domProps: { value: _vm.quizParams.columns },
-                                on: {
-                                  input: [
-                                    function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.$set(
-                                        _vm.quizParams,
-                                        "columns",
-                                        $event.target.value
-                                      )
-                                    },
-                                    _vm.setQuestionsOptions
-                                  ]
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col" }, [
-                              _c("label", { attrs: { for: "rows" } }, [
-                                _vm._v("Answers for one question")
-                              ]),
-                              _vm._v(" "),
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.quizParams.rows,
-                                    expression: "quizParams.rows"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "number",
-                                  name: "rows",
-                                  placeholder: "Answers for one question",
-                                  min: "1",
-                                  max: "20"
-                                },
-                                domProps: { value: _vm.quizParams.rows },
-                                on: {
-                                  input: [
-                                    function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.$set(
-                                        _vm.quizParams,
-                                        "rows",
-                                        $event.target.value
-                                      )
-                                    },
-                                    _vm.setQuestionsOptions
-                                  ]
-                                }
-                              })
-                            ])
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "questions-wrapper" }, [
-                          _c(
-                            "ul",
-                            { staticClass: "nav nav-tabs" },
-                            _vm._l(_vm.questions, function(item, index) {
-                              return _c(
-                                "li",
-                                {
-                                  staticClass: "nav-item",
-                                  class: index == 0 ? "active" : ""
-                                },
-                                [
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass: "nav-link",
-                                      attrs: {
-                                        "data-toggle": "tab",
-                                        href: "#" + item.id
-                                      }
-                                    },
-                                    [_vm._v("№" + _vm._s(index))]
-                                  )
-                                ]
-                              )
-                            }),
-                            0
-                          ),
-                          _vm._v(" "),
+                        _c("div", { staticClass: "box-body" }, [
                           _c(
                             "div",
-                            { staticClass: "tab-content" },
-                            _vm._l(_vm.questions, function(item, index) {
-                              return _c(
-                                "div",
-                                {
-                                  staticClass: "tab-pane",
-                                  class: index == 0 ? "active" : "",
-                                  attrs: { id: item.id }
+                            { staticClass: "form-group" },
+                            [
+                              _c("label", { attrs: { for: "category" } }, [
+                                _vm._v("Category id")
+                              ]),
+                              _vm._v(" "),
+                              _c("v-select", {
+                                attrs: {
+                                  name: "category",
+                                  label: "title",
+                                  value: _vm.item.category,
+                                  options: _vm.categoriesAll
                                 },
-                                [
-                                  _c("span", [
+                                on: { input: _vm.updateCategory }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "title" } }, [
+                              _vm._v("Title")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "title",
+                                placeholder: "Enter Title"
+                              },
+                              domProps: { value: _vm.item.title },
+                              on: { input: _vm.updateTitle }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "main_image" } }, [
+                              _vm._v("Main image")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: { type: "file" },
+                              on: { change: _vm.updateMain_image }
+                            }),
+                            _vm._v(" "),
+                            _vm.item.main_image
+                              ? _c("ul", { staticClass: "list-unstyled" }, [
+                                  _c("li", [
                                     _vm._v(
-                                      "Tabs for question № " + _vm._s(index)
+                                      "\n                                                " +
+                                        _vm._s(
+                                          _vm.item.main_image.name ||
+                                            _vm.item.main_image.file_name
+                                        ) +
+                                        "\n                                                "
+                                    ),
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-xs btn-danger",
+                                        attrs: { type: "button" },
+                                        on: { click: _vm.removeMain_image }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                                    Remove file\n                                                "
+                                        )
+                                      ]
                                     )
+                                  ])
+                                ])
+                              : _vm._e()
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "bg_image" } }, [
+                              _vm._v("Bg image")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: { type: "file" },
+                              on: { change: _vm.updateBg_image }
+                            }),
+                            _vm._v(" "),
+                            _vm.item.bg_image
+                              ? _c("ul", { staticClass: "list-unstyled" }, [
+                                  _c("li", [
+                                    _vm._v(
+                                      "\n                                                " +
+                                        _vm._s(
+                                          _vm.item.bg_image.name ||
+                                            _vm.item.bg_image.file_name
+                                        ) +
+                                        "\n                                                "
+                                    ),
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-xs btn-danger",
+                                        attrs: { type: "button" },
+                                        on: { click: _vm.removeBg_image }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                                    Remove file\n                                                "
+                                        )
+                                      ]
+                                    )
+                                  ])
+                                ])
+                              : _vm._e()
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "popularity" } }, [
+                              _vm._v("Popularity (step - 0.00001)")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "number",
+                                step: "0.00001",
+                                name: "popularity",
+                                placeholder: "Enter Popularity(float)",
+                                min: "0"
+                              },
+                              domProps: { value: _vm.item.popularity },
+                              on: { input: _vm.updatePopularity }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("hr"),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group __1" }, [
+                            _c("div", { staticClass: "col" }, [
+                              _c("label", { attrs: { for: "type" } }, [
+                                _vm._v("CHOOSE TEST TYPE ")
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.selectedType,
+                                      expression: "selectedType"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: { name: "type", id: "type" },
+                                  on: {
+                                    change: [
+                                      function($event) {
+                                        var $$selectedVal = Array.prototype.filter
+                                          .call($event.target.options, function(
+                                            o
+                                          ) {
+                                            return o.selected
+                                          })
+                                          .map(function(o) {
+                                            var val =
+                                              "_value" in o ? o._value : o.value
+                                            return val
+                                          })
+                                        _vm.selectedType = $event.target
+                                          .multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      },
+                                      _vm.onChangeType
+                                    ]
+                                  }
+                                },
+                                _vm._l(_vm.testTypes, function(type) {
+                                  return _c(
+                                    "option",
+                                    { domProps: { value: type } },
+                                    [
+                                      _vm._v(
+                                        "\n                                                    " +
+                                          _vm._s(type.type) +
+                                          "\n                                                  "
+                                      )
+                                    ]
+                                  )
+                                }),
+                                0
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("hr"),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "questions" } }, [
+                              _vm._v("Questions:")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "questions-paramrtrs__wrapper" },
+                              [
+                                _c("div", { staticClass: "col" }, [
+                                  _c("label", { attrs: { for: "columns" } }, [
+                                    _vm._v("Number of Questions")
                                   ]),
                                   _vm._v(" "),
-                                  _c("div", { staticClass: "fields-wrapper" }, [
-                                    _c(
-                                      "div",
-                                      { staticClass: "input-group mb-3" },
-                                      [
-                                        _c(
-                                          "label",
-                                          {
-                                            staticClass: "required",
-                                            attrs: {
-                                              for: "num_question" + item.id
-                                            }
-                                          },
-                                          [_vm._v("Question")]
-                                        ),
-                                        _vm._v(" "),
-                                        _c("input", {
-                                          directives: [
-                                            {
-                                              name: "model",
-                                              rawName: "v-model",
-                                              value: item.question,
-                                              expression: "item.question"
-                                            }
-                                          ],
-                                          staticClass: "form-control",
-                                          attrs: {
-                                            type: "text",
-                                            placeholder: "Question",
-                                            name: "num_question" + item.id,
-                                            required: ""
-                                          },
-                                          domProps: { value: item.question },
-                                          on: {
-                                            input: [
-                                              function($event) {
-                                                if ($event.target.composing) {
-                                                  return
-                                                }
-                                                _vm.$set(
-                                                  item,
-                                                  "question",
-                                                  $event.target.value
-                                                )
-                                              },
-                                              _vm.answerOnInput
-                                            ]
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.quizParams.columns,
+                                        expression: "quizParams.columns"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      type: "number",
+                                      name: "columns",
+                                      placeholder: "Number of Questions",
+                                      min: "1",
+                                      max: "100"
+                                    },
+                                    domProps: { value: _vm.quizParams.columns },
+                                    on: {
+                                      input: [
+                                        function($event) {
+                                          if ($event.target.composing) {
+                                            return
                                           }
-                                        })
+                                          _vm.$set(
+                                            _vm.quizParams,
+                                            "columns",
+                                            $event.target.value
+                                          )
+                                        },
+                                        _vm.setQuestionsOptions
                                       ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "div",
-                                      { staticClass: "answers-wrapper" },
-                                      [
-                                        _c(
-                                          "div",
-                                          { staticClass: "labels-wrapper" },
-                                          [
-                                            _c(
-                                              "label",
-                                              {
-                                                staticClass: "required",
-                                                attrs: {
-                                                  for: "num_answer" + item.id
-                                                }
-                                              },
-                                              [_vm._v("Answers")]
-                                            ),
-                                            _vm._v(" "),
-                                            _vm.selectedType.id == 0
-                                              ? _c("label", [_vm._v("Correct")])
-                                              : _vm._e(),
-                                            _vm._v(" "),
-                                            _vm.selectedType.id == 1
-                                              ? _c("label", [_vm._v("Sign")])
-                                              : _vm._e()
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _vm._l(item.answers, function(
-                                          answer,
-                                          index
-                                        ) {
-                                          return _c(
+                                    }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col" }, [
+                                  _c("label", { attrs: { for: "rows" } }, [
+                                    _vm._v("Answers for one question")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.quizParams.rows,
+                                        expression: "quizParams.rows"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      type: "number",
+                                      name: "rows",
+                                      placeholder: "Answers for one question",
+                                      min: "1",
+                                      max: "20"
+                                    },
+                                    domProps: { value: _vm.quizParams.rows },
+                                    on: {
+                                      input: [
+                                        function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.quizParams,
+                                            "rows",
+                                            $event.target.value
+                                          )
+                                        },
+                                        _vm.setQuestionsOptions
+                                      ]
+                                    }
+                                  })
+                                ])
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "questions-wrapper" }, [
+                              _c(
+                                "ul",
+                                { staticClass: "nav nav-tabs" },
+                                _vm._l(_vm.questions, function(item, index) {
+                                  return _c(
+                                    "li",
+                                    {
+                                      staticClass: "nav-item",
+                                      class: index == 0 ? "active" : ""
+                                    },
+                                    [
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "nav-link",
+                                          attrs: {
+                                            "data-toggle": "tab",
+                                            href: "#" + item.id
+                                          }
+                                        },
+                                        [_vm._v("№" + _vm._s(index))]
+                                      )
+                                    ]
+                                  )
+                                }),
+                                0
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "tab-content" },
+                                _vm._l(_vm.questions, function(item, index) {
+                                  return _c(
+                                    "div",
+                                    {
+                                      staticClass: "tab-pane",
+                                      class: index == 0 ? "active" : "",
+                                      attrs: { id: item.id }
+                                    },
+                                    [
+                                      _c("span", [
+                                        _vm._v(
+                                          "Tabs for question № " + _vm._s(index)
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        { staticClass: "fields-wrapper" },
+                                        [
+                                          _c(
                                             "div",
-                                            { staticClass: "mb-3" },
+                                            { staticClass: "input-group mb-3" },
+                                            [
+                                              _c(
+                                                "label",
+                                                {
+                                                  staticClass: "required",
+                                                  attrs: {
+                                                    for:
+                                                      "num_question" + item.id
+                                                  }
+                                                },
+                                                [_vm._v("Question")]
+                                              ),
+                                              _vm._v(" "),
+                                              _c("input", {
+                                                directives: [
+                                                  {
+                                                    name: "model",
+                                                    rawName: "v-model",
+                                                    value: item.question,
+                                                    expression: "item.question"
+                                                  }
+                                                ],
+                                                staticClass: "form-control",
+                                                attrs: {
+                                                  type: "text",
+                                                  placeholder: "Question",
+                                                  name:
+                                                    "num_question" + item.id,
+                                                  required: ""
+                                                },
+                                                domProps: {
+                                                  value: item.question
+                                                },
+                                                on: {
+                                                  input: [
+                                                    function($event) {
+                                                      if (
+                                                        $event.target.composing
+                                                      ) {
+                                                        return
+                                                      }
+                                                      _vm.$set(
+                                                        item,
+                                                        "question",
+                                                        $event.target.value
+                                                      )
+                                                    },
+                                                    _vm.answerOnInput
+                                                  ]
+                                                }
+                                              })
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            { staticClass: "answers-wrapper" },
                                             [
                                               _c(
                                                 "div",
                                                 {
-                                                  staticClass:
-                                                    "fields-wrapper__internal"
+                                                  staticClass: "labels-wrapper"
                                                 },
                                                 [
                                                   _c(
-                                                    "div",
+                                                    "label",
                                                     {
-                                                      staticClass:
-                                                        "fields-wrapper__item"
+                                                      staticClass: "required",
+                                                      attrs: {
+                                                        for:
+                                                          "num_answer" + item.id
+                                                      }
                                                     },
-                                                    [
-                                                      _c("input", {
-                                                        directives: [
-                                                          {
-                                                            name: "model",
-                                                            rawName: "v-model",
-                                                            value: answer.dsc,
-                                                            expression:
-                                                              "answer.dsc"
-                                                          }
-                                                        ],
-                                                        staticClass:
-                                                          "form-control",
-                                                        attrs: {
-                                                          type: "text",
-                                                          placeholder:
-                                                            "answer" +
-                                                            " № " +
-                                                            index,
-                                                          name:
-                                                            "num_answer" +
-                                                            item.id +
-                                                            answer.id,
-                                                          required: ""
-                                                        },
-                                                        domProps: {
-                                                          value: answer.dsc
-                                                        },
-                                                        on: {
-                                                          input: [
-                                                            function($event) {
-                                                              if (
-                                                                $event.target
-                                                                  .composing
-                                                              ) {
-                                                                return
-                                                              }
-                                                              _vm.$set(
-                                                                answer,
-                                                                "dsc",
-                                                                $event.target
-                                                                  .value
-                                                              )
-                                                            },
-                                                            _vm.answerOnInput
-                                                          ]
-                                                        }
-                                                      })
-                                                    ]
+                                                    [_vm._v("Answers")]
                                                   ),
                                                   _vm._v(" "),
                                                   _vm.selectedType.id == 0
-                                                    ? _c(
-                                                        "div",
-                                                        {
-                                                          staticClass:
-                                                            "fields-wrapper__item"
-                                                        },
-                                                        [
-                                                          _c(
-                                                            "label",
-                                                            {
-                                                              staticClass:
-                                                                "check-container"
-                                                            },
-                                                            [
-                                                              _vm._v(
-                                                                "answer № " +
-                                                                  _vm._s(
-                                                                    index
-                                                                  ) +
-                                                                  "\n                                                                    "
-                                                              ),
-                                                              _c("input", {
-                                                                staticClass:
-                                                                  "hidden",
-                                                                attrs: {
-                                                                  type: "radio",
-                                                                  name:
-                                                                    "num_checked" +
-                                                                    item.id
-                                                                },
-                                                                on: {
-                                                                  input: function(
-                                                                    $event
-                                                                  ) {
-                                                                    return _vm.checkOnInput(
-                                                                      item.id,
-                                                                      index
-                                                                    )
-                                                                  }
-                                                                }
-                                                              }),
-                                                              _vm._v(" "),
-                                                              _c("span", {
-                                                                staticClass:
-                                                                  "checkmark"
-                                                              })
-                                                            ]
-                                                          )
-                                                        ]
-                                                      )
+                                                    ? _c("label", [
+                                                        _vm._v("Correct")
+                                                      ])
                                                     : _vm._e(),
                                                   _vm._v(" "),
                                                   _vm.selectedType.id == 1
-                                                    ? _c(
-                                                        "div",
-                                                        {
-                                                          staticClass:
-                                                            "fields-wrapper__item"
-                                                        },
-                                                        [
-                                                          _c(
-                                                            "select",
-                                                            {
+                                                    ? _c("label", [
+                                                        _vm._v("Sign")
+                                                      ])
+                                                    : _vm._e()
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _vm._l(item.answers, function(
+                                                answer,
+                                                index
+                                              ) {
+                                                return _c(
+                                                  "div",
+                                                  { staticClass: "mb-3" },
+                                                  [
+                                                    _c(
+                                                      "div",
+                                                      {
+                                                        staticClass:
+                                                          "fields-wrapper__internal"
+                                                      },
+                                                      [
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "fields-wrapper__item"
+                                                          },
+                                                          [
+                                                            _c("input", {
                                                               directives: [
                                                                 {
                                                                   name: "model",
                                                                   rawName:
                                                                     "v-model",
                                                                   value:
-                                                                    answer.sign,
+                                                                    answer.dsc,
                                                                   expression:
-                                                                    "answer.sign"
+                                                                    "answer.dsc"
                                                                 }
                                                               ],
                                                               staticClass:
                                                                 "form-control",
                                                               attrs: {
-                                                                name: "sign",
-                                                                id: "sign"
+                                                                type: "text",
+                                                                placeholder:
+                                                                  "answer" +
+                                                                  " № " +
+                                                                  index,
+                                                                name:
+                                                                  "num_answer" +
+                                                                  item.id +
+                                                                  answer.id,
+                                                                required: ""
+                                                              },
+                                                              domProps: {
+                                                                value:
+                                                                  answer.dsc
                                                               },
                                                               on: {
-                                                                change: [
+                                                                input: [
                                                                   function(
                                                                     $event
                                                                   ) {
-                                                                    var $$selectedVal = Array.prototype.filter
-                                                                      .call(
-                                                                        $event
-                                                                          .target
-                                                                          .options,
-                                                                        function(
-                                                                          o
-                                                                        ) {
-                                                                          return o.selected
-                                                                        }
-                                                                      )
-                                                                      .map(
-                                                                        function(
-                                                                          o
-                                                                        ) {
-                                                                          var val =
-                                                                            "_value" in
-                                                                            o
-                                                                              ? o._value
-                                                                              : o.value
-                                                                          return val
-                                                                        }
-                                                                      )
-                                                                    _vm.$set(
-                                                                      answer,
-                                                                      "sign",
+                                                                    if (
                                                                       $event
                                                                         .target
-                                                                        .multiple
-                                                                        ? $$selectedVal
-                                                                        : $$selectedVal[0]
+                                                                        .composing
+                                                                    ) {
+                                                                      return
+                                                                    }
+                                                                    _vm.$set(
+                                                                      answer,
+                                                                      "dsc",
+                                                                      $event
+                                                                        .target
+                                                                        .value
                                                                     )
                                                                   },
-                                                                  _vm.onSignType
+                                                                  _vm.answerOnInput
                                                                 ]
                                                               }
-                                                            },
-                                                            _vm._l(
-                                                              _vm.selectedSign,
-                                                              function(sign) {
-                                                                return _c(
-                                                                  "option",
+                                                            })
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _vm.selectedType.id == 0
+                                                          ? _c(
+                                                              "div",
+                                                              {
+                                                                staticClass:
+                                                                  "fields-wrapper__item"
+                                                              },
+                                                              [
+                                                                _c(
+                                                                  "label",
                                                                   {
-                                                                    domProps: {
-                                                                      value: sign
-                                                                    }
+                                                                    staticClass:
+                                                                      "check-container"
                                                                   },
                                                                   [
                                                                     _vm._v(
-                                                                      "\n                                                                      " +
+                                                                      "answer № " +
                                                                         _vm._s(
-                                                                          sign.result
+                                                                          index
                                                                         ) +
-                                                                        "\n                                                                    "
-                                                                    )
+                                                                        "\n                                                                            "
+                                                                    ),
+                                                                    _c(
+                                                                      "input",
+                                                                      {
+                                                                        staticClass:
+                                                                          "hidden",
+                                                                        attrs: {
+                                                                          type:
+                                                                            "radio",
+                                                                          name:
+                                                                            "num_checked" +
+                                                                            item.id
+                                                                        },
+                                                                        on: {
+                                                                          input: function(
+                                                                            $event
+                                                                          ) {
+                                                                            return _vm.checkOnInput(
+                                                                              item.id,
+                                                                              index
+                                                                            )
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    ),
+                                                                    _vm._v(" "),
+                                                                    _c("span", {
+                                                                      staticClass:
+                                                                        "checkmark"
+                                                                    })
                                                                   ]
                                                                 )
-                                                              }
-                                                            ),
-                                                            0
-                                                          )
-                                                        ]
-                                                      )
-                                                    : _vm._e()
-                                                ]
-                                              )
-                                            ]
-                                          )
-                                        })
-                                      ],
-                                      2
-                                    )
-                                  ])
-                                ]
-                              )
-                            }),
-                            0
-                          )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("hr"),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "results" } }, [
-                          _vm._v("Results:")
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "questions-paramrtrs__wrapper __results"
-                          },
-                          [
-                            _c("div", { staticClass: "col" }, [
-                              _c("label", { attrs: { for: "columns" } }, [
-                                _vm._v("Number of Results")
-                              ]),
-                              _vm._v(" "),
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.resultsRows,
-                                    expression: "resultsRows"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "number",
-                                  name: "columns",
-                                  placeholder: "Number of Results",
-                                  min: "1",
-                                  max: "15"
-                                },
-                                domProps: { value: _vm.resultsRows },
-                                on: {
-                                  input: [
-                                    function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.resultsRows = $event.target.value
-                                    },
-                                    _vm.setResultsOptions
-                                  ]
-                                }
-                              })
-                            ])
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "results-fields__wrapper fields-wrapper"
-                          },
-                          _vm._l(_vm.results, function(item, index) {
-                            return _c(
-                              "div",
-                              { staticClass: "results-fields__item" },
-                              [
-                                _c("div", { staticClass: "input-group mb-3" }, [
-                                  _c("input", {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: item.result,
-                                        expression: "item.result"
-                                      }
-                                    ],
-                                    staticClass: "form-control",
-                                    attrs: {
-                                      type: "text",
-                                      placeholder: "Result № " + index,
-                                      name: "num_result" + item.id,
-                                      required: ""
-                                    },
-                                    domProps: { value: item.result },
-                                    on: {
-                                      input: [
-                                        function($event) {
-                                          if ($event.target.composing) {
-                                            return
-                                          }
-                                          _vm.$set(
-                                            item,
-                                            "result",
-                                            $event.target.value
-                                          )
-                                        },
-                                        _vm.resultOnInput
-                                      ]
-                                    }
-                                  })
-                                ]),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "input-group mb-3" }, [
-                                  _c("textarea", {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: item.description,
-                                        expression: "item.description"
-                                      }
-                                    ],
-                                    attrs: {
-                                      name: "num_description" + index,
-                                      id: "num-description" + index,
-                                      placeholder:
-                                        "Description for result № " + index,
-                                      cols: "30",
-                                      rows: "6",
-                                      required: ""
-                                    },
-                                    domProps: { value: item.description },
-                                    on: {
-                                      input: [
-                                        function($event) {
-                                          if ($event.target.composing) {
-                                            return
-                                          }
-                                          _vm.$set(
-                                            item,
-                                            "description",
-                                            $event.target.value
-                                          )
-                                        },
-                                        _vm.resultOnInput
-                                      ]
-                                    }
-                                  })
-                                ]),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "form-group" }, [
-                                  _c(
-                                    "label",
-                                    { attrs: { for: "result_image" + index } },
-                                    [_vm._v("Result Image №" + _vm._s(index))]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("input", {
-                                    staticClass: "form-control",
-                                    attrs: { type: "file" },
-                                    on: {
-                                      change: function($event) {
-                                        return _vm.updateResultImage(
-                                          $event,
-                                          index
-                                        )
-                                      }
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  item.img
-                                    ? _c(
-                                        "ul",
-                                        { staticClass: "list-unstyled" },
-                                        [
-                                          _c("li", [
-                                            _vm._v(
-                                              "\n                                                    " +
-                                                _vm._s(
-                                                  item.img.name ||
-                                                    item.img.file_name
-                                                ) +
-                                                "\n                                                    "
-                                            ),
-                                            _c(
-                                              "button",
-                                              {
-                                                staticClass:
-                                                  "btn btn-xs btn-danger",
-                                                attrs: { type: "button" },
-                                                on: {
-                                                  click: _vm.removeResultImage
-                                                }
-                                              },
-                                              [
-                                                _vm._v(
-                                                  "\n                                                        Remove file\n                                                    "
+                                                              ]
+                                                            )
+                                                          : _vm._e(),
+                                                        _vm._v(" "),
+                                                        _vm.selectedType.id == 1
+                                                          ? _c(
+                                                              "div",
+                                                              {
+                                                                staticClass:
+                                                                  "fields-wrapper__item"
+                                                              },
+                                                              [
+                                                                _c(
+                                                                  "select",
+                                                                  {
+                                                                    directives: [
+                                                                      {
+                                                                        name:
+                                                                          "model",
+                                                                        rawName:
+                                                                          "v-model",
+                                                                        value:
+                                                                          answer.sign,
+                                                                        expression:
+                                                                          "answer.sign"
+                                                                      }
+                                                                    ],
+                                                                    staticClass:
+                                                                      "form-control",
+                                                                    attrs: {
+                                                                      name:
+                                                                        "sign",
+                                                                      id: "sign"
+                                                                    },
+                                                                    on: {
+                                                                      change: [
+                                                                        function(
+                                                                          $event
+                                                                        ) {
+                                                                          var $$selectedVal = Array.prototype.filter
+                                                                            .call(
+                                                                              $event
+                                                                                .target
+                                                                                .options,
+                                                                              function(
+                                                                                o
+                                                                              ) {
+                                                                                return o.selected
+                                                                              }
+                                                                            )
+                                                                            .map(
+                                                                              function(
+                                                                                o
+                                                                              ) {
+                                                                                var val =
+                                                                                  "_value" in
+                                                                                  o
+                                                                                    ? o._value
+                                                                                    : o.value
+                                                                                return val
+                                                                              }
+                                                                            )
+                                                                          _vm.$set(
+                                                                            answer,
+                                                                            "sign",
+                                                                            $event
+                                                                              .target
+                                                                              .multiple
+                                                                              ? $$selectedVal
+                                                                              : $$selectedVal[0]
+                                                                          )
+                                                                        },
+                                                                        _vm.onSignType
+                                                                      ]
+                                                                    }
+                                                                  },
+                                                                  _vm._l(
+                                                                    _vm.selectedSign,
+                                                                    function(
+                                                                      sign
+                                                                    ) {
+                                                                      return _c(
+                                                                        "option",
+                                                                        {
+                                                                          domProps: {
+                                                                            value: sign
+                                                                          }
+                                                                        },
+                                                                        [
+                                                                          _vm._v(
+                                                                            "\n                                                                              " +
+                                                                              _vm._s(
+                                                                                sign.result
+                                                                              ) +
+                                                                              "\n                                                                            "
+                                                                          )
+                                                                        ]
+                                                                      )
+                                                                    }
+                                                                  ),
+                                                                  0
+                                                                )
+                                                              ]
+                                                            )
+                                                          : _vm._e()
+                                                      ]
+                                                    )
+                                                  ]
                                                 )
-                                              ]
-                                            )
-                                          ])
+                                              })
+                                            ],
+                                            2
+                                          )
                                         ]
                                       )
-                                    : _vm._e()
-                                ]),
-                                _vm._v(" "),
-                                _vm.selectedType.id == 0
-                                  ? _c(
+                                    ]
+                                  )
+                                }),
+                                0
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("hr"),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "results" } }, [
+                              _vm._v("Results:")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "questions-paramrtrs__wrapper __results"
+                              },
+                              [
+                                _c("div", { staticClass: "col" }, [
+                                  _c("label", { attrs: { for: "columns" } }, [
+                                    _vm._v("Number of Results")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.resultsRows,
+                                        expression: "resultsRows"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      type: "number",
+                                      name: "columns",
+                                      placeholder: "Number of Results",
+                                      min: "1",
+                                      max: "15"
+                                    },
+                                    domProps: { value: _vm.resultsRows },
+                                    on: {
+                                      input: [
+                                        function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.resultsRows = $event.target.value
+                                        },
+                                        _vm.setResultsOptions
+                                      ]
+                                    }
+                                  })
+                                ])
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "results-fields__wrapper fields-wrapper"
+                              },
+                              _vm._l(_vm.results, function(item, index) {
+                                return _c(
+                                  "div",
+                                  { staticClass: "results-fields__item" },
+                                  [
+                                    _c(
                                       "div",
                                       { staticClass: "input-group mb-3" },
                                       [
-                                        _c("label", { attrs: { for: "" } }, [
-                                          _vm._v("Num of correct answers")
-                                        ]),
-                                        _vm._v(" "),
                                         _c("input", {
                                           directives: [
                                             {
                                               name: "model",
                                               rawName: "v-model",
-                                              value: item.value,
-                                              expression: "item.value"
+                                              value: item.result,
+                                              expression: "item.result"
                                             }
                                           ],
                                           staticClass: "form-control",
                                           attrs: {
-                                            type: "number",
-                                            placeholder:
-                                              "Max " + _vm.quizParams.columns,
-                                            name: "num_value" + item.id,
-                                            required: "",
-                                            min: "1",
-                                            max: _vm.quizParams.columns
+                                            type: "text",
+                                            placeholder: "Result № " + index,
+                                            name: "num_result" + item.id,
+                                            required: ""
                                           },
-                                          domProps: { value: item.value },
+                                          domProps: { value: item.result },
                                           on: {
                                             input: [
                                               function($event) {
@@ -31541,7 +31529,7 @@ var render = function() {
                                                 }
                                                 _vm.$set(
                                                   item,
-                                                  "value",
+                                                  "result",
                                                   $event.target.value
                                                 )
                                               },
@@ -31550,42 +31538,372 @@ var render = function() {
                                           }
                                         })
                                       ]
-                                    )
-                                  : _vm._e()
-                              ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      { staticClass: "input-group mb-3" },
+                                      [
+                                        _c("textarea", {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value: item.description,
+                                              expression: "item.description"
+                                            }
+                                          ],
+                                          attrs: {
+                                            name: "num_description" + index,
+                                            id: "num-description" + index,
+                                            placeholder:
+                                              "Description for result № " +
+                                              index,
+                                            cols: "30",
+                                            rows: "6",
+                                            required: ""
+                                          },
+                                          domProps: { value: item.description },
+                                          on: {
+                                            input: [
+                                              function($event) {
+                                                if ($event.target.composing) {
+                                                  return
+                                                }
+                                                _vm.$set(
+                                                  item,
+                                                  "description",
+                                                  $event.target.value
+                                                )
+                                              },
+                                              _vm.resultOnInput
+                                            ]
+                                          }
+                                        })
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "form-group" }, [
+                                      _c(
+                                        "label",
+                                        {
+                                          attrs: { for: "result_image" + index }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "Result Image №" + _vm._s(index)
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("input", {
+                                        staticClass: "form-control",
+                                        attrs: { type: "file" },
+                                        on: {
+                                          change: function($event) {
+                                            return _vm.updateResultImage(
+                                              $event,
+                                              index
+                                            )
+                                          }
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      item.img
+                                        ? _c(
+                                            "ul",
+                                            { staticClass: "list-unstyled" },
+                                            [
+                                              _c("li", [
+                                                _vm._v(
+                                                  "\n                                                            " +
+                                                    _vm._s(
+                                                      item.img.name ||
+                                                        item.img.file_name
+                                                    ) +
+                                                    "\n                                                            "
+                                                ),
+                                                _c(
+                                                  "button",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-xs btn-danger",
+                                                    attrs: { type: "button" },
+                                                    on: {
+                                                      click:
+                                                        _vm.removeResultImage
+                                                    }
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      "\n                                                                Remove file\n                                                            "
+                                                    )
+                                                  ]
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        : _vm._e()
+                                    ]),
+                                    _vm._v(" "),
+                                    _vm.selectedType.id == 0
+                                      ? _c(
+                                          "div",
+                                          { staticClass: "input-group mb-3" },
+                                          [
+                                            _c(
+                                              "label",
+                                              { attrs: { for: "" } },
+                                              [_vm._v("Num of correct answers")]
+                                            ),
+                                            _vm._v(" "),
+                                            _c("input", {
+                                              directives: [
+                                                {
+                                                  name: "model",
+                                                  rawName: "v-model",
+                                                  value: item.value,
+                                                  expression: "item.value"
+                                                }
+                                              ],
+                                              staticClass: "form-control",
+                                              attrs: {
+                                                type: "number",
+                                                placeholder:
+                                                  "Max " +
+                                                  _vm.quizParams.columns,
+                                                name: "num_value" + item.id,
+                                                required: "",
+                                                min: "1",
+                                                max: _vm.quizParams.columns
+                                              },
+                                              domProps: { value: item.value },
+                                              on: {
+                                                input: [
+                                                  function($event) {
+                                                    if (
+                                                      $event.target.composing
+                                                    ) {
+                                                      return
+                                                    }
+                                                    _vm.$set(
+                                                      item,
+                                                      "value",
+                                                      $event.target.value
+                                                    )
+                                                  },
+                                                  _vm.resultOnInput
+                                                ]
+                                              }
+                                            })
+                                          ]
+                                        )
+                                      : _vm._e()
+                                  ]
+                                )
+                              }),
+                              0
                             )
-                          }),
-                          0
-                        )
+                          ])
+                        ])
                       ])
-                    ]),
-                    _vm._v(" "),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "tab-pane", attrs: { id: "seo" } }, [
+                    _c("div", { staticClass: "box" }, [
+                      _vm._m(3),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "box-body half-fields__wrapper" },
+                        [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "seo_title" } }, [
+                              _vm._v("Title")
+                            ]),
+                            _vm._v(" "),
+                            _c("textarea", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.seo.title,
+                                  expression: "seo.title"
+                                }
+                              ],
+                              attrs: {
+                                name: "seo_title",
+                                id: "seo-title",
+                                placeholder: "",
+                                cols: "60",
+                                rows: "1",
+                                required: ""
+                              },
+                              domProps: { value: _vm.seo.title },
+                              on: {
+                                input: [
+                                  function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.seo,
+                                      "title",
+                                      $event.target.value
+                                    )
+                                  },
+                                  _vm.seoOnInput
+                                ]
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "seo_h1" } }, [
+                              _vm._v("H1")
+                            ]),
+                            _vm._v(" "),
+                            _c("textarea", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.seo.h1,
+                                  expression: "seo.h1"
+                                }
+                              ],
+                              attrs: {
+                                name: "seo_h1",
+                                id: "seo-h1",
+                                placeholder: "",
+                                cols: "60",
+                                rows: "1",
+                                required: ""
+                              },
+                              domProps: { value: _vm.seo.h1 },
+                              on: {
+                                input: [
+                                  function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(_vm.seo, "h1", $event.target.value)
+                                  },
+                                  _vm.seoOnInput
+                                ]
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "seo_decsription" } }, [
+                              _vm._v("Description")
+                            ]),
+                            _vm._v(" "),
+                            _c("textarea", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.seo.description,
+                                  expression: "seo.description"
+                                }
+                              ],
+                              attrs: {
+                                name: "seo_decsription",
+                                id: "seo-decsription",
+                                placeholder: "",
+                                cols: "60",
+                                rows: "1",
+                                required: ""
+                              },
+                              domProps: { value: _vm.seo.description },
+                              on: {
+                                input: [
+                                  function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.seo,
+                                      "description",
+                                      $event.target.value
+                                    )
+                                  },
+                                  _vm.seoOnInput
+                                ]
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "seo_keywords" } }, [
+                              _vm._v("Keywords")
+                            ]),
+                            _vm._v(" "),
+                            _c("textarea", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.seo.keywords,
+                                  expression: "seo.keywords"
+                                }
+                              ],
+                              attrs: {
+                                name: "seo_keywords",
+                                id: "seo-keywords",
+                                placeholder: "",
+                                cols: "60",
+                                rows: "1",
+                                required: ""
+                              },
+                              domProps: { value: _vm.seo.keywords },
+                              on: {
+                                input: [
+                                  function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.seo,
+                                      "keywords",
+                                      $event.target.value
+                                    )
+                                  },
+                                  _vm.seoOnInput
+                                ]
+                              }
+                            })
+                          ])
+                        ]
+                      )
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "bt-wrapper" },
+                  [
                     _c(
-                      "div",
-                      { staticClass: "box-footer" },
+                      "vue-button-spinner",
+                      {
+                        staticClass: "btn btn-primary btn-sm",
+                        attrs: { isLoading: _vm.loading, disabled: _vm.loading }
+                      },
                       [
-                        _c(
-                          "vue-button-spinner",
-                          {
-                            staticClass: "btn btn-primary btn-sm",
-                            attrs: {
-                              isLoading: _vm.loading,
-                              disabled: _vm.loading
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                Save\n                            "
-                            )
-                          ]
+                        _vm._v(
+                          "\n                            Save\n                        "
                         )
-                      ],
-                      1
+                      ]
                     )
                   ],
                   1
                 )
-              ]
+              ],
+              1
             )
           ])
         ])
@@ -31606,8 +31924,44 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("ul", { staticClass: "nav nav-tabs" }, [
+      _c("li", { staticClass: "nav-item active" }, [
+        _c(
+          "a",
+          {
+            staticClass: "nav-link",
+            attrs: { "data-toggle": "tab", href: "#test" }
+          },
+          [_vm._v("Content")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "nav-item" }, [
+        _c(
+          "a",
+          {
+            staticClass: "nav-link",
+            attrs: { "data-toggle": "tab", href: "#seo" }
+          },
+          [_vm._v("SEO")]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "box-header with-border" }, [
       _c("h3", { staticClass: "box-title" }, [_vm._v("Create")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "box-header with-border" }, [
+      _c("h3", { staticClass: "box-title" }, [_vm._v("SEO")])
     ])
   }
 ]
@@ -35657,7 +36011,8 @@ function initialState() {
             bg_image: null,
             popularity: null,
             questions: [],
-            test_type: 'knowledges'
+            test_type: 'knowledges',
+            seo: null
         },
         resultsItem: [],
         categoriesAll: [],
@@ -35720,6 +36075,11 @@ var actions = {
                 params.set('questions', '');
             } else {
                 params.set('questions', JSON.stringify(state.item.questions));
+            }
+            if (_.isEmpty(state.item.seo)) {
+                params.set('seo', '');
+            } else {
+                params.set('seo', JSON.stringify(state.item.seo));
             }
             if (state.item.main_image === null) {
                 params.delete('main_image');
@@ -35870,8 +36230,13 @@ var actions = {
 
         commit('setResults', value);
     },
-    resetState: function resetState(_ref14) {
+    setSeo: function setSeo(_ref14, payload) {
         var commit = _ref14.commit;
+
+        commit('setSeo', payload);
+    },
+    resetState: function resetState(_ref15) {
+        var commit = _ref15.commit;
 
         commit('resetState');
     }
@@ -35907,6 +36272,9 @@ var mutations = {
     },
     setQuestions: function setQuestions(state, value) {
         state.item.questions = JSON.parse(JSON.stringify(value));
+    },
+    setSeo: function setSeo(state, payload) {
+        state.item.seo = JSON.parse(JSON.stringify(payload));
     },
     setResults: function setResults(state, value) {
         state.resultsItem = value;

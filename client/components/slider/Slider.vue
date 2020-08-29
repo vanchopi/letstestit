@@ -202,9 +202,9 @@ export default {
       console.log(' filter ', id);
       this.showFilter[id].filter = !this.showFilter[id].filter;
     },
-    checkIfMoreTests( quantity ){
+    checkIfMoreTests( quantity, rnum ){
       let qty = this.testsList.length;
-      if( quantity > 0){
+      if( quantity > 0 && quantity >= rnum ){
         this.ifShowMore = true;        
       }else{
         this.ifShowMore = false;
@@ -257,7 +257,7 @@ export default {
         for (let i = 0; i < list.data.tests.length; i++){
           this.testsList.push(list.data.tests[i])
         }      
-        this.checkIfMoreTests(list.data.quantity);  
+        this.checkIfMoreTests(list.data.quantity, list.data.rnum);  
         return this.testsList;
       }catch(e){
         console.log(e);

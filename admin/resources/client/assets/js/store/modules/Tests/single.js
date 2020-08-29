@@ -8,7 +8,8 @@ function initialState() {
             bg_image: null,
             popularity: null,
             questions: [],
-            test_type: 'knowledges',            
+            test_type: 'knowledges', 
+            seo: null,           
         },
         resultsItem:[],
         categoriesAll: [],
@@ -59,6 +60,11 @@ const actions = {
                 params.set('questions', '')
             } else {
                 params.set('questions', JSON.stringify(state.item.questions))
+            }
+            if (_.isEmpty(state.item.seo)) {
+                params.set('seo', '')
+            } else {
+                params.set('seo', JSON.stringify(state.item.seo))
             }            
             if (state.item.main_image === null) {
                 params.delete('main_image');
@@ -200,6 +206,10 @@ const actions = {
     setResults({ commit }, value) {
         commit('setResults', value)
     },
+
+    setSeo({commit}, payload){
+        commit('setSeo', payload);
+    },
     
     resetState({ commit }) {
         commit('resetState')
@@ -236,6 +246,9 @@ const mutations = {
     },
     setQuestions(state, value) {
         state.item.questions = JSON.parse(JSON.stringify(value))
+    },
+    setSeo(state, payload){
+        state.item.seo = JSON.parse(JSON.stringify(payload));
     },
     setResults(state, value) {
         state.resultsItem = value;
