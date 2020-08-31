@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Test;
 use App\Result;
+use App\Meta;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Test as TestResource;
 use App\Http\Requests\Admin\StoreTestsRequest;
@@ -47,6 +48,7 @@ class TestsController extends Controller
         echo '123-' . $path;*/
 
         $results = $request->variants;
+        $seo = $request->seo;
         //$variants = json_decode($results);
 
         print_r(gettype($request->main_image));
@@ -55,7 +57,7 @@ class TestsController extends Controller
 
         //print_r(hasFile($request->variants[0]['img']));
         //print_r(gettype($request->variants[0]['img']));
-        print_r(json_encode($results));
+        //print_r($seo);
 
         echo "********";
 
@@ -75,14 +77,18 @@ class TestsController extends Controller
                 echo "shit just happened";  
             }
         }        
-
+        /* results */
         $result = new Result;
-
         $result->variants = json_encode($results);
-
         $result->test_id = $test->id;
-
         $result->save();
+
+        /* meta */
+        $meta = new Meta;
+        $meta->model_type = 'App\Test';
+        $meta->model_id = $test->id;
+        $meta->data = $seo;
+        $meta->save();
         
         return (new TestResource($test))
             ->response()
