@@ -3638,7 +3638,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.row-alert[data-v-15a01839] {\n    padding: 10px;\n}\n", ""]);
+exports.push([module.i, "\n.row-alert[data-v-15a01839] {\r\n    padding: 10px;\n}\r\n", ""]);
 
 // exports
 
