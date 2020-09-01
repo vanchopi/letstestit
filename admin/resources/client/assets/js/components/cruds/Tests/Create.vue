@@ -8,311 +8,401 @@
             <div class="row">
                 <div class="col-xs-12">
                     <form @submit.prevent="submitForm" novalidate>
-                        <div class="box">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">Create</h3>
-                            </div>
+                        <div class="bt-wrapper">
+                            <back-buttton></back-buttton>                        
+                        </div>
+                        <bootstrap-alert />
 
-                            <div class="box-body">
-                                <back-buttton></back-buttton>
-                            </div>
-
-                            <bootstrap-alert />
-
-                            <div class="box-body">
-                                <div class="form-group">
-                                    <label for="category">Category id</label>
-                                    <v-select
-                                            name="category"
-                                            label="title"
-                                            @input="updateCategory"
-                                            :value="item.category"
-                                            :options="categoriesAll"
-                                            />
-                                </div>
-                                <div class="form-group">
-                                    <label for="title">Title</label>
-                                    <input
-                                            type="text"
-                                            class="form-control"
-                                            name="title"
-                                            placeholder="Enter Title"
-                                            :value="item.title"
-                                            @input="updateTitle"
-                                            >
-                                </div>
-                                <div class="form-group">
-                                    <label for="main_image">Main image</label>
-                                    <input
-                                            type="file"
-                                            class="form-control"
-                                            @change="updateMain_image"
-                                    >
-                                    <ul v-if="item.main_image" class="list-unstyled">
-                                        <li>
-                                            {{ item.main_image.name || item.main_image.file_name }}
-                                            <button class="btn btn-xs btn-danger"
-                                                    type="button"
-                                                    @click="removeMain_image"
-                                            >
-                                                Remove file
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="form-group">
-                                    <label for="bg_image">Bg image</label>
-                                    <input
-                                            type="file"
-                                            class="form-control"
-                                            @change="updateBg_image"
-                                    >
-                                    <ul v-if="item.bg_image" class="list-unstyled">
-                                        <li>
-                                            {{ item.bg_image.name || item.bg_image.file_name }}
-                                            <button class="btn btn-xs btn-danger"
-                                                    type="button"
-                                                    @click="removeBg_image"
-                                            >
-                                                Remove file
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <hr>
-
-                                <div class="form-group __1">
-                                    <div class="col">
-                                        <label for="type">CHOOSE TEST TYPE </label>
-                                        <select name="type" 
-                                                id="type" 
-                                                v-model="selectedType"
-                                                @change="onChangeType"
-                                                class="form-control" 
-                                          >
-                                              <option v-for="type in testTypes"
-                                                      :value="type"                                              
-                                              >
-                                                {{type.type}}
-                                              </option>
-                                        </select>
+                        <ul class="nav nav-tabs"
+                            >
+                            <li class="nav-item active">
+                                <a class="nav-link" data-toggle="tab" href="#test">Content</a>
+                            </li>  
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#seo">SEO</a>
+                            </li>                                          
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="test">
+                                <div class="box">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Create</h3>
                                     </div>
-                                </div>
 
-                                <hr>
-
-                                <div class="form-group">
-                                    <label for="questions">Questions:</label>
-                                    <div class="questions-paramrtrs__wrapper">                                        
-                                        <div class="col">
-                                            <label for="columns">Number of Questions</label>
-                                            <input type="number" 
-                                                   class="form-control" 
-                                                   name="columns" 
-                                                   placeholder="Number of Questions" 
-                                                   v-model="quizParams.columns"
-                                                   min="1"
-                                                   max="100" 
-                                                   @input="setQuestionsOptions"
-                                                >
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <label for="category">Category id</label>
+                                            <v-select
+                                                    name="category"
+                                                    label="title"
+                                                    @input="updateCategory"
+                                                    :value="item.category"
+                                                    :options="categoriesAll"
+                                                    />
                                         </div>
-                                        <div class="col">
-                                            <label for="rows">Answers for one question</label>
-                                            <input type="number" 
-                                                   class="form-control" 
-                                                   name="rows"
-                                                   placeholder="Answers for one question" 
-                                                   v-model="quizParams.rows"
-                                                   min="1"
-                                                   max="20" 
-                                                   @input="setQuestionsOptions"
-                                                >
-                                        </div>                                        
-                                    </div>
-                                    <div class="questions-wrapper">
-                                        <ul class="nav nav-tabs"
+                                        <div class="form-group">
+                                            <label for="title">Title</label>
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    name="title"
+                                                    placeholder="Enter Title"
+                                                    :value="item.title"
+                                                    @input="updateTitle"
+                                                    >
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="main_image">Main image</label>
+                                            <input
+                                                    type="file"
+                                                    class="form-control"
+                                                    @change="updateMain_image"
                                             >
-                                            <li v-for="(item, index) in questions"    
-                                                class="nav-item"
-                                                :class="index == 0 ? 'active' : ''"
+                                            <ul v-if="item.main_image" class="list-unstyled">
+                                                <li>
+                                                    {{ item.main_image.name || item.main_image.file_name }}
+                                                    <button class="btn btn-xs btn-danger"
+                                                            type="button"
+                                                            @click="removeMain_image"
+                                                    >
+                                                        Remove file
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="bg_image">Bg image</label>
+                                            <input
+                                                    type="file"
+                                                    class="form-control"
+                                                    @change="updateBg_image"
+                                            >
+                                            <ul v-if="item.bg_image" class="list-unstyled">
+                                                <li>
+                                                    {{ item.bg_image.name || item.bg_image.file_name }}
+                                                    <button class="btn btn-xs btn-danger"
+                                                            type="button"
+                                                            @click="removeBg_image"
+                                                    >
+                                                        Remove file
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="popularity">Popularity (step - 0.00001)</label>
+                                            <input  type="number"
+                                                    step="0.00001"
+                                                    class="form-control"
+                                                    name="popularity"
+                                                    placeholder="Enter Popularity(float)"
+                                                    :value="item.popularity"
+                                                    @input="updatePopularity"
+                                                    min="0"
+                                                    >
+                                        </div>
+
+                                        <hr>
+
+                                        <div class="form-group __1">
+                                            <div class="col">
+                                                <label for="type">CHOOSE TEST TYPE </label>
+                                                <select name="type" 
+                                                        id="type" 
+                                                        v-model="selectedType"
+                                                        @change="onChangeType"
+                                                        class="form-control" 
+                                                  >
+                                                      <option v-for="type in testTypes"
+                                                              :value="type"                                              
+                                                      >
+                                                        {{type.type}}
+                                                      </option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <hr>
+
+                                        <div class="form-group">
+                                            <label for="questions">Questions:</label>
+                                            <div class="questions-paramrtrs__wrapper">                                        
+                                                <div class="col">
+                                                    <label for="columns">Number of Questions</label>
+                                                    <input type="number" 
+                                                           class="form-control" 
+                                                           name="columns" 
+                                                           placeholder="Number of Questions" 
+                                                           v-model="quizParams.columns"
+                                                           min="1"
+                                                           max="100" 
+                                                           @input="setQuestionsOptions"
+                                                        >
+                                                </div>
+                                                <div class="col">
+                                                    <label for="rows">Answers for one question</label>
+                                                    <input type="number" 
+                                                           class="form-control" 
+                                                           name="rows"
+                                                           placeholder="Answers for one question" 
+                                                           v-model="quizParams.rows"
+                                                           min="1"
+                                                           max="20" 
+                                                           @input="setQuestionsOptions"
+                                                        >
+                                                </div>                                        
+                                            </div>
+                                            <div class="questions-wrapper">
+                                                <ul class="nav nav-tabs"
+                                                    >
+                                                    <li v-for="(item, index) in questions"    
+                                                        class="nav-item"
+                                                        :class="index == 0 ? 'active' : ''"
+                                                        >
+                                                        <a class="nav-link" data-toggle="tab" :href="'#' + item.id ">№{{index }}</a>
+                                                    </li>                                            
+                                                </ul>
+                                                <div class="tab-content">
+                                                    <div v-for="(item, index) in questions"                                                    
+                                                         class="tab-pane" 
+                                                         :class="index == 0 ? 'active' : ''"
+                                                         :id="item.id"
+                                                        >
+                                                        <span>Tabs for question № {{index}}</span>                                                
+                                                        <div class="fields-wrapper">
+                                                            <div class="input-group mb-3">
+                                                                <label :for="'num_question' + item.id" class="required">Question</label>
+                                                                <input type="text" 
+                                                                       class="form-control" 
+                                                                       placeholder="Question" 
+                                                                        
+                                                                       :name="'num_question' + item.id"
+                                                                       required=""
+                                                                       v-model="item.question" 
+                                                                       @input="answerOnInput"
+                                                                    >
+                                                            </div>
+                                                            <div class="answers-wrapper">
+                                                                <div class="labels-wrapper">
+                                                                    <label :for="'num_answer' + item.id" class="required">Answers</label>
+                                                                    <label v-if="selectedType.id == 0">Correct</label>
+                                                                    <label v-if="selectedType.id == 1">Sign</label>
+                                                                </div>
+                                                                <div v-for="(answer, index) in item.answers"
+                                                                     class="mb-3">  
+                                                                    <div class="fields-wrapper__internal">
+                                                                        <div class="fields-wrapper__item">
+                                                                            <input type="text"
+                                                                                   class="form-control"
+                                                                                   :placeholder="'answer' + ' № ' + index"
+                                                                                   
+                                                                                   :name="'num_answer' + item.id + answer.id"
+                                                                                   required=""
+                                                                                   v-model="answer.dsc"
+                                                                                   @input="answerOnInput"
+                                                                                >
+                                                                        </div>
+                                                                        <div class="fields-wrapper__item"
+                                                                             v-if="selectedType.id == 0"
+                                                                            >  
+                                                                            <label class="check-container">answer № {{index}}
+                                                                                <input  type="radio" 
+                                                                                        :name="'num_checked' + item.id"
+                                                                                        
+                                                                                        class="hidden"
+                                                                                        @input="checkOnInput(item.id, index)"
+                                                                                >
+                                                                                <span class="checkmark"></span>
+                                                                            </label>                               
+                                                                        </div>
+                                                                        <div class="fields-wrapper__item"
+                                                                             v-if="selectedType.id == 1"
+                                                                            >
+                                                                            <select name="sign" 
+                                                                                  id="sign" 
+                                                                                  v-model="answer.sign"
+                                                                                  @change="onSignType"
+                                                                                  class="form-control" 
+                                                                            >
+                                                                                <option v-for="sign in selectedSign"
+                                                                                        :value="sign"                                              
+                                                                                >
+                                                                                  {{sign.result}}
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>      
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>                                            
+                                                </div>
+                                            </div>
+                                        </div>   
+                                        
+                                        <hr>
+
+                                        <div class="form-group">
+                                            <label for="results">Results:</label>
+                                            <div class="questions-paramrtrs__wrapper __results">                                        
+                                                <div class="col">
+                                                    <label for="columns">Number of Results</label>
+                                                    <input type="number" 
+                                                           class="form-control" 
+                                                           name="columns" 
+                                                           placeholder="Number of Results" 
+                                                           v-model="resultsRows"
+                                                           min="1"
+                                                           max="15" 
+                                                           @input="setResultsOptions"
+                                                        >
+                                                </div>
+                                            </div>
+                                            <div class="results-fields__wrapper fields-wrapper">
+                                                <div    v-for="(item, index) in results"
+                                                        class="results-fields__item"                                             
                                                 >
-                                                <a class="nav-link" data-toggle="tab" :href="'#' + item.id ">№{{index }}</a>
-                                            </li>                                            
-                                        </ul>
-                                        <div class="tab-content">
-                                            <div v-for="(item, index) in questions"                                                    
-                                                 class="tab-pane" 
-                                                 :class="index == 0 ? 'active' : ''"
-                                                 :id="item.id"
-                                                >
-                                                <span>Tabs for question № {{index}}</span>                                                
-                                                <div class="fields-wrapper">
                                                     <div class="input-group mb-3">
-                                                        <label :for="'num_question' + item.id" class="required">Question</label>
+                                                        <!--<label :for="'num_result' + item.id" class="required">Result №{{index}}</label>-->
                                                         <input type="text" 
                                                                class="form-control" 
-                                                               placeholder="Question" 
+                                                               :placeholder="'Result № ' + index" 
                                                                 
-                                                               :name="'num_question' + item.id"
+                                                               :name="'num_result' + item.id"
                                                                required=""
-                                                               v-model="item.question" 
-                                                               @input="answerOnInput"
+                                                               v-model="item.result" 
+                                                               @input="resultOnInput"
                                                             >
                                                     </div>
-                                                    <div class="answers-wrapper">
-                                                        <div class="labels-wrapper">
-                                                            <label :for="'num_answer' + item.id" class="required">Answers</label>
-                                                            <label v-if="selectedType.id == 0">Correct</label>
-                                                            <label v-if="selectedType.id == 1">Sign</label>
-                                                        </div>
-                                                        <div v-for="(answer, index) in item.answers"
-                                                             class="mb-3">  
-                                                            <div class="fields-wrapper__internal">
-                                                                <div class="fields-wrapper__item">
-                                                                    <input type="text"
-                                                                           class="form-control"
-                                                                           :placeholder="'answer' + ' № ' + index"
-                                                                           
-                                                                           :name="'num_answer' + item.id + answer.id"
-                                                                           required=""
-                                                                           v-model="answer.dsc"
-                                                                           @input="answerOnInput"
-                                                                        >
-                                                                </div>
-                                                                <div class="fields-wrapper__item"
-                                                                     v-if="selectedType.id == 0"
-                                                                    >  
-                                                                    <label class="check-container">answer № {{index}}
-                                                                        <input  type="radio" 
-                                                                                :name="'num_checked' + item.id"
-                                                                                
-                                                                                class="hidden"
-                                                                                @input="checkOnInput(item.id, index)"
-                                                                        >
-                                                                        <span class="checkmark"></span>
-                                                                    </label>                               
-                                                                </div>
-                                                                <div class="fields-wrapper__item"
-                                                                     v-if="selectedType.id == 1"
-                                                                    >
-                                                                    <select name="sign" 
-                                                                          id="sign" 
-                                                                          v-model="answer.sign"
-                                                                          @change="onSignType"
-                                                                          class="form-control" 
-                                                                    >
-                                                                        <option v-for="sign in selectedSign"
-                                                                                :value="sign"                                              
-                                                                        >
-                                                                          {{sign.result}}
-                                                                        </option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>      
-                                                        </div>
+                                                    <div class="input-group mb-3">
+                                                        <textarea :name="'num_description' + index" 
+                                                                  :id="'num-description' + index" 
+                                                                  :placeholder="'Description for result № ' + index"
+                                                                  cols="30" 
+                                                                  rows="6"
+                                                                  required="" 
+                                                                  v-model="item.description"
+                                                                  @input="resultOnInput"
+                                                                >                                                    
+                                                        </textarea>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label :for="'result_image' + index">Result Image №{{index}}</label>
+                                                        <input
+                                                                type="file"
+                                                                class="form-control"
+                                                                @change="updateResultImage($event, index)"
+                                                        >
+                                                        <ul v-if="item.img" class="list-unstyled">
+                                                            <li>
+                                                                {{ item.img.name || item.img.file_name }}
+                                                                <button class="btn btn-xs btn-danger"
+                                                                        type="button"
+                                                                        @click="removeResultImage"
+                                                                >
+                                                                    Remove file
+                                                                </button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div v-if="selectedType.id == 0" class="input-group mb-3">       
+                                                        <label for="">Num of correct answers</label>
+                                                        <input type="number" 
+                                                               class="form-control" 
+                                                               :placeholder="'Max ' + quizParams.columns" 
+                                                               :name="'num_value' + item.id"
+                                                               required=""
+                                                               v-model="item.value"
+                                                               @input="resultOnInput"
+                                                               min="1"
+                                                               :max="quizParams.columns"
+                                                            >
                                                     </div>
                                                 </div>
-                                            </div>                                            
-                                        </div>
+                                            </div>
+                                        </div>                        
+
+
                                     </div>
-                                </div>   
-                                
-                                <hr>
 
-                                <div class="form-group">
-                                    <label for="results">Results:</label>
-                                    <div class="questions-paramrtrs__wrapper __results">                                        
-                                        <div class="col">
-                                            <label for="columns">Number of Results</label>
-                                            <input type="number" 
-                                                   class="form-control" 
-                                                   name="columns" 
-                                                   placeholder="Number of Results" 
-                                                   v-model="resultsRows"
-                                                   min="1"
-                                                   max="15" 
-                                                   @input="setResultsOptions"
-                                                >
-                                        </div>
-                                    </div>
-                                    <div class="results-fields__wrapper fields-wrapper">
-                                        <div    v-for="(item, index) in results"
-                                                class="results-fields__item"                                             
-                                        >
-                                            <div class="input-group mb-3">
-                                                <!--<label :for="'num_result' + item.id" class="required">Result №{{index}}</label>-->
-                                                <input type="text" 
-                                                       class="form-control" 
-                                                       :placeholder="'Result № ' + index" 
-                                                        
-                                                       :name="'num_result' + item.id"
-                                                       required=""
-                                                       v-model="item.result" 
-                                                       @input="resultOnInput"
-                                                    >
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <textarea :name="'num_description' + index" 
-                                                          :id="'num-description' + index" 
-                                                          :placeholder="'Description for result № ' + index"
-                                                          cols="30" 
-                                                          rows="6"
-                                                          required="" 
-                                                          v-model="item.description"
-                                                          @input="resultOnInput"
-                                                        >                                                    
-                                                </textarea>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label :for="'result_image' + index">Result Image №{{index}}</label>
-                                                <input
-                                                        type="file"
-                                                        class="form-control"
-                                                        @change="updateResultImage($event, index)"
-                                                >
-                                                <ul v-if="item.img" class="list-unstyled">
-                                                    <li>
-                                                        {{ item.img.name || item.img.file_name }}
-                                                        <button class="btn btn-xs btn-danger"
-                                                                type="button"
-                                                                @click="removeResultImage"
-                                                        >
-                                                            Remove file
-                                                        </button>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div v-if="selectedType.id == 0" class="input-group mb-3">       
-                                                <label for="">Num of correct answers</label>
-                                                <input type="number" 
-                                                       class="form-control" 
-                                                       :placeholder="'Max ' + quizParams.columns" 
-                                                       :name="'num_value' + item.id"
-                                                       required=""
-                                                       v-model="item.value"
-                                                       @input="resultOnInput"
-                                                       min="1"
-                                                       :max="quizParams.columns"
-                                                    >
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>                        
-
-
+                                    
+                                </div>
                             </div>
+                            <div class="tab-pane" id="seo">
+                                <div class="box">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">SEO</h3>
+                                    </div>
 
-                            <div class="box-footer">
-                                <vue-button-spinner
-                                        class="btn btn-primary btn-sm"
-                                        :isLoading="loading"
-                                        :disabled="loading"
-                                        >
-                                    Save
-                                </vue-button-spinner>
+                                    <div class="box-body half-fields__wrapper">                                        
+                                        <div class="form-group">
+                                            <label for="seo_title">Title</label>
+                                            <textarea name="seo_title" 
+                                                      id="seo-title" 
+                                                      placeholder=""
+                                                      cols="60" 
+                                                      rows="1"
+                                                      required="" 
+                                                      v-model="seo.title"
+                                                      @input="seoOnInput"
+                                                    >                                                    
+                                            </textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="seo_h1">H1</label>
+                                            <textarea name="seo_h1" 
+                                                      id="seo-h1" 
+                                                      placeholder=""
+                                                      cols="60" 
+                                                      rows="1"
+                                                      required="" 
+                                                      v-model="seo.h1"
+                                                      @input="seoOnInput"
+                                                    >                                                    
+                                            </textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="seo_decsription">Description</label>
+                                            <textarea name="seo_decsription" 
+                                                      id="seo-decsription" 
+                                                      placeholder=""
+                                                      cols="60" 
+                                                      rows="1"
+                                                      required="" 
+                                                      v-model="seo.description"
+                                                      @input="seoOnInput"
+                                                    >                                                    
+                                            </textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="seo_keywords">Keywords</label>
+                                            <textarea name="seo_keywords" 
+                                                      id="seo-keywords" 
+                                                      placeholder=""
+                                                      cols="60" 
+                                                      rows="1"
+                                                      required="" 
+                                                      v-model="seo.keywords"
+                                                      @input="seoOnInput"
+                                                    >                                                    
+                                            </textarea>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
                             </div>
+                        </div>
+
+                        <div class="bt-wrapper">
+                            <vue-button-spinner
+                                    class="btn btn-primary btn-sm"
+                                    :isLoading="loading"
+                                    :disabled="loading"
+                                    >
+                                Save
+                            </vue-button-spinner>
                         </div>
                     </form>
                 </div>
@@ -391,25 +481,41 @@ export default {
                     value: 0,
                     sign: '',
                 }
-            ]
+            ],
+            seo:{
+                title: '',
+                h1: '',
+                description: '',
+                keywords:'',
+            }
         }
     },
     computed: {
         ...mapGetters('TestsSingle', ['item', 'resultsItem', 'loading', 'categoriesAll'])
     },
     created() {
-        this.fetchCategoriesAll()
+        this.fetchCategoriesAll();
+        this.seoOnInput();
     },
     destroyed() {
         this.resetState()
     },
     methods: {
-        ...mapActions('TestsSingle', ['storeData', 'resetState', 'setCategory', 'setTitle', 'setType', 'setQuestions', 'setResults', 'setResultsImage' ,'setMain_image', 'setBg_image', 'fetchCategoriesAll']),
+        ...mapActions('TestsSingle', ['storeData', 'resetState', 'setCategory', 'setTitle', 'setPopularity', 'setType', 'setQuestions', 'setResults', 'setSeo', 'setResultsImage' ,'setMain_image', 'setBg_image', 'fetchCategoriesAll']),
         updateCategory(value) {
             this.setCategory(value)
         },
         updateTitle(e) {
             this.setTitle(e.target.value)
+        },
+        checkNum( val ){
+            if (val < 0 ){
+              val = 0;
+            }
+            return val;
+        },
+        updatePopularity(e){
+            this.setPopularity(parseFloat(this.checkNum(e.target.value)));
         },
         removeMain_image(e, id) {
             this.$swal({
@@ -598,6 +704,9 @@ export default {
             this.updateResults();
             
         },
+        seoOnInput(){
+            this.setSeo(this.seo);
+        },
         submitForm() {
             //this.item.questions = this.questions;
             this.storeData()
@@ -615,6 +724,27 @@ export default {
 
 
 <style scoped lang="scss">
+    .half-fields__wrapper{
+        label{
+            display: block;
+            width: 100%;
+            margin-bottom: 5px;
+        }
+        textarea{
+            width: 100%;
+            max-width: 615px;
+            padding: 6px 12px;
+        }
+    }
+    .bt-wrapper{
+        padding-bottom: 20px;
+        &.__top{
+            padding-top: 20px;
+        }
+    }
+    .box{
+        border-top: none;   
+    }
     .questions-paramrtrs__wrapper{
         display: flex;
         align-items: center;

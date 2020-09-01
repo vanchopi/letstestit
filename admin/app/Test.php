@@ -20,7 +20,7 @@ class Test extends Model implements HasMedia
     use SoftDeletes, HasMediaTrait;
 
     
-    protected $fillable = ['title', 'category_id', 'questions', 'test_type'];
+    protected $fillable = ['title', 'category_id', 'popularity', 'questions', 'test_type'];
     protected $appends = ['main_image', 'main_image_link', 'bg_image', 'bg_image_link'];
     protected $with = ['media'];
     

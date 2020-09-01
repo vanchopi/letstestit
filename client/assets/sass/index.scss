@@ -726,6 +726,8 @@ footer{
 
 .results-wrapper{
 	padding: 25px 0 100px 0;
+	background-color: rgba(255,255,255,0.08);
+    backdrop-filter: blur(3px) brightness(85%);
 	.result{
 		text-align: center;
 		font-weight: 900;
@@ -898,8 +900,9 @@ footer{
 			text-align: center;
 			font-weight: 500;
 			font-size: 36px;
-			margin-bottom: 70px;
+			margin-bottom: 48px;
 			color: $col-text-second;
+			padding: 0 25px;
 		}
 		.answers{
 			padding: 0 100px;

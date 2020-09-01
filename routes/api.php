@@ -43,7 +43,8 @@ Route::group(['middleware' => 'cors'], function () {
     Route::post('/tests/getlist', 'Tests\TestsController@getTestsList');
     Route::get('/categories/getlist', 'Categories\CategoriesController@getCategoriesList');
     Route::get('/test/{id}',  'Tests\TestsController@getTest');
-    Route::post('/tests/getresults', 'Results\ResultsController@getResult');
+    Route::post('/tests/getmore', 'Tests\TestsController@getMore');
+    Route::post('/tests/getresults', 'Results\ResultsController@getResult');    
 });
 
 /*
@@ -58,7 +59,7 @@ Route::post('/tests/getresults', function (  ) {
     return response()->json($results);
 });*/
 
-Route::post('/tests/getmore', function (  ) {
+/*Route::post('/tests/getmore', function (  ) {
     $tests = [];
     $tags = [];
     $tag0 = [];
@@ -87,7 +88,7 @@ Route::post('/tests/getmore', function (  ) {
     }
 
     return response()->json($tests);
-});
+});*/
 
 
 

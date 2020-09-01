@@ -91,7 +91,10 @@
 
       </div>    
     </div>  
-    <div class="show-more__button" @click="getMore()">
+    <div class="show-more__button" 
+         @click="getMore()"
+         v-if="ifShowMore"
+      >
       <img src="~assets/images/png/down.png" alt="">
     </div>
   </div>
@@ -111,6 +114,7 @@ export default {
   //props: ['ifCatalog'],
   data: () => ({
     imgSrc: process.env.appRoot,
+    ifShowMore: true,
     catId: 0,
     showMore: 0,
     tmp: 0,
@@ -141,7 +145,7 @@ export default {
     ],
     testsList: [],
     categoriesList:[], 
-    currentCategory: null, 
+    currentCategory: 0, // 0 - popular tests
     numStep: 0,
     loader: true
   }),
@@ -177,7 +181,8 @@ export default {
               this.catId = this.categories.length - 1 ;
               return;
           }
-          this.getTestsListLoal(this.catId);
+          this.ifShowMore = true;          
+          this.getTestsListLocal(this.catId);
           break;
         case 'left':          
           this.catId--;
@@ -185,7 +190,8 @@ export default {
             this.catId = 0;
             return;
           }
-          this.getTestsListLoal(this.catId);
+          this.ifShowMore = true;          
+          this.getTestsListLocal(this.catId);
           break;     
       }
     },
@@ -196,17 +202,35 @@ export default {
       console.log(' filter ', id);
       this.showFilter[id].filter = !this.showFilter[id].filter;
     },
-    getTestsListLoal( num ){        
+    checkIfMoreTests( quantity, rnum ){
+      let qty = this.testsList.length;
+      if( quantity > 0 && quantity >= rnum ){
+        this.ifShowMore = true;        
+      }else{
+        this.ifShowMore = false;
+      }
+    },
+    getTestsListLocal( num ){        
         console.log('swithed category id - ', num ,' -', this.categories[num]);
-        this.currentCategory = this.categories[num];
+        this.currentCategory = this.categories[num].id;
         this.getTests(this.currentCategory);
+    },
+    addPopular( arr ){
+      arr.unshift({
+          id: 0,
+          title: 'Популярные тесты',          
+          description: '',
+          url: '0',
+      })
+      return arr;
     },
     async getCategoriesList(){      
       try{
         const  list  =  await getCategoriesList();                        
         console.log(list);
-        this.categories = Object.freeze(list.data);
-        this.loader = false;        
+        this.categories = list.data;
+        this.loader = false;
+        this.categories = this.addPopular(this.categories);
         return this.categories;
       }catch(e){
         console.log(e);
@@ -218,20 +242,22 @@ export default {
         this.testsList = {};
         const  list  =  await getTestsList( currentCategory );                                
         //this.categories = Object.freeze(list.data[0]);        
-        this.testsList = list.data;
+        this.testsList = list.data.tests;
         console.log(' tests ',this.testsList);        
         return this.testsList;
       }catch(e){
         console.log(e);
       }
     },      
-    async getMore(){
+    async getMore(){      
+      let id = this.testsList.length ? this.testsList[this.testsList.length - 1].id : null;
       this.numStep ++;
       try{
-        const  list  =  await getMoreTests(this.numStep, this.currentCategory);                                                       
-        for (let i = 0; i < list.data.length; i++){
-          this.testsList.push(list.data[i])
-        }        
+        const  list  =  await getMoreTests(this.numStep, this.currentCategory, false, id);
+        for (let i = 0; i < list.data.tests.length; i++){
+          this.testsList.push(list.data.tests[i])
+        }      
+        this.checkIfMoreTests(list.data.quantity, list.data.rnum);  
         return this.testsList;
       }catch(e){
         console.log(e);

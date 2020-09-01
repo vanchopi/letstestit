@@ -12,23 +12,26 @@ export function getTest(query){
 	});	
 }
 
-export function getTestsList( curCat ){	
+export function getTestsList( curCat, url = false ){
 	return axios({				
 		method: 'post',
 		url: '/tests/getlist',
 		  data: {
-		    category: curCat
+		    category: curCat,
+		    url: url,
 		}	  
 	});	
 }
 
-export function getMoreTests( num, cat ){
+export function getMoreTests( num, cat, url = false, id = null ){
 	return axios({				
 		method: 'post',
 		url: '/tests/getmore',
 		  data: {
 		    step: num,
-		    category: cat
+		    category: cat,
+		    url: url,
+		    id: id,
 		}	  
 	});		
 }
