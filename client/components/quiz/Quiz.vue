@@ -18,6 +18,9 @@
         <div class="title">
          {{testPart.question}}
         </div>
+        <div class="question-img" v-if=" testPart.img != undefined ||  testPart.img != null">
+          <img :src=" imgSrc + '/storage/images/questions/' + testPart.img" alt="">
+        </div>
         <div class="answers">
           <ul>
             <li v-for="(item, index) of testPart.answers"
@@ -64,6 +67,7 @@ export default {
   },
   props: ['info', 'test'],
   data: () => ({
+    imgSrc: process.env.appRoot ,
     fade: false,    
     testList: [],
     testPart: [{

@@ -48,13 +48,14 @@ class TestsController extends Controller
         echo '123-' . $path;*/
 
         $results = $request->variants;
+        $questionsImg = $request->qestions_img;
         $seo = $request->seo;
         //$variants = json_decode($results);
 
         print_r(gettype($request->main_image));
 
         echo "--------";
-
+        print_r($questionsImg);
         //print_r(hasFile($request->variants[0]['img']));
         //print_r(gettype($request->variants[0]['img']));
         //print_r($seo);
@@ -76,14 +77,21 @@ class TestsController extends Controller
             } catch (Exception $e){
                 echo "shit just happened";  
             }
+        }
+        for ($i=0; $i < sizeof($questionsImg) ; $i++) {
+            try{
+                $test->addMedia($request->qestions_img[$i])->toMediaCollection('question_image', 'questions');
+            } catch (Exception $e){
+                echo "shit just happened";  
+            }
         }        
-        /* results */
+        // results
         $result = new Result;
         $result->variants = json_encode($results);
         $result->test_id = $test->id;
         $result->save();
 
-        /* meta */
+        // meta
         $meta = new Meta;
         $meta->model_type = 'App\Test';
         $meta->model_id = $test->id;

@@ -904,6 +904,13 @@ footer{
 			color: $col-text-second;
 			padding: 0 25px;
 		}
+		.question-img{
+			width: 100%;
+			padding: 0 25px 35px 25px;
+			img{
+				width: 100%;
+			}
+		}
 		.answers{
 			padding: 0 100px;
 			ul{

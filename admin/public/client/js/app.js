@@ -2160,6 +2160,26 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2189,6 +2209,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             }],
             questions: [{
                 id: 0,
+                img: null,
                 question: '',
                 answers: [{
                     id: 0,
@@ -2282,6 +2303,22 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             };
             return subFile;
         },
+        updateQuestionImage: function updateQuestionImage(e, index) {
+            /*let imgRecord = {                
+                img: e.target.files[0],
+                id: index
+            }
+            this.resultsItem
+            console.log('imgRecord - ', imgRecord);
+            this.setResultsImage(imgRecord);*/
+            /*this.setQuestions(this.questions);
+            console.log('store', this.item.questions);*/
+            this.questions[index].img = e.target.files[0];
+            console.log('1. questions img - ', this.questions);
+            //console.log('updated result arr - ', this.results);
+            this.setQuestions(this.questions);
+            console.log('2. questions store - ', this.item.questions);
+        },
         updateResultImage: function updateResultImage(e, index) {
             /*let imgRecord = {                
                 img: e.target.files[0],
@@ -2296,6 +2333,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             console.log('results store - ', this.resultsItem);
         },
         removeResultImage: function removeResultImage(e, id) {},
+        removeQuestionImage: function removeQuestionImage(e, id) {},
         removeBg_image: function removeBg_image(e, id) {
             var _this2 = this;
 
@@ -2370,6 +2408,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             for (var i = 0; i < questions; i++) {
                 this.questions[i] = {
                     id: i,
+                    img: null,
                     question: '',
                     answers: []
                 };
@@ -31412,6 +31451,83 @@ var render = function() {
                                           _vm._v(" "),
                                           _c(
                                             "div",
+                                            { staticClass: "input-group mb-3" },
+                                            [
+                                              _c(
+                                                "label",
+                                                {
+                                                  attrs: {
+                                                    for:
+                                                      "question_image" + index
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "Image for question №" +
+                                                      _vm._s(index)
+                                                  )
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c("input", {
+                                                staticClass: "form-control",
+                                                attrs: { type: "file" },
+                                                on: {
+                                                  change: function($event) {
+                                                    return _vm.updateQuestionImage(
+                                                      $event,
+                                                      index
+                                                    )
+                                                  }
+                                                }
+                                              }),
+                                              _vm._v(" "),
+                                              item.img
+                                                ? _c(
+                                                    "ul",
+                                                    {
+                                                      staticClass:
+                                                        "list-unstyled"
+                                                    },
+                                                    [
+                                                      _c("li", [
+                                                        _vm._v(
+                                                          "\n                                                                    " +
+                                                            _vm._s(
+                                                              item.img.name ||
+                                                                item.img
+                                                                  .file_name
+                                                            ) +
+                                                            "\n                                                                    "
+                                                        ),
+                                                        _c(
+                                                          "button",
+                                                          {
+                                                            staticClass:
+                                                              "btn btn-xs btn-danger",
+                                                            attrs: {
+                                                              type: "button"
+                                                            },
+                                                            on: {
+                                                              click:
+                                                                _vm.removeQuestionImage
+                                                            }
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              "\n                                                                        Remove file\n                                                                    "
+                                                            )
+                                                          ]
+                                                        )
+                                                      ])
+                                                    ]
+                                                  )
+                                                : _vm._e()
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
                                             { staticClass: "answers-wrapper" },
                                             [
                                               _c(
@@ -36351,6 +36467,29 @@ function initialState() {
     };
 }
 
+var helpers = {
+    questionsImagesArr: function questionsImagesArr(arr) {
+        var result = [];
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i].img != null) {
+                result.push({
+                    img: arr[i].img
+                });
+            }
+        };
+        console.log('1.2 - image arr - ', result);
+        return result;
+    },
+    recombineQuestions: function recombineQuestions(arr) {
+        var mass = arr.slice();
+        for (var i = 0; i < mass.length; i++) {
+            mass[i].img = mass[i].img != null ? mass[i].img.name : mass[i].img;
+        };
+        console.log('6. combine questions - ', JSON.stringify(mass));
+        return mass;
+    }
+};
+
 var getters = {
     item: function item(state) {
         return state.item;
@@ -36383,19 +36522,22 @@ var actions = {
             /* filds from item state*/
             for (var fieldName in state.item) {
                 var fieldValue = state.item[fieldName];
-                if ((typeof fieldValue === 'undefined' ? 'undefined' : _typeof(fieldValue)) !== 'object') {
-                    params.set(fieldName, fieldValue);
-                } else {
-                    if (fieldValue && _typeof(fieldValue[0]) !== 'object') {
+                //console.log('1.1 - fieldName', fieldName);
+                if (fieldName != 'questions') {
+                    if ((typeof fieldValue === 'undefined' ? 'undefined' : _typeof(fieldValue)) !== 'object') {
                         params.set(fieldName, fieldValue);
                     } else {
-                        for (var index in fieldValue) {
-                            params.set(fieldName + '[' + index + ']', fieldValue[index]);
+                        if (fieldValue && _typeof(fieldValue[0]) !== 'object') {
+                            params.set(fieldName, fieldValue);
+                        } else {
+                            for (var index in fieldValue) {
+                                params.set(fieldName + '[' + index + ']', fieldValue[index]);
+                            }
                         }
                     }
                 }
             }
-
+            var questionsImg = helpers.questionsImagesArr(state.item.questions);
             if (_.isEmpty(state.item.category)) {
                 params.set('category_id', '');
             } else {
@@ -36404,7 +36546,7 @@ var actions = {
             if (_.isEmpty(state.item.questions)) {
                 params.set('questions', '');
             } else {
-                params.set('questions', JSON.stringify(state.item.questions));
+                params.set('questions', JSON.stringify(helpers.recombineQuestions(state.item.questions)));
             }
             if (_.isEmpty(state.item.seo)) {
                 params.set('seo', '');
@@ -36424,9 +36566,14 @@ var actions = {
                     params.append('variants[' + i + '][' + prop + ']', myItemInArr[prop]);
                 }
             }
-
+            for (var i = 0; i < questionsImg.length; i++) {
+                params.append('qestions_img[' + i + ']', questionsImg[i].img);
+            }
+            //console.log('4. all questions - ', state.item.questions);
+            //console.log(' 5. questions img - ', questionsImg);
             /*console.log('params main_image - ', params.get('main_image'));*/
-            console.log('params', params.getAll('questions'));
+            //console.log('variants', params.getAll('variants'));
+            //console.log('qestions_img - ', params.getAll('qestions_img'));
 
             axios.post('/api/v1/tests', params).then(function (response) {
                 commit('resetState');
@@ -36601,7 +36748,8 @@ var mutations = {
         state.item.bg_image = value;
     },
     setQuestions: function setQuestions(state, value) {
-        state.item.questions = JSON.parse(JSON.stringify(value));
+        //state.item.questions = JSON.parse(JSON.stringify(value));
+        state.item.questions = value;
     },
     setSeo: function setSeo(state, payload) {
         state.item.seo = JSON.parse(JSON.stringify(payload));

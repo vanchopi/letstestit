@@ -60,8 +60,8 @@
           </div>
           <div class="menu-bt nav-block block">
             <div class="bt-wrp" @click="showMenu = !showMenu">
-              <!-- <img src="~assets/images/png/menu.png" alt="menu"> -->
-              <span>MENU</span>
+              <img src="~assets/images/png/menu.png" alt="menu">
+              <!-- <span>MENU</span> -->
             </div>            
           </div>
           <div class="serach-wrapper block">

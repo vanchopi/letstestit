@@ -18,6 +18,29 @@ function initialState() {
     }
 }
 
+const helpers = {
+    questionsImagesArr: function( arr ){
+        let result = [];
+        for( let i = 0; i < arr.length; i++){
+            if(arr[i].img != null){
+                result.push({
+                    img: arr[i].img
+                });
+            }
+        };
+        console.log('1.2 - image arr - ', result);
+        return result;
+    },
+    recombineQuestions: function( arr ){ 
+        var mass = arr.slice();       
+        for (let i = 0; i < mass.length; i++){
+            mass[i].img = mass[i].img != null ? mass[i].img.name : mass[i].img;
+        };
+        console.log('6. combine questions - ', JSON.stringify(mass));
+        return mass;
+    },
+}
+
 const getters = {
     item: state => state.item,
     resultsItem: state => state.resultsItem,
@@ -38,19 +61,22 @@ const actions = {
             /* filds from item state*/
             for (let fieldName in state.item) {
                 let fieldValue = state.item[fieldName];
-                if (typeof fieldValue !== 'object') {
-                    params.set(fieldName, fieldValue);
-                } else {
-                    if (fieldValue && typeof fieldValue[0] !== 'object') {
+                //console.log('1.1 - fieldName', fieldName);
+                if(fieldName != 'questions'){
+                    if (typeof fieldValue !== 'object') {
                         params.set(fieldName, fieldValue);
                     } else {
-                        for (let index in fieldValue) {
-                            params.set(fieldName + '[' + index + ']', fieldValue[index]);
+                        if (fieldValue && typeof fieldValue[0] !== 'object') {
+                            params.set(fieldName, fieldValue);
+                        } else {
+                            for (let index in fieldValue) {
+                                params.set(fieldName + '[' + index + ']', fieldValue[index]);
+                            }
                         }
                     }
                 }
             }
-
+            let questionsImg = helpers.questionsImagesArr(state.item.questions);
             if (_.isEmpty(state.item.category)) {
                 params.set('category_id', '')
             } else {
@@ -59,7 +85,7 @@ const actions = {
             if (_.isEmpty(state.item.questions)) {
                 params.set('questions', '')
             } else {
-                params.set('questions', JSON.stringify(state.item.questions))
+                params.set('questions', JSON.stringify(helpers.recombineQuestions(state.item.questions)))
             }
             if (_.isEmpty(state.item.seo)) {
                 params.set('seo', '')
@@ -78,10 +104,15 @@ const actions = {
                 for (var prop in myItemInArr) {         
                     params.append(`variants[${i}][${prop}]`, myItemInArr[prop]);     
                 } 
+            }            
+            for (var i = 0; i < questionsImg.length; i++) {
+                params.append(`qestions_img[${i}]`, questionsImg[i].img);
             }
-
+            //console.log('4. all questions - ', state.item.questions);
+            //console.log(' 5. questions img - ', questionsImg);
             /*console.log('params main_image - ', params.get('main_image'));*/
-            console.log('params', params.getAll('questions'));
+            //console.log('variants', params.getAll('variants'));
+            //console.log('qestions_img - ', params.getAll('qestions_img'));
 
             axios.post('/api/v1/tests', params)
                 .then(response => {
@@ -245,7 +276,8 @@ const mutations = {
         state.item.bg_image = value
     },
     setQuestions(state, value) {
-        state.item.questions = JSON.parse(JSON.stringify(value))
+        //state.item.questions = JSON.parse(JSON.stringify(value));
+        state.item.questions = value;
     },
     setSeo(state, payload){
         state.item.seo = JSON.parse(JSON.stringify(payload));

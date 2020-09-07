@@ -51,6 +51,10 @@ class TestsController extends Controller
     	return $item;
     }
 
+    static public function getQuestionImages($id){
+        return $images = Media::select(array('file_name', 'id'))->where(['collection_name' => 'question_image','model_id' => $id])->get();
+    }
+
     static public function getTestsListByCategoryId($id, $n){                
         return $test = Test::select('*')->where('category_id',$id)->orderBy('id', 'DESC')->take($n)->get();        
     }
@@ -81,10 +85,22 @@ class TestsController extends Controller
 
     public function getTest($id){
         $test = Test::findOrFail($id);
+        $arrQuestions = json_decode($test->questions);
         //$questions = json_decode($test->questions);
+        $questionImages = self::getQuestionImages($id);        
         $bgImage = self::getMedias($id);
         $test->main_image = $bgImage->main_image;
-        $test->questions = json_decode($test->questions);
+        //$test->questions = json_decode($test->questions);
+        $n = 0;
+        if (sizeof($questionImages)){
+            for ($i=0; $i <sizeof($arrQuestions) ; $i++) { 
+                if ($arrQuestions[$i]->img != null){
+                    $arrQuestions[$i]->img = $questionImages[$n]->id . '/' . $questionImages[$n]->file_name;
+                    $n++;
+                }
+            }
+        }
+        $test->questions = $arrQuestions;
         return $test;
     }
     

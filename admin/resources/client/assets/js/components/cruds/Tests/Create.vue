@@ -169,8 +169,9 @@
                                                          :class="index == 0 ? 'active' : ''"
                                                          :id="item.id"
                                                         >
-                                                        <span>Tabs for question № {{index}}</span>                                                
-                                                        <div class="fields-wrapper">
+                                                        <span>Tabs for question № {{index}}</span>  
+
+                                                        <div class="fields-wrapper">                                                            
                                                             <div class="input-group mb-3">
                                                                 <label :for="'num_question' + item.id" class="required">Question</label>
                                                                 <input type="text" 
@@ -182,6 +183,25 @@
                                                                        v-model="item.question" 
                                                                        @input="answerOnInput"
                                                                     >
+                                                            </div>
+                                                            <div class="input-group mb-3">
+                                                                <label :for="'question_image' + index">Image for question №{{index}}</label>
+                                                                <input
+                                                                        type="file"
+                                                                        class="form-control"
+                                                                        @change="updateQuestionImage($event, index)"
+                                                                >
+                                                                <ul v-if="item.img" class="list-unstyled">
+                                                                    <li>
+                                                                        {{ item.img.name || item.img.file_name }}
+                                                                        <button class="btn btn-xs btn-danger"
+                                                                                type="button"
+                                                                                @click="removeQuestionImage"
+                                                                        >
+                                                                            Remove file
+                                                                        </button>
+                                                                    </li>
+                                                                </ul>
                                                             </div>
                                                             <div class="answers-wrapper">
                                                                 <div class="labels-wrapper">
@@ -447,6 +467,7 @@ export default {
             questions: [
                 {
                     id: 0,
+                    img: null,
                     question: '',
                     answers: [
                         {
@@ -547,6 +568,22 @@ export default {
             }
             return subFile;
         },
+        updateQuestionImage(e, index){            
+            /*let imgRecord = {                
+                img: e.target.files[0],
+                id: index
+            }
+            this.resultsItem
+            console.log('imgRecord - ', imgRecord);
+            this.setResultsImage(imgRecord);*/
+            /*this.setQuestions(this.questions);
+            console.log('store', this.item.questions);*/
+            this.questions[index].img = e.target.files[0];
+            console.log('1. questions img - ', this.questions);
+            //console.log('updated result arr - ', this.results);
+            this.setQuestions(this.questions);
+            console.log('2. questions store - ', this.item.questions);
+        },
         updateResultImage(e, index){            
             /*let imgRecord = {                
                 img: e.target.files[0],
@@ -561,6 +598,9 @@ export default {
             console.log('results store - ', this.resultsItem);
         },
         removeResultImage(e, id){
+
+        },
+        removeQuestionImage(e, id){
 
         },
         removeBg_image(e, id) {
@@ -636,6 +676,7 @@ export default {
             for( let i = 0; i < questions; i++){
                 this.questions[i] = {
                     id: i,
+                    img: null,
                     question: '',
                     answers: []
                 };                

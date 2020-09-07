@@ -100,6 +100,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'questions' =>[
+            'driver'     => 'local',
+            'root'       => storage_path('app/public/images/questions'),
+            'url'        => env('APP_URL') . '/storage/images/questions',
+            'visibility' => 'public',
+        ],
+
         /*'cards' =>[
             'driver' => 'local',
             'root'   => $cardsPath,
