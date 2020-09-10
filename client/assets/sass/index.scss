@@ -555,11 +555,10 @@ a{
     						max-width: 288px;
     						width: 100%;
     						overflow: hidden;
-    						min-height: 235px;
-    						max-height: 373px;
-							img{
-								width: 100%;
-							}
+    						min-height: 373px;
+    						/*max-height: 373px;*/
+							background-position: center !important;
+							background-size: cover !important;
 						}
 						.description-wrapper{							
 							height: 100%;

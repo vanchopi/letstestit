@@ -58,9 +58,9 @@
                 :key=index
               >
               <div class="item">
-                <div class="img-wrapper">
+                <div class="img-wrapper" :style="{ background: 'url(' + imgSrc + '/storage/images/cards/' + test.bg_image + ')'}">
                   <!--<img :src="'/_nuxt/client/assets/images/cards/' + test.img" alt="">-->
-                  <img :src="imgSrc + '/storage/images/cards/' + test.bg_image" alt="">
+                  <!-- <img :src="imgSrc + '/storage/images/cards/' + test.bg_image" alt=""> -->
                 </div>
                 <div class="description-wrapper">
                   <div class="description-wrapper__top">
