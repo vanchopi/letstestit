@@ -10,6 +10,36 @@
             <div class="description">
               {{ testResults.description }}
             </div>
+            <div class="socials-wrapper __custom">
+              <share-network
+                  network="facebook"
+                  url="https://letstestit.ru/"
+                  title="Пройди тест"
+                  description="Тестовый тест тестового результата"
+                  quote="Тестовая цитата"
+                  hashtags="letstestit"
+                  class="social-item"
+                >
+              </share-network>
+              <share-network
+                  network="VK"
+                  url="https://letstestit.ru/"
+                  title="Пройди тест"
+                  description="Тестовый тест тестового результата"
+                  media="https://letstestit.ru/images/2.jpg"
+                  class="social-item"
+                >
+              </share-network>
+              <share-network
+                  network="Twitter"
+                  url="https://letstestit.ru/"
+                  title="Пройди тест"
+                  hashtags="letstestit"
+                  class="social-item"
+                >
+              </share-network>            
+            </div>
+            <!--
             <div class="socials-wrapper">
               <ul>
                 <li class="item"> 
@@ -33,7 +63,7 @@
                   </a>
                 </li>
               </ul>
-            </div>
+            </div> -->
             <div class="button-wrapper">
               <!--<button class="custom-bt bg-tr" >-->
               <router-link :to="{ name: 'test', params: {id: query} }" class="custom-bt bg-tr">                
@@ -56,12 +86,14 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 import Breadcrumbs from '~/components/Breadcrumbs'
+import { ShareNetwork } from '@/../node_modules/vue-social-sharing/dist/vue-social-sharing'
 //import Advertising from '~/components/advertising/Advertising'
 
 export default {
   components: {    
     //Advertising
-    Breadcrumbs
+    Breadcrumbs,
+    ShareNetwork
   },
   props: ['info'],
   data: () => ({

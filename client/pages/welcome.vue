@@ -27,7 +27,12 @@ export default {
 
   computed: mapGetters({
     authenticated: 'auth/check'
-  })
+  }),
+
+  created(){
+    console.log('lang - ', this.$i18n);
+  },
+
 }
 </script>
 
