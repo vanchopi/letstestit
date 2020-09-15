@@ -37,9 +37,13 @@ class ResultsController extends Controller
         $results = [
         	"success" => true,
 	        "img" => $img[$num]->result_image,
-	        "result" => $result[$num]->result,
+	        "title" => $result[$num]->result,
 	        "description" => $result[$num]->description,
-	        "id" => $request->id
+	        "id" => $request->id,
+            'media'=> 'https://letstestit.ru/images/2.jpg',
+            'quote'=>  $result[$num]->result,
+            'url'=>  'https://letstestit.ru',
+            'hashtags'=> 'letstestit',
 	    ];
 	    //print_r($results);
         return response()->json($results);        

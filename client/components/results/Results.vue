@@ -6,38 +6,14 @@
         <breadcrumbs />
         <div class="container">
           <div class="results-wrapper__internal">
-            <div class="result">{{ testResults.result }}</div>
+            <div class="result">{{ testResults.title }}</div>
             <div class="description">
               {{ testResults.description }}
             </div>
             <div class="socials-wrapper __custom">
-              <share-network
-                  network="facebook"
-                  url="https://letstestit.ru/"
-                  title="Пройди тест"
-                  description="Тестовый тест тестового результата"
-                  quote="Тестовая цитата"
-                  hashtags="letstestit"
-                  class="social-item"
-                >
-              </share-network>
-              <share-network
-                  network="VK"
-                  url="https://letstestit.ru/"
-                  title="Пройди тест"
-                  description="Тестовый тест тестового результата"
-                  media="https://letstestit.ru/images/2.jpg"
-                  class="social-item"
-                >
-              </share-network>
-              <share-network
-                  network="Twitter"
-                  url="https://letstestit.ru/"
-                  title="Пройди тест"
-                  hashtags="letstestit"
-                  class="social-item"
-                >
-              </share-network>            
+              <share :network="'facebook'" :values="testResults" />
+              <share :network="'VK'" :values="testResults" />
+              <share :network="'Twitter'" :values="testResults" />                     
             </div>
             <!--
             <div class="socials-wrapper">
@@ -87,17 +63,26 @@
 import { mapGetters, mapState } from 'vuex'
 import Breadcrumbs from '~/components/Breadcrumbs'
 import { ShareNetwork } from '@/../node_modules/vue-social-sharing/dist/vue-social-sharing'
+import share from '~/components/global/Share'
 //import Advertising from '~/components/advertising/Advertising'
 
 export default {
   components: {    
     //Advertising
     Breadcrumbs,
-    ShareNetwork
+    share
   },
   props: ['info'],
   data: () => ({
-    imgSrc: process.env.appRoot,    
+    imgSrc: process.env.appRoot,   
+    /*values: {
+      url:"https://letstestit.ru/",
+      title:"Пройди тест",
+      description:"Тестовый тест тестового результата",
+      quote:"Тестовая цитата",
+      hashtags:"letstestit",
+      media:'https://letstestit.ru/images/2.jpg',
+    }*/
   }),
   watch:{
       'testResults'(){
@@ -114,7 +99,8 @@ export default {
   },
   created(){
     this.query = this.$route.params.id;
-    console.log('---',this.query);    
+    console.log('---',this.query);
+    console.log(' test results - ', this.testResults);
   },
   mounted() {
     

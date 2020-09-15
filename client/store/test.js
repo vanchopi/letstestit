@@ -4,9 +4,13 @@ import { getTestResults } from '~/api/test/test'
 const state = {
 	results: {
 		img: '1.jpg',
-		result: 'О_о?',
+		title: 'О_о?',
 		description: '',
-		id: ''
+		id: '',
+		media: 'https://letstestit.ru/images/2.jpg',
+		quote: 'Тестовая цитата',
+		url: 'https://letstestit.ru',
+		hashtags:'letstestit',
 	}
 }
 
