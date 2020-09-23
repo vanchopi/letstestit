@@ -283,64 +283,71 @@
                                                 <div    v-for="(item, index) in results"
                                                         class="results-fields__item"                                             
                                                 >
-                                                    <div class="input-group mb-3">
-                                                        <!--<label :for="'num_result' + item.id" class="required">Result №{{index}}</label>-->
-                                                        <input type="text" 
-                                                               class="form-control" 
-                                                               :placeholder="'Result № ' + index" 
-                                                                
-                                                               :name="'num_result' + item.id"
-                                                               required=""
-                                                               v-model="item.result" 
-                                                               @input="resultOnInput"
-                                                            >
-                                                    </div>
-                                                    <div class="input-group mb-3">
-                                                        <textarea :name="'num_description' + index" 
-                                                                  :id="'num-description' + index" 
-                                                                  :placeholder="'Description for result № ' + index"
-                                                                  cols="30" 
-                                                                  rows="6"
-                                                                  required="" 
-                                                                  v-model="item.description"
-                                                                  @input="resultOnInput"
-                                                                >                                                    
-                                                        </textarea>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label :for="'result_image' + index">Result Image №{{index}}</label>
-                                                        <input
-                                                                type="file"
-                                                                class="form-control"
-                                                                @change="updateResultImage($event, index)"
-                                                        >
-                                                        <ul v-if="item.img" class="list-unstyled">
-                                                            <li>
-                                                                {{ item.img.name || item.img.file_name }}
-                                                                <button class="btn btn-xs btn-danger"
-                                                                        type="button"
-                                                                        @click="removeResultImage"
+                                                    <div class="result-fields__internal">
+                                                        <div class="input-group mb-3">
+                                                            <!--<label :for="'num_result' + item.id" class="required">Result №{{index}}</label>-->
+                                                            <input type="text" 
+                                                                   class="form-control" 
+                                                                   :placeholder="'Result № ' + index" 
+                                                                    
+                                                                   :name="'num_result' + item.id"
+                                                                   required=""
+                                                                   v-model="item.result" 
+                                                                   @input="resultOnInput"
                                                                 >
-                                                                    Remove file
-                                                                </button>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div v-if="selectedType.id == 0" class="input-group mb-3">       
-                                                        <label for="">Num of correct answers</label>
-                                                        <input type="number" 
-                                                               class="form-control" 
-                                                               :placeholder="'Max ' + quizParams.columns" 
-                                                               :name="'num_value' + item.id"
-                                                               required=""
-                                                               v-model="item.value"
-                                                               @input="resultOnInput"
-                                                               min="1"
-                                                               :max="quizParams.columns"
+                                                        </div>
+                                                        <div class="input-group mb-3">
+                                                            <textarea :name="'num_description' + index" 
+                                                                      :id="'num-description' + index" 
+                                                                      :placeholder="'Description for result № ' + index"
+                                                                      cols="30" 
+                                                                      rows="6"
+                                                                      required="" 
+                                                                      v-model="item.description"
+                                                                      @input="resultOnInput"
+                                                                    >                                                    
+                                                            </textarea>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label :for="'result_image' + index">Result Image №{{index}}</label>
+                                                            <input
+                                                                    type="file"
+                                                                    class="form-control"
+                                                                    @change="updateResultImage($event, index)"
                                                             >
+                                                            <ul v-if="item.img" class="list-unstyled">
+                                                                <li>
+                                                                    {{ item.img.name || item.img.file_name }}
+                                                                    <button class="btn btn-xs btn-danger"
+                                                                            type="button"
+                                                                            @click="removeResultImage"
+                                                                    >
+                                                                        Remove file
+                                                                    </button>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div v-if="selectedType.id == 0" class="input-group mb-3">       
+                                                            <label for="">Num of correct answers</label>
+                                                            <input type="number" 
+                                                                   class="form-control" 
+                                                                   :placeholder="'Max ' + quizParams.columns" 
+                                                                   :name="'num_value' + item.id"
+                                                                   required=""
+                                                                   v-model="item.value"
+                                                                   @input="resultOnInput"
+                                                                   min="1"
+                                                                   :max="quizParams.columns"
+                                                                >
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                    <div class="result-fields__img">
+                                                        <div :id="'show-modal' + index" @click="showModal = true" class="btn btn-primary btn-sm">Result Image Generator</div> 
+                                                        <create-image :showModal="showModal" :onCloseWindow="onCloseWindow" :title="txtTitle" :num="index" :results="item" :onApplyImage="onApplyImage"/>
+                                                        <img :src="resultsThumbs[index].src" alt="">
+                                                    </div>
+                                                </div>                                                
                                             </div>
                                         </div>                        
 
@@ -434,11 +441,20 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import CreateImage from './createImage/CreateImage'
+import Vue from 'vue'
 
 export default {
+    components: {    
+        CreateImage,
+    },
     data() {
         return {
-            // Code...            
+            // Code... 
+            txtTitle: '', 
+            showModal: false,  
+            createdImg: '',
+            tmpCanvas: '',        
             quizParams:{
                 columns: 2,
                 rows: 1,
@@ -503,6 +519,11 @@ export default {
                     sign: '',
                 }
             ],
+            resultsThumbs:[
+                {
+                    src: ''
+                }
+            ],
             seo:{
                 title: '',
                 h1: '',
@@ -527,13 +548,22 @@ export default {
             this.setCategory(value)
         },
         updateTitle(e) {
-            this.setTitle(e.target.value)
+            this.setTitle(e.target.value);
+            this.txtTitle = e.target.value;
         },
         checkNum( val ){
             if (val < 0 ){
               val = 0;
             }
             return val;
+        },        
+        onCloseWindow(data){
+            this.showModal = data;
+        },
+        onApplyImage(data){
+            console.log('image data - ', data);
+            this.resultsThumbs[data.num].src = data.src;
+            console.log('result thumbs - ', this.resultsThumbs);
         },
         updatePopularity(e){
             this.setPopularity(parseFloat(this.checkNum(e.target.value)));
@@ -584,18 +614,31 @@ export default {
             this.setQuestions(this.questions);
             console.log('2. questions store - ', this.item.questions);
         },
-        updateResultImage(e, index){            
-            /*let imgRecord = {                
-                img: e.target.files[0],
-                id: index
-            }
-            this.resultsItem
-            console.log('imgRecord - ', imgRecord);
-            this.setResultsImage(imgRecord);*/
-            this.results[index].img = e.target.files[0];
-            //console.log('updated result arr - ', this.results);
-            this.setResults(this.results);            
+        updateResultImage(e, index){
+            var reader  = new FileReader(),
+                context = this,
+                file = e.target.files[0],
+                id = 'thumb' + index;                                    
+            this.results[index].img = e.target.files[0];            
+            this.setResults(this.results);
             console.log('results store - ', this.resultsItem);
+            
+            /*console.log(' loaded img - ', context);            
+
+            reader.onloadend = (function(f, context) {
+                return function(e) {                    
+                    let el = document.getElementById(id),
+                        img = document.getElementById("canvasImg" + index);
+                    el.src = this.result;
+                    img.src = this.result;
+                };                
+            })(file);
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                console.log('Ooops');
+            }*/
         },
         removeResultImage(e, id){
 
@@ -667,6 +710,9 @@ export default {
                     description: '',
                     value: 0,
                     sign: '',
+                }
+                this.resultsThumbs[i] = {
+                    src: ''
                 }
             };
             return this.results;
@@ -818,7 +864,7 @@ export default {
             max-width: 615px;
             margin-bottom: 15px;
         }
-        &.results-fields__wrapper{
+        &.results-fields__wrapper{            
             textarea{
                 width: 100%;
                 max-width: 615px;
@@ -828,6 +874,30 @@ export default {
                 margin: 15px 0 15px 0;
                 padding-top: 15px;
                 border-top: 1px solid black;
+                display: flex;
+                justify-content: flex-start;
+                align-items: flex-start;
+            }
+            .result-fields__internal{
+                width: 100%;
+                max-width: 615px;
+            }
+            .result-fields__img{
+                width: calc(100% - 615px);
+                padding-left: 20px;
+                display: flex;
+                align-items: flex-start;
+                justify-content: flex-start;
+                flex-direction: column;
+                .img-wrp{
+                    width: 300px;
+                    img{
+                        width: 100%;
+                    }
+                }
+                .btn{
+                    margin: 2px 0 17px 0;
+                }
             }
         }
     }
