@@ -345,7 +345,7 @@
                                                     <div class="result-fields__img">
                                                         <div :id="'show-modal' + index" @click="showModal = true" class="btn btn-primary btn-sm">Result Image Generator</div> 
                                                         <create-image :showModal="showModal" :onCloseWindow="onCloseWindow" :title="txtTitle" :num="index" :results="item" :onApplyImage="onApplyImage"/>
-                                                        <img :src="resultsThumbs[index].src" alt="">
+                                                        <img :src="results[index].resultThumb.src" alt="">
                                                     </div>
                                                 </div>                                                
                                             </div>
@@ -517,6 +517,9 @@ export default {
                     description: '',
                     value: 0,
                     sign: '',
+                    resultThumb:{
+                        src: '',
+                    }
                 }
             ],
             resultsThumbs:[
@@ -562,8 +565,10 @@ export default {
         },
         onApplyImage(data){
             console.log('image data - ', data);
-            this.resultsThumbs[data.num].src = data.src;
-            console.log('result thumbs - ', this.resultsThumbs);
+            this.results[data.num].resultThumb.src = data.src;
+            console.log('result thumbs - ', this.results);
+            this.setResults(this.results); 
+            console.log('results store - ', this.resultsItem);           
         },
         updatePopularity(e){
             this.setPopularity(parseFloat(this.checkNum(e.target.value)));
@@ -710,6 +715,9 @@ export default {
                     description: '',
                     value: 0,
                     sign: '',
+                    resultThumb:{
+                        src: ''
+                    }
                 }
                 this.resultsThumbs[i] = {
                     src: ''

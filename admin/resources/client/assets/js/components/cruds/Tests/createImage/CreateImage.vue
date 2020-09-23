@@ -95,6 +95,7 @@ export default {
     methods: {
         //
         fillData(){
+          console.log('results - ', this.results);
           this.imgText = {
             title : this.title,
             result: this.results.result,

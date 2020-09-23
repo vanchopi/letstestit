@@ -101,8 +101,13 @@ const actions = {
             
             for (var i = 0; i < state.resultsItem.length; i++) {     
                 var myItemInArr = state.resultsItem[i];     
-                for (var prop in myItemInArr) {         
-                    params.append(`variants[${i}][${prop}]`, myItemInArr[prop]);     
+                for (var prop in myItemInArr) {                     
+                    if (prop != 'resultThumb') {
+                        params.append(`variants[${i}][${prop}]`, myItemInArr[prop]);     
+                    }else{                        
+                        let thumb = myItemInArr[prop]; // .src - ?
+                        params.append(`variants[${i}][thumb]`,JSON.stringify(thumb));
+                    }
                 } 
             }            
             for (var i = 0; i < questionsImg.length; i++) {
@@ -111,6 +116,7 @@ const actions = {
             //console.log('4. all questions - ', state.item.questions);
             //console.log(' 5. questions img - ', questionsImg);
             /*console.log('params main_image - ', params.get('main_image'));*/
+            console.log('results - ', state.resultsItem);
             //console.log('variants', params.getAll('variants'));
             //console.log('qestions_img - ', params.getAll('qestions_img'));
 

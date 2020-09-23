@@ -2255,7 +2255,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 img: '',
                 description: '',
                 value: 0,
-                sign: ''
+                sign: '',
+                resultThumb: {
+                    src: ''
+                }
             }],
             resultsThumbs: [{
                 src: ''
@@ -2297,8 +2300,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         },
         onApplyImage: function onApplyImage(data) {
             console.log('image data - ', data);
-            this.resultsThumbs[data.num].src = data.src;
-            console.log('result thumbs - ', this.resultsThumbs);
+            this.results[data.num].resultThumb.src = data.src;
+            console.log('result thumbs - ', this.results);
+            this.setResults(this.results);
+            console.log('results store - ', this.resultsItem);
         },
         updatePopularity: function updatePopularity(e) {
             this.setPopularity(parseFloat(this.checkNum(e.target.value)));
@@ -2441,7 +2446,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                     img: '',
                     description: '',
                     value: 0,
-                    sign: ''
+                    sign: '',
+                    resultThumb: {
+                        src: ''
+                    }
                 };
                 this.resultsThumbs[i] = {
                     src: ''
@@ -3064,6 +3072,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         //
         fillData: function fillData() {
+            console.log('results - ', this.results);
             this.imgText = {
                 title: this.title,
                 result: this.results.result,
@@ -37315,7 +37324,9 @@ var render = function() {
                                         _vm._v(" "),
                                         _c("img", {
                                           attrs: {
-                                            src: _vm.resultsThumbs[index].src,
+                                            src:
+                                              _vm.results[index].resultThumb
+                                                .src,
                                             alt: ""
                                           }
                                         })
@@ -42102,7 +42113,12 @@ var actions = {
             for (var i = 0; i < state.resultsItem.length; i++) {
                 var myItemInArr = state.resultsItem[i];
                 for (var prop in myItemInArr) {
-                    params.append('variants[' + i + '][' + prop + ']', myItemInArr[prop]);
+                    if (prop != 'resultThumb') {
+                        params.append('variants[' + i + '][' + prop + ']', myItemInArr[prop]);
+                    } else {
+                        var thumb = myItemInArr[prop]; // .src - ?
+                        params.append('variants[' + i + '][thumb]', JSON.stringify(thumb));
+                    }
                 }
             }
             for (var i = 0; i < questionsImg.length; i++) {
@@ -42111,6 +42127,7 @@ var actions = {
             //console.log('4. all questions - ', state.item.questions);
             //console.log(' 5. questions img - ', questionsImg);
             /*console.log('params main_image - ', params.get('main_image'));*/
+            console.log('results - ', state.resultsItem);
             //console.log('variants', params.getAll('variants'));
             //console.log('qestions_img - ', params.getAll('qestions_img'));
 
