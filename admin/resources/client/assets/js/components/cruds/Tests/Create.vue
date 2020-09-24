@@ -343,14 +343,20 @@
                                                         </div>
                                                     </div>
                                                     <div class="result-fields__img">
-                                                        <div :id="'show-modal' + index" @click="showModal = true" class="btn btn-primary btn-sm">Result Image Generator</div> 
-                                                        <create-image :showModal="showModal" :onCloseWindow="onCloseWindow" :title="txtTitle" :num="index" :results="item" :onApplyImage="onApplyImage"/>
+                                                        <div :id="'show-modal' + index" @click="onCreatorOpen(index, item);showModal = true" class="btn btn-primary btn-sm">Result Image Generator</div>                                                         
                                                         <img :src="results[index].resultThumb.src" alt="">
                                                     </div>
                                                 </div>                                                
                                             </div>
                                         </div>                        
 
+                                        <create-image :showModal="showModal" 
+                                                      :onCloseWindow="onCloseWindow" 
+                                                      :title="txtTitle" 
+                                                      :num="creatorData.index" 
+                                                      :results="creatorData.results" 
+                                                      :onApplyImage="onApplyImage"
+                                        />
 
                                     </div>
 
@@ -532,6 +538,13 @@ export default {
                 h1: '',
                 description: '',
                 keywords:'',
+            },
+            creatorData:{
+                index: null,
+                results: {
+                    result: '',
+                    description: ''
+                }
             }
         }
     },
@@ -562,6 +575,13 @@ export default {
         },        
         onCloseWindow(data){
             this.showModal = data;
+        },
+        onCreatorOpen( num, data ){
+            //console.log('1. onCreatorOpen - ', num, data );
+            this.creatorData.index = num;
+            this.creatorData.results.result = data.result;
+            this.creatorData.results.description = data.description;
+            //console.log(' creator -  ',this.creatorData);
         },
         onApplyImage(data){
             console.log('image data - ', data);
