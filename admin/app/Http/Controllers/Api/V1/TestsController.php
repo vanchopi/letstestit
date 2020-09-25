@@ -42,14 +42,11 @@ class TestsController extends Controller
             return abort(401);
         }
 
-        //$path = explode("admin", storage_path())[0] . 'public\images\cards';
-
-        /*$path = str_replace('/admin/storage/','',storage_path('public/images/cards'));
-        echo '123-' . $path;*/
-
         $results = $request->variants;
         $questionsImg = $request->qestions_img;
         $seo = $request->seo;
+        $thumbs = [];
+        $targetFolder = explode( "/admin" , $_SERVER['DOCUMENT_ROOT'] )[0].'/admin/storage/app/public/images/thumbs';
         //$variants = json_decode($results);
 
         print_r(gettype($request->main_image));
@@ -58,11 +55,16 @@ class TestsController extends Controller
         print_r($questionsImg);
         //print_r(hasFile($request->variants[0]['img']));
         //print_r(gettype($request->variants[0]['img']));
-        //print_r($seo);
+        //print_r($seo);        
 
+        echo "********";        
+        for ($i=0; $i < sizeof($results) ; $i++) {
+            $thumbs[$i] = json_decode($results[$i]['thumb'])->src;            
+        }
         echo "********";
+        
 
-        print_r($request->all());
+        //print_r($request->all());
 
         $test = Test::create($request->all());        
         
@@ -78,13 +80,53 @@ class TestsController extends Controller
                 echo "shit just happened";  
             }
         }
-        for ($i=0; $i < sizeof($questionsImg) ; $i++) {
-            try{
-                $test->addMedia($request->qestions_img[$i])->toMediaCollection('question_image', 'questions');
-            } catch (Exception $e){
-                echo "shit just happened";  
+
+        if($questionsImg != ''){
+            for ($i=0; $i < sizeof($questionsImg) ; $i++) {
+                try{
+                    $test->addMedia($request->qestions_img[$i])->toMediaCollection('question_image', 'questions');
+                } catch (Exception $e){
+                    echo "shit just happened";  
+                }
+            }  
+        }
+        $subFolder = $test->id;
+        
+        //thumbs
+        for ($i=0; $i < sizeof($thumbs) ; $i++) {
+            $data = $thumbs[$i];
+            if (preg_match('/^data:image\/(\w+);base64,/', $data, $type)) {
+                $data = substr($data, strpos($data, ',') + 1);
+                $type = strtolower($type[1]); // jpg, png, gif
+
+                if (!in_array($type, [ 'jpg', 'jpeg', 'gif', 'png' ])) {
+                    echo "invalid image type";
+                    throw new \Exception('invalid image type');
+                }
+                $data = str_replace( ' ', '+', $data );
+                $data = base64_decode($data);
+
+                if ($data === false) {
+                    echo "base64_decode failed";
+                    throw new \Exception('base64_decode failed');
+                }
+            } else {
+                echo "did not match data URI with image data";
+                throw new \Exception('did not match data URI with image data');
             }
-        }        
+
+            $path = $targetFolder . "/" . $subFolder;
+            $fileName = "thumb" . $subFolder . "-" . $i . ".{$type}";
+            if (!file_exists($path)) {
+                mkdir($path, 0777, true);
+            }
+
+            file_put_contents($path . "/". $fileName , $data);
+
+            $results[$i]['thumb'] = $subFolder . "/" . $fileName;
+            
+        }
+
         // results
         $result = new Result;
         $result->variants = json_encode($results);

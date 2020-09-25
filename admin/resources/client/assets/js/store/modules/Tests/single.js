@@ -109,9 +109,13 @@ const actions = {
                         params.append(`variants[${i}][thumb]`,JSON.stringify(thumb));
                     }
                 } 
-            }            
-            for (var i = 0; i < questionsImg.length; i++) {
-                params.append(`qestions_img[${i}]`, questionsImg[i].img);
+            } 
+            if(questionsImg.length){           
+                for (var i = 0; i < questionsImg.length; i++) {
+                    params.append(`qestions_img[${i}]`, questionsImg[i].img);
+                }
+            }else{
+                params.set('qestions_img', '');
             }
             //console.log('4. all questions - ', state.item.questions);
             //console.log(' 5. questions img - ', questionsImg);
