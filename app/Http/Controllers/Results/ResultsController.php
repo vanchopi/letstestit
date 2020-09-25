@@ -34,13 +34,15 @@ class ResultsController extends Controller
 		       echo "хрен знает чё";
 		};
 		//echo "********";
+        $thumb = (!empty($result[$num]->thumb) ? $result[$num]->thumb : null);
+
         $results = [
         	"success" => true,
 	        "img" => $img[$num]->result_image,
 	        "title" => $result[$num]->result,
 	        "description" => $result[$num]->description,
 	        "id" => $request->id,
-            'media'=> 'https://letstestit.ru/images/2.jpg',
+            'media'=> $thumb,
             'quote'=>  $result[$num]->result,
             'url'=>  'https://letstestit.ru',
             'hashtags'=> 'letstestit',
