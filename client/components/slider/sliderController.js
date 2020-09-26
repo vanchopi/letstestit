@@ -32,17 +32,17 @@ export function switcher( direction ){
       case 'left':          
         sliderToRight( wd, liWd );
         break;     
-    }	
+    }
     return direction;
 }
 
 function sliderToRight( wd, liWd ){    
-	//console.log('sliderToRight', mr);
+	//console.log('sliderToRight', mr) номер блока на ширину;
 	let cat = document.getElementById('switch-category');
     if(mr < 0){
         mr += liWd;        
         cat.style.cssText = "margin-left:" + mr + "px;";         
-    }    
+    }
 };
 
 function sliderToLeft( wd, liWd ){

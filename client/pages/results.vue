@@ -19,7 +19,12 @@ export default {
   },
 
   head () {
-    return { title: this.$t('home') }
+    return { 
+      title: /*this.$t('home')*/ 'test', 
+      meta: [
+        { hid: 'og:image', property: 'og:image', content: process.env.appRoot + '/storage/images/results/160/1.jpg' }
+      ]
+    }
   },
 
   data: () => ({

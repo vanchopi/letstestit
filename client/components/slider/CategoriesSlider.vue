@@ -3,6 +3,7 @@
 
     <div class="switcher-wrapper">
       <div class="container">
+        <!--
         <div class="switcher-wrapper__internal" id="swither-wrapper-internal">          
           <div class="arrows-wrapper">
             <div class="arrow left" @click="sliderSwitcher('left')">
@@ -23,47 +24,29 @@
               </li>
             </ul>
           </div>
+        </div>-->
+        <div class="category-title">
+          <span v-if="true">Категории</span>
+          <span v-else>123</span>
         </div>
       </div>    
     </div>
 
     <div class="content-wrapper">
       <div class="container">
-        <!--
-        <div  class="content-filters__wrapper" >
-          <div  class="filter" 
-                v-for="(item, index) of filters"
-                :class="{'show': showFilter[index].filter}"
-                >
-            <div class="title-wrapper" @click="openFilter(item.id)">
-              <span class="title">
-                {{ item.desc }}
-              </span>
-            </div>
-            <div class="options-wrapper">
-              <ul>
-                <li v-for="option of item.options">
-                  {{ option.desc }}
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        -->
-
         <div class="content-categories__wrapper">
           <ul>
-            <li v-for="(category, index) of getCategories()"
+            <li v-for="(category, index) of categories"
                 class="category-item"
                 :key=index
               >
               <div class="img-wrapper">
-                <img :src="imgSrc + '/images/categories/' + category.img" alt="">
+                <img :src="imgSrc + '/images/categories/' + (category.id + 1) + '.png'" alt="">
               </div>
               <div class="link-wrapper">
                 <!--<router-link :to="{ name: category.url }" class="link"> -->
-                <router-link :to="{ name: 'category', params: {id: index} }" class="link">   
-                  {{ category.title }}*
+                <router-link :to="{ name: 'category', params: {url: category.url} }" class="link">   
+                  {{ category.title }}
                 </router-link>
               </div>  
             </li>
@@ -98,7 +81,7 @@ export default {
       { filter: false }
     ],
     categories: [ 
-      { id:0, txt: ''} 
+      { id:0, txt: '', url: ''} 
     ],
     filters:[
       {
@@ -134,26 +117,17 @@ export default {
     })
   },
   created(){    
-    this.$store.dispatch("categories/fetchCategories");
-    if(this.ifCatalog){
-      console.log('catalog', this.ifCatalog);
-    }else{
-      console.log('categories', this.ifCatalog);
-    }    
+    this.$store.dispatch("categories/fetchCategories");   
     this.getCategoriesList();
-    this.getTests();    
+    //this.getTests();    
     console.log('state - ', this.newCategoriesList);
   },
-  mounted(){
-    this.checkWidth();
-    startSwitcher();
-    window.addEventListener("resize", this.checkWidth);        
+  mounted(){       
   },
-  destroyed() {
-    window.removeEventListener("resize", this.checkWidth);
+  destroyed() {    
   },
   methods: {
-    sliderSwitcher( direction ){      
+    /*sliderSwitcher( direction ){      
       console.log('direction', switcher(direction));
       switch(direction) {
         case 'right':  
@@ -174,7 +148,7 @@ export default {
           this.getTestsListLocal(this.catId);
           break;     
       }
-    },
+    },*/
     checkWidth(e){
       console.log(sliderAdaptive());      
     },
@@ -190,17 +164,18 @@ export default {
     async getCategoriesList(){      
       try{
         const  list  =  await getCategoriesList();                        
-        console.log(list);
-        this.categories = Object.freeze(list.data[0]);       
+        
+        this.categories = Object.freeze(list.data);       
         this.loader = false;
+        console.log('11-', this.categories);
         return this.categories;
       }catch(e){
         console.log(e);
       }
     },  
-    async getTests( currentCategory ){
+    async getTests( currentCategory ){      
       try{
-        const  list  =  await getTestsList( currentCategory );                                
+        const  list  =  await getTestsList( currentCategory );
         //this.categories = Object.freeze(list.data[0]);        
         this.testsList = list.data;
         console.log(' tests ',this.testsList);

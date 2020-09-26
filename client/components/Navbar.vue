@@ -32,7 +32,7 @@
               <router-link :to="{ name: 'catalog' }"
                             @click.native="showMobileMenu = true"
                 > 
-                ТЕСТЫ
+                КАТЕГОРИИ
               </router-link>
             </li>
             <li>
@@ -50,10 +50,10 @@
               <li v-for="(item, index) of newCategoriesList" 
                   :key=index                  
               >
-                <router-link  :to="{ name: 'category', params: {id: item.url} }" 
+                <router-link  :to="{ name: 'category', params: {url: item.url} }" 
                               @click.native="showMobileMenu = !showMobileMenu"
                   >
-                  {{ item.txt }}
+                  {{ item.title }}
                 </router-link>
               </li>
             </ul>
@@ -61,6 +61,7 @@
           <div class="menu-bt nav-block block">
             <div class="bt-wrp" @click="showMenu = !showMenu">
               <img src="~assets/images/png/menu.png" alt="menu">
+              <!-- <span>MENU</span> -->
             </div>            
           </div>
           <div class="serach-wrapper block">
@@ -88,10 +89,10 @@
         <li v-for="(item, index) of newCategoriesList" 
             :key=index            
         >
-          <router-link  :to="{ name: 'category', params: {id: item.url} }"
+          <router-link  :to="{ name: 'category', params: {url: item.url} }"
                         @click.native="showMenu = !showMenu"
             >
-            {{ item.txt }}
+            {{ item.title }}
           </router-link>
         </li>
       </ul>
@@ -129,6 +130,7 @@ export default {
   },
   created(){    
     this.$store.dispatch("categories/fetchCategories");
+    console.log('newCategoriesList', this.newCategoriesList);
   },
   methods: {
     async logout () {

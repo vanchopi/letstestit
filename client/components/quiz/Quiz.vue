@@ -10,13 +10,16 @@
               @click="goBack"
         >назад</div>
         <div class="counter">
-          <b>{{testPart.num + 1}}</b>
+          <b>{{testPart.id + 1}}</b>
           <span>/{{testLenght}}</span>
         </div>
       </div>
       <div class="quiz-item__content" :class="{'fade-out': fade}">
         <div class="title">
-         {{testPart.queston}}
+         {{testPart.question}}
+        </div>
+        <div class="question-img" v-if=" testPart.img != undefined ||  testPart.img != null">
+          <img :src=" imgSrc + '/storage/images/questions/' + testPart.img" alt="">
         </div>
         <div class="answers">
           <ul>
@@ -38,12 +41,12 @@
         </div>        
       </div>  
       <div class="button-wrapper">
-        <button class="custom-bt" @click="getPart(testPart.num)" v-if="quizStep < testLenght - 1">
+        <button class="custom-bt" @click="getPart(testPart.id)" v-if="quizStep < testLenght - 1">
           <span>
             ОТВЕТИТЬ
           </span>
         </button>
-        <button class="custom-bt" @click="finishTest(testPart.num)" v-else>
+        <button class="custom-bt" @click="finishTest(testPart.id)" v-else>
           <span>
             ЗАВЕРШИТЬ ТЕСТ
           </span>
@@ -62,12 +65,13 @@ import { getTest } from '~/api/test/test'
 export default {
   components: {    
   },
-  props: ['info'],
+  props: ['info', 'test'],
   data: () => ({
+    imgSrc: process.env.appRoot ,
     fade: false,    
     testList: [],
     testPart: [{
-      num: 0,
+      id: 0,      
       queston: '',
       answers: [
         { id: 0, dsc: ''},
@@ -87,6 +91,12 @@ export default {
   computed: mapGetters({
     user: 'auth/user'
   }),
+  watch:{
+      'test'(){
+        console.log('test loaded - ',this.test);
+        this.getData();
+      }
+  },
   created(){
     this.query = this.$route.params.id;
     console.log(this.query);
@@ -94,10 +104,9 @@ export default {
     //console.log('this.testList', this.testList);             
     //this.fakeTest();   
     //this.testPart = this.getPart( this.quizStep );
-  },
+  },  
   mounted() {
-    console.log('**',this.query);
-    this.getData(this.query);
+    console.log('**',this.query);    
   },
   methods: {        
     getPart( num ){     
@@ -166,14 +175,11 @@ export default {
         setTimeout(() => { this.fade = !this.fade; }, 300);
       }
     },
-    getData( info ){
-      getTest(info).then((request) => {
-        console.log('request', request);
-        this.testList = request.data;
-        this.testLenght = request.data.length;
+    getData(){
+        this.testList = this.test;
+        this.testLenght = this.testList.length;
         this.testPart = this.testList[0];
-        console.log('this.testPart', this.testPart);
-      })
+        console.log('this.testPart', this.testPart);      
     }
   }
 }

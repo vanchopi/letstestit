@@ -26,6 +26,7 @@ export default {
 <style scoped lang="scss">
   .ploader{
       position: absolute;
+      top: 0;
       left: 46%;
       width: 8%;
       height: 100%;

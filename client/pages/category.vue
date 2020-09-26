@@ -1,20 +1,22 @@
 <template>
-  <div>    
-    
-    <slider :ifCatalog="false" />
+  <div class="catalog-slider__wrapper">    
+    <breadcrumbs />
+    <tests-list :ifCatalog="false" />
         
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import Slider from '~/components/slider/Slider'
+import TestsList from '~/components/testsList/testsList'
+import Breadcrumbs from '~/components/Breadcrumbs'
 
 export default {
-  layout: 'default',
+  layout: 'light',
 
-  components: {    
-    Slider
+  components: {  
+    Breadcrumbs,   
+    TestsList
   },
 
   head () {
