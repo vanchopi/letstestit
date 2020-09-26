@@ -28,7 +28,7 @@ export default {
     //ploader: true,
   }),
   created(){    
-    console.log('values',this.values);    
+    //console.log('values',this.values);    
   },
   watch:{
       /*'loader'(){
