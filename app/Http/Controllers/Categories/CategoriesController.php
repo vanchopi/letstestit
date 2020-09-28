@@ -13,7 +13,8 @@ class CategoriesController extends Controller
         /*$categories = [];
 
         return response()->json($categories);*/
-        $categories = Category::all();
+        $categories = Category::with([])->get();
+        //print_r($categories);
         return $categories;
     } 
 }
