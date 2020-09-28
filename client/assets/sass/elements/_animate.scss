@@ -2,26 +2,6 @@ a {
 	transition: all 0.5s ease 0s;
 }
 
-/*.ploader{
-	position: absolute;
-	width: 40px;
-	height: 40px;
-	top: 42%;
-	left: 47%;
-	border-radius: 50%;
-	border: 5px solid #fff;
-	border-top-color: #04D0D9;
-	animation: crcl 2s ease-in-out infinite
-}
-
-@keyframes crcl {
-	0%{
-		transform: rotate(0deg);
-	}
-	100%{
-		transform: rotate(360deg);
-	}
-}*/
 
 .dot {
 	width: 15px;
@@ -53,4 +33,14 @@ a {
 	}
 
 	100%{}
+}
+
+/*arrow menu*/
+.right {
+	transform: rotate(-45deg);
+	transition: all 0.5s ease 0s;
+	&:hover{
+		transform: rotate(45deg);
+		transition: all 0.5s ease 0s;
+	}
 }

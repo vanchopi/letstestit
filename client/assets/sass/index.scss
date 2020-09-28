@@ -92,12 +92,19 @@ a{
 			height: 100%;
 			font-size: 24px;
 			font-weight: 100;
+			.arrow {
+			  border: solid #337AB7;
+			  border-width: 0 3px 3px 0;
+			  display: inline-block;
+			  margin: auto 3px;
+			  padding: 4px;
+			}
 		}
-	}	
+	}
 	.block{
 		width: 62px;
-		border-left: $main-border;
-		border-right: $main-border;
+		/*border-left: $main-border;
+		border-right: $main-border;*/
 		display: flex;
 		justify-content: center;
 		align-items: center;

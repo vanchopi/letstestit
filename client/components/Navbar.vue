@@ -61,7 +61,8 @@
           <div class="menu-bt nav-block block">
             <div class="bt-wrp" @click="showMenu = !showMenu">
               <!-- <img src="~assets/images/png/menu.png" alt="menu"> -->
-              <span>MENU</span>
+            MENU
+             <!--  <div class="arrow right"></div> -->
             </div>            
           </div>
           <div class="serach-wrapper block">
