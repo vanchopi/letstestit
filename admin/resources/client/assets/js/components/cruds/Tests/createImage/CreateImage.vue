@@ -157,7 +157,7 @@ export default {
                 let contextCanvas2 = canvas2.getContext('2d');                                   
                 var img2 = new Image;
                 img2.onload = function() {
-                    contextCanvas2.drawImage(img2, -10, -10, 522, 238);
+                    contextCanvas2.drawImage(img2, -10, -10, 522, 238); // width > 1000px
                     resultImg.src = canvas2.toDataURL('image/png');
                 };
                 img2.src = canvas.toDataURL('image/png');

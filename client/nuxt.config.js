@@ -3,14 +3,15 @@ const { join } = require('path')
 const { copySync, removeSync } = require('fs-extra')
 
 module.exports = {
-  mode: 'spa', // Comment this for SSR
+  //mode: 'spa', // Comment this for SSR
 
   srcDir: __dirname,
 
   env: {
-    apiUrl: process.env.API_URL || process.env.APP_URL + '/api',
-    appRoot: process.env.APP_URL,
-    appName: process.env.APP_NAME || 'Laravel Nuxt',
+    //apiUrl: process.env.API_URL || process.env.APP_URL + '/api',
+    apiUrl: process.env.API_URL + '/api' || process.env.APP_URL + '/api',
+    appRoot: process.env.CLIENT_URL || process.env.APP_URL,
+    appName: process.env.APP_NAME || 'letstestit',
     appLocale: process.env.APP_LOCALE || 'en',
     githubAuth: !!process.env.GITHUB_CLIENT_ID
   },
@@ -44,7 +45,7 @@ module.exports = {
     '~plugins/vform',
     '~plugins/axios',
     '~plugins/fontawesome',
-    '~plugins/nuxt-client-init', // Comment this for SSR
+    //'~plugins/nuxt-client-init', // Comment this for SSR
     { src: '~plugins/bootstrap', mode: 'client' }
   ],
 
