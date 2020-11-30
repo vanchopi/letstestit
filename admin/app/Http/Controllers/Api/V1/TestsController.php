@@ -170,15 +170,43 @@ class TestsController extends Controller
             ->setStatusCode(202);
     }
 
-    public function destroy($id)
+    public function destroy($id) // удаляем: тест, результат, картинки(медиа), мета.
     {
+        echo "destroy. ";
         if (Gate::denies('test_delete')) {
             return abort(401);
         }
 
         $test = Test::findOrFail($id);
-        $test->delete();
+        $result = Result::where('test_id', $id)->get()->first();
+        //$thumbs = $id . '/' . json_decode($result->variants); надо доделать - удаляем превьюшки 
+        $meta = Meta::where('model_id', $id)->get()->first();
+        if(!$test){
+            echo "there is no test. ";
+        }else{
+            $test->delete();
+            $test->forceDelete();   
+        }
+        if(!$result){
+            echo "there is no results. ";
+        }else{
+            $result->delete();
+            $result->forceDelete();
+        }
+        if(!$meta){
+            echo "there is no meta. ";
+        }else{
+            $meta->delete();
+            $meta->forceDelete();
+        }        
+        $media = self::destroyMedia($id); 
+        //$test->delete();
+        //$test->forceDelete();
 
         return response(null, 204);
+    }
+
+    static public function destroyMedia($id){
+        return;
     }
 }
