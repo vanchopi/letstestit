@@ -10,6 +10,7 @@ admin/public/storage
 admin/vendor
 /vendor
 admin/vendor
+Apache_2.4-PHP_7.2-7.3-x64+Nginx_1.14_vhostn.conf
 .env
 .env.backup
 .phpunit.result.cache
