@@ -3074,7 +3074,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 title: '',
                 result: '',
                 description: ''
-            }
+            },
+            wd: 1024,
+            ht: 456
         };
     },
 
@@ -3128,18 +3130,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 canvas2 = document.getElementById("canvas2"),
                 img = document.getElementById("thumb"),
                 resultImg = document.getElementById("resultImg"),
+                wd = this.wd,
+                ht = this.ht,
                 options = {
                 offsetX: 0,
                 offsetY: 0,
-                width: 512,
-                height: 228
+                width: this.wd,
+                height: this.ht
             };
             //console.log('custom img - ', img);
-            __WEBPACK_IMPORTED_MODULE_1_rasterizehtml__["drawHTML"]('<div style="width: 512px; height: 228px; padding: 15px; background-image: url(' + img.src + '); background-size: cover;">' + '<div class="title-wrp" style="display: flex; align-items: center; justify-content: flex-start; padding-bottom: 15px; margin-bottom: 15px; width: calc(100% - 40px); border-bottom: 1px solid white;">' + '<img width="70" src="/logo.png" style="margin-right: 0px;">' + '<b style="position: absolute; margin-left: 80px;">' + '<span style="color: white;">' + this.imgText.title + '</span>' + '</b>' + '</div>' + '<span style="color: white; font-size: 22px; font-weight: bold; margin-bottom: 5px; display: block; font-family: Open Sans,sans-serif;">Мой результат : ' + this.imgText.result + '</span>' + '<span style="color: white; font-size: 12px; font-weight: normal; margin-bottom: 15px; display: block; font-family: Open Sans,sans-serif;">' + this.imgText.description + '</span>' + '</div>', canvas).then(function (renderResult) {
+            __WEBPACK_IMPORTED_MODULE_1_rasterizehtml__["drawHTML"]('<div style="width:' + wd + 'px; height:' + ht + 'px; padding: 30px; background-image: url(' + img.src + '); background-size: cover;">' + '<div class="title-wrp" style="display: flex; align-items: center; justify-content: flex-start; padding-bottom: 30px; margin-bottom: 30px; width: calc(100% - 70px); border-bottom: 1px solid white;">' + '<img width="140" src="/logo.png" style="margin-right: 0px;">' + '<b style="position: absolute; margin-left: 150px; font-size: 28px;">' + '<span style="color: white;">' + this.imgText.title + '</span>' + '</b>' + '</div>' + '<span style="color: white; font-size: 34px; font-weight: bold; margin-bottom: 15px; display: block; font-family: Open Sans,sans-serif;">Мой результат : ' + this.imgText.result + '</span>' + '<span style="color: white; font-size: 28px; font-weight: normal; margin-bottom: 25px; display: block; font-family: Open Sans,sans-serif;">' + this.imgText.description + '</span>' + '</div>', canvas).then(function (renderResult) {
                 var contextCanvas2 = canvas2.getContext('2d');
                 var img2 = new Image();
                 img2.onload = function () {
-                    contextCanvas2.drawImage(img2, -10, -10, 522, 238);
+                    contextCanvas2.drawImage(img2, -10, -10, wd + 10, ht + 10); // width > 1000px
                     resultImg.src = canvas2.toDataURL('image/png');
                 };
                 img2.src = canvas.toDataURL('image/png');
@@ -3730,6 +3734,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         destroyData: function destroyData(id) {
             var _this = this;
 
+            //console.log(' module - ', this.xprops.module);
             this.$swal({
                 title: 'Are you sure?',
                 text: 'You won\'t be able to revert this!',
@@ -4917,7 +4922,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -5112,7 +5117,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.half-fields__wrapper label[data-v-fd12abd2] {\n  display: block;\n  width: 100%;\n  margin-bottom: 5px;\n}\n.half-fields__wrapper textarea[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n  padding: 6px 12px;\n}\n.bt-wrapper[data-v-fd12abd2] {\n  padding-bottom: 20px;\n}\n.bt-wrapper.__top[data-v-fd12abd2] {\n    padding-top: 20px;\n}\n.box[data-v-fd12abd2] {\n  border-top: none;\n}\n.questions-paramrtrs__wrapper[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  margin: 15px 0 30px 0;\n  padding-top: 15px;\n  border-top: 1px solid #d8d2d2;\n}\n.questions-paramrtrs__wrapper .col[data-v-fd12abd2] {\n    width: 45%;\n    max-width: 300px;\n}\n.questions-paramrtrs__wrapper .col[data-v-fd12abd2]:last-child {\n      margin-left: 15px;\n}\n.questions-paramrtrs__wrapper.__results .col[data-v-fd12abd2]:last-child {\n    margin-left: 0px;\n}\n.tab-pane > span[data-v-fd12abd2] {\n  display: block;\n  margin: 15px 0;\n}\n.fields-wrapper .input-group[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n  margin-bottom: 15px;\n}\n.fields-wrapper.results-fields__wrapper textarea[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n  padding: 6px 12px;\n}\n.fields-wrapper.results-fields__wrapper .results-fields__item[data-v-fd12abd2] {\n  margin: 15px 0 15px 0;\n  padding-top: 15px;\n  border-top: 1px solid black;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: start;\n      -ms-flex-align: start;\n          align-items: flex-start;\n}\n.fields-wrapper.results-fields__wrapper .result-fields__internal[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n}\n.fields-wrapper.results-fields__wrapper .result-fields__img[data-v-fd12abd2] {\n  width: calc(100% - 615px);\n  padding-left: 20px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: start;\n      -ms-flex-align: start;\n          align-items: flex-start;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.fields-wrapper.results-fields__wrapper .result-fields__img .img-wrp[data-v-fd12abd2] {\n    width: 300px;\n}\n.fields-wrapper.results-fields__wrapper .result-fields__img .img-wrp img[data-v-fd12abd2] {\n      width: 100%;\n}\n.fields-wrapper.results-fields__wrapper .result-fields__img .btn[data-v-fd12abd2] {\n    margin: 2px 0 17px 0;\n}\n.form-group.__1[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n.form-group.__1 .col[data-v-fd12abd2] {\n    width: calc(50% - 10px);\n}\n.fields-wrapper__internal[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n}\n.fields-wrapper__internal .fields-wrapper__item[data-v-fd12abd2] {\n    width: calc(50% - 10px);\n    max-width: 615px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    margin-bottom: 15px;\n}\n.fields-wrapper__internal .fields-wrapper__item[data-v-fd12abd2]:first-child {\n      margin-right: 10px;\n}\n.labels-wrapper[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n}\n.labels-wrapper label[data-v-fd12abd2] {\n    width: calc(50% - 10px);\n    max-width: 615px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\n.labels-wrapper label[data-v-fd12abd2]:first-child {\n      margin-right: 10px;\n}\n", ""]);
+exports.push([module.i, "\n.half-fields__wrapper label[data-v-fd12abd2] {\n  display: block;\n  width: 100%;\n  margin-bottom: 5px;\n}\n.half-fields__wrapper textarea[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n  padding: 6px 12px;\n}\n.bt-wrapper[data-v-fd12abd2] {\n  padding-bottom: 20px;\n}\n.bt-wrapper.__top[data-v-fd12abd2] {\n    padding-top: 20px;\n}\n.box[data-v-fd12abd2] {\n  border-top: none;\n}\n.questions-paramrtrs__wrapper[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  margin: 15px 0 30px 0;\n  padding-top: 15px;\n  border-top: 1px solid #d8d2d2;\n}\n.questions-paramrtrs__wrapper .col[data-v-fd12abd2] {\n    width: 45%;\n    max-width: 300px;\n}\n.questions-paramrtrs__wrapper .col[data-v-fd12abd2]:last-child {\n      margin-left: 15px;\n}\n.questions-paramrtrs__wrapper.__results .col[data-v-fd12abd2]:last-child {\n    margin-left: 0px;\n}\n.tab-pane > span[data-v-fd12abd2] {\n  display: block;\n  margin: 15px 0;\n}\n.fields-wrapper .input-group[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n  margin-bottom: 15px;\n}\n.fields-wrapper.results-fields__wrapper textarea[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n  padding: 6px 12px;\n}\n.fields-wrapper.results-fields__wrapper .results-fields__item[data-v-fd12abd2] {\n  margin: 15px 0 15px 0;\n  padding-top: 15px;\n  border-top: 1px solid black;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: start;\n      -ms-flex-align: start;\n          align-items: flex-start;\n}\n.fields-wrapper.results-fields__wrapper .result-fields__internal[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n}\n.fields-wrapper.results-fields__wrapper .result-fields__img[data-v-fd12abd2] {\n  width: calc(100% - 615px);\n  padding-left: 20px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: start;\n      -ms-flex-align: start;\n          align-items: flex-start;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.fields-wrapper.results-fields__wrapper .result-fields__img .img-wrp[data-v-fd12abd2] {\n    width: 300px;\n}\n.fields-wrapper.results-fields__wrapper .result-fields__img .img-wrp img[data-v-fd12abd2] {\n      width: 100%;\n}\n.fields-wrapper.results-fields__wrapper .result-fields__img img[data-v-fd12abd2] {\n    width: 100%;\n    max-width: 512px;\n}\n.fields-wrapper.results-fields__wrapper .result-fields__img .btn[data-v-fd12abd2] {\n    margin: 2px 0 17px 0;\n}\n.form-group.__1[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n.form-group.__1 .col[data-v-fd12abd2] {\n    width: calc(50% - 10px);\n}\n.fields-wrapper__internal[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n}\n.fields-wrapper__internal .fields-wrapper__item[data-v-fd12abd2] {\n    width: calc(50% - 10px);\n    max-width: 615px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    margin-bottom: 15px;\n}\n.fields-wrapper__internal .fields-wrapper__item[data-v-fd12abd2]:first-child {\n      margin-right: 10px;\n}\n.labels-wrapper[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n}\n.labels-wrapper label[data-v-fd12abd2] {\n    width: calc(50% - 10px);\n    max-width: 615px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\n.labels-wrapper label[data-v-fd12abd2]:first-child {\n      margin-right: 10px;\n}\n", ""]);
 
 // exports
 
@@ -35722,7 +35727,7 @@ var render = function() {
             top: "0px",
             display: "none"
           },
-          attrs: { width: "512", height: "228", id: "canvas1" }
+          attrs: { width: _vm.wd, height: _vm.ht, id: "canvas1" }
         }),
         _vm._v(" "),
         _c("canvas", {
@@ -35732,7 +35737,7 @@ var render = function() {
             top: "0px",
             display: "none"
           },
-          attrs: { width: "512", height: "228", id: "canvas2" }
+          attrs: { width: _vm.wd, height: _vm.ht, id: "canvas2" }
         }),
         _vm._v(" "),
         _c("img", { attrs: { id: "resultImg", src: "", alt: "" } }),

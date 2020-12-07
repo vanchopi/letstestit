@@ -170,15 +170,61 @@ class TestsController extends Controller
             ->setStatusCode(202);
     }
 
-    public function destroy($id)
+    public function destroy($id) // удаляем: тест, результат, картинки(медиа), мета.
     {
+        echo "destroy. ";
         if (Gate::denies('test_delete')) {
             return abort(401);
         }
-
+        $targetFolder = explode( "/admin" , $_SERVER['DOCUMENT_ROOT'] )[0].'/admin/storage/app/public/images/thumbs';
+        $path = $targetFolder . "/" . $id;
         $test = Test::findOrFail($id);
-        $test->delete();
+        $test->media->each->delete();
+        $result = Result::where('test_id', $id)->get()->first();
+        //$thumbs = $id . '/' . json_decode($result->variants); надо доделать - удаляем превьюшки 
+        $meta = Meta::where('model_id', $id)->get()->first();
+        if(!$test){
+            echo "there is no test. ";
+        }else{
+            $test->delete();
+            $test->forceDelete();   
+        }
+        if(!$result){
+            echo "there is no results. ";
+        }else{
+            $result->delete();
+            $result->forceDelete();
+        }
+        if(!$meta){
+            echo "there is no meta. ";
+        }else{
+            $meta->delete();
+            $meta->forceDelete();
+        }
+        if (file_exists($path)) {
+            $thumb = self::rrmdir($path);
+        }
+        //$media = self::destroyMedia($id);         
 
         return response(null, 204);
+    }
+
+    static public function destroyMedia($id){        
+        return;
+    }
+
+    static public function rrmdir($dir) {
+        if (is_dir($dir)) {
+            $objects = scandir($dir);
+            foreach ($objects as $object) {
+                if ($object != "." && $object != "..") {
+                    if (filetype($dir."/".$object) == "dir") 
+                        rrmdir($dir."/".$object); 
+                    else unlink   ($dir."/".$object);
+                }
+            }
+            reset($objects);
+            rmdir($dir);
+        }
     }
 }
