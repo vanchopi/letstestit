@@ -176,8 +176,10 @@ class TestsController extends Controller
         if (Gate::denies('test_delete')) {
             return abort(401);
         }
-
+        $targetFolder = explode( "/admin" , $_SERVER['DOCUMENT_ROOT'] )[0].'/admin/storage/app/public/images/thumbs';
+        $path = $targetFolder . "/" . $id;
         $test = Test::findOrFail($id);
+        $test->media->each->delete();
         $result = Result::where('test_id', $id)->get()->first();
         //$thumbs = $id . '/' . json_decode($result->variants); надо доделать - удаляем превьюшки 
         $meta = Meta::where('model_id', $id)->get()->first();
@@ -198,15 +200,31 @@ class TestsController extends Controller
         }else{
             $meta->delete();
             $meta->forceDelete();
-        }        
-        $media = self::destroyMedia($id); 
-        //$test->delete();
-        //$test->forceDelete();
+        }
+        if (file_exists($path)) {
+            $thumb = self::rrmdir($path);
+        }
+        //$media = self::destroyMedia($id);         
 
         return response(null, 204);
     }
 
-    static public function destroyMedia($id){
+    static public function destroyMedia($id){        
         return;
+    }
+
+    static public function rrmdir($dir) {
+        if (is_dir($dir)) {
+            $objects = scandir($dir);
+            foreach ($objects as $object) {
+                if ($object != "." && $object != "..") {
+                    if (filetype($dir."/".$object) == "dir") 
+                        rrmdir($dir."/".$object); 
+                    else unlink   ($dir."/".$object);
+                }
+            }
+            reset($objects);
+            rmdir($dir);
+        }
     }
 }
