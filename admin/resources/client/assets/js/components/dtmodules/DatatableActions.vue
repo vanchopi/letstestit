@@ -39,6 +39,7 @@ export default {
     },
     methods: {
         destroyData(id) {
+            //console.log(' module - ', this.xprops.module);
             this.$swal({
                 title: 'Are you sure?',
                 text: 'You won\'t be able to revert this!',
@@ -49,7 +50,7 @@ export default {
                 focusCancel: true,
                 reverseButtons: true
             }).then(result => {
-                if (result.value) {
+                if (result.value) {                    
                     this.$store.dispatch(
                         this.xprops.module + '/destroyData',
                         id

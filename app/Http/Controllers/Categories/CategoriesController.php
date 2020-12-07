@@ -14,7 +14,6 @@ class CategoriesController extends Controller
 
         return response()->json($categories);*/
         $categories = Category::with([])->get();
-        //print_r($categories);
         return $categories;
     } 
 }

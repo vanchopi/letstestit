@@ -923,6 +923,10 @@ export default {
                         width: 100%;
                     }
                 }
+                img{
+                    width: 100%;
+                    max-width: 512px;
+                }
                 .btn{
                     margin: 2px 0 17px 0;
                 }
