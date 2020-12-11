@@ -38,27 +38,30 @@
           <ul>
             <li v-for="(category, index) of categories"
                 class="category-item"
-                :key=index
+                :key=index                
               >
-              <div class="img-wrapper">
-                <img :src="imgSrc + '/images/categories/' + (category.id + 1) + '.png'" alt="">
+              <div class="category-item__internal" 
+                   :style="{ background: 'url(' + category.img + ')' }"
+                  >
+                  <!--<div class="img-wrapper">
+                      <img :src="category.img" alt="">
+                  </div>-->
+                  <div class="link-wrapper">
+                      <!--<router-link :to="{ name: category.url }" class="link"> -->
+                      <router-link :to="{ name: 'category', params: {url: category.url} }" class="link">   
+                        {{ category.title }}
+                      </router-link>
+                  </div>  
               </div>
-              <div class="link-wrapper">
-                <!--<router-link :to="{ name: category.url }" class="link"> -->
-                <router-link :to="{ name: 'category', params: {url: category.url} }" class="link">   
-                  {{ category.title }}
-                </router-link>
-              </div>  
             </li>
-
           </ul>
         </div>
 
       </div>    
     </div>  
-    <div class="show-more__button" @click="getMore()">
+    <!--<div class="show-more__button" @click="getMore()">
       <img src="~assets/images/png/down.png" alt="">
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -81,7 +84,7 @@ export default {
       { filter: false }
     ],
     categories: [ 
-      { id:0, txt: '', url: ''} 
+      { id:0, txt: '', url: '', img: 'https://via.placeholder.com/255.png'} 
     ],
     filters:[
       {
