@@ -78,7 +78,13 @@ class CategoriesController extends Controller
         }
 
         $category = Category::findOrFail($id);
-        $category->delete();
+        $category->media->each->delete();
+        if(!$category){
+            echo "there is no category. ";
+        }else{
+            $category->delete();
+            $category->forceDelete();   
+        }
 
         return response(null, 204);
     }
