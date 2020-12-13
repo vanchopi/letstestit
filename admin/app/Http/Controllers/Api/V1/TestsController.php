@@ -182,7 +182,7 @@ class TestsController extends Controller
         $test->media->each->delete();
         $result = Result::where('test_id', $id)->get()->first();
         //$thumbs = $id . '/' . json_decode($result->variants); надо доделать - удаляем превьюшки 
-        $meta = Meta::where('model_id', $id)->get()->first();
+        $meta = Meta::where(['model_type' => 'App\Test','model_id' => $id])->get()->first();
         if(!$test){
             echo "there is no test. ";
         }else{
