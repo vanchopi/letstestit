@@ -5,6 +5,7 @@ function initialState() {
             title: null,
             description: null,
             url: null,
+            seo: null,  
             category_image: null
         },
         
@@ -41,6 +42,12 @@ const actions = {
                         }
                     }
                 }
+            }
+
+            if (_.isEmpty(state.item.seo)) {
+                params.set('seo', '')
+            } else {
+                params.set('seo', JSON.stringify(state.item.seo))
             }
 
             if (state.item.category_image === null) {
@@ -134,6 +141,9 @@ const actions = {
     setUrl({ commit }, value) { //изменяем состояние только commit
         commit('setUrl', value)
     },
+    setSeo({commit}, payload){
+        commit('setSeo', payload);
+    },
     setCategory_image({ commit }, value) {
         commit('setCategory_image', value)
     },
@@ -154,6 +164,9 @@ const mutations = {
     },
     setUrl(state, value) {
         state.item.url = value
+    },
+    setSeo(state, payload){
+        state.item.seo = JSON.parse(JSON.stringify(payload));
     },
     setCategory_image(state, value) {
         state.item.category_image = value;
