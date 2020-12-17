@@ -535,6 +535,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('CategoriesSingle', ['item', 'loading'])),
     created: function created() {
+        this.setSeoMask();
         this.seoOnInput();
     },
     destroyed: function destroyed() {
@@ -544,6 +545,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('CategoriesSingle', ['storeData', 'resetState', 'setTitle', 'setDescription', 'setUrl', 'setSeo', 'setCategory_image']), {
         updateTitle: function updateTitle(e) {
             this.setTitle(e.target.value);
+            this.setSeoMask();
+            this.seoOnInput();
         },
         updateDescription: function updateDescription(e) {
             this.setDescription(e.target.value);
@@ -553,6 +556,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         },
         seoOnInput: function seoOnInput() {
             this.setSeo(this.seo);
+        },
+        setSeoMask: function setSeoMask() {
+            var title = this.item.title == null ? '' : this.item.title;
+            return this.seo = {
+                title: '\u0421\u0430\u043C\u044B\u0435 \u0438\u043D\u0442\u0435\u0440\u0435\u0441\u043D\u044B\u0435 \u0438 \u043F\u043E\u043F\u0443\u043B\u044F\u0440\u043D\u044B\u0435 ' + title + ' \u043E\u043D\u043B\u0430\u0439\u043D \u043D\u0430 \u0441\u0430\u0439\u0442\u0435 letstestit.ru',
+                h1: '' + title,
+                description: '\u041D\u0430 \u043D\u0430\u0448\u0435\u043C \u0441\u0430\u0439\u0442\u0435 \u0432\u044B \u043C\u043E\u0436\u0435\u0442\u0435 \u043F\u0440\u043E\u0439\u0442\u0438 \u0432\u0441\u0435 ' + title + ' \u0430\u0431\u0441\u043E\u043B\u044E\u0442\u043D\u043E \u0431\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u043E. \u0421\u0430\u0439\u0442 letstestit.ru \u0433\u0430\u0440\u0430\u043D\u0442\u0438\u0440\u0443\u0435\u0442 \u043C\u0433\u043D\u043E\u0432\u0435\u043D\u043D\u044B\u0439 \u0438 \u0442\u043E\u0447\u043D\u044B\u0439 \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442.',
+                keywords: '\u041E\u043D\u043B\u0430\u0439\u043D \u0442\u0435\u0441\u0442, ' + title + ', \u0442\u0435\u0441\u0442\u044B \u0431\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u043E'
+            };
         },
         removeCategory_image: function removeCategory_image(e, id) {
             var _this = this;
@@ -36260,7 +36272,7 @@ var render = function() {
                                 id: "seo-decsription",
                                 placeholder: "",
                                 cols: "60",
-                                rows: "1",
+                                rows: "2",
                                 required: ""
                               },
                               domProps: { value: _vm.seo.description },
