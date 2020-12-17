@@ -402,7 +402,7 @@
                                                       id="seo-decsription" 
                                                       placeholder=""
                                                       cols="60" 
-                                                      rows="1"
+                                                      rows="2"
                                                       required="" 
                                                       v-model="seo.description"
                                                       @input="seoOnInput"
@@ -552,7 +552,8 @@ export default {
         ...mapGetters('TestsSingle', ['item', 'resultsItem', 'loading', 'categoriesAll'])
     },
     created() {
-        this.fetchCategoriesAll();
+        this.fetchCategoriesAll();        
+        this.setSeoMask();
         this.seoOnInput();
     },
     destroyed() {
@@ -566,6 +567,8 @@ export default {
         updateTitle(e) {
             this.setTitle(e.target.value);
             this.txtTitle = e.target.value;
+            this.setSeoMask();
+            this.seoOnInput();
         },
         checkNum( val ){
             if (val < 0 ){
@@ -821,6 +824,15 @@ export default {
         },
         seoOnInput(){
             this.setSeo(this.seo);
+        },
+        setSeoMask(){
+            let title = this.item.title == null ? '' : this.item.title;
+            return this.seo = {
+                title: `${title}`,
+                h1: `Пройди тест ${title} на сайте letstestit.ru`,
+                description: `Хочешь узнать о себе максимум. Тест ${title} поможет тебе в этом. Сконцентрируйся, и постарайся ответить на все вопросы честно на сайте letstestit.ru`,
+                keywords:`тест ${title}, онлайн тест, пройти тест`,
+            };
         },
         submitForm() {
             //this.item.questions = this.questions;

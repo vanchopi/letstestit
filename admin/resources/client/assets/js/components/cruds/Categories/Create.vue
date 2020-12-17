@@ -129,7 +129,7 @@
                                                       id="seo-decsription" 
                                                       placeholder=""
                                                       cols="60" 
-                                                      rows="1"
+                                                      rows="2"
                                                       required="" 
                                                       v-model="seo.description"
                                                       @input="seoOnInput"
@@ -191,6 +191,7 @@ export default {
         ...mapGetters('CategoriesSingle', ['item', 'loading'])
     },
     created() {
+        this.setSeoMask();
         this.seoOnInput();
     },
     destroyed() {
@@ -199,7 +200,9 @@ export default {
     methods: {
         ...mapActions('CategoriesSingle', ['storeData', 'resetState', 'setTitle', 'setDescription', 'setUrl', 'setSeo', 'setCategory_image']),
         updateTitle(e) {
-            this.setTitle(e.target.value)
+            this.setTitle(e.target.value);
+            this.setSeoMask();
+            this.seoOnInput();
         },
         updateDescription(e) {
             this.setDescription(e.target.value)
@@ -209,6 +212,15 @@ export default {
         },
         seoOnInput(){
             this.setSeo(this.seo);
+        },
+        setSeoMask(){
+            let title = this.item.title == null ? '' : this.item.title;
+            return this.seo = {                
+                title: `Самые интересные и популярные ${title} онлайн на сайте letstestit.ru`,
+                h1: `${title}`,                 
+                description: `На нашем сайте вы можете пройти все ${title} абсолютно бесплатно. Сайт letstestit.ru гарантирует мгновенный и точный результат.`,
+                keywords:`Онлайн тест, ${title}, тесты бесплатно`,
+            };
         },
         removeCategory_image(e, id) {
             this.$swal({
