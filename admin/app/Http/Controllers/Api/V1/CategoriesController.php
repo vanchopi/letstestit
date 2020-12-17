@@ -29,6 +29,18 @@ class CategoriesController extends Controller
         }
 
         $category = Category::with([])->findOrFail($id);
+        $meta = Meta::where(['model_type' => 'App\Category','model_id' => $id])->get()->first();
+
+        if (!$meta){            
+            $category['seo'] = [
+                'title' => '',
+                'h1' => '',
+                'description' => '',
+                'keywords' => '',
+            ];
+        }else{
+            $category['seo'] = json_decode($meta->data);
+        }
 
         return new CategoryResource($category);
     }
@@ -68,13 +80,23 @@ class CategoriesController extends Controller
             return abort(401);
         }
 
+        $seo = $request->seo;
         $category = Category::findOrFail($id);
         $category->update($request->all());
         
         
-         if (! $request->input('category_image') && $category->getFirstMedia('category_image')) {
+        if (! $request->input('category_image') && $category->getFirstMedia('category_image')) {
             $category->getFirstMedia('category_image')->delete();
         }
+
+        $meta = Meta::updateOrCreate([            
+            'model_id'   => $id,
+            'model_type' => 'App\Category'
+        ],[
+            'model_id'     => $id,
+            'model_type' => 'App\Category',
+            'data'    => $seo            
+        ]);
 
         return (new CategoryResource($category))
             ->response()

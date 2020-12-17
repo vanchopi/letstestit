@@ -709,13 +709,93 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            // Code...
+            seo: {
+                title: '',
+                h1: '',
+                description: '',
+                keywords: ''
+            }
         };
     },
 
@@ -731,17 +811,39 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         "$route.params.id": function $routeParamsId() {
             this.resetState();
             this.fetchData(this.$route.params.id);
+            console.log('1.item - ', this.item);
+        },
+        "item": function item() {
+            //console.log('2.item - ', this.item);
+            this.seoFromDB();
         }
     },
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('CategoriesSingle', ['fetchData', 'updateData', 'resetState', 'setTitle', 'setDescription', 'setUrl', 'setCategory_image']), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('CategoriesSingle', ['fetchData', 'updateData', 'resetState', 'setTitle', 'setDescription', 'setUrl', 'setSeo', 'setCategory_image']), {
         updateTitle: function updateTitle(e) {
             this.setTitle(e.target.value);
+            this.setSeoMask();
+            this.seoOnInput();
         },
         updateDescription: function updateDescription(e) {
             this.setDescription(e.target.value);
         },
         updateUrl: function updateUrl(e) {
             this.setUrl(e.target.value);
+        },
+        seoOnInput: function seoOnInput() {
+            this.setSeo(this.seo);
+        },
+        seoFromDB: function seoFromDB() {
+            this.seo = this.item.seo;
+        },
+        setSeoMask: function setSeoMask() {
+            var title = this.item.title == null ? '' : this.item.title;
+            return this.seo = {
+                title: '\u0421\u0430\u043C\u044B\u0435 \u0438\u043D\u0442\u0435\u0440\u0435\u0441\u043D\u044B\u0435 \u0438 \u043F\u043E\u043F\u0443\u043B\u044F\u0440\u043D\u044B\u0435 ' + title + ' \u043E\u043D\u043B\u0430\u0439\u043D \u043D\u0430 \u0441\u0430\u0439\u0442\u0435 letstestit.ru',
+                h1: '' + title,
+                description: '\u041D\u0430 \u043D\u0430\u0448\u0435\u043C \u0441\u0430\u0439\u0442\u0435 \u0432\u044B \u043C\u043E\u0436\u0435\u0442\u0435 \u043F\u0440\u043E\u0439\u0442\u0438 \u0432\u0441\u0435 ' + title + ' \u0430\u0431\u0441\u043E\u043B\u044E\u0442\u043D\u043E \u0431\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u043E. \u0421\u0430\u0439\u0442 letstestit.ru \u0433\u0430\u0440\u0430\u043D\u0442\u0438\u0440\u0443\u0435\u0442 \u043C\u0433\u043D\u043E\u0432\u0435\u043D\u043D\u044B\u0439 \u0438 \u0442\u043E\u0447\u043D\u044B\u0439 \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442.',
+                keywords: '\u041E\u043D\u043B\u0430\u0439\u043D \u0442\u0435\u0441\u0442, ' + title + ', \u0442\u0435\u0441\u0442\u044B \u0431\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u043E'
+            };
         },
         removeCategory_image: function removeCategory_image(e, id) {
             var _this = this;
@@ -4932,7 +5034,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4168ce80\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Categories/Edit.vue":
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4168ce80\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Categories/Edit.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
@@ -4940,7 +5042,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.half-fields__wrapper label[data-v-4168ce80] {\n  display: block;\n  width: 100%;\n  margin-bottom: 5px;\n}\n.half-fields__wrapper textarea[data-v-4168ce80] {\n  width: 100%;\n  max-width: 615px;\n  padding: 6px 12px;\n}\n.bt-wrapper[data-v-4168ce80] {\n  padding-bottom: 20px;\n}\n.bt-wrapper.__top[data-v-4168ce80] {\n    padding-top: 20px;\n}\n.box[data-v-4168ce80] {\n  border-top: none;\n}\n", ""]);
 
 // exports
 
@@ -34042,136 +34144,316 @@ var render = function() {
               [
                 _c(
                   "div",
-                  { staticClass: "box" },
-                  [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "box-body" },
-                      [_c("back-buttton")],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("bootstrap-alert"),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "box-body" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "title" } }, [
-                          _vm._v("Title")
-                        ]),
+                  { staticClass: "bt-wrapper" },
+                  [_c("back-buttton")],
+                  1
+                ),
+                _vm._v(" "),
+                _c("bootstrap-alert"),
+                _vm._v(" "),
+                _vm._m(1),
+                _vm._v(" "),
+                _c("div", { staticClass: "tab-content" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "tab-pane active",
+                      attrs: { id: "category" }
+                    },
+                    [
+                      _c("div", { staticClass: "box" }, [
+                        _vm._m(2),
                         _vm._v(" "),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            name: "title",
-                            placeholder: "Enter Title"
-                          },
-                          domProps: { value: _vm.item.title },
-                          on: { input: _vm.updateTitle }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "description" } }, [
-                          _vm._v("Description")
-                        ]),
-                        _vm._v(" "),
-                        _c("textarea", {
-                          staticClass: "form-control",
-                          attrs: {
-                            rows: "3",
-                            name: "description",
-                            placeholder: "Enter Description"
-                          },
-                          domProps: { value: _vm.item.description },
-                          on: { input: _vm.updateDescription }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "url" } }, [_vm._v("URL")]),
-                        _vm._v(" "),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            name: "url",
-                            placeholder: "Enter URL"
-                          },
-                          domProps: { value: _vm.item.url },
-                          on: { input: _vm.updateUrl }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "category_image" } }, [
-                          _vm._v("Category image")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: { type: "file" },
-                          on: { change: _vm.updateCategory_image }
-                        }),
-                        _vm._v(" "),
-                        _vm.item.category_image
-                          ? _c("ul", { staticClass: "list-unstyled" }, [
-                              _c("li", [
-                                _vm._v(
-                                  "\n                                        " +
-                                    _vm._s(
-                                      _vm.item.category_image.name ||
-                                        _vm.item.category_image.file_name
-                                    ) +
-                                    "\n                                        "
-                                ),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-xs btn-danger",
-                                    attrs: { type: "button" },
-                                    on: { click: _vm.removeCategory_image }
-                                  },
-                                  [
+                        _c("div", { staticClass: "box-body" }, [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "title" } }, [
+                              _vm._v("Title")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "title",
+                                placeholder: "Enter Title"
+                              },
+                              domProps: { value: _vm.item.title },
+                              on: { input: _vm.updateTitle }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "description" } }, [
+                              _vm._v("Description")
+                            ]),
+                            _vm._v(" "),
+                            _c("textarea", {
+                              staticClass: "form-control",
+                              attrs: {
+                                rows: "3",
+                                name: "description",
+                                placeholder: "Enter Description"
+                              },
+                              domProps: { value: _vm.item.description },
+                              on: { input: _vm.updateDescription }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "url" } }, [
+                              _vm._v("URL")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "url",
+                                placeholder: "Enter URL"
+                              },
+                              domProps: { value: _vm.item.url },
+                              on: { input: _vm.updateUrl }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "category_image" } }, [
+                              _vm._v("Category image")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: { type: "file" },
+                              on: { change: _vm.updateCategory_image }
+                            }),
+                            _vm._v(" "),
+                            _vm.item.category_image
+                              ? _c("ul", { staticClass: "list-unstyled" }, [
+                                  _c("li", [
                                     _vm._v(
-                                      "\n                                            Remove file\n                                        "
+                                      "\n                                                " +
+                                        _vm._s(
+                                          _vm.item.category_image.name ||
+                                            _vm.item.category_image.file_name
+                                        ) +
+                                        "\n                                                "
+                                    ),
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-xs btn-danger",
+                                        attrs: { type: "button" },
+                                        on: { click: _vm.removeCategory_image }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                                    Remove file\n                                                "
+                                        )
+                                      ]
                                     )
-                                  ]
-                                )
-                              ])
-                            ])
-                          : _vm._e()
+                                  ])
+                                ])
+                              : _vm._e()
+                          ])
+                        ])
                       ])
-                    ]),
-                    _vm._v(" "),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "tab-pane", attrs: { id: "seo" } }, [
+                    _c("div", { staticClass: "box" }, [
+                      _vm._m(3),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "box-body half-fields__wrapper" },
+                        [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "seo_title" } }, [
+                              _vm._v("Title")
+                            ]),
+                            _vm._v(" "),
+                            _c("textarea", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.seo.title,
+                                  expression: "seo.title"
+                                }
+                              ],
+                              attrs: {
+                                name: "seo_title",
+                                id: "seo-title",
+                                placeholder: "",
+                                cols: "60",
+                                rows: "1",
+                                required: ""
+                              },
+                              domProps: { value: _vm.seo.title },
+                              on: {
+                                input: [
+                                  function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.seo,
+                                      "title",
+                                      $event.target.value
+                                    )
+                                  },
+                                  _vm.seoOnInput
+                                ]
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "seo_h1" } }, [
+                              _vm._v("H1")
+                            ]),
+                            _vm._v(" "),
+                            _c("textarea", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.seo.h1,
+                                  expression: "seo.h1"
+                                }
+                              ],
+                              attrs: {
+                                name: "seo_h1",
+                                id: "seo-h1",
+                                placeholder: "",
+                                cols: "60",
+                                rows: "1",
+                                required: ""
+                              },
+                              domProps: { value: _vm.seo.h1 },
+                              on: {
+                                input: [
+                                  function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(_vm.seo, "h1", $event.target.value)
+                                  },
+                                  _vm.seoOnInput
+                                ]
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "seo_decsription" } }, [
+                              _vm._v("Description")
+                            ]),
+                            _vm._v(" "),
+                            _c("textarea", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.seo.description,
+                                  expression: "seo.description"
+                                }
+                              ],
+                              attrs: {
+                                name: "seo_decsription",
+                                id: "seo-decsription",
+                                placeholder: "",
+                                cols: "60",
+                                rows: "2",
+                                required: ""
+                              },
+                              domProps: { value: _vm.seo.description },
+                              on: {
+                                input: [
+                                  function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.seo,
+                                      "description",
+                                      $event.target.value
+                                    )
+                                  },
+                                  _vm.seoOnInput
+                                ]
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "seo_keywords" } }, [
+                              _vm._v("Keywords")
+                            ]),
+                            _vm._v(" "),
+                            _c("textarea", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.seo.keywords,
+                                  expression: "seo.keywords"
+                                }
+                              ],
+                              attrs: {
+                                name: "seo_keywords",
+                                id: "seo-keywords",
+                                placeholder: "",
+                                cols: "60",
+                                rows: "1",
+                                required: ""
+                              },
+                              domProps: { value: _vm.seo.keywords },
+                              on: {
+                                input: [
+                                  function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.seo,
+                                      "keywords",
+                                      $event.target.value
+                                    )
+                                  },
+                                  _vm.seoOnInput
+                                ]
+                              }
+                            })
+                          ])
+                        ]
+                      )
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "bt-wrapper" },
+                  [
                     _c(
-                      "div",
-                      { staticClass: "box-footer" },
+                      "vue-button-spinner",
+                      {
+                        staticClass: "btn btn-primary btn-sm",
+                        attrs: { isLoading: _vm.loading, disabled: _vm.loading }
+                      },
                       [
-                        _c(
-                          "vue-button-spinner",
-                          {
-                            staticClass: "btn btn-primary btn-sm",
-                            attrs: {
-                              isLoading: _vm.loading,
-                              disabled: _vm.loading
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                Save\n                            "
-                            )
-                          ]
+                        _vm._v(
+                          "\n                            Save\n                        "
                         )
-                      ],
-                      1
+                      ]
                     )
                   ],
                   1
                 )
-              ]
+              ],
+              1
             )
           ])
         ])
@@ -34192,8 +34474,44 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("ul", { staticClass: "nav nav-tabs" }, [
+      _c("li", { staticClass: "nav-item active" }, [
+        _c(
+          "a",
+          {
+            staticClass: "nav-link",
+            attrs: { "data-toggle": "tab", href: "#category" }
+          },
+          [_vm._v("Content")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "nav-item" }, [
+        _c(
+          "a",
+          {
+            staticClass: "nav-link",
+            attrs: { "data-toggle": "tab", href: "#seo" }
+          },
+          [_vm._v("SEO")]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "box-header with-border" }, [
-      _c("h3", { staticClass: "box-title" }, [_vm._v("Edit")])
+      _c("h3", { staticClass: "box-title" }, [_vm._v("Create")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "box-header with-border" }, [
+      _c("h3", { staticClass: "box-title" }, [_vm._v("SEO")])
     ])
   }
 ]
@@ -38298,23 +38616,23 @@ if(false) {
 
 /***/ }),
 
-/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4168ce80\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Categories/Edit.vue":
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4168ce80\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Categories/Edit.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4168ce80\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Categories/Edit.vue");
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4168ce80\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Categories/Edit.vue");
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("179d7006", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("32fed4cc", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../../../node_modules/css-loader/index.js!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4168ce80\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Edit.vue", function() {
-     var newContent = require("!!../../../../../../../node_modules/css-loader/index.js!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4168ce80\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Edit.vue");
+   module.hot.accept("!!../../../../../../../node_modules/css-loader/index.js!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4168ce80\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/sass-loader/lib/loader.js!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Edit.vue", function() {
+     var newContent = require("!!../../../../../../../node_modules/css-loader/index.js!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4168ce80\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/sass-loader/lib/loader.js!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Edit.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -39453,7 +39771,7 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4168ce80\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Categories/Edit.vue")
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4168ce80\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Categories/Edit.vue")
 }
 var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
 /* script */
