@@ -183,6 +183,7 @@ export default {
                 description: '',
                 keywords:'',
             }, 
+            fillSeo: false,
         }
     },
     computed: {
@@ -202,7 +203,10 @@ export default {
         },
         "item": function(){
             //console.log('2.item - ', this.item);
-            this.seoFromDB();
+            if(!this.fillSeo){
+                this.seoFromDB();
+                this.fillSeo = true;
+            }
         }
     },
     methods: {

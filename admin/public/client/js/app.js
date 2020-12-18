@@ -795,7 +795,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 h1: '',
                 description: '',
                 keywords: ''
-            }
+            },
+            fillSeo: false
         };
     },
 
@@ -815,7 +816,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         },
         "item": function item() {
             //console.log('2.item - ', this.item);
-            this.seoFromDB();
+            if (!this.fillSeo) {
+                this.seoFromDB();
+                this.fillSeo = true;
+            }
         }
     },
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('CategoriesSingle', ['fetchData', 'updateData', 'resetState', 'setTitle', 'setDescription', 'setUrl', 'setSeo', 'setCategory_image']), {
@@ -41597,6 +41601,12 @@ var actions = {
                         }
                     }
                 }
+            }
+
+            if (_.isEmpty(state.item.seo)) {
+                params.set('seo', '');
+            } else {
+                params.set('seo', JSON.stringify(state.item.seo));
             }
 
             if (state.item.category_image === null) {

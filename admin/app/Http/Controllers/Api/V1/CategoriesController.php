@@ -89,14 +89,31 @@ class CategoriesController extends Controller
             $category->getFirstMedia('category_image')->delete();
         }
 
-        $meta = Meta::updateOrCreate([            
+        /*$meta = \App\Meta::updateOrCreate([            
             'model_id'   => $id,
             'model_type' => 'App\Category'
         ],[
-            'model_id'     => $id,
+            'model_id' => $id,
             'model_type' => 'App\Category',
             'data'    => $seo            
-        ]);
+        ]);*/
+        //print_r($seo);
+        $meta = Meta::where([            
+            'model_id'   => $id,
+            'model_type' => 'App\Category'
+        ])->get()->first();
+        if (!$meta) {
+            $meta = new Meta;
+            $meta->model_type = 'App\Category';
+            $meta->model_id = $id;
+            $meta->data = $seo;
+            $meta->save();
+        } else {
+            $meta->model_type = 'App\Category';
+            $meta->model_id = $id;
+            $meta->data = $seo;
+            $meta->update();
+        }        
 
         return (new CategoryResource($category))
             ->response()
