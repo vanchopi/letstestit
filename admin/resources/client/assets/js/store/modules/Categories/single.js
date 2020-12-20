@@ -98,6 +98,12 @@ const actions = {
                 }
             }
 
+            if (_.isEmpty(state.item.seo)) {
+                params.set('seo', '')
+            } else {
+                params.set('seo', JSON.stringify(state.item.seo))
+            }
+
             if (state.item.category_image === null) {
                 params.delete('category_image');
             }
