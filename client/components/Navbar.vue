@@ -111,7 +111,7 @@ import LocaleDropdown from './LocaleDropdown'
 export default {
   components: {
     LocaleDropdown
-  },
+  }, 
 
   data: () => ({
     appName: process.env.appName,
@@ -119,6 +119,10 @@ export default {
     showMenu: false,
     showMobileMenu: false,
   }),
+
+  /*fetch ({ store, params }) {
+    console.log('*** - fetch - ***');
+  },*/
 
   computed: {
     ...mapGetters({

@@ -21,7 +21,8 @@ const routes = [
   { 
     path: '/category/:url', 
     name: 'category', 
-    component: page('category.vue') 
+    component: page('category.vue'),
+    /*props: { id: null } */
   },
   { 
     path: '/test/:id', 

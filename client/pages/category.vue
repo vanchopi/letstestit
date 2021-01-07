@@ -1,6 +1,7 @@
 <template>
   <div class="catalog-slider__wrapper">    
     <breadcrumbs />
+    <span :data-meta="meta.title"></span>
     <tests-list :ifCatalog="false" />
         
   </div>
@@ -10,6 +11,7 @@
 import { mapGetters } from 'vuex'
 import TestsList from '~/components/testsList/testsList'
 import Breadcrumbs from '~/components/Breadcrumbs'
+import { getMeta } from '~/api/categories/category'
 
 export default {
   layout: 'light',
@@ -18,9 +20,25 @@ export default {
     Breadcrumbs,   
     TestsList
   },
-
+  async asyncData({route, params}){
+    //console.log('params - ', route.params);
+    try{
+      const  list  =  await getMeta(route.params.url);                               
+      const meta = list.data;
+      console.log('meta - ',  meta);
+      return {meta};
+    }catch(e){
+      console.log(e);
+    }
+  },
   head () {
-    return { title: this.$t('home') }
+    return { 
+      title: this.$t('home'),
+      meta: [{
+        name: 'keywords',
+        content: this.meta.keywords,
+      }] 
+    }
   },
 
   data: () => ({
