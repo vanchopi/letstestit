@@ -16,6 +16,7 @@ import Banner from '~/components/Banner'
 import MainFooter from '~/components/MainFooter'
 
 export default {
+  name: 'Light',
   components: {
     Navbar,    
     Banner,
