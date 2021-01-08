@@ -100,8 +100,7 @@ export default {
     })
   },
 
-  created(){
-      console.log('3. categoriesList - ', this.categoriesList);
+  created(){      
   },
 
   methods: {

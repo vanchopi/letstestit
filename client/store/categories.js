@@ -12,8 +12,7 @@ const mutations = {
 	FETCH_CATEGORIES: ( state, categoriesList ) => {
 		state.categories = categoriesList;
 	},
-	SET_CATEGORIES:( state, categoriesList ) => {
-		console.log('2. categoriesList - ', categoriesList);
+	SET_CATEGORIES:( state, categoriesList ) => {		
 		state.categories = categoriesList;
 	}
 };
@@ -35,7 +34,6 @@ const actions = {
 		}
 	},
 	setCategories({ commit }, payload){
-		console.log('1. categoriesList - ', payload);
 		commit('SET_CATEGORIES', payload);
 	}
 };

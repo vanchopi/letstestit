@@ -125,11 +125,11 @@ export default {
   }),
 
   async fetch(/*{ store, params }*/) {        
-    console.log('api - ', process.env.apiUrl);
+    //console.log('api - ', process.env.apiUrl);
     let url = process.env.apiUrl + '/categories/getlist'
     this.testfetch = await fetch(new URL(url)).then(res => res.json())
     .then((data) => {
-        console.log('fetch response - ', data);
+        //console.log('fetch response - ', data);
         this.$store.dispatch("categories/setCategories", data);
         //store.commit('SET_CATEGORIES', data);
         //console.log('fetch this.testfetch - ', this.testfetch);
