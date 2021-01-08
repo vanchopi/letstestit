@@ -46,3 +46,13 @@ export function getTestResults( id, answers ){
 		}	  
 	});		
 }
+
+export function getMeta( id ){
+	return axios({				
+		method: 'post',
+		url: '/test/getmeta',
+		  data: {
+		    id: id,
+		}	  
+	});		
+}
