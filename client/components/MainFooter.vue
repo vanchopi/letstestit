@@ -6,24 +6,15 @@
         <div class="row">        
           <div class="col-md-7">
             <div class="bottom-menu__wrapper row">
-              <div class="col-md-6 col-sm-6 col-12">
-                <ul>
-                  <li v-for="index in 5" :key="index"">
-                    <router-link :to="{ name: 'welcome' }"> 
-                    Тесты по фильмам{{index}}
-                    </router-link>
-                  </li>
-                </ul>
-              </div>
-              <div class="col-md-6 col-sm-6 col-12">  
-                <ul>
-                  <li v-for="index in 5" :key="index"">
-                    <router-link :to="{ name: 'welcome' }"> 
-                    Тесты по книгам{{index}}
-                    </router-link>
-                  </li>
-                </ul>
-              </div>  
+              <ul>                  
+                <li v-for="(item, index) of categoriesList" 
+                    :key=index                  
+                >
+                  <router-link  :to="{ name: 'category', params: {url: item.url} }">
+                    {{ item.title }}
+                  </router-link>
+                </li>
+              </ul>
             </div>
           </div>
           <div class="col-md-5">
@@ -82,7 +73,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   components: {
@@ -94,9 +85,23 @@ export default {
     searchStr:'',
   }),
 
-  computed: mapGetters({
-    user: 'auth/user'
-  }),
+  watch:{
+      /*'categoriesList'(){
+        console.log('categoriesList from footer - ', this.categoriesList);
+      }*/
+  },
+
+  computed: {
+    ...mapGetters({
+      user: 'auth/user',      
+    }),    
+    ...mapState({
+      categoriesList: state => state.categories.categories,     
+    })
+  },
+
+  created(){      
+  },
 
   methods: {
     async logout () {

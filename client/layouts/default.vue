@@ -18,6 +18,7 @@ import Banner from '~/components/Banner'
 import MainFooter from '~/components/MainFooter'
 
 export default {
+  name: 'Default',
   components: {
     Navbar,
     Breadcrumbs,

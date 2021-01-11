@@ -89,7 +89,7 @@ a{
 			@include align-center;
 			justify-content: center;
 			width: 100%;
-			height: 100%;
+			align-self: stretch;
 			font-size: 24px;
 			font-weight: 100;
 		}
@@ -647,18 +647,33 @@ footer{
 					box-shadow: 5px 0 5px -5px #333;
 				}
 				ul{
-					padding: 0 0 0 40px;
+					padding: 0;
+					width: 100%;
+					@include align-top;
+					justify-content: flex-start;
+					flex-wrap: wrap;
 					li{
-						position: relative;
-						margin-bottom: 40px;
-						&:last-child{
-							margin-bottom: 0px;
+						position: relative;						
+						padding: 0 0px 40px 15px;
+						margin: 0 15px 0 15px;
+						width: calc(50% - 30px);
+						border-right: 1px solid #79797C;
+						box-shadow: 5px 0 5px -5px #333;
+						&:last-child,
+						&:nth-last-child(2){
+							/*margin-bottom: 0px;*/
+							padding-bottom: 0px;
 						}
+						/*&:nth-child(odd){
+							border-right: 1px solid #79797C;
+							box-shadow: 5px 0 5px -5px #333;
+						}*/
 						&:before{
 							content: '';
 						    position: absolute;
 						    left: 0;
-						    top: 50%;
+						    /*top: 50%;*/
+						    top: 10px;
 						    margin-left: -8px;
 						    width: 3px;
 						    height: 3px;

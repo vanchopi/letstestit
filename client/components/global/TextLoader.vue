@@ -14,9 +14,13 @@ export default {
   data: () => ({    
     ploader: true,
   }),
+  created(){
+      //console.log('pre loader - ', this.loader);
+      this.ploader = this.loader;
+  },
   watch:{
       'loader'(){
-        console.log('loader from slider component - ',this.loader);
+        //console.log('loader - ', this.loader);
         this.ploader = this.loader;
       }
   },

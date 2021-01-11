@@ -36,7 +36,7 @@
       <div class="container">
         <div class="content-categories__wrapper">
           <ul>
-            <li v-for="(category, index) of categories"
+            <li v-for="(category, index) of categoriesList"
                 class="category-item"
                 :key=index                
               >
@@ -83,9 +83,10 @@ export default {
       { filter: false },
       { filter: false }
     ],
-    categories: [ 
+    /*categories: [ 
       { id:0, txt: '', url: '', img: 'https://via.placeholder.com/255.png'} 
-    ],
+    ],*/
+    categories: null,
     filters:[
       {
         id: 0,
@@ -104,8 +105,6 @@ export default {
         ]
       }
     ],
-    testsList: [],
-    categoriesList:[],  
     currentCategory: null, 
     numStep: 0,
     loader: true
@@ -116,77 +115,20 @@ export default {
       user: 'auth/user',      
     }),    
     ...mapState({
-      newCategoriesList: state => state.categories.categories,      
+      categoriesList: state => state.categories.categories,
     })
   },
-  created(){    
-    this.$store.dispatch("categories/fetchCategories");   
-    this.getCategoriesList();
-    //this.getTests();    
-    console.log('state - ', this.newCategoriesList);
+  created(){      
   },
   mounted(){       
   },
   destroyed() {    
   },
-  methods: {
-    /*sliderSwitcher( direction ){      
-      console.log('direction', switcher(direction));
-      switch(direction) {
-        case 'right':  
-          this.catId++;
-          //console.log('1.length - ', this.categories);
-          if ( this.catId >= this.categories.length ){
-              this.catId = this.categories.length - 1 ;
-              return;
-          }
-          this.getTestsListLocal(this.catId);
-          break;
-        case 'left':
-          this.catId--;
-          if (this.catId < 0) {
-            this.catId = 0;
-            return;
-          }
-          this.getTestsListLocal(this.catId);
-          break;     
-      }
-    },*/
-    checkWidth(e){
-      console.log(sliderAdaptive());      
-    },
+  methods: {  
     openFilter( id ){
       console.log(' filter ', id);
       this.showFilter[id].filter = !this.showFilter[id].filter;
     },
-    getTestsListLocal( num ){
-        console.log('swithed category id - ', num ,' -', this.categories[num]);
-        this.currentCategory = this.categories[num];
-        this.getTests(this.currentCategory);
-    },
-    async getCategoriesList(){      
-      try{
-        const  list  =  await getCategoriesList();                        
-        
-        this.categories = Object.freeze(list.data);       
-        this.loader = false;
-        console.log('11-', this.categories);
-        return this.categories;
-      }catch(e){
-        console.log(e);
-      }
-    },  
-    async getTests( currentCategory ){      
-      try{
-        const  list  =  await getTestsList( currentCategory );
-        //this.categories = Object.freeze(list.data[0]);        
-        this.testsList = list.data;
-        console.log(' tests ',this.testsList);
-        return this.testsList;
-      }catch(e){
-        console.log(e);
-      }
-    },      
     async getMore(){
       this.numStep ++;
       try{
@@ -198,17 +140,7 @@ export default {
       }catch(e){
         console.log(e);
       }
-    },    
-    getCategories(){
-      for (let i = 0; i < 9; i++){        
-        this.categoriesList[i] = {            
-          img: (i + 1) +'.png',
-          url: '#',
-          title: 'тесты по фильмам' + i,          
-        }
-      }      
-      return this.categoriesList;
-    }
+    }, 
   }
 }
 </script>

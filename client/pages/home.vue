@@ -12,6 +12,9 @@ export default {
     return { 
     	title: this.$t('home') 
     }
+  },
+  created(){
+  	console.log(' ****** ---created--- ******');
   }
 }
 </script>

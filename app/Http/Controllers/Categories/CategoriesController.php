@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Media;
+use App\Meta;
 
 class CategoriesController extends Controller
 {
@@ -31,5 +32,16 @@ class CategoriesController extends Controller
         }
                 
         return $img;
+    }
+
+    public function getCategoriesMeta(Request $request){
+        $url = $request->url;
+        $response = null;
+        $category = Category::where('url' , $url)->get()->first();
+        $meta = Meta::where(['model_type' => 'App\Category','model_id' => $category->id])->get()->first();
+        if ($meta){
+            $response = $meta->data;
+        }
+        return $response;
     }
 }

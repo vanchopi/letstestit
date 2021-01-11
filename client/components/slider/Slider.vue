@@ -18,8 +18,13 @@
               <li v-for="(item, index) of categories" 
                   :key=index
                 >
-                {{ item.title }}
-               
+                <router-link :to="{ name: 'category', params: {url: item.url} }" v-if="item.url != '0'">
+                  {{ item.title }}
+                </router-link>
+                <span v-else>
+                  {{ item.title }}
+                </span>
+                </a>
               </li>
             </ul>
           </div>

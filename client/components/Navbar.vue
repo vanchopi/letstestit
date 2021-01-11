@@ -43,11 +43,12 @@
               </router-link>
             </li>
           </ul>
+          <div v-for="item in testfetch">{{item.id}}</div>
           <div  class="mobile-menu-block__wrapper"
                 :class="{'show': showMenu}"
             >
             <ul class="container">
-              <li v-for="(item, index) of newCategoriesList" 
+              <li v-for="(item, index) of categoriesList" 
                   :key=index                  
               >
                 <router-link  :to="{ name: 'category', params: {url: item.url} }" 
@@ -86,7 +87,7 @@
           :class="{'show': showMenu}"
       >
       <ul class="container">
-        <li v-for="(item, index) of newCategoriesList" 
+        <li v-for="(item, index) of categoriesList" 
             :key=index            
         >
           <router-link  :to="{ name: 'category', params: {url: item.url} }"
@@ -107,30 +108,53 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 import LocaleDropdown from './LocaleDropdown'
+import { getCategoriesList } from '~/api/categories/category'
 
 export default {
   components: {
     LocaleDropdown
-  },
+  }, 
 
   data: () => ({
     appName: process.env.appName,
     searchStr:'',
     showMenu: false,
     showMobileMenu: false,
+    testfetch: null,
+    newCategoriesList: null,
   }),
+
+  async fetch(/*{ store, params }*/) {        
+    //console.log('api - ', process.env.apiUrl);
+    let url = process.env.apiUrl + '/categories/getlist'
+    this.testfetch = await fetch(new URL(url)).then(res => res.json())
+    .then((data) => {
+        //console.log('fetch response - ', data);
+        this.$store.dispatch("categories/setCategories", data);
+        //store.commit('SET_CATEGORIES', data);
+        //console.log('fetch this.testfetch - ', this.testfetch);
+    });
+  },
+
+  watch:{
+      'categoriesList'(){
+        console.log('categoriesList - ', this.categoriesList);
+      }
+  },
 
   computed: {
     ...mapGetters({
       user: 'auth/user',      
     }),    
     ...mapState({
-      newCategoriesList: state => state.categories.categories,      
+      //newCategoriesList: state => state.categories.categories, 
+      categoriesList: state => state.categories.categories,     
     })
   },
   created(){    
-    this.$store.dispatch("categories/fetchCategories");
-    console.log('newCategoriesList', this.newCategoriesList);
+    //this.$store.dispatch("categories/fetchCategories");
+    /*console.log('newCategoriesList', this.newCategoriesList);
+    console.log('1. *** testfetch - ', this.testfetch);*/
   },
   methods: {
     async logout () {
