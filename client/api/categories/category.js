@@ -11,3 +11,13 @@ export function getCategoriesList(){
 		}*/	  
 	});	
 }
+
+export function getMeta( url ){
+	return axios({				
+		method: 'post',
+		url: '/categories/getmeta',
+		  data: {
+		    url: url,
+		}	  
+	});		
+}

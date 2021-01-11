@@ -2,13 +2,17 @@ import Cookies from 'js-cookie';
 import { getCategoriesList } from '~/api/categories/category'
 
 const state = {
-	categories: [ 
+	/*categories: [ 
       { id:0, title: '', url:''} 
-    ],
+    ],*/
+    categories: null,
 }
 
 const mutations = {
 	FETCH_CATEGORIES: ( state, categoriesList ) => {
+		state.categories = categoriesList;
+	},
+	SET_CATEGORIES:( state, categoriesList ) => {		
 		state.categories = categoriesList;
 	}
 };
@@ -28,6 +32,9 @@ const actions = {
 		}catch(e){
 			console.log(e);
 		}
+	},
+	setCategories({ commit }, payload){
+		commit('SET_CATEGORIES', payload);
 	}
 };
 

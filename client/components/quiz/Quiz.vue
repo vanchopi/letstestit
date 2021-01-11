@@ -91,15 +91,16 @@ export default {
   computed: mapGetters({
     user: 'auth/user'
   }),
-  watch:{
+  /*watch:{
       'test'(){
         console.log('test loaded - ',this.test);
         this.getData();
       }
-  },
+  },*/
   created(){
     this.query = this.$route.params.id;
     console.log(this.query);
+    this.getData();
     //this.getTestList(this.query); 
     //console.log('this.testList', this.testList);             
     //this.fakeTest();   
@@ -153,7 +154,7 @@ export default {
       console.log('1.this.testList', this.testList);
       return this.testList;*/
     },
-    async getTestList( info ){
+    /*async getTestList( info ){
       try{
         const  list  =  await getTest(info);        
         console.log('list', list.data);
@@ -162,7 +163,7 @@ export default {
       }catch(e){
         console.log(e);
       }
-    },
+    },*/
     getAnswer(){
 
     },

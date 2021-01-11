@@ -42,6 +42,7 @@ Route::group(['middleware' => 'guest:api'], function () {
 Route::group(['middleware' => 'cors'], function () {
     Route::post('/tests/getlist', 'Tests\TestsController@getTestsList');
     Route::get('/categories/getlist', 'Categories\CategoriesController@getCategoriesList');
+    Route::post('/categories/getmeta', 'Categories\CategoriesController@getCategoriesMeta');
     Route::get('/test/{id}',  'Tests\TestsController@getTest');
     Route::post('/tests/getmore', 'Tests\TestsController@getMore');
     Route::post('/tests/getresults', 'Results\ResultsController@getResult');    

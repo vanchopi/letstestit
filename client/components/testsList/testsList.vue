@@ -106,9 +106,10 @@ export default {
       { filter: false },
       { filter: false }
     ],
-    categories: [ 
+    /*categories: [ 
       { id:0, txt: ''} 
-    ],
+    ],*/
+    categories: null,
     filters:[
       {
         id: 0,
@@ -127,13 +128,12 @@ export default {
         ]
       }
     ],
-    testsList: [],
-    categoriesList:[], 
+    testsList: [], 
     currentCategory: null, 
     numStep: 0,
     queryCategory: null,
     catName: null,
-    loader: true
+    loader: false,
   }),
 
   computed: {
@@ -141,12 +141,13 @@ export default {
       user: 'auth/user',      
     }),    
     ...mapState({
-      //newCategoriesList: state => state.categories.categories,      
+      //newCategoriesList: state => state.categories.categories,
+      categoriesList: state => state.categories.categories,
     })
   },
   created(){
     this.queryCategory = this.$route.params.url;
-    this.getCategoriesList();       
+    this.drawCategoriesList();       
   },
   mounted(){    
   },
@@ -155,7 +156,7 @@ export default {
   methods: {
     getCurrentCategory(){            
       let result = this.categories.filter( category => category.url == this.queryCategory);
-      this.currentCategory = this.queryCategory;
+      this.currentCategory = this.queryCategory;      
       this.getTests();
       return result.length > 0 ? this.catName = result[0].title : this.catName = 'Название категории';
     },
@@ -171,25 +172,17 @@ export default {
         this.ifShowMore = false;
       }
     },
-    async getCategoriesList(){      
-      try{
-        const  list  =  await getCategoriesList();                        
-        console.log(list);
-        this.categories = Object.freeze(list.data);
-        this.getCurrentCategory();        
-        this.loader = false;        
-        return this.categories;
-      }catch(e){
-        console.log(e);
-      }
-      
-    },  
+    drawCategoriesList(){
+        this.categories = this.categoriesList;
+        this.getCurrentCategory();  
+        //this.loader = false;      
+    },
     async getTests(){
       try{
         this.numStep = 0;
         this.testsList = {};
         const  list  =  await getTestsList( this.currentCategory, true );
-        this.testsList = list.data.tests;
+        this.testsList = list.data.tests;        
         //this.checkIfMoreTests(list.data.quantity);
         //console.log(' tests ',this.testsList);        
         return this.testsList;
@@ -211,17 +204,7 @@ export default {
       }catch(e){
         console.log(e);
       }
-    },    
-    getCategories(){
-      for (let i = 0; i < 9; i++){        
-        this.categoriesList[i] = {            
-          img: (i + 1) +'.png',
-          url: '#',
-          title: 'тесты по фильмам' + i,          
-        }
-      }      
-      return this.categoriesList;
-    }
+    },
   }
 }
 </script>
