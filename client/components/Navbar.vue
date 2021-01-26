@@ -20,8 +20,10 @@
         >
         <div class="nav-menu__wrapper">
           <div class="menu-title mobile">
-            <span>Menu</span>
-            <span @click="showMobileMenu = !showMobileMenu"><b>+</b></span>
+            <span>{{$t('menu')}}</span>
+            <span @click="showMobileMenu = !showMobileMenu">
+              <b>+</b>
+            </span>
           </div>
           <ul class="nav-menu__list">
             <li>
@@ -61,7 +63,7 @@
               <!-- <span>MENU</span> -->
             </div>            
           </div>
-          <div class="serach-wrapper block"
+          <div class="serach-wrapper block descktop"
                @click="ifShowSearch = true"
             >
             <div class="search-wrapper__open">
@@ -163,7 +165,6 @@ export default {
       this.$router.push({ name: 'login' })
     },
     onSearchClose(){
-        console.log('opa');
         this.ifShowSearch = false;
     }
   }
