@@ -160,6 +160,23 @@ a{
 	}
 }
 
+.search-wrapper{
+	position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: $main-color;
+    padding: 9px 0;
+    @include appereance-transition;
+    opacity: 0;
+    visibility: hidden;
+    &.show{
+    	opacity: 1;
+    	visibility: visible;
+    }
+}
+
 /*breadcrumbs*/
 .light{
 	.breadcrumbs-wrapper{
