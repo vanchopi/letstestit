@@ -32,5 +32,6 @@
   "new_password": "Nueva Contraseña",
   "login_with": "Iniciar Sesión con",
   "register_with": "Registro con",
-  "menu":"Menu"
+  "menu":"Menu",
+  "search_by" : "Search by request: "
 }

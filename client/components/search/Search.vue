@@ -3,9 +3,15 @@
        :class="{'show': showSearch}"
       >
       <div class="container">
-          <form action="">
-              <input type="text" placeholder="Search...">              
-              <div class="search-bt">
+          <form ref="form" action=""
+                @submit.prevent="searchOnSubmit"
+              >
+              <input type="text" placeholder="Search..."
+                     v-model="searchStr"
+              >              
+              <div class="search-bt"
+                   @click="searchOnSubmit"
+                  >
                   <img src="~assets/images/png/search2.png" alt="search">
               </div>
               <div class="close-bt"
@@ -26,6 +32,7 @@ export default {
   data: () => ({    
     ploader: true,
     showSearch: false,
+    searchStr: '',
   }),
   created(){    
       this.showSearch = this.ifShow;
@@ -38,6 +45,11 @@ export default {
   methods:{
       onClose(){
           this.onSearchClose();
+      },
+      searchOnSubmit(){
+          this.onClose();
+          //console.log('searchOnSubmit - ', this.searchStr);
+          this.$router.push({name: 'search', params:{search: this.searchStr}});
       }
   }
 }

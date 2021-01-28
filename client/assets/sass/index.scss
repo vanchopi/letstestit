@@ -365,7 +365,23 @@ a{
 		.content-wrapper{
 			background: none;
 		}
-	}
+		&.search-result__wrapper{
+			.category-title{
+				@include align-center;
+				justify-content: flex-start;
+				font-size: 21px;
+				span{
+					min-height: auto;
+				}
+				.txt{
+					margin-right: 10px;
+				}
+				.request{
+
+				}
+			}
+		}
+	}	
 }
 
 /*main slider*/

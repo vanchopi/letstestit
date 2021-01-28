@@ -105,7 +105,7 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 import LocaleDropdown from './LocaleDropdown'
-import Search from './global/Search'
+import Search from './search/Search'
 import { getCategoriesList } from '~/api/categories/category'
 
 export default {
