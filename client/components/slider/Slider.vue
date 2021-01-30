@@ -83,7 +83,7 @@
                     </div>
                   </div>
                   <div class="description-wrapper__bottom">
-                    <router-link :to="{ name: 'test', params: {id: test.id, img: test.main_image} }" class="button"> 
+                    <router-link :to="{ name: 'test', params: {id: test.id, url1: test.category_url, img: test.main_image} }" class="button"> 
                       УЗНАТЬ
                     </router-link>
                   </div>
@@ -248,7 +248,7 @@ export default {
         const  list  =  await getTestsList( currentCategory );                                
         //this.categories = Object.freeze(list.data[0]);        
         this.testsList = list.data.tests;
-        console.log(' tests ',this.testsList);        
+        //console.log(' tests ',this.testsList);        
         return this.testsList;
       }catch(e){
         console.log(e);

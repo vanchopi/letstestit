@@ -32,6 +32,7 @@ class TestsController extends Controller
             $media = self::getMedias($tests[$i]->id);
             $tests[$i]->bg_image = $media->bg_image;
             $tests[$i]->main_image = $media->main_image;
+            $tests[$i]['category_url'] =  self::getCategoryUrl($tests[$i]->category_id);
         }
         $response = [
             'tests' => $tests,
@@ -49,6 +50,11 @@ class TestsController extends Controller
         ];
         //print_r($item);
     	return $item;
+    }
+
+    static public function getCategoryUrl($id){
+        $cat = Category::where('id', $id)->first();
+        return $url = $cat->url;
     }
 
     static public function getQuestionImages($id){
@@ -141,6 +147,7 @@ class TestsController extends Controller
             $media = self::getMedias($tests[$i]->id);
             $tests[$i]->bg_image = $media->bg_image;
             $tests[$i]->main_image = $media->main_image;
+            $tests[$i]['category_url'] =  self::getCategoryUrl($tests[$i]->category_id);
         }
 
         if(count($tests) > 0){

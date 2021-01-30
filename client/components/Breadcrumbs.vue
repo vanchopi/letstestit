@@ -1,5 +1,5 @@
 <template>
-  <!-- <div class="breadcrumbs-wrapper">
+  <div class="breadcrumbs-wrapper">
     <div class="container">
       <ul>
         <li>
@@ -19,7 +19,7 @@
         </li>
       </ul>  
     </div>  
-  </div> -->
+  </div>
 </template>
 
 <script>

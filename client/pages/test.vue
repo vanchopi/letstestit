@@ -3,8 +3,9 @@
     <!--<div id="test-wrapper" class="test-wrapper" :style="{ background: 'url(' + imgSrc + '/storage/images/tests/' + bgImg + ')'}">-->
     <div id="test-wrapper" class="test-wrapper">
       <div id="loader" class="faded-bg show"></div>
+      
       <div class="container">
-        
+        <breadcrumbs />
         <quiz :test="testList"/>
         <!--<advertising />-->
       </div>
@@ -15,6 +16,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import Quiz from '~/components/quiz/Quiz'
+import Breadcrumbs from '~/components/Breadcrumbs'
 import { getTest } from '~/api/test/test'
 //import Advertising from '~/components/advertising/Advertising'
 import { getMeta } from '~/api/test/test'
@@ -25,6 +27,7 @@ export default {
 
   components: {
     Quiz,
+    Breadcrumbs,
     //Advertising
   },
 

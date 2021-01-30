@@ -342,7 +342,7 @@ a{
 	}
 }
 .catalog-slider__wrapper{	
-	background: radial-gradient(at top, $main-color-bg, #A7CECC);
+	background: $page-bg;
 	.category-title{
 		text-shadow: 1px 1px 1px #000000;
 		padding: 45px 0;
@@ -471,7 +471,7 @@ a{
 	.content-wrapper{
 		/*background-image: url(~assets/images/png/puzzle-bg.png);*/
 		/*background-color: $main-color-bg;*/
-		background: radial-gradient(at top, $main-color-bg, #A7CECC);
+		background: $page-bg;
 		background-size: auto;
 		padding: 57px 0 150px 0;
 		.content-filters__wrapper{

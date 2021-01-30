@@ -62,7 +62,7 @@
                     </div>
                   </div>
                   <div class="description-wrapper__bottom">
-                    <router-link :to="{ name: 'test', params: {id: test.id, img: test.main_image} }" class="button"> 
+                    <router-link :to="{ name: 'test', params: {id: test.id, url1:test.category_url, img: test.main_image} }" class="button"> 
                       УЗНАТЬ
                     </router-link>
                   </div>
@@ -156,7 +156,7 @@ export default {
   methods: {
     getCurrentCategory(){            
       let result = this.categories.filter( category => category.url == this.queryCategory);
-      this.currentCategory = this.queryCategory;      
+      this.currentCategory = this.queryCategory;
       this.getTests();
       return result.length > 0 ? this.catName = result[0].title : this.catName = 'Название категории';
     },
@@ -182,7 +182,8 @@ export default {
         this.numStep = 0;
         this.testsList = {};
         const  list  =  await getTestsList( this.currentCategory, true );
-        this.testsList = list.data.tests;        
+        this.testsList = list.data.tests;
+
         //this.checkIfMoreTests(list.data.quantity);
         //console.log(' tests ',this.testsList);        
         return this.testsList;

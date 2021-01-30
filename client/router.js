@@ -25,7 +25,7 @@ const routes = [
     /*props: { id: null } */
   },
   { 
-    path: '/test/:id', 
+    path: '/catalog/:url1/:id', 
     name: 'test', 
     component: page('test.vue'),
     /*children: [{ 
