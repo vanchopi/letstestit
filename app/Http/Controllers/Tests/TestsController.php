@@ -107,6 +107,7 @@ class TestsController extends Controller
             }
         }
         $test->questions = $arrQuestions;
+        $test['category_url'] =  self::getCategoryUrl($test->category_id);
         return $test;
     }
     

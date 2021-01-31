@@ -6,10 +6,11 @@
       
       <div class="container">
         <breadcrumbs />
-        <quiz :test="testList"/>
+        <quiz :test="testList" :category="test.category_url"/>
         <!--<advertising />-->
       </div>
     </div>
+    <nuxt-child/>
   </div>
 </template>
 
@@ -37,6 +38,7 @@ export default {
       const meta = list.data;*/
       const list = await getTest(route.params.id);
       const test = list.data;
+      console.log('test - ', test);
       //console.log('1. async test - ',  test.questions);
       return {test};
     }catch(e){

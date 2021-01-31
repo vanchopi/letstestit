@@ -29,13 +29,14 @@ const routes = [
     name: 'test', 
     component: page('test.vue'),
     /*children: [{ 
-        path: 'results', 
+        path: 'result', 
         name: 'results', 
         component: page('results.vue') 
     }]*/
   },
   { 
-    path: '/test/:id/results/', 
+    /*path: '/test/:id/results/',*/
+    path: '/catalog/:url1/:id/result',
     name: 'results', 
     component: page('results.vue') 
   },

@@ -65,7 +65,7 @@ import { getTest } from '~/api/test/test'
 export default {
   components: {    
   },
-  props: ['info', 'test'],
+  props: ['info', 'test', 'category'],
   data: () => ({
     imgSrc: process.env.appRoot ,
     fade: false,    
@@ -112,9 +112,9 @@ export default {
   methods: {        
     getPart( num ){     
         if(this.answer != ''){
-          console.log('num', num);
+          //console.log('num', num);
           this.fade = !this.fade;
-          console.log('this.fade', this.fade);
+          //console.log('this.fade', this.fade);
           this.userAnswers[num] = this.answer;
           this.answer = ''
           if ( this.quizStep < this.testLenght - 1){
@@ -132,7 +132,8 @@ export default {
     finishTest( num ){
       if(this.answer != ''){
         this.getPart( num );
-        this.$router.push({name: 'results', params:{id: this.query, answers: this.userAnswers}});
+        console.log('this.testList.category_url - ', this.test);
+        this.$router.push({name: 'results', params:{id: this.query, url1: this.category, answers: this.userAnswers}});
         console.log('id - ', this.query);
         this.$store.dispatch("test/setTestResults", { id: this.query, answers: this.userAnswers });
       }
