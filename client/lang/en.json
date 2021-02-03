@@ -38,5 +38,6 @@
   "failed_to_verify_email": "Failed to verify email.",
   "verify_email_address": "We sent you an email with an the verification link.",
   "menu":"Menu",
-  "search_by" : "Search by request: "
+  "search_by" : "Search by request: ",
+  "catalog": "categories"
 }

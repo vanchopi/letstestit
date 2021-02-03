@@ -110,6 +110,8 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+  .breadcrumbs-wrapper{
+    padding: 0 !important;
+  }
 </style>

@@ -6,16 +6,12 @@
           <router-link :to="{ name: 'welcome' }"> 
             главная
           </router-link>
-        </li>
-        <li>
-          <router-link :to="{ name: 'catalog' }"> 
-            тесты
-          </router-link>
-        </li>
-        <li>
-          <router-link :to="{ name: 'welcome' }"> 
-            тесты по фильмам
-          </router-link>
+        </li>        
+        <li v-for="(crumb, name, index) in crumbs">
+            <!--{{ name }} : {{ crumb }}-->
+            <router-link :to="{ name: crumb.name }">
+              {{crumb.title}}
+            </router-link>
         </li>
       </ul>  
     </div>  
@@ -23,7 +19,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 //import LocaleDropdown from './LocaleDropdown'
 
 export default {
@@ -34,12 +30,74 @@ export default {
     
   }),
 
-  computed: mapGetters({
-    user: 'auth/user'
-  }),
+  computed: {
+    ...mapGetters({
+      user: 'auth/user',
+
+    }),
+    ...mapState({
+      //newCategoriesList: state => state.categories.categories, 
+      categoriesList: state => state.categories.categories,     
+    }),
+    crumbs() {
+        const fullPath = this.$route.fullPath;
+        let links = Array.from( fullPath.split('/')),
+            crumbs = [],
+            path = '';
+        if (links.length > 0 && links[0] == "") {
+          links.shift();
+        };
+        links.forEach((link, index) => {
+          path = `${path}/${link}`
+          let match = this.$router.match(path),
+              title = '';          
+          if (match.name !== null) {
+
+            if(match.name == 'category'){
+              let title = this.categoriesList.filter( category => category.url == link);
+              console.log('title', title[0].title);
+            }
+
+            switch(match.name){
+              
+              case 'catalog':
+                title = this.$t('catalog');      
+                break;
+              case 'category':
+                let subTitle = this.categoriesList.filter( category => category.url == link);
+                title = subTitle.length ? subTitle[0].title : link;
+                break;
+              case 'test':
+                title = match.path.split('/').pop();
+                break;
+              default:
+                    
+                break;
+            }
+
+            console.log(index ,'. match ', match, link);
+            crumbs.push({
+              name: match.name,
+              path: match.path,
+              params: match.params,
+              title: title,
+            })            
+            //crumbs[index]['title'] = title.length ? title[0] : link;
+          }
+        })
+        console.log('1. crumbs - ', crumbs);
+        console.log('2. path - ', this.$router.match(fullPath.split('/128')[0]));
+        console.log('3. categoriesList - ', this.categoriesList);
+
+        return crumbs;
+    }    
+  },
 
   methods: {
-    
+    test(){
+        const fullPath = this.$route.fullPath;
+        console.log('fullPath - ', fullPath);
+    }
   }
 }
 </script>

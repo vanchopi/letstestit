@@ -33,5 +33,6 @@
   "login_with": "登录",
   "register_with": "注册",
   "menu":"Menu",
-  "search_by" : "Search by request: "
+  "search_by" : "Search by request: ",
+  "catalog": "categories"
 }

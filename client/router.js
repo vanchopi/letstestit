@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import { scrollBehavior } from '~/utils'
+import store from '~/store/breadcrumbs.js'
 
 Vue.use(Router)
 
@@ -15,7 +16,8 @@ const routes = [
 
   { 
     path: '/catalog', 
-    name: 'catalog', 
+    name: 'catalog',
+    //title: this.$t('catalog'), 
     component: page('catalog.vue') 
   },
   { 
@@ -91,12 +93,30 @@ const routes = [
       { path: 'profile', name: 'settings.profile', component: page('settings/profile.vue') },
       { path: 'password', name: 'settings.password', component: page('settings/password.vue') }
     ] }
-]
+];
 
-export function createRouter () {
+const router = new Router({
+    routes,
+    scrollBehavior,
+    mode: 'history'
+})
+
+router.afterEach((to, from) => {
+  /*console.log(' href - ', router.app.path);
+  store.dispatch("setBreadCrumbs", window.location.href);*/
+  //console.log(' store - ', store);
+});
+
+/*export function createRouter () {
   return new Router({
     routes,
     scrollBehavior,
     mode: 'history'
   })
+}*/
+
+//export default router;
+
+export function createRouter () {
+  return router
 }

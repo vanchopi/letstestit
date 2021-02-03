@@ -783,6 +783,9 @@ footer{
     background-color: #b3b3b3;
     display: flex;
     width: 100%;
+    .breadcrumbs-wrapper{
+    	padding: 25px 0 0 0;
+    }
 }
 
 .results-wrapper{
