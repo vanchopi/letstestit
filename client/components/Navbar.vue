@@ -8,24 +8,22 @@
         <router-link :to="{ name: 'welcome' }" class="logo">
           <img src="~assets/images/png/logo2.png" alt="logo">
         </router-link> 
-        <div class="serach-wrapper block mobile">
+        <div class="serach-wrapper block mobile"
+             @click="ifShowSearch = true"
+          >
           <div class="search-wrapper__open">
             <img src="~assets/images/png/search.png" alt="search">
-          </div>
-          <div class="search-block__wrapper hidden">
-            <input type="text" name="search" v-model="searchStr">
-            <div class="search-bt">
-              <img src="~assets/images/png/search.png" alt="search">
-            </div>
-          </div>
+          </div>          
         </div>       
         <div class="nav-menu" 
              :class="{'show': showMobileMenu}"
         >
         <div class="nav-menu__wrapper">
           <div class="menu-title mobile">
-            <span>Menu</span>
-            <span @click="showMobileMenu = !showMobileMenu"><b>+</b></span>
+            <span>{{$t('menu')}}</span>
+            <span @click="showMobileMenu = !showMobileMenu">
+              <b>+</b>
+            </span>
           </div>
           <ul class="nav-menu__list">
             <li>
@@ -65,16 +63,12 @@
               <!-- <span>MENU</span> -->
             </div>            
           </div>
-          <div class="serach-wrapper block">
+          <div class="serach-wrapper block descktop"
+               @click="ifShowSearch = true"
+            >
             <div class="search-wrapper__open">
               <img src="~assets/images/png/search.png" alt="search">
-            </div>
-            <div class="search-block__wrapper hidden">
-              <input type="text" name="search" v-model="searchStr">
-              <div class="search-bt">
-                <img src="~assets/images/png/search.png" alt="search">
-              </div>
-            </div>
+            </div>            
           </div>
           <ul class="navbar-nav block">
             <locale-dropdown />
@@ -83,6 +77,9 @@
         </div>  
       </div>
     </div>
+
+    <search :ifShow = "ifShowSearch" :onSearchClose="onSearchClose"/>
+
     <div  class="menu-block__wrapper"
           :class="{'show': showMenu}"
       >
@@ -108,11 +105,13 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 import LocaleDropdown from './LocaleDropdown'
+import Search from './search/Search'
 import { getCategoriesList } from '~/api/categories/category'
 
 export default {
   components: {
-    LocaleDropdown
+    LocaleDropdown,
+    Search
   }, 
 
   data: () => ({
@@ -122,6 +121,7 @@ export default {
     showMobileMenu: false,
     testfetch: null,
     newCategoriesList: null,
+    ifShowSearch: false,
   }),
 
   async fetch(/*{ store, params }*/) {        
@@ -163,6 +163,9 @@ export default {
 
       // Redirect to login.
       this.$router.push({ name: 'login' })
+    },
+    onSearchClose(){
+        this.ifShowSearch = false;
     }
   }
 }

@@ -1,30 +1,42 @@
 <template>
-  <div>        
-    <!--<div id="test-wrapper" class="test-wrapper" :style="{ background: 'url(' + imgSrc + '/storage/images/tests/' + bgImg + ')'}">-->
+  <div>            
     <div id="test-wrapper" class="test-wrapper">
       <div id="loader" class="faded-bg show"></div>
+      
       <div class="container">
-        
-        <quiz :test="testList"/>
+        <breadcrumbs />
+        <quiz :test="testList" :category="test.category_url" :restartTest="restartTest"/>
+        <results />
         <!--<advertising />-->
       </div>
     </div>
+    <nuxt-child/>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import Quiz from '~/components/quiz/Quiz'
+import Results from '~/components/results/Results'
+import Breadcrumbs from '~/components/Breadcrumbs'
 import { getTest } from '~/api/test/test'
 //import Advertising from '~/components/advertising/Advertising'
 import { getMeta } from '~/api/test/test'
 
 
 export default {
+
+  /*beforeRouteLeave (to, from, next) {
+      console.log('beforeRouteLeave');
+      this.$store.dispatch("test/clearTestResults");
+      next();
+  },*/
   layout: 'light',
 
   components: {
     Quiz,
+    Breadcrumbs,
+    Results,
     //Advertising
   },
 
@@ -32,8 +44,9 @@ export default {
     try{
       /*const  list  =  await getMeta(route.params.url);                               
       const meta = list.data;*/
-      const list = await getTest(route.params.id);
+      const list = await getTest(route.query.id);
       const test = list.data;
+      console.log('test - ', test);
       //console.log('1. async test - ',  test.questions);
       return {test};
     }catch(e){
@@ -48,45 +61,52 @@ export default {
   data: () => ({
     title: process.env.appName ,  
     imgSrc: process.env.appRoot ,  
-    bgImg: '1.png', //this.$route.params.img,  
-    testList: null,  
-    testInfo: {},
-    //testTest: null,
+    bgImg: '1.png', 
+    testList: null,
+    restartTest: false,
   }),  
 
-  computed: mapGetters({
-    authenticated: 'auth/check'
-  }),
-
-  watch:{
-      /*'testTest'(){
-        console.log('test from watch - ', this.testTest);
-      }*/
+  computed:{
+    ...mapGetters({
+      user: 'auth/user',      
+    }),    
+    ...mapState({
+      testResults: state => state.test.results,      
+    })
   },
 
-  created(){                
-    this.testInfo = {
-        id: this.$route.params.id,
-        category: 'films'
-    };
-    //this.getThisTest(this.testInfo.id);
-    //this.testTest = this.test;
+  watch:{
+      'testResults'(){
+          if(this.testResults == null){
+              this.bgImg = this.test.main_image;          
+              this.restartTest = true;
+          }else{
+              this.bgImg = this.testResults.img;
+              this.restartTest = false;
+          }
+          this.changeBgImg();
+      }
+  },
+
+  created(){                    
     this.testList = this.test.questions;
-    this.bgImg = this.test.main_image;    
-    //console.log('1. test on page - ', this.testList);
+    this.bgImg = this.test.main_image;
   },
   mounted(){
       this.loadImage();
   },
+  destroyed() {
+      console.log();
+      this.$store.dispatch("test/clearTestResults");
+  },
   methods:{
-    /*getThisTest(id){
-      getTest(id).then((request) => {
-        this.testList = request.data.questions;
-        this.bgImg = request.data.main_image;
-        console.log('123', this.bgImg);
-        console.log( 'test - ', this.testList );
-      })
-    }*/
+    changeBgImg(){
+        let wrp = document.getElementById('test-wrapper'),
+            loader = document.getElementById('loader');
+        wrp.style.cssText = "";
+        loader.classList.add("show");
+        this.loadImage();
+    },
     changeDataSrcToSrc(src) {        
         let img = new Image();
         let wrp = document.getElementById('test-wrapper'),
@@ -98,7 +118,8 @@ export default {
         };
     },
     loadImage(){
-        let src = this.imgSrc + '/storage/images/tests/' + this.bgImg;
+        let dir = this.testResults == null ? 'tests/' : 'results/',
+            src = this.imgSrc + '/storage/images/' + dir + this.bgImg;
         this.changeDataSrcToSrc(src);
     },
   }

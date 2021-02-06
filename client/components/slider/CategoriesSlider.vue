@@ -67,7 +67,6 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex'
-import { sliderAdaptive, switcher, startSwitcher } from './sliderController'
 import { getCategoriesList } from '~/api/categories/category'
 import { getTestsList, getMoreTests } from '~/api/test/test'
 
@@ -82,10 +81,7 @@ export default {
     showFilter: [
       { filter: false },
       { filter: false }
-    ],
-    /*categories: [ 
-      { id:0, txt: '', url: '', img: 'https://via.placeholder.com/255.png'} 
-    ],*/
+    ],    
     categories: null,
     filters:[
       {

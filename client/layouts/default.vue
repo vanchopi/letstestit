@@ -1,7 +1,7 @@
 <template>
   <div class="layout">
   <navbar />
-	<breadcrumbs />
+	<!--<breadcrumbs />-->
 	<banner />
 
   <nuxt />

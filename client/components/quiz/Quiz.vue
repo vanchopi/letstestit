@@ -1,6 +1,7 @@
 <template>
-  <div  class="quiz-wrapper" 
-        :key="quizStep"        
+  <div  class="quiz-wrapper"        
+        :key="quizStep"     
+        v-if="testResults == null"   
     >      
     <div  class="quiz-item" 
                               
@@ -58,14 +59,13 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-//import LocaleDropdown from './LocaleDropdown'
+import { mapGetters, mapState } from 'vuex'
 import { getTest } from '~/api/test/test'
 
 export default {
   components: {    
   },
-  props: ['info', 'test'],
+  props: ['info', 'test', 'category', 'restartTest'],
   data: () => ({
     imgSrc: process.env.appRoot ,
     fade: false,    
@@ -88,23 +88,26 @@ export default {
     quizStep: 0
   }),
 
-  computed: mapGetters({
-    user: 'auth/user'
-  }),
-  /*watch:{
-      'test'(){
-        console.log('test loaded - ',this.test);
-        this.getData();
+  computed:{
+    ...mapGetters({
+      user: 'auth/user',      
+    }),    
+    ...mapState({
+      testResults: state => state.test.results,      
+    })
+  },  
+  watch:{
+      'restartTest'(){
+          if (this.restartTest) {
+              this.quizStep = 0;
+              this.getData();
+          }
       }
-  },*/
+  },
   created(){
-    this.query = this.$route.params.id;
+    this.query = this.$route.query.id;
     console.log(this.query);
     this.getData();
-    //this.getTestList(this.query); 
-    //console.log('this.testList', this.testList);             
-    //this.fakeTest();   
-    //this.testPart = this.getPart( this.quizStep );
   },  
   mounted() {
     console.log('**',this.query);    
@@ -112,9 +115,7 @@ export default {
   methods: {        
     getPart( num ){     
         if(this.answer != ''){
-          console.log('num', num);
           this.fade = !this.fade;
-          console.log('this.fade', this.fade);
           this.userAnswers[num] = this.answer;
           this.answer = ''
           if ( this.quizStep < this.testLenght - 1){
@@ -122,7 +123,6 @@ export default {
             this.testPart = this.testList[this.quizStep];
             console.log('quizStep', this.quizStep);          
           };
-          //this.fade = !this.fade;
           setTimeout(() => { this.fade = !this.fade; }, 300);
           console.log('userAnswers', this.userAnswers);
         }else{
@@ -132,38 +132,12 @@ export default {
     finishTest( num ){
       if(this.answer != ''){
         this.getPart( num );
-        this.$router.push({name: 'results', params:{id: this.query, answers: this.userAnswers}});
+        console.log('this.testList.category_url - ', this.test);
+        //this.$router.push({name: 'results', query:{id: this.query}, params:{id: this.query, url1: this.category, answers: this.userAnswers}});
         console.log('id - ', this.query);
         this.$store.dispatch("test/setTestResults", { id: this.query, answers: this.userAnswers });
       }
-    },
-    fakeTest(){ 
-      /*let testArr = [];     
-      for (let i = 0; i < 6; i++){        
-        this.testList.push({                     
-          num: i,
-          queston: 'Ты чё, э' + i + '?',
-          answers: [
-            { id: 0, dsc: 'ни чё'},
-            { id: 1, dsc: 'а чё?'},
-            { id: 2, dsc: 'и чё?'},
-            { id: 3, dsc: 'а сам чё?'}
-          ]
-        })
-      }           
-      console.log('1.this.testList', this.testList);
-      return this.testList;*/
-    },
-    /*async getTestList( info ){
-      try{
-        const  list  =  await getTest(info);        
-        console.log('list', list.data);
-        //return Object.freeze(list.data);
-        return list.data;
-      }catch(e){
-        console.log(e);
-      }
-    },*/
+    },    
     getAnswer(){
 
     },

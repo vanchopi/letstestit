@@ -34,10 +34,18 @@ export default {
   head () {
     return { 
       title: this.$t('home'),
-      meta: [{
-        name: 'keywords',
-        content: this.meta.keywords,
-      }] 
+      meta: [
+        {
+          hid: 'description',
+          name: 'description', 
+          content: this.meta.description,  
+        },
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: this.meta.keywords,
+        }
+      ] 
     }
   },
 
