@@ -1,4 +1,5 @@
 {
+  "main_title": "let's test it, Amigo!",
   "ok": "De Acuerdo",
   "cancel": "Cancelar",
   "error_alert_title": "Ha ocurrido un problema",
@@ -15,7 +16,7 @@
   "password": "Contraseña",
   "forgot_password": "¿Olvidaste tu contraseña?",
   "confirm_password": "Confirmar Contraseña",
-  "name": "Nombre",
+  "home": "Let's test it",
   "toggle_navigation": "Cambiar Navegación",
   "home": "Inicio",
   "you_are_logged_in": "¡Has iniciado sesión!",
@@ -30,5 +31,9 @@
   "password_updated": "¡Tu contraseña ha sido actualizada!",
   "new_password": "Nueva Contraseña",
   "login_with": "Iniciar Sesión con",
-  "register_with": "Registro con"
+  "register_with": "Registro con",
+  "menu":"Menu",
+  "search_by" : "Search by request: ",
+  "catalog": "categories",
+  "search" : "search"
 }

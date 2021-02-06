@@ -1,4 +1,5 @@
 {
+  "main_title": "let's test it",
   "ok": "确定",
   "cancel": "取消",
   "error_alert_title": "错误...",
@@ -17,7 +18,7 @@
   "confirm_password": "重复密码",
   "name": "用户名",
   "toggle_navigation": "切换导航",
-  "home": "首页",
+  "home": "Let's test it",
   "you_are_logged_in": "您已经登录!",
   "reset_password": "重置密码",
   "send_password_reset_link": "发送重置链接",
@@ -30,5 +31,9 @@
   "password_updated": "您的密码已经更新!",
   "new_password": "新密码",
   "login_with": "登录",
-  "register_with": "注册"
+  "register_with": "注册",
+  "menu":"Menu",
+  "search_by" : "Search by request: ",
+  "catalog": "categories",
+  "search" : "search"
 }

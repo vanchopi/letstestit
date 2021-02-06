@@ -12,18 +12,18 @@ module.exports = {
     apiUrl: process.env.API_URL + '/api' || process.env.APP_URL + '/api',
     appRoot: process.env.CLIENT_URL || process.env.APP_URL,
     appName: process.env.APP_NAME || 'letstestit',
-    appLocale: process.env.APP_LOCALE || 'en',
+    appLocale: process.env.APP_LOCALE || 'ru',
     githubAuth: !!process.env.GITHUB_CLIENT_ID
   },
 
   head: {
     title: process.env.APP_NAME,
-    titleTemplate: '%s - ' + process.env.APP_NAME,
+    titleTemplate: '%s',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Nuxt.js project' },
-      /*{ name: 'keywords' , content: ''}*/
+      { hid: 'description', name: 'description', content: 'opa' },
+      { hid: 'keywords', name: 'keywords' , content: ''}
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }

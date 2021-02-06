@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 import { getTestResults } from '~/api/test/test'
 
 const state = {
-	results: {
+	/*results: {
 		img: '1.jpg',
 		title: 'О_о?',
 		description: '',
@@ -11,7 +11,8 @@ const state = {
 		quote: 'Тестовая цитата',
 		url: 'https://letstestit.ru',
 		hashtags:'letstestit',
-	}
+	}*/
+	results: null,
 }
 
 const mutations = { 
@@ -23,6 +24,9 @@ const mutations = {
 			testResults.media = "https://letstestit.ru/images/2.jpg";
 			state.results = testResults;
 		}
+	},
+	CLEAR_TEST_RESULTS:(state) => {
+		state.results = null;
 	}
 };
 
@@ -41,6 +45,9 @@ const actions = {
 		}catch(e){
 			console.log(e);
 		}
+	},
+	clearTestResults({commit}){
+		commit('CLEAR_TEST_RESULTS');
 	}
 };
 

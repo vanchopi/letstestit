@@ -7,7 +7,7 @@
       <div class="banner-description__wrapper">
         <div class="wrapper">
           <h1 class="title">
-            lets test it
+            {{$t('main_title')}}
           </h1>
           <div class="banner-desc">
             Тесты - которые смогут раскрыть каждого

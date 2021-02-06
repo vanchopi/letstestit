@@ -18,7 +18,21 @@ export default {
   },
 
   head () {
-    return { title: this.$t('home') }
+    return { 
+      title: this.$t('home'),
+      meta: [
+        {
+          hid: 'description',
+          name: 'description', 
+          content:  'Главная страница сайта letstestit.ru. Тесты - все дела!'
+        },
+        { 
+          hid: 'keywords', 
+          name: 'keywords' , 
+          content: 'тесты, пройти тесты, тесты онлайн'
+        },
+      ] 
+    }
   },
 
   data: () => ({

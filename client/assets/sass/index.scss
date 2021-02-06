@@ -21,6 +21,30 @@ a{
 		outline: none;
 	}
 }
+.base-button{
+	text-shadow: 1px 1px 1px rgba(251, 248, 239, 0.1);
+	font-weight: 500;
+    font-size: 22px;
+    width: 100%;
+    height: 100%;
+    border-radius: 67px;
+    color: $main-text-color;
+    @include align-center;
+    justify-content: center;
+    border: 1px solid $main-fill-color;
+    background-color: $main-bt-opacity;
+    outline: none;
+    cursor: pointer;
+    @include main-transition;
+    &.big{
+    	font-size: 24px;
+    	border: 3px solid $main-fill-color;
+    }
+    &:hover{
+    	background-color: $hover-bt-opacity;
+    	color: $main-fill-color;
+    }
+}
 .mobile{
 	display: none ;
 }
@@ -39,6 +63,10 @@ a{
 .navbar-light .navbar-nav .nav-link.show, 
 .navbar-light .navbar-nav .nav-link.active{
 	color: $main-text-color;
+}
+
+.navbar-light .navbar-nav .nav-link{
+	color: $main-text-color;	
 }
 .nav-wrapper{
 	@include align-center;
@@ -160,6 +188,23 @@ a{
 	}
 }
 
+.search-wrapper{
+	position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: $main-color;
+    padding: 9px 0;
+    @include appereance-transition;
+    opacity: 0;
+    visibility: hidden;
+    &.show{
+    	opacity: 1;
+    	visibility: visible;
+    }
+}
+
 /*breadcrumbs*/
 .light{
 	.breadcrumbs-wrapper{
@@ -174,7 +219,7 @@ a{
 				    width: 6px;
 				    height: 6px;
 				}
-				a{
+				a, span{
 					font-weight: normal;
 					font-size: 24px;
 					text-shadow: 2px 1px 1px #000000;
@@ -193,10 +238,14 @@ a{
 		li{
 			position: relative;
 			margin-left: 18px;
-			a{
+			a,span{
 				font-style: normal;
 				font-weight: 100;
 				font-size: 14px;
+			}
+			span{
+				cursor: default;
+				color: $main-fill-color !important;
 			}
 			&:last-child{
 				&:before{
@@ -308,7 +357,7 @@ a{
 					&:first-child{
 						margin-left: 15px;
 					}
-					a{
+					a,span{
 						font-size: 15px;
 					    text-shadow: none;
 					    color: $main-color;
@@ -321,7 +370,7 @@ a{
 	}
 }
 .catalog-slider__wrapper{	
-	background: radial-gradient(at top, $main-color-bg, #A7CECC);
+	background: $page-bg;
 	.category-title{
 		text-shadow: 1px 1px 1px #000000;
 		padding: 45px 0;
@@ -344,7 +393,23 @@ a{
 		.content-wrapper{
 			background: none;
 		}
-	}
+		&.search-result__wrapper{
+			.category-title{
+				@include align-center;
+				justify-content: flex-start;
+				font-size: 21px;
+				span{
+					min-height: auto;
+				}
+				.txt{
+					margin-right: 10px;
+				}
+				.request{
+
+				}
+			}
+		}
+	}	
 }
 
 /*main slider*/
@@ -434,7 +499,7 @@ a{
 	.content-wrapper{
 		/*background-image: url(~assets/images/png/puzzle-bg.png);*/
 		/*background-color: $main-color-bg;*/
-		background: radial-gradient(at top, $main-color-bg, #A7CECC);
+		background: $page-bg;
 		background-size: auto;
 		padding: 57px 0 150px 0;
 		.content-filters__wrapper{
@@ -746,12 +811,15 @@ footer{
     background-color: #b3b3b3;
     display: flex;
     width: 100%;
+    .breadcrumbs-wrapper{
+    	padding: 25px 0 0 0;
+    }
 }
 
 .results-wrapper{
 	padding: 25px 0 100px 0;
-	background-color: rgba(255,255,255,0.08);
-    backdrop-filter: blur(3px) brightness(85%);
+	/*background-color: rgba(255,255,255,0.08);
+    backdrop-filter: blur(3px) brightness(85%);*/
     width: 100%;
 	.result{
 		text-align: center;
@@ -1016,8 +1084,19 @@ footer{
 		}
 	}
 }
-
+@media screen and (min-width: 992px){
+	.dropdown-toggle::after{
+		margin-left: -2px;
+	}
+}
 @media screen and (max-width: 991px){
+	.navbar-light .navbar-nav .nav-link, 
+	.navbar-light .navbar-nav .show > .nav-link, 
+	.navbar-light .navbar-nav .active > .nav-link, 
+	.navbar-light .navbar-nav .nav-link.show, 
+	.navbar-light .navbar-nav .nav-link.active{
+		color: $col-text-second;
+	}
 	.light {
 		.breadcrumbs-wrapper{
 
@@ -1087,6 +1166,12 @@ footer{
 			    position: relative;			    			    			    			    			    
 			    height: auto;
 			    padding: 0 0 30px 15px;
+			    .navbar-nav.block{
+			    	border: none;
+			    	width: 100%;
+			    	justify-content: flex-start;
+			    	flex-direction: row;
+			    }
 		    }
 		    .nav-menu__list{
 		    	flex-direction: column;
@@ -1125,6 +1210,9 @@ footer{
 					.search-bt{
 						background-color: $main-fill-color;
 					}
+		    	}
+		    	&.descktop{
+		    		display: none;
 		    	}
 		    }		    
 		    .mobile-menu-block__wrapper{
