@@ -7,20 +7,25 @@
             главная
           </router-link>
         </li>        
-        <li v-for="(crumb, name, index) in crumbs">
+        <li v-for="(crumb, index, name) in crumbs">
             <!--{{ name }} : {{ crumb }}-->
-            <router-link :to="{ name: crumb.name }">
+            <router-link :to="{ name: crumb.name }"
+                          v-if="index != crumbs.length - 1"
+              >
               {{crumb.title}}
             </router-link>
+            <span v-else>
+              {{crumb.title}}
+            </span>
         </li>
+
       </ul>  
-    </div>  
+    </div>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapState } from 'vuex'
-//import LocaleDropdown from './LocaleDropdown'
 
 export default {
   components: {    
@@ -36,7 +41,6 @@ export default {
 
     }),
     ...mapState({
-      //newCategoriesList: state => state.categories.categories, 
       categoriesList: state => state.categories.categories,     
     }),
     crumbs() {
@@ -70,6 +74,9 @@ export default {
               case 'test':
                 title = match.path.split('/').pop();
                 break;
+              case 'search':
+                title = this.$t('search');
+                break;
               default:
                     
                 break;
@@ -80,7 +87,7 @@ export default {
               name: match.name,
               path: match.path,
               params: match.params,
-              title: title,
+              title: title.toLowerCase(),
             })            
             //crumbs[index]['title'] = title.length ? title[0] : link;
           }

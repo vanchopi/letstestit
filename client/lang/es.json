@@ -34,5 +34,6 @@
   "register_with": "Registro con",
   "menu":"Menu",
   "search_by" : "Search by request: ",
-  "catalog": "categories"
+  "catalog": "categories",
+  "search" : "search"
 }

@@ -21,6 +21,30 @@ a{
 		outline: none;
 	}
 }
+.base-button{
+	text-shadow: 1px 1px 1px rgba(251, 248, 239, 0.1);
+	font-weight: 500;
+    font-size: 22px;
+    width: 100%;
+    height: 100%;
+    border-radius: 67px;
+    color: $main-text-color;
+    @include align-center;
+    justify-content: center;
+    border: 1px solid $main-fill-color;
+    background-color: $main-bt-opacity;
+    outline: none;
+    cursor: pointer;
+    @include main-transition;
+    &.big{
+    	font-size: 24px;
+    	border: 3px solid $main-fill-color;
+    }
+    &:hover{
+    	background-color: $hover-bt-opacity;
+    	color: $main-fill-color;
+    }
+}
 .mobile{
 	display: none ;
 }
@@ -195,7 +219,7 @@ a{
 				    width: 6px;
 				    height: 6px;
 				}
-				a{
+				a, span{
 					font-weight: normal;
 					font-size: 24px;
 					text-shadow: 2px 1px 1px #000000;
@@ -214,10 +238,14 @@ a{
 		li{
 			position: relative;
 			margin-left: 18px;
-			a{
+			a,span{
 				font-style: normal;
 				font-weight: 100;
 				font-size: 14px;
+			}
+			span{
+				cursor: default;
+				color: $main-fill-color !important;
 			}
 			&:last-child{
 				&:before{
@@ -329,7 +357,7 @@ a{
 					&:first-child{
 						margin-left: 15px;
 					}
-					a{
+					a,span{
 						font-size: 15px;
 					    text-shadow: none;
 					    color: $main-color;
@@ -790,8 +818,8 @@ footer{
 
 .results-wrapper{
 	padding: 25px 0 100px 0;
-	background-color: rgba(255,255,255,0.08);
-    backdrop-filter: blur(3px) brightness(85%);
+	/*background-color: rgba(255,255,255,0.08);
+    backdrop-filter: blur(3px) brightness(85%);*/
     width: 100%;
 	.result{
 		text-align: center;

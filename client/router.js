@@ -27,21 +27,21 @@ const routes = [
     /*props: { id: null } */
   },
   { 
-    path: '/catalog/:url1/:id', 
+    path: '/catalog/:url1/:url2', 
     name: 'test', 
     component: page('test.vue'),
-    /*children: [{ 
-        path: 'result', 
+    /*children: [{
+        path: '', 
         name: 'results', 
         component: page('results.vue') 
     }]*/
   },
-  { 
-    /*path: '/test/:id/results/',*/
-    path: '/catalog/:url1/:id/result',
+  /*{ 
+    //path: '/test/:id/results/',
+    path: '/catalog/:url1/:url2/result',
     name: 'results', 
     component: page('results.vue') 
-  },
+  },*/
 
   { 
     path: '/search/:search', 
@@ -100,6 +100,11 @@ const router = new Router({
     scrollBehavior,
     mode: 'history'
 })
+
+router.beforeEach((to, from, next) => {
+    console.log('beforeEach');
+    next();
+});
 
 router.afterEach((to, from) => {
   /*console.log(' href - ', router.app.path);

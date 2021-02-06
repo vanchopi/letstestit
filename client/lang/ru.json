@@ -39,5 +39,6 @@
   "verify_email_address": "We sent you an email with an the verification link.",
   "menu":"Меню",
   "search_by" : "Поиск по запросу:",
-  "catalog": "категории"
+  "catalog": "категории",
+  "search" : "поиск"
 }
