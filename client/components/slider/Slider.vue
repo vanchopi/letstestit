@@ -167,10 +167,13 @@ export default {
     this.getCategoriesList();
     this.getTests(this.currentCategory);    
   },
-  mounted(){
-    this.checkWidth();
+  mounted(){    
     startSwitcher();
+    this.checkWidth();
     window.addEventListener("resize", this.checkWidth);//magia No slaida
+  },
+  updated(){
+    this.checkWidth();
   },
   destroyed() {
     window.removeEventListener("resize", this.checkWidth);
@@ -245,10 +248,8 @@ export default {
       try{
         this.numStep = 0;
         this.testsList = {};
-        const  list  =  await getTestsList( currentCategory );                                
-        //this.categories = Object.freeze(list.data[0]);        
+        const  list  =  await getTestsList( currentCategory );                                      
         this.testsList = list.data.tests;
-        //console.log(' tests ',this.testsList);        
         return this.testsList;
       }catch(e){
         console.log(e);
@@ -267,17 +268,7 @@ export default {
       }catch(e){
         console.log(e);
       }
-    },    
-    getCategories(){
-      for (let i = 0; i < 9; i++){        
-        this.categoriesList[i] = {            
-          img: (i + 1) +'.png',
-          url: '#',
-          title: 'тесты по фильмам' + i,          
-        }
-      }      
-      return this.categoriesList;
-    }
+    },        
   }
 }
 </script>

@@ -86,7 +86,6 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex'
-//import { sliderAdaptive, switcher, startSwitcher } from './sliderController'
 import { getCategoriesList } from '~/api/categories/category'
 import { getTestsList, getMoreTests } from '~/api/test/test'
 import TextLoader from '~/components/global/TextLoader'
