@@ -6,7 +6,7 @@ export function sliderAdaptive(){
         li =  catWrp.getElementsByTagName('li'),
         wd = block.clientWidth,
         elWd = wd - 156; 
-    console.log(' slider width - ', elWd, li);
+    //console.log(' slider width - ', elWd, li);
     for( let i = 0; i < li.length; i++ ){
         li[i].style.cssText = "min-width:" + elWd + "px;" ;
     }     
