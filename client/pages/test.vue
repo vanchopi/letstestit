@@ -40,12 +40,13 @@ export default {
     //Advertising
   },
 
-  async asyncData({route, params}){    
+  async asyncData({route, params, store}){    
     try{
       /*const  list  =  await getMeta(route.params.url);                               
       const meta = list.data;*/
       const list = await getTest(route.query.id);
       const test = list.data;
+      store.dispatch("test/storeTestTitle", list.data.title);
       console.log('test - ', test);
       //console.log('1. async test - ',  test.questions);
       return {test};

@@ -4,6 +4,7 @@ function initialState() {
             id: null,
             category: null,
             title: null,
+            url: null,
             main_image: null,
             bg_image: null,
             popularity: null,
@@ -221,6 +222,9 @@ const actions = {
     setTitle({ commit }, value) {
         commit('setTitle', value)
     },
+    setUrl({ commit }, value) {
+        commit('setUrl', value)
+    },
     setPopularity({ commit }, value){
         commit('setPopularity', value)  
     },
@@ -266,6 +270,9 @@ const mutations = {
     },
     setTitle(state, value) {
         state.item.title = value
+    },
+    setUrl(state, value) {
+        state.item.url = value
     },
     setPopularity(state, value) {
         state.item.popularity = value

@@ -9,7 +9,7 @@
         </li>        
         <li v-for="(crumb, index, name) in crumbs">
             <!--{{ name }} : {{ crumb }}-->
-            <router-link :to="{ name: crumb.name }"
+            <router-link :to="{ name: crumb.name, params: crumb.params }"
                           v-if="index != crumbs.length - 1"
               >
               {{crumb.title}}
@@ -41,7 +41,8 @@ export default {
 
     }),
     ...mapState({
-      categoriesList: state => state.categories.categories,     
+      categoriesList: state => state.categories.categories,
+      testTitle: state => state.test.test,
     }),
     crumbs() {
         const fullPath = this.$route.fullPath;
@@ -72,7 +73,7 @@ export default {
                 title = subTitle.length ? subTitle[0].title : link;
                 break;
               case 'test':
-                title = match.path.split('/').pop();
+                title = this.testTitle != null ? this.testTitle : match.path.split('/').pop();
                 break;
               case 'search':
                 title = this.$t('search');
@@ -82,19 +83,19 @@ export default {
                 break;
             }
 
-            console.log(index ,'. match ', match, link);
+            console.log(index ,'!.. match ', match, link);
             crumbs.push({
               name: match.name,
               path: match.path,
               params: match.params,
               title: title.toLowerCase(),
+              query: match.query,
             })            
-            //crumbs[index]['title'] = title.length ? title[0] : link;
           }
         })
-        console.log('1. crumbs - ', crumbs);
+        /*console.log('1. crumbs - ', crumbs);
         console.log('2. path - ', this.$router.match(fullPath.split('/128')[0]));
-        console.log('3. categoriesList - ', this.categoriesList);
+        console.log('3. categoriesList - ', this.categoriesList);*/
 
         return crumbs;
     }    

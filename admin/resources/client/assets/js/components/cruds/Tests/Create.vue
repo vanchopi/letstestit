@@ -52,6 +52,17 @@
                                                     >
                                         </div>
                                         <div class="form-group">
+                                            <label for="url">Url</label>
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    name="url"
+                                                    placeholder="Enter Url"
+                                                    :value="item.url"
+                                                    @input="updateUrl"
+                                                    >
+                                        </div>
+                                        <div class="form-group">
                                             <label for="main_image">Main image</label>
                                             <input
                                                     type="file"
@@ -277,6 +288,9 @@
                                                            max="15" 
                                                            @input="setResultsOptions"
                                                         >
+                                                </div>
+                                                <div class="col">
+                                                    <a href="https://www.resizepixel.com/ru" target="_blank">Image editor</a>
                                                 </div>
                                             </div>
                                             <div class="results-fields__wrapper fields-wrapper">
@@ -560,7 +574,7 @@ export default {
         this.resetState()
     },
     methods: {
-        ...mapActions('TestsSingle', ['storeData', 'resetState', 'setCategory', 'setTitle', 'setPopularity', 'setType', 'setQuestions', 'setResults', 'setSeo', 'setResultsImage' ,'setMain_image', 'setBg_image', 'fetchCategoriesAll']),
+        ...mapActions('TestsSingle', ['storeData', 'resetState', 'setCategory', 'setTitle', 'setUrl', 'setPopularity', 'setType', 'setQuestions', 'setResults', 'setSeo', 'setResultsImage' ,'setMain_image', 'setBg_image', 'fetchCategoriesAll']),
         updateCategory(value) {
             this.setCategory(value)
         },
@@ -569,6 +583,9 @@ export default {
             this.txtTitle = e.target.value;
             this.setSeoMask();
             this.seoOnInput();
+        },
+        updateUrl(e) {
+            this.setUrl(e.target.value);
         },
         checkNum( val ){
             if (val < 0 ){
@@ -874,11 +891,11 @@ export default {
     }
     .questions-paramrtrs__wrapper{
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: flex-start;        
         margin: 15px 0 30px 0;
         padding-top: 15px;
-        border-top: 1px solid #d8d2d2;
+        border-top: 1px solid #d8d2d2;        
         .col{
             width: 45%;
             max-width: 300px;
@@ -887,11 +904,16 @@ export default {
             }
         }
         &.__results{
+            flex-direction: column;
             .col{
                 &:last-child{
                     margin-left: 0px;
                 }
             }   
+        }
+        a{
+            margin-top: 15px;
+            display: block;
         }
     }
     .tab-pane > span{

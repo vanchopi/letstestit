@@ -20,7 +20,7 @@ class Test extends Model implements HasMedia
     use SoftDeletes, HasMediaTrait;
 
     
-    protected $fillable = ['title', 'category_id', 'popularity', 'questions', 'test_type'];
+    protected $fillable = ['title', 'url', 'category_id', 'popularity', 'questions', 'test_type'];
     protected $appends = ['main_image', 'main_image_link', 'bg_image', 'bg_image_link'];
     protected $with = ['media'];
     
@@ -30,6 +30,7 @@ class Test extends Model implements HasMedia
         return [
             'category_id' => 'integer|exists:categories,id|max:4294967295|nullable',
             'title' => 'max:191|nullable',
+            'url' => 'max:191|nullable',
             'main_image' => 'file|image|nullable',
             'bg_image' => 'file|image|nullable'
         ];
@@ -40,6 +41,7 @@ class Test extends Model implements HasMedia
         return [
             'category_id' => 'integer|exists:categories,id|max:4294967295|nullable',
             'title' => 'max:191|nullable',
+            'url' => 'max:191|nullable',
             'main_image' => 'nullable',
             'bg_image' => 'nullable'
         ];
