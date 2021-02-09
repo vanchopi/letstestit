@@ -2399,6 +2399,20 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2497,7 +2511,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         this.resetState();
     },
 
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TestsSingle', ['storeData', 'resetState', 'setCategory', 'setTitle', 'setPopularity', 'setType', 'setQuestions', 'setResults', 'setSeo', 'setResultsImage', 'setMain_image', 'setBg_image', 'fetchCategoriesAll']), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TestsSingle', ['storeData', 'resetState', 'setCategory', 'setTitle', 'setUrl', 'setPopularity', 'setType', 'setQuestions', 'setResults', 'setSeo', 'setResultsImage', 'setMain_image', 'setBg_image', 'fetchCategoriesAll']), {
         updateCategory: function updateCategory(value) {
             this.setCategory(value);
         },
@@ -2506,6 +2520,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.txtTitle = e.target.value;
             this.setSeoMask();
             this.seoOnInput();
+        },
+        updateUrl: function updateUrl(e) {
+            this.setUrl(e.target.value);
         },
         checkNum: function checkNum(val) {
             if (val < 0) {
@@ -5331,7 +5348,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.half-fields__wrapper label[data-v-fd12abd2] {\n  display: block;\n  width: 100%;\n  margin-bottom: 5px;\n}\n.half-fields__wrapper textarea[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n  padding: 6px 12px;\n}\n.bt-wrapper[data-v-fd12abd2] {\n  padding-bottom: 20px;\n}\n.bt-wrapper.__top[data-v-fd12abd2] {\n    padding-top: 20px;\n}\n.box[data-v-fd12abd2] {\n  border-top: none;\n}\n.questions-paramrtrs__wrapper[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  margin: 15px 0 30px 0;\n  padding-top: 15px;\n  border-top: 1px solid #d8d2d2;\n}\n.questions-paramrtrs__wrapper .col[data-v-fd12abd2] {\n    width: 45%;\n    max-width: 300px;\n}\n.questions-paramrtrs__wrapper .col[data-v-fd12abd2]:last-child {\n      margin-left: 15px;\n}\n.questions-paramrtrs__wrapper.__results .col[data-v-fd12abd2]:last-child {\n    margin-left: 0px;\n}\n.tab-pane > span[data-v-fd12abd2] {\n  display: block;\n  margin: 15px 0;\n}\n.fields-wrapper .input-group[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n  margin-bottom: 15px;\n}\n.fields-wrapper.results-fields__wrapper textarea[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n  padding: 6px 12px;\n}\n.fields-wrapper.results-fields__wrapper .results-fields__item[data-v-fd12abd2] {\n  margin: 15px 0 15px 0;\n  padding-top: 15px;\n  border-top: 1px solid black;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: start;\n      -ms-flex-align: start;\n          align-items: flex-start;\n}\n.fields-wrapper.results-fields__wrapper .result-fields__internal[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n}\n.fields-wrapper.results-fields__wrapper .result-fields__img[data-v-fd12abd2] {\n  width: calc(100% - 615px);\n  padding-left: 20px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: start;\n      -ms-flex-align: start;\n          align-items: flex-start;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.fields-wrapper.results-fields__wrapper .result-fields__img .img-wrp[data-v-fd12abd2] {\n    width: 300px;\n}\n.fields-wrapper.results-fields__wrapper .result-fields__img .img-wrp img[data-v-fd12abd2] {\n      width: 100%;\n}\n.fields-wrapper.results-fields__wrapper .result-fields__img img[data-v-fd12abd2] {\n    width: 100%;\n    max-width: 512px;\n}\n.fields-wrapper.results-fields__wrapper .result-fields__img .btn[data-v-fd12abd2] {\n    margin: 2px 0 17px 0;\n}\n.form-group.__1[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n.form-group.__1 .col[data-v-fd12abd2] {\n    width: calc(50% - 10px);\n}\n.fields-wrapper__internal[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n}\n.fields-wrapper__internal .fields-wrapper__item[data-v-fd12abd2] {\n    width: calc(50% - 10px);\n    max-width: 615px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    margin-bottom: 15px;\n}\n.fields-wrapper__internal .fields-wrapper__item[data-v-fd12abd2]:first-child {\n      margin-right: 10px;\n}\n.labels-wrapper[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n}\n.labels-wrapper label[data-v-fd12abd2] {\n    width: calc(50% - 10px);\n    max-width: 615px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\n.labels-wrapper label[data-v-fd12abd2]:first-child {\n      margin-right: 10px;\n}\n", ""]);
+exports.push([module.i, "\n.half-fields__wrapper label[data-v-fd12abd2] {\n  display: block;\n  width: 100%;\n  margin-bottom: 5px;\n}\n.half-fields__wrapper textarea[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n  padding: 6px 12px;\n}\n.bt-wrapper[data-v-fd12abd2] {\n  padding-bottom: 20px;\n}\n.bt-wrapper.__top[data-v-fd12abd2] {\n    padding-top: 20px;\n}\n.box[data-v-fd12abd2] {\n  border-top: none;\n}\n.questions-paramrtrs__wrapper[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: start;\n      -ms-flex-align: start;\n          align-items: flex-start;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  margin: 15px 0 30px 0;\n  padding-top: 15px;\n  border-top: 1px solid #d8d2d2;\n}\n.questions-paramrtrs__wrapper .col[data-v-fd12abd2] {\n    width: 45%;\n    max-width: 300px;\n}\n.questions-paramrtrs__wrapper .col[data-v-fd12abd2]:last-child {\n      margin-left: 15px;\n}\n.questions-paramrtrs__wrapper.__results[data-v-fd12abd2] {\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n}\n.questions-paramrtrs__wrapper.__results .col[data-v-fd12abd2]:last-child {\n      margin-left: 0px;\n}\n.questions-paramrtrs__wrapper a[data-v-fd12abd2] {\n    margin-top: 15px;\n    display: block;\n}\n.tab-pane > span[data-v-fd12abd2] {\n  display: block;\n  margin: 15px 0;\n}\n.fields-wrapper .input-group[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n  margin-bottom: 15px;\n}\n.fields-wrapper.results-fields__wrapper textarea[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n  padding: 6px 12px;\n}\n.fields-wrapper.results-fields__wrapper .results-fields__item[data-v-fd12abd2] {\n  margin: 15px 0 15px 0;\n  padding-top: 15px;\n  border-top: 1px solid black;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: start;\n      -ms-flex-align: start;\n          align-items: flex-start;\n}\n.fields-wrapper.results-fields__wrapper .result-fields__internal[data-v-fd12abd2] {\n  width: 100%;\n  max-width: 615px;\n}\n.fields-wrapper.results-fields__wrapper .result-fields__img[data-v-fd12abd2] {\n  width: calc(100% - 615px);\n  padding-left: 20px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: start;\n      -ms-flex-align: start;\n          align-items: flex-start;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.fields-wrapper.results-fields__wrapper .result-fields__img .img-wrp[data-v-fd12abd2] {\n    width: 300px;\n}\n.fields-wrapper.results-fields__wrapper .result-fields__img .img-wrp img[data-v-fd12abd2] {\n      width: 100%;\n}\n.fields-wrapper.results-fields__wrapper .result-fields__img img[data-v-fd12abd2] {\n    width: 100%;\n    max-width: 512px;\n}\n.fields-wrapper.results-fields__wrapper .result-fields__img .btn[data-v-fd12abd2] {\n    margin: 2px 0 17px 0;\n}\n.form-group.__1[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n.form-group.__1 .col[data-v-fd12abd2] {\n    width: calc(50% - 10px);\n}\n.fields-wrapper__internal[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n}\n.fields-wrapper__internal .fields-wrapper__item[data-v-fd12abd2] {\n    width: calc(50% - 10px);\n    max-width: 615px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    margin-bottom: 15px;\n}\n.fields-wrapper__internal .fields-wrapper__item[data-v-fd12abd2]:first-child {\n      margin-right: 10px;\n}\n.labels-wrapper[data-v-fd12abd2] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n}\n.labels-wrapper label[data-v-fd12abd2] {\n    width: calc(50% - 10px);\n    max-width: 615px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\n.labels-wrapper label[data-v-fd12abd2]:first-child {\n      margin-right: 10px;\n}\n", ""]);
 
 // exports
 
@@ -36936,6 +36953,23 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c("div", { staticClass: "form-group" }, [
+                              _c("label", { attrs: { for: "url" } }, [
+                                _vm._v("Url")
+                              ]),
+                              _vm._v(" "),
+                              _c("input", {
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "text",
+                                  name: "url",
+                                  placeholder: "Enter Url"
+                                },
+                                domProps: { value: _vm.item.url },
+                                on: { input: _vm.updateUrl }
+                              })
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "form-group" }, [
                               _c("label", { attrs: { for: "main_image" } }, [
                                 _vm._v("Main image")
                               ]),
@@ -37742,7 +37776,9 @@ var render = function() {
                                         ]
                                       }
                                     })
-                                  ])
+                                  ]),
+                                  _vm._v(" "),
+                                  _vm._m(3)
                                 ]
                               ),
                               _vm._v(" "),
@@ -38059,7 +38095,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "tab-pane", attrs: { id: "seo" } }, [
                     _c("div", { staticClass: "box" }, [
-                      _vm._m(3),
+                      _vm._m(4),
                       _vm._v(" "),
                       _c(
                         "div",
@@ -38301,6 +38337,18 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "box-header with-border" }, [
       _c("h3", { staticClass: "box-title" }, [_vm._v("Create")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col" }, [
+      _c(
+        "a",
+        { attrs: { href: "https://www.resizepixel.com/ru", target: "_blank" } },
+        [_vm._v("Image editor")]
+      )
     ])
   },
   function() {
@@ -42737,6 +42785,7 @@ function initialState() {
             id: null,
             category: null,
             title: null,
+            url: null,
             main_image: null,
             bg_image: null,
             popularity: null,
@@ -42965,49 +43014,54 @@ var actions = {
 
         commit('setTitle', value);
     },
-    setPopularity: function setPopularity(_ref7, value) {
+    setUrl: function setUrl(_ref7, value) {
         var commit = _ref7.commit;
+
+        commit('setUrl', value);
+    },
+    setPopularity: function setPopularity(_ref8, value) {
+        var commit = _ref8.commit;
 
         commit('setPopularity', value);
     },
-    setType: function setType(_ref8, value) {
-        var commit = _ref8.commit;
+    setType: function setType(_ref9, value) {
+        var commit = _ref9.commit;
 
         commit('setType', value);
     },
-    setMain_image: function setMain_image(_ref9, value) {
-        var commit = _ref9.commit;
+    setMain_image: function setMain_image(_ref10, value) {
+        var commit = _ref10.commit;
 
         commit('setMain_image', value);
     },
-    setResultsImage: function setResultsImage(_ref10, payload) {
-        var commit = _ref10.commit;
+    setResultsImage: function setResultsImage(_ref11, payload) {
+        var commit = _ref11.commit;
 
         //console.log('value - ', payload.img, ' id - ', payload.id);
         commit('setResultsImage', payload);
     },
-    setBg_image: function setBg_image(_ref11, value) {
-        var commit = _ref11.commit;
+    setBg_image: function setBg_image(_ref12, value) {
+        var commit = _ref12.commit;
 
         commit('setBg_image', value);
     },
-    setQuestions: function setQuestions(_ref12, value) {
-        var commit = _ref12.commit;
+    setQuestions: function setQuestions(_ref13, value) {
+        var commit = _ref13.commit;
 
         commit('setQuestions', value);
     },
-    setResults: function setResults(_ref13, value) {
-        var commit = _ref13.commit;
+    setResults: function setResults(_ref14, value) {
+        var commit = _ref14.commit;
 
         commit('setResults', value);
     },
-    setSeo: function setSeo(_ref14, payload) {
-        var commit = _ref14.commit;
+    setSeo: function setSeo(_ref15, payload) {
+        var commit = _ref15.commit;
 
         commit('setSeo', payload);
     },
-    resetState: function resetState(_ref15) {
-        var commit = _ref15.commit;
+    resetState: function resetState(_ref16) {
+        var commit = _ref16.commit;
 
         commit('resetState');
     }
@@ -43022,6 +43076,9 @@ var mutations = {
     },
     setTitle: function setTitle(state, value) {
         state.item.title = value;
+    },
+    setUrl: function setUrl(state, value) {
+        state.item.url = value;
     },
     setPopularity: function setPopularity(state, value) {
         state.item.popularity = value;
