@@ -13,6 +13,7 @@ const state = {
 		hashtags:'letstestit',
 	}*/
 	results: null,
+	test: null,
 }
 
 const mutations = { 
@@ -27,12 +28,18 @@ const mutations = {
 	},
 	CLEAR_TEST_RESULTS:(state) => {
 		state.results = null;
+	},
+	STORE_TEST_TITLE:(state, title) =>{
+		state.test = title;
 	}
 };
 
 const getters = {
 	getTestResults(state){
 		return state.results;
+	},
+	getTestData(state){
+		return state.test;
 	}
 }
 
@@ -48,6 +55,9 @@ const actions = {
 	},
 	clearTestResults({commit}){
 		commit('CLEAR_TEST_RESULTS');
+	},
+	storeTestTitle({commit}, value){
+		commit('STORE_TEST_TITLE', value);	
 	}
 };
 
