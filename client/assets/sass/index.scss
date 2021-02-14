@@ -214,7 +214,7 @@ a{
 			li{
 				margin-left: 30px;
 				&:before{
-					top: calc(50% - 0px);
+					top: calc(50% - 1px);
 				    margin-left: -15px;
 				    width: 6px;
 				    height: 6px;
@@ -234,6 +234,7 @@ a{
 	ul{
 		@include align-center;
 		justify-content: flex-start;
+		flex-wrap: wrap;
 		height: 40px;
 		li{
 			position: relative;
@@ -395,9 +396,10 @@ a{
 		}
 		&.search-result__wrapper{
 			.category-title{
-				@include align-center;
+				@include align-bottom;
 				justify-content: flex-start;
 				font-size: 21px;
+				flex-wrap: wrap;
 				span{
 					min-height: auto;
 				}
@@ -1434,12 +1436,25 @@ footer{
 }
 
 @media screen and (max-width: 576px){
+	.slider-wrapper {
+		.switcher-wrapper {
+			.description-wrapper {
+				ul {
+					li{
+						font-size: 24px;
+						line-height: 26px;
+					}
+				}
+			}
+		}
+	}
 	.light {
 		.breadcrumbs-wrapper{
 			ul{
 				li{
 					margin-left: 25px;
-					a{
+					a,
+					span{
 						font-size: 18px;
 					}
 				}
@@ -1478,8 +1493,27 @@ footer{
 	&.footer-wrapper{
 		padding-top: 30px;
 		.footer-top__wrapper{
+			.col-md-7{
+				border-bottom: 1px solid rgba(229, 229, 229, 0.4);
+			}
 			.bottom-menu__wrapper{
-					display: none;	
+				margin-bottom: 0;
+				padding-bottom: 0px;
+					ul{
+						justify-content: flex-start;
+    					align-items: center;
+						flex-direction: column;
+						li{
+							width: auto;
+							border: none;
+							text-align: center;
+							padding: 0 15px 15px 15px;
+							&:last-child,
+							&:nth-last-child(2){
+								padding: 0 15px 15px 15px;
+							}
+						}
+					}
 				}
 			}
 			.bottom-contacts__wrapper{
@@ -1491,6 +1525,17 @@ footer{
 				}		
 			}
 		}
+	}
+	.catalog-slider__wrapper {
+		.category-title {
+			font-size: 30px;
+			line-height: 32px;
+			padding: 30px 0;
+			span{
+				min-height: 32px;
+			}
+		}
+
 	}
 }
 
@@ -1505,7 +1550,8 @@ footer{
 						top: calc(50% - 2px);
     					margin-left: -11px;
 					}
-					a{
+					a,
+					span{
 						font-size: 14px;
 						line-height: 16px;
 					}
@@ -1565,7 +1611,19 @@ footer{
     		}
 		}	
 	}
-
+	.slider-wrapper {
+		.switcher-wrapper {
+			min-height: 100px;
+			.description-wrapper{
+				padding-bottom: 100px;
+			}
+		}
+	}
+	.slider-wrapper {
+		.content-wrapper{
+			padding: 10px 0 124px 0;
+		}
+	}
 }
 
 @media screen and (max-width: 400px){
@@ -1574,8 +1632,8 @@ footer{
 			.description-wrapper {
 				ul {
 					li{
-						font-size: 25px;
-    					line-height: 25px;
+						font-size: 16px;
+    					line-height: 18px;
 					}
 				}
 			}

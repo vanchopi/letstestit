@@ -95,4 +95,17 @@ export default {
             }
         }
     }
+    @media screen and (max-width: 480px){
+        .container{
+            form{            
+                input{
+                    width: calc(100% - 62px - 15px);
+                    margin-right: 15px;
+                }
+                .search-bt{
+                    right: calc(62px + 15px);
+                }
+            }
+        }
+    }
 </style>

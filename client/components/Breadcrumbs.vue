@@ -83,7 +83,7 @@ export default {
                 break;
             }
 
-            console.log(index ,'!.. match ', match, link);
+            //console.log(index ,'!.. match ', match, link);
             crumbs.push({
               name: match.name,
               path: match.path,

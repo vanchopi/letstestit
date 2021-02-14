@@ -41,22 +41,34 @@ export default {
   },
 
   async asyncData({route, params, store}){    
-    try{
-      /*const  list  =  await getMeta(route.params.url);                               
-      const meta = list.data;*/
+    try{      
       const list = await getTest(route.query.id);
-      const test = list.data;
+      const meta = await getMeta(route.query.id);
+      //const test = list.data;
       store.dispatch("test/storeTestTitle", list.data.title);
-      console.log('test - ', test);
-      //console.log('1. async test - ',  test.questions);
-      return {test};
+      //console.log('test - ', test);
+      return {test: list.data, meta: meta.data};
     }catch(e){
       console.log(e);
     }
   },
 
   head () {
-    return { title: this.$t('home') }
+    return { 
+      title: this.meta.title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description', 
+          content: this.meta.description,  
+        },
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: this.meta.keywords,
+        }
+      ] 
+    }
   },
 
   data: () => ({
