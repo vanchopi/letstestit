@@ -49,7 +49,7 @@ const routes = [
     component: page('search.vue') 
   },
   /* *****-------------------------------------------***** */
-  { 
+  /*{ 
     path: '/login', 
     name: 'login', 
     component: page('auth/login.vue') 
@@ -92,7 +92,8 @@ const routes = [
       { path: '', redirect: { name: 'settings.profile' } },
       { path: 'profile', name: 'settings.profile', component: page('settings/profile.vue') },
       { path: 'password', name: 'settings.password', component: page('settings/password.vue') }
-    ] }
+    ] 
+  }*/
 ];
 
 const router = new Router({

@@ -25,7 +25,7 @@ export default {
     try{
       const  list  =  await getMeta(route.params.url);                               
       const meta = list.data;
-      console.log('meta - ',  meta);
+      //console.log('meta - ',  meta);
       return {meta};
     }catch(e){
       console.log(e);
@@ -33,7 +33,7 @@ export default {
   },
   head () {
     return { 
-      title: this.$t('home'),
+      title: this.meta.title,
       meta: [
         {
           hid: 'description',
