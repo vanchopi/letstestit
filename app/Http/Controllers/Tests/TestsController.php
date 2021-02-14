@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Tests;
 use App\Test;
 use App\Media;
 use App\Category;
+use App\Meta;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -165,6 +166,16 @@ class TestsController extends Controller
             ];
         }
 
+        return $response;
+    }
+
+    public function getTestMeta(Request $request){
+        $id = $request->id;
+        $response = null;        
+        $meta = Meta::where(['model_type' => 'App\Test','model_id' => $id])->get()->first();
+        if ($meta){
+            $response = $meta->data;
+        }
         return $response;
     }
     

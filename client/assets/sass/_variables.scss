@@ -48,6 +48,11 @@ $main-border: 1px solid rgba(154, 158, 165, 0.3);
   align-items: flex-start;
 }
 
+@mixin align-bottom {
+  display: flex;
+  align-items: flex-end;
+}
+
 @mixin round-shadow {
 	box-shadow: $main-box-shadow;
 }

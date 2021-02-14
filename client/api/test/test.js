@@ -6,8 +6,7 @@ export function getTest(query){
 		method: 'get',
 		url: '/test/' + query//.id,
 		  /*data: {
-		    firstName: 'Fred',
-		    lastName: 'Flintstone'
+		    id: '',
 		}*/	  
 	});	
 }
