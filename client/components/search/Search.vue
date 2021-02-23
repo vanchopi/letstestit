@@ -12,7 +12,7 @@
               <div class="search-bt"
                    @click="searchOnSubmit"
                   >
-                  <img src="~assets/images/png/search2.png" alt="search">
+                  <img src="~assets/images/svg/search2.svg" alt="search">
               </div>
               <div class="close-bt"
                    @click="onClose()"

@@ -21,6 +21,18 @@ a{
 		outline: none;
 	}
 }
+.socials-icons{
+	svg{
+		path{
+			@include svg-transition;			
+		}
+		&:hover{
+			path{
+				fill: $main-fill-color;
+			}
+		}
+	}
+}
 .base-button{
 	text-shadow: 1px 1px 1px rgba(251, 248, 239, 0.1);
 	font-weight: 500;
@@ -782,8 +794,10 @@ footer{
 						@include align-center;
 						justify-content: center;
 						li{
-							padding-left: 1%;
-							padding-bottom: 1%;
+							padding: 0px 8px 10px 8px;
+							&:first-child{
+								/*padding-left: 0px;*/
+							}
 						}
 					}
 				}
@@ -862,19 +876,19 @@ footer{
 			@include align-center;
 			justify-content: center;
 			.social-item{				
-				width: 48px;
-				height: 48px;
+				width: 47px;
+				height: 47px;
 				display: block;
 				cursor: pointer;
 				margin: 0 5px;
 				&.share-network-facebook{
-					background: url('~assets/images/png/facebook.png');
+					background: url('~assets/images/svg/fb.svg');
 				}
 				&.share-network-vk{
-					background: url('~assets/images/png/vk.png');	
+					background: url('~assets/images/svg/vk.svg');	
 				}
 				&.share-network-twitter{
-					background: url(~assets/images/png/twitter.png);
+					background: url(~assets/images/svg/twitter.svg);
 				}
 			}
 		}
@@ -1508,6 +1522,7 @@ footer{
 							border: none;
 							text-align: center;
 							padding: 0 15px 15px 15px;
+							box-shadow: none;
 							&:last-child,
 							&:nth-last-child(2){
 								padding: 0 15px 15px 15px;
@@ -1536,6 +1551,9 @@ footer{
 			}
 		}
 
+	}
+	footer.footer-wrapper .footer-top__wrapper .bottom-contacts__wrapper .socials-bottom__wrapper ul{
+		flex-wrap: wrap;
 	}
 }
 
