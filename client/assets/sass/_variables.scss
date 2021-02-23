@@ -38,6 +38,10 @@ $main-border: 1px solid rgba(154, 158, 165, 0.3);
 				background-color .3s ease;
 }
 
+@mixin svg-transition{
+	transition: fill .3s ease;
+}
+
 @mixin align-center {
   display: flex;
   align-items: center;

@@ -3,16 +3,16 @@
     <div class="container">      
       <div class="nav-wrapper">  
         <div class="menu-bt mobile" @click="showMobileMenu = !showMobileMenu">
-          <img src="~assets/images/png/menu.png" alt="menu">
+          <img src="~assets/images/svg/menu.svg" alt="menu">
         </div>      
         <router-link :to="{ name: 'welcome' }" class="logo">
-          <img src="~assets/images/png/logo2.png" alt="logo">
+          <img src="~assets/images/svg/logo.svg" alt="logo">
         </router-link> 
         <div class="serach-wrapper block mobile"
              @click="ifShowSearch = true"
           >
           <div class="search-wrapper__open">
-            <img src="~assets/images/png/search.png" alt="search">
+            <img src="~assets/images/svg/search1.svg" alt="search">
           </div>          
         </div>       
         <div class="nav-menu" 
@@ -59,7 +59,7 @@
           </div>
           <div class="menu-bt nav-block block">
             <div class="bt-wrp" @click="showMenu = !showMenu">
-              <img src="~assets/images/png/menu.png" alt="menu">
+              <img src="~assets/images/svg/menu.svg" alt="menu">
               <!-- <span>MENU</span> -->
             </div>            
           </div>
@@ -67,7 +67,7 @@
                @click="ifShowSearch = true"
             >
             <div class="search-wrapper__open">
-              <img src="~assets/images/png/search.png" alt="search">
+              <img src="~assets/images/svg/search1.svg" alt="search">
             </div>            
           </div>
           <ul class="navbar-nav block">
