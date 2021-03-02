@@ -80,14 +80,11 @@ export default {
     imgSrc: process.env.appRoot,
     ifShowMore: true,
     catId: 0,
-    showMore: 0,
-    tmp: 0,     
+    showMore: 0,  
     categories: null,    
     testsList: [], 
     currentCategory: null, 
     numStep: 0,
-    queryCategory: null,
-    catName: null,
     loader: false,
   }),
 
@@ -99,33 +96,13 @@ export default {
       categoriesList: state => state.categories.categories,
     })
   },
-  created(){
-    this.queryCategory = this.$route.params.url;
-    this.drawCategoriesList();       
+  created(){           
   },
   mounted(){    
   },
   destroyed() {    
   },
-  methods: {
-    getCurrentCategory(){            
-      let result = this.categories.filter( category => category.url == this.queryCategory);
-      this.currentCategory = this.queryCategory;      
-      this.getTests();
-      return result.length > 0 ? this.catName = result[0].title : this.catName = 'Название категории';
-    },    
-    checkIfMoreTests( quantity, rnum ){
-      let qty = this.testsList.length;
-      if( quantity > 0 && quantity >= rnum ){
-        this.ifShowMore = true;        
-      }else{
-        this.ifShowMore = false;
-      }
-    },
-    drawCategoriesList(){
-        this.categories = this.categoriesList;
-        this.getCurrentCategory();  
-    },
+  methods: {    
     async getTests(){
       try{
         this.numStep = 0;

@@ -46,8 +46,15 @@ export default {
     authenticated: 'auth/check'
   }),
 
+  watch:{ 
+    '$route.query'(){
+      this.searchStr = this.$route.query.q;
+      //console.log('router serach result - ', this.searchStr);  
+    }
+  },
+
   created(){
-    this.searchStr = this.$route.params.search;
+    this.searchStr = this.$route.query.q;
     //console.log(' serach result - ', this.searchStr);
   }
 }
