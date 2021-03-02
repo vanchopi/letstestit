@@ -46,7 +46,7 @@ export default {
     authenticated: 'auth/check'
   }),
 
-  watch:{
+  watch:{ 
     '$route.query'(){
       this.searchStr = this.$route.query.q;
       //console.log('router serach result - ', this.searchStr);  
