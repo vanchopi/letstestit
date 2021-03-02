@@ -44,7 +44,7 @@ const routes = [
   },*/
 
   { 
-    path: '/search/:search', 
+    path: '/search', 
     name: 'search', 
     component: page('search.vue') 
   },
