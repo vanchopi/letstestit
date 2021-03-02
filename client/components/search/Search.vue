@@ -49,7 +49,11 @@ export default {
       searchOnSubmit(){
           this.onClose();
           //console.log('searchOnSubmit - ', this.searchStr);
-          this.$router.push({name: 'search', params:{search: this.searchStr}});
+          if(!this.searchStr == ''){
+            this.$router.push({name: 'search', query:{q: this.searchStr}});
+          }else{
+            console.log('empty search request');
+          }
       }
   }
 }
