@@ -46,7 +46,8 @@ Route::group(['middleware' => 'cors'], function () {
     Route::get('/test/{id}',  'Tests\TestsController@getTest');
     Route::post('/tests/getmore', 'Tests\TestsController@getMore');
     Route::post('/test/getmeta', 'Tests\TestsController@getTestMeta');
-    Route::post('/tests/getresults', 'Results\ResultsController@getResult');    
+    Route::post('/tests/getresults', 'Results\ResultsController@getResult');
+    Route::post('/search', 'Search\SearchController@getSearchResult');
 });
 
 /*

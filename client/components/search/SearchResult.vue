@@ -94,7 +94,13 @@ export default {
     }),    
     ...mapState({
       categoriesList: state => state.categories.categories,
+      searchResult: state => state.search.result,
     })
+  },
+  watch:{
+    'searchResult'(){
+      console.log('search request - ', this.searchResult);
+    }
   },
   created(){           
   },
@@ -102,18 +108,8 @@ export default {
   },
   destroyed() {    
   },
-  methods: {    
-    async getTests(){
-      try{
-        this.numStep = 0;
-        this.testsList = {};
-        const  list  =  await getTestsList( this.currentCategory, true );
-        this.testsList = list.data.tests;                
-        return this.testsList;
-      }catch(e){
-        console.log(e);
-      }
-    },      
+  methods: {   
+          
     async getMore(){      
       let id = this.testsList.length ? this.testsList[this.testsList.length - 1].id : null;
       this.numStep ++;
