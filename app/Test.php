@@ -23,4 +23,16 @@ class Test extends Model
     {
         return 'title';
     }
+
+    /*public function toSearchableArray()
+    {
+        //$array = $this->toArray();
+        //$array = $this->transform($array);
+        //return $array;
+
+        $array = $this->toArray();
+        $array['opa'] = 'opa';       
+
+        return $array;
+    }*/
 }

@@ -14,13 +14,17 @@ class SearchController extends Controller
     protected function getSearchResult(Request $request)
     {        
         $tests = [];
-        $tests = Test::search($request->search)->paginate(3);
-        /*for ($i=0; $i < count($tests->data); $i++) { 
-            $media = self::getMedias($tests->data[$i]->id);
-            $tests->data[$i]->bg_image = $media->bg_image;
-            $tests->data[$i]->main_image = $media->main_image;
-            $tests->data[$i]['category_url'] =  self::getCategoryUrl($tests->data[$i]->category_id);
-        }*/
+        $result = [];
+        $tests = Test::search($request->search)->paginate(3);        
+
+        $updatedTests = $tests->getCollection();        
+        for ($i=0; $i < count($updatedTests); $i++) { 
+            $media = self::getMedias($updatedTests[$i]->id);
+            $updatedTests[$i]->bg_image = $media->bg_image;
+            $updatedTests[$i]->main_image = $media->main_image;
+            $updatedTests[$i]['category_url'] =  self::getCategoryUrl($updatedTests[$i]->category_id);
+        }
+        $tests->setCollection($updatedTests);
         return $tests;
     } 
 
