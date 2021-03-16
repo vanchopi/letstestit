@@ -28,7 +28,7 @@
                 <div class="description-wrapper">
                   <div class="description-wrapper__top">
                     <div class="tags">
-                      <router-link  class="tag" 
+                      <router-link  class="tag"
                                     v-for="item of test.tags"
                                     :to="{ name: item.url }"
                                     :key="item.title"
