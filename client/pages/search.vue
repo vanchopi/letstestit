@@ -49,6 +49,7 @@ export default {
   watch:{ 
     '$route.query'(){
       this.searchStr = this.$route.query.q;
+      this.$store.dispatch("search/setRequest", this.searchStr );
       this.$store.dispatch("search/fetchSearchResult", { str:this.searchStr } );
       //console.log('router serach result - ', this.searchStr);  
     }
@@ -56,6 +57,7 @@ export default {
 
   created(){
     this.searchStr = this.$route.query.q;
+    this.$store.dispatch("search/setRequest", this.searchStr );
     this.$store.dispatch("search/fetchSearchResult", { str:this.searchStr });
     //console.log(' serach result - ', this.searchStr);
   }

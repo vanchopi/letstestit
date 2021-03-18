@@ -86,6 +86,7 @@ export default {
     currentCategory: null, 
     numStep: 0,
     loader: false,
+    page: 1,
   }),
 
   computed: {
@@ -95,16 +96,26 @@ export default {
     ...mapState({
       categoriesList: state => state.categories.categories,
       searchResult: state => state.search.result,
+      searchRequest: state => state.search.request,
+      searchPages: state => state.search.pages,
     })
   },
   watch:{
     'searchResult'(){
-      console.log('search request - ', this.searchResult);
+      console.log('searchResult changed');
       if(this.searchResult != null){
           this.testsList = this.searchResult.data;
+          //this.checkForMore();
       }else{
           this.testsList = [];
-      }
+      }      
+    },
+    'searchRequest'(){
+        this.setDefaultData();    
+    },
+    'searchPages'(){
+        //console.log('data pages');
+        this.checkForMore();
     }
   },
   created(){           
@@ -113,23 +124,23 @@ export default {
   },
   destroyed() {
       this.$store.dispatch("search/clearSearchResults");
+      this.$store.dispatch("search/clearRequest");
+      this.setDefaultData();
   },
-  methods: {   
-          
-    async getMore(){      
-      let id = this.testsList.length ? this.testsList[this.testsList.length - 1].id : null;
-      this.numStep ++;
-      try{
-        const  list  =  await getMoreTests(this.numStep, this.currentCategory, true, id);
-        for (let i = 0; i < list.data.tests.length; i++){
-          this.testsList.push(list.data.tests[i])
-        }      
-        this.checkIfMoreTests(list.data.quantity, list.data.rnum);  
-        return this.testsList;
-      }catch(e){
-        console.log(e);
-      }
+  methods: {
+    setDefaultData(){
+        this.page = 1;
+        this.ifShowMore = true;
     },
+    checkForMore(){        
+        if (this.searchPages.to == this.searchPages.total || this.searchPages.to == null){
+            return this.ifShowMore = false;
+        }        
+    },   
+    getMore(){
+        this.page++;
+        this.$store.dispatch("search/moreSearchResult", { str:this.searchRequest, page: this.page } );
+    }
   }
 }
 </script>

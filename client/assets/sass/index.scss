@@ -116,6 +116,7 @@ a{
 				font-size: 24px;
 				color: $main-text-color;
 				text-shadow: 1px 1px 1px rgba(251, 248, 239, 0.1);
+				text-transform: uppercase;
 				&:hover{
 					color: $main-fill-color;
 					text-decoration: none;
