@@ -28,7 +28,7 @@
                 <div class="description-wrapper">
                   <div class="description-wrapper__top">
                     <div class="tags">
-                      <router-link  class="tag" 
+                      <router-link  class="tag"
                                     v-for="item of test.tags"
                                     :to="{ name: item.url }"
                                     :key="item.title"
@@ -41,7 +41,7 @@
                     </div>
                   </div>
                   <div class="description-wrapper__bottom">
-                    <router-link :to="{ name: 'test', params: {id: test.id, img: test.main_image} }" class="button"> 
+                    <router-link :to="{ name: 'test', query: { id: test.id, }, params: { url1:test.category_url, url2: test.url, img: test.main_image} }" class="button">
                       УЗНАТЬ
                     </router-link>
                   </div>
@@ -86,6 +86,7 @@ export default {
     currentCategory: null, 
     numStep: 0,
     loader: false,
+    page: 1,
   }),
 
   computed: {
@@ -94,40 +95,52 @@ export default {
     }),    
     ...mapState({
       categoriesList: state => state.categories.categories,
+      searchResult: state => state.search.result,
+      searchRequest: state => state.search.request,
+      searchPages: state => state.search.pages,
     })
+  },
+  watch:{
+    'searchResult'(){
+      console.log('searchResult changed');
+      if(this.searchResult != null){
+          this.testsList = this.searchResult.data;
+          //this.checkForMore();
+      }else{
+          this.testsList = [];
+      }      
+    },
+    'searchRequest'(){
+        this.setDefaultData();    
+    },
+    'searchPages'(){
+        //console.log('data pages');
+        this.checkForMore();
+    }
   },
   created(){           
   },
-  mounted(){    
+  mounted(){
   },
-  destroyed() {    
+  destroyed() {
+      this.$store.dispatch("search/clearSearchResults");
+      this.$store.dispatch("search/clearRequest");
+      this.setDefaultData();
   },
-  methods: {    
-    async getTests(){
-      try{
-        this.numStep = 0;
-        this.testsList = {};
-        const  list  =  await getTestsList( this.currentCategory, true );
-        this.testsList = list.data.tests;                
-        return this.testsList;
-      }catch(e){
-        console.log(e);
-      }
-    },      
-    async getMore(){      
-      let id = this.testsList.length ? this.testsList[this.testsList.length - 1].id : null;
-      this.numStep ++;
-      try{
-        const  list  =  await getMoreTests(this.numStep, this.currentCategory, true, id);
-        for (let i = 0; i < list.data.tests.length; i++){
-          this.testsList.push(list.data.tests[i])
-        }      
-        this.checkIfMoreTests(list.data.quantity, list.data.rnum);  
-        return this.testsList;
-      }catch(e){
-        console.log(e);
-      }
+  methods: {
+    setDefaultData(){
+        this.page = 1;
+        this.ifShowMore = true;
     },
+    checkForMore(){        
+        if (this.searchPages.to == this.searchPages.total || this.searchPages.to == null){
+            return this.ifShowMore = false;
+        }        
+    },   
+    getMore(){
+        this.page++;
+        this.$store.dispatch("search/moreSearchResult", { str:this.searchRequest, page: this.page } );
+    }
   }
 }
 </script>

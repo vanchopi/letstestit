@@ -37,7 +37,7 @@
               <router-link  :to="{ name: 'welcome' }"
                             @click.native="showMobileMenu = true"
                 > 
-                РЕКЛАМА
+                О проекте
               </router-link>
             </li>
           </ul>

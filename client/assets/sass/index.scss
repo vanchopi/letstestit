@@ -116,6 +116,7 @@ a{
 				font-size: 24px;
 				color: $main-text-color;
 				text-shadow: 1px 1px 1px rgba(251, 248, 239, 0.1);
+				text-transform: uppercase;
 				&:hover{
 					color: $main-fill-color;
 					text-decoration: none;
@@ -1157,6 +1158,7 @@ footer{
 		}
 	}
 	.nav-wrapper {
+		padding: 0 6px;
 		.nav-menu{
 			display: block;
 			position: fixed;
@@ -1168,8 +1170,8 @@ footer{
 		    width: 100%;
 		    overflow-y: scroll;
     		overflow-x: hidden;
-		    max-width: 350px;
-		    margin-left: -350px;
+		    max-width: 295px;
+		    margin-left: -295px;
 		    transition: margin-left .3s ease;
 		    &.show{
 				margin-left: 0;
@@ -1282,7 +1284,7 @@ footer{
 				@include align-center;
 				justify-content: center;
 				width: 30px;
-				height: 30px;
+				height: 100%;
 
 			}
 		}
@@ -1290,9 +1292,10 @@ footer{
 			&.block.mobile{
 				@include align-center;
 				justify-content: center;
-				width: 30px;
-				height: 30px;
-				border: none;				
+				width: 33px;
+				height: 100%;
+				border: none;
+				margin-right: 12px;				
 			}
 		}		
 	}
@@ -1450,6 +1453,12 @@ footer{
 }
 
 @media screen and (max-width: 576px){
+	.quiz-wrapper .quiz-item .quiz-item__info .back-bt:before {
+	    content: '';
+	    border: 8px solid transparent;
+	    border-right: 16px solid #04D0D9;
+	    margin-right: 8px;
+	}
 	.slider-wrapper {
 		.switcher-wrapper {
 			.description-wrapper {

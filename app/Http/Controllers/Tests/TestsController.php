@@ -33,7 +33,7 @@ class TestsController extends Controller
             $media = self::getMedias($tests[$i]->id);
             $tests[$i]->bg_image = $media->bg_image;
             $tests[$i]->main_image = $media->main_image;
-            $tests[$i]['category_url'] =  self::getCategoryUrl($tests[$i]->category_id);
+            $tests[$i]['category_url'] = self::getCategoryUrl($tests[$i]->category_id);
         }
         $response = [
             'tests' => $tests,
