@@ -40,6 +40,10 @@ export default {
   watch:{
       'ifShow'(){
         this.showSearch = this.ifShow;        
+      },
+      'searchStr'(){
+          /*console.log('search str - ', this.searchStr);
+          this.$store.dispatch("search/setRequest", this.searchStr );*/
       }
   },
   methods:{
@@ -48,7 +52,6 @@ export default {
       },
       searchOnSubmit(){
           this.onClose();
-          //console.log('searchOnSubmit - ', this.searchStr);
           if(!this.searchStr == ''){
             this.$router.push({name: 'search', query:{q: this.searchStr}});
           }else{
