@@ -1158,7 +1158,7 @@ footer{
 		}
 	}
 	.nav-wrapper {
-		padding: 0 6px;
+		padding: 0 17px;
 		.nav-menu{
 			display: block;
 			position: fixed;
@@ -1282,10 +1282,10 @@ footer{
 		.menu-bt {
 			&.mobile{
 				@include align-center;
-				justify-content: center;
-				width: 30px;
+				justify-content: flex-start;
+				width: 33px;
 				height: 100%;
-
+				margin-left: 0px;
 			}
 		}
 		.serach-wrapper{
@@ -1295,7 +1295,7 @@ footer{
 				width: 33px;
 				height: 100%;
 				border: none;
-				margin-right: 12px;				
+				margin-right: 0px;				
 			}
 		}		
 	}
