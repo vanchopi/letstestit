@@ -284,9 +284,10 @@ a{
 /*banner*/
 .banner-wrapper{
 	background-color: $main-color;
+	padding-top: 17px;
 	.container{
 		position: relative;
-		padding-top: 1%;
+		padding-top: 0;
 	}
 	.banner-image__wrapper{
 		width: 100%;
@@ -352,6 +353,15 @@ a{
 				}
 			}			
 		}
+	}
+	.subscribe-txt{
+		font-size: 20px;
+    	text-shadow: 2px 3px 2px rgba(0, 0, 0, 0.4);
+    	text-align: center;
+	    color: white;
+	    font-weight: 500;
+	    display: block;
+	    margin-bottom: 15px;
 	}
 }
 .light {

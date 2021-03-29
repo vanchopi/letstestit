@@ -14,10 +14,12 @@
           </div>
         </div>
         <div class="wrapper">
-          <div class="subscribe-bt__wrapper">
+          <!--<div class="subscribe-bt__wrapper">
             <div class="subscribe-bt">ПОДПИСАТЬСЯ</div>
-          </div>
-          
+          </div>-->
+          <span class="subscribe-txt">
+            Подпишись, чтобы ничего не пропустить:
+          </span>
           <div class="socials-wrapper socials-icons">
             <ul>
               <li class="item">
