@@ -365,7 +365,12 @@ a{
 	}
 }
 .light {
-	.catalog-slider__wrapper{		
+	.catalog-slider__wrapper{
+		&.about-wrapper{
+			.breadcrumbs-wrapper ul li a{
+				color: $main-text-color;
+			}
+		}		
 		.breadcrumbs-wrapper {
 			padding-top: 10px;
 			ul{

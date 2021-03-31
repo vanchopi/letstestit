@@ -1,5 +1,5 @@
 <template>
-  <div class="catalog-slider__wrapper">    
+  <div class="catalog-slider__wrapper about-wrapper">    
     <breadcrumbs />    
     <about />
   </div>
@@ -58,5 +58,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+  @import '~assets/sass/_variables.scss';
+  .light {
+    .catalog-slider__wrapper {
+      .breadcrumbs-wrapper{
+        position: relative;
+        z-index: 3;        
+      }
+    }
+  }
+  .light .catalog-slider__wrapper .breadcrumbs-wrapper ul li a{
+      color: $main-text-color;
+  }  
 </style>
