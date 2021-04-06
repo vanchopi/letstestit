@@ -429,10 +429,31 @@ a{
 						flex-wrap: wrap;
 						li{
 							width: calc(100% / 2);
+							margin-bottom: 10px;
+							padding-left: 15px;
+							position: relative;
+							&:last-child,
+							&:nth-last-child(2){
+								margin-bottom: 0;
+							}
+							&:before{
+								content: "";
+								position: absolute;
+								top: 5px;
+								left: 3px;
+								width: 5px;
+								height: 5px;
+								border-radius: 50%;
+								background-color: $main-fill-color;
+							}
 							a{
 								font-size: 14px;
 							    text-shadow: 1px 1px 1px #000000;
-							    margin-bottom: 8px;
+							    line-height: 16px;
+    							display: block;	
+    							text-overflow: ellipsis;
+							    overflow: hidden;
+							    white-space: nowrap;						    
 						   	}
 						}
 					}

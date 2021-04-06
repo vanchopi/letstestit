@@ -21,7 +21,7 @@ class TestsController extends Controller
             if($num > 0){
                 $tests = self::getTestsListByCategoryId($num, $n);
             }elseif ($num == 0) {
-                $tests = Test::orderBy('popularity', 'DESC')->orderBy('id', 'DESC')->take($n)->get();
+                $tests = self::getPopularTests($n);//Test::orderBy('popularity', 'DESC')->orderBy('id', 'DESC')->take($n)->get();
             }else{
                 $tests = Test::all()->take($n);
             }
@@ -41,7 +41,7 @@ class TestsController extends Controller
             'rnum' => $n,
         ];        
         return $response;
-    }
+    }  
 
     static public function getMedias($id){
     	$media = Media::select(array('collection_name', 'file_name', 'id'))->where(['model_type' => 'App\Test','model_id' => $id])->get();
@@ -61,7 +61,9 @@ class TestsController extends Controller
     static public function getQuestionImages($id){
         return $images = Media::select(array('file_name', 'id'))->where(['collection_name' => 'question_image','model_id' => $id])->get();
     }
-
+    static public function getPopularTests($n){
+        return $test = Test::orderBy('popularity', 'DESC')->orderBy('id', 'DESC')->take($n)->get();
+    }
     static public function getTestsListByCategoryId($id, $n){                
         return $test = Test::select('*')->where('category_id',$id)->orderBy('id', 'DESC')->take($n)->get();        
     }
@@ -179,4 +181,14 @@ class TestsController extends Controller
         return $response;
     }
     
+    public function getTopTests(Request $request){ 
+    $tests = self::getPopularTests(10);
+    for ($i=0; $i < count($tests); $i++) { 
+        /*$media = self::getMedias($tests[$i]->id);
+        $tests[$i]->bg_image = $media->bg_image;
+        $tests[$i]->main_image = $media->main_image;*/
+        $tests[$i]['category_url'] = self::getCategoryUrl($tests[$i]->category_id);
+    }       
+        return $tests;
+    }
 }

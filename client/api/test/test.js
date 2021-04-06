@@ -55,3 +55,10 @@ export function getMeta( id ){
 		}	  
 	});		
 }
+
+export function getTopList(){
+	return axios({				
+		method: 'post',
+		url: '/test/gettoplist',
+	});		
+}

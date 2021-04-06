@@ -33,8 +33,10 @@
               </div>
               <div class="tests-about__wrapper">
                 <ul>
-                  <li v-for="index in 10">
-                    <a href="#">Кто ты из гарри {{index}}</a>
+                  <li v-for="test in topTestsList">
+                    <router-link :to="{ name: 'test', query: { id: test.id, }, params: { url1:test.category_url, url2: test.url} }">
+                      {{test.title}}
+                    </router-link>
                   </li>
                 </ul>
               </div>
@@ -72,15 +74,23 @@ export default {
       //user: 'auth/user',      
     }),    
     ...mapState({
-      //categoriesList: state => state.categories.categories,     
+      //categoriesList: state => state.categories.categories,
+      topTestsList: state => state.test.topTests,     
     })
   },
   watch:{    
     /*'searchPages'(){        
         this.checkForMore();
     }*/
+    'topTestsList'(){
+        console.log('watch top - ', this.topTestsList);
+    }
   },
-  created(){           
+  created(){ 
+    console.log('about - ', this.topTestsList);
+    if (this.topTestsList == null){
+        this.$store.dispatch("test/setTopList");
+    }
   },
   mounted(){
   },
