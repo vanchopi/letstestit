@@ -78,6 +78,9 @@ export default {
               case 'search':
                 title = this.$t('search');
                 break;
+              case 'about':
+                title = this.$t('about');
+                break;
               default:
                     
                 break;
