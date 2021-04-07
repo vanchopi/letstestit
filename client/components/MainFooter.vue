@@ -25,7 +25,7 @@
                 </div>
                 <div class="mail">
                   <a href="mailto:test@test.ru?subject=Lets test it">
-                    info@lesttestit.com
+                    info@letstestit.com
                   </a>
                 </div>
               </div>
@@ -76,7 +76,7 @@
       </div>
     </div>    
     <div class="footer-bottom__wrapper">
-       <span class="copyright">© 2020 Lest Test It</span>
+       <span class="copyright">© 2020 Let's Test It</span>
     </div>
     </div>
     

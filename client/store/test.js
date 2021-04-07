@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import { getTestResults } from '~/api/test/test'
+import { getTestResults, getTopList } from '~/api/test/test'
 
 const state = {
 	/*results: {
@@ -14,6 +14,7 @@ const state = {
 	}*/
 	results: null,
 	test: null,
+	topTests: null,
 }
 
 const mutations = { 
@@ -25,6 +26,9 @@ const mutations = {
 			testResults.media = "https://letstestit.ru/images/2.jpg";
 			state.results = testResults;
 		}
+	},
+	SET_TOP_LIST: (state, topList) => {
+		state.topTests = topList;
 	},
 	CLEAR_TEST_RESULTS:(state) => {
 		state.results = null;
@@ -40,6 +44,9 @@ const getters = {
 	},
 	getTestData(state){
 		return state.test;
+	},
+	getTopTests(state){
+		return state.topTests;
 	}
 }
 
@@ -49,6 +56,15 @@ const actions = {
 			const  list  =  await getTestResults( id, answers );
         	console.log(list);
 			context.commit('SET_TEST_RESULTS', list.data);
+		}catch(e){
+			console.log(e);
+		}
+	},
+	async setTopList( context ){
+		try{
+			const  list  =  await getTopList();
+        	console.log(list);
+			context.commit('SET_TOP_LIST', list.data);
 		}catch(e){
 			console.log(e);
 		}

@@ -34,10 +34,10 @@
               </router-link>
             </li>
             <li>
-              <router-link  :to="{ name: 'welcome' }"
+              <router-link  :to="{ name: 'about' }"
                             @click.native="showMobileMenu = true"
                 > 
-                О проекте
+                {{$t('about')}}
               </router-link>
             </li>
           </ul>

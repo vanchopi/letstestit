@@ -33,6 +33,11 @@ a{
 		}
 	}
 }
+.dark-link{
+	text-shadow: 1px 1px 1px #000000;
+	&:hover{
+	}
+}
 .base-button{
 	text-shadow: 1px 1px 1px rgba(251, 248, 239, 0.1);
 	font-weight: 500;
@@ -284,9 +289,10 @@ a{
 /*banner*/
 .banner-wrapper{
 	background-color: $main-color;
+	padding-top: 17px;
 	.container{
 		position: relative;
-		padding-top: 1%;
+		padding-top: 0;
 	}
 	.banner-image__wrapper{
 		width: 100%;
@@ -353,9 +359,116 @@ a{
 			}			
 		}
 	}
+	.subscribe-txt{
+		font-size: 23px;
+    	text-shadow: 2px 3px 2px rgba(0, 0, 0, 0.4);
+    	text-align: center;
+	    color: white;
+	    font-weight: 300;
+	    display: block;
+	    margin-bottom: 15px;
+	}
 }
 .light {
-	.catalog-slider__wrapper{		
+	.catalog-slider__wrapper{
+		&.about-wrapper{
+			.breadcrumbs-wrapper {
+				ul {
+					li {
+						a{
+							color: $main-text-color;
+						}
+						span{
+							/*color: $main-color !important;*/
+						}
+						&:last-child{
+							&:before{
+								/*background-color: $main-color;*/
+							}
+						}
+					}
+				}
+			}
+			.slider-wrapper {
+				.content-wrapper{
+					padding: 10px 0 25px;
+				}
+				.category-title{
+					margin-bottom: 25px;
+				}
+			}
+			.content-internal__wrapper{
+				@include align-top;
+				justify-content: space-between;
+				.text-block{
+					width: calc(100% - 300px - 25px);
+					font-weight: 100;
+					.after-title{
+						font-weight: 300;
+					    margin: auto;
+					    padding-bottom: 25px;
+					    font-size: 21px;
+					    margin-bottom: 25px;
+					    border-bottom: 1px solid #c9d2d4;
+					    padding-top: 45px;
+					    &:first-child{
+					    	padding-top: 0;
+					    }
+					}
+				}
+				.content-block{
+					width: 300px;
+					padding-bottom: 30px;
+    				border-bottom: 3px double rgba(154, 158, 165, 0.3);
+					.title{
+						padding: 10px 5px;
+					    background-color: #cfd4d4;
+					    border-radius: 3px;
+					    color: white;
+					    margin-bottom: 20px;
+					    font-weight: 100;
+					    /*text-shadow: 1px 1px 1px #000000;*/
+					}
+				}
+				.tests-about__wrapper{		
+					padding: 0 5px;			
+					ul{
+						@include align-top;
+						justify-content: flex-start;
+						flex-wrap: wrap;
+						li{
+							width: calc(100% / 2);
+							margin-bottom: 10px;
+							padding-left: 15px;
+							position: relative;
+							&:last-child,
+							&:nth-last-child(2){
+								margin-bottom: 0;
+							}
+							&:before{
+								content: "";
+								position: absolute;
+								top: 6px;
+								left: 3px;
+								width: 5px;
+								height: 5px;
+								border-radius: 50%;
+								background-color: $main-fill-color;
+							}
+							a{
+								font-size: 14px;
+							    text-shadow: 1px 1px 1px #000000;
+							    line-height: 16px;
+    							display: block;	
+    							text-overflow: ellipsis;
+							    overflow: hidden;
+							    white-space: nowrap;						    
+						   	}
+						}
+					}
+				}
+			}
+		}		
 		.breadcrumbs-wrapper {
 			padding-top: 10px;
 			ul{
@@ -1321,12 +1434,53 @@ footer{
 	.slider-wrapper .content-wrapper .content-filters__wrapper{
 		display: none;
 	}
-	
+	.light {
+		.catalog-slider__wrapper{
+			&.about-wrapper {
+				.content-internal__wrapper{
+					flex-direction: column;
+					.text-block{
+						margin-bottom: 30px;
+						width: 100%;
+					}
+					.content-block{
+						width: 100%;
+					}
+					.tests-about__wrapper {
+						ul {
+							li{
+								width: calc(100% / 3);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 
 
 }
 
 @media screen and (max-width: 768px){
+	.light {
+		.catalog-slider__wrapper{
+			&.about-wrapper {
+				.content-internal__wrapper{					
+					.text-block{						
+					}
+					.content-block{
+					}
+					.tests-about__wrapper {
+						ul {
+							li{
+								width: calc(100% / 2);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 	.custom-bt{
 		span{
 			font-size: 20px;
@@ -1567,6 +1721,28 @@ footer{
 }
 
 @media screen and (max-width: 480px){
+	.light {
+		.catalog-slider__wrapper{
+			&.about-wrapper {
+				.content-internal__wrapper{					
+					.text-block{						
+					}
+					.content-block{
+					}
+					.tests-about__wrapper {
+						ul {
+							li{
+								width: calc(100%);								
+								&:nth-last-child(2){
+									margin-bottom: 10px;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 	.light {
 		.breadcrumbs-wrapper{
 			ul{

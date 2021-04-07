@@ -48,6 +48,11 @@ const routes = [
     name: 'search', 
     component: page('search.vue') 
   },
+  { 
+    path: '/about', 
+    name: 'about', 
+    component: page('about.vue') 
+  },
   /* *****-------------------------------------------***** */
   /*{ 
     path: '/login', 
