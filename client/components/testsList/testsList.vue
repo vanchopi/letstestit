@@ -15,7 +15,7 @@
     <div class="content-wrapper">
       <div class="container">
 
-        <div  class="content-filters__wrapper">
+        <!--<div  class="content-filters__wrapper">
           <div  class="filter" 
                 v-for="(item, index) of filters"
                 :class="{'show': showFilter[index].filter}"
@@ -33,7 +33,7 @@
               </ul>
             </div>
           </div>
-        </div>
+        </div>-->
 
         <div class="content-categories__wrapper">
           <ul>

@@ -62,7 +62,7 @@ export default {
   .light {
     .catalog-slider__wrapper {
       .breadcrumbs-wrapper{
-        background-color: $main-fill-color;
+        background-color: $main-color;
         position: relative;
         z-index: 3;        
       }

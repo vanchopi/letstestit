@@ -7,7 +7,7 @@
 
     <div class="svg-container">
       <svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;">
-        <path d="M-1.97,91.28 C149.99,150.00 271.49,-49.98 500.00,49.98 L500.00,0.00 L0.00,0.00 Z" style="stroke: none;"></path>
+        <path d="M-0.27,105.09 C252.54,150.48 271.72,-14.30 500.00,49.98 L500.00,0.00 L0.00,0.00 Z" style="stroke: none;"></path>
       </svg>
     </div>
     
@@ -19,12 +19,22 @@
         <div class="content-internal__wrapper">
             <div class="text-block">
                 <div class="after-title">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus animi, repudiandae, laudantium porro repellendus voluptatibus quam sint commodi sequi quasi mollitia magni beatae sed odit ratione delectus velit rem voluptatum?
+                  Мы рады приветствовать Вас на нашем ресурсе!
                 </div>
                 <div class="text-content">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam similique odio impedit eum omnis, porro illum magnam, laudantium cum aut perspiciatis sequi nihil sed, ab. Adipisci necessitatibus voluptas natus maxime.
-                  <br>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam provident voluptatem culpa accusantium voluptatibus pariatur nostrum praesentium dolorum a tempora? Eveniet enim itaque ipsa quam saepe minima facilis aperiam odio! <br> <br>Lorem ipsum dolor sit amet, consectetur adipisicing, elit. Iste illo aspernatur ut cum expedita, provident. Cumque, distinctio maxime debitis vero voluptatibus a id officiis fugiat iusto commodi ut veritatis blanditiis.
+                  Наш сервис <router-link :to="{ name: 'welcome' }" class="dark-link">letstestit.ru</router-link> предоставляет возможность всем желающим пройти множество разнообразных тестов: от тестов по мемам до тестов по точным наукам, таким как физика и математика. Материал размещенный на страницах данного ресурса не преследует цели кого-то оскорбить или каким-либо образом дискриминировать. Тесты, в том числе их результат, носят шуточный характер. Ни в коем случае не стоит относиться к ним серьезно.                                     
+                </div>
+                <div class="after-title">
+                  Кто составляет тесты ?
+                </div>
+                <div class="text-content">
+                  Авторы тестов - мы сами - команда энтузиастов. Наша миссия - развеселить, в исключительных случаях - заставить подумать. Надеемся, что процесс прохождения тестов будет доставлять лишь положительные эмоции!   
+                </div>
+                <div class="after-title">
+                  Вопросы и предложения
+                </div>
+                <div class="text-content">
+                  Все вопросы и предложения можно отправлять на наш Email - <a class="dark-link" href="mailto::info@letstestit.com">info@letstestit.com</a>. Также это можно сделать воспользовавшись <a class="dark-link" href="#">формой обратной связи</a> на нашем сайте.
                 </div>
             </div>
             <div class="content-block">
@@ -34,7 +44,7 @@
               <div class="tests-about__wrapper">
                 <ul>
                   <li v-for="test in topTestsList">
-                    <router-link :to="{ name: 'test', query: { id: test.id, }, params: { url1:test.category_url, url2: test.url} }">
+                    <router-link :to="{ name: 'test', query: { id: test.id, }, params: { url1:test.category_url, url2: test.url} }" :title="test.title">
                       {{test.title}}
                     </router-link>
                   </li>
@@ -121,11 +131,12 @@ export default {
     width: 100%;
     &.__bottom{
       position: relative;
+      border-bottom: 1px solid rgba(86, 92, 103, 1);
     }
   }
   .svg-container{    
     svg{
-      fill: $main-fill-color;
+      fill: $main-color;
     }
-  }  
+  }    
 </style>
