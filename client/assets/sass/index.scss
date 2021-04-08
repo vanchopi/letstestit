@@ -34,7 +34,9 @@ a{
 	}
 }
 .dark-link{
+	/*text-shadow: -1px 1px 2px $col-text-first;*/
 	text-shadow: 1px 1px 1px #000000;
+    font-weight: 400;
 	&:hover{
 	}
 }
@@ -281,6 +283,12 @@ a{
 				height: 2px;
 				border-radius: 50%;
 				background-color: $main-text-color;
+				@include main-transition;
+			}
+			&:hover{
+				&:before{
+					background-color: $main-fill-color;
+				}
 			}
 		}
 	}
@@ -364,7 +372,7 @@ a{
     	text-shadow: 2px 3px 2px rgba(0, 0, 0, 0.4);
     	text-align: center;
 	    color: white;
-	    font-weight: 300;
+	    font-weight: 400;
 	    display: block;
 	    margin-bottom: 15px;
 	}
@@ -374,7 +382,10 @@ a{
 		&.about-wrapper{
 			.breadcrumbs-wrapper {
 				ul {
-					li {
+					li {						
+						&:before{							
+						    background-color: $main-text-color;						    
+						}
 						a{
 							color: $main-text-color;
 						}
@@ -392,9 +403,12 @@ a{
 			.slider-wrapper {
 				.content-wrapper{
 					padding: 10px 0 25px;
+					position: relative;
+					z-index: 1;
 				}
 				.category-title{
-					margin-bottom: 25px;
+					border: none;
+					margin-bottom: 0;
 				}
 			}
 			.content-internal__wrapper{
@@ -402,9 +416,11 @@ a{
 				justify-content: space-between;
 				.text-block{
 					width: calc(100% - 300px - 25px);
-					font-weight: 100;
+					font-weight: 300;
+					padding-top: 25px;
+					border-top: 3px double rgba(154, 158, 165, 0.3);
 					.after-title{
-						font-weight: 300;
+						font-weight: 400;
 					    margin: auto;
 					    padding-bottom: 25px;
 					    font-size: 21px;
@@ -419,7 +435,7 @@ a{
 				.content-block{
 					width: 300px;
 					padding-bottom: 30px;
-    				border-bottom: 3px double rgba(154, 158, 165, 0.3);
+    				/*border-bottom: 3px double rgba(154, 158, 165, 0.3);*/
 					.title{
 						padding: 10px 5px;
 					    background-color: #cfd4d4;
@@ -475,11 +491,26 @@ a{
 				justify-content: flex-start;
 				li{
 					&:before{
-						top: 0;
+						top: 1px;
 					    bottom: 0;
 					    width: 6px;
 					    height: 6px;
 					    margin: auto 0 auto -15px;
+					    background-color: $main-color;
+					    @include main-transition;
+					}
+					&:last-child{
+						&:before{
+							background-color: $main-fill-color;
+						}
+					}
+					&:hover{
+						a{
+							color: $main-fill-color;
+						}
+						&:before{
+							background-color: $main-fill-color;
+						}	
 					}
 					&:first-child{
 						margin-left: 15px;
@@ -579,11 +610,19 @@ a{
 				top: 0;
 			    bottom: 0;
 			    margin: auto;
+			    user-select: none;
+			    opacity: 1;
+			    transition: opacity .3s ease;
 				&.left{
 					left: 0;
 				}
 				&.right{
 					right: 0;
+				}
+				&.disabled{
+					opacity: 0.1;
+					pointer-events: none;
+					cursor: default;
 				}
 			}
 		}
@@ -1305,7 +1344,7 @@ footer{
 			    }
 		    }
 		    .nav-menu__list{
-		    	flex-direction: column;
+		    	flex-direction: column-reverse;
 		    	align-items: flex-start;
 		    	li{
 		    		a{
@@ -1721,6 +1760,9 @@ footer{
 }
 
 @media screen and (max-width: 480px){
+	.banner-wrapper .subscribe-txt{
+		display: none;
+	}
 	.light {
 		.catalog-slider__wrapper{
 			&.about-wrapper {
@@ -1749,6 +1791,7 @@ footer{
 				flex-wrap: wrap;
 				li{
 					margin-left: 18px;
+					margin-right: 7px;
 					&:before{
 						top: calc(50% - 2px);
     					margin-left: -11px;
@@ -1758,8 +1801,14 @@ footer{
 						font-size: 14px;
 						line-height: 16px;
 					}
+					/*&:first-child{
+						margin-left: 25px;
+					}*/
 				}
 			}
+		}
+		.catalog-slider__wrapper .breadcrumbs-wrapper ul li:first-child{
+			margin-left: 18px;
 		}
 	}
 	.custom-bt{

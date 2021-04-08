@@ -64,7 +64,7 @@ export default {
       .breadcrumbs-wrapper{
         background-color: $main-color;
         position: relative;
-        z-index: 3;        
+        z-index: 1;        
       }
     }
   }

@@ -5,10 +5,16 @@
       <div class="container">
         <div class="switcher-wrapper__internal" id="swither-wrapper-internal">          
           <div class="arrows-wrapper">
-            <div class="arrow left" @click="sliderSwitcher('left')">
+            <div class="arrow left" 
+                 :class="{'disabled': !ifLeftAvaliable}"
+                 @click="sliderSwitcher('left')"
+              >
               <img src="~assets/images/png/arrow-l.png" alt="">
             </div>
-            <div class="arrow right" @click="sliderSwitcher('right')">
+            <div class="arrow right" 
+                 :class="{'disabled': !ifRightAvaliable}"
+                 @click="sliderSwitcher('right')"
+              >
               <img src="~assets/images/png/arrow-r.png" alt="">
             </div>
           </div>
@@ -120,6 +126,8 @@ export default {
   data: () => ({
     imgSrc: process.env.appRoot,
     ifShowMore: true,
+    ifLeftAvaliable: false,
+    ifRightAvaliable: true,
     catId: 0,
     showMore: 0,
     tmp: 0,
@@ -180,22 +188,34 @@ export default {
   },
   methods: {
     sliderSwitcher( direction ){      
-      console.log('direction', switcher(direction));
+      console.log('direction', switcher(direction), this.catId);
       switch(direction) {
-        case 'right':  
+        case 'right':
+          /*if(this.catId == this.categories.length - 1){
+            this.ifRightAvaliable = false;
+            return;
+          }*/
           this.catId++;
           //console.log('1.length - ', this.categories);
+          this.ifLeftAvaliable = true;
           if ( this.catId >= this.categories.length ){
               this.catId = this.categories.length - 1 ;
+              this.ifRightAvaliable = false;
               return;
           }
           this.ifShowMore = true;          
           this.getTestsListLocal(this.catId);
           break;
-        case 'left':          
+        case 'left': 
+          /*if (this.catId == 0) {            
+            this.ifLeftAvaliable = false;
+            return;
+          }*/       
           this.catId--;
+          this.ifRightAvaliable = true;
           if (this.catId < 0) {
             this.catId = 0;
+            this.ifLeftAvaliable = false;
             return;
           }
           this.ifShowMore = true;          
