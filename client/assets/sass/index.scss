@@ -35,8 +35,9 @@ a{
 }
 .dark-link{
 	/*text-shadow: -1px 1px 2px $col-text-first;*/
-	text-shadow: 1px 1px 1px #000000;
-    font-weight: 400;
+	//text-shadow: 1px 1px 1px $main-color;
+    font-weight: 500;
+    color: $main-color;
 	&:hover{
 	}
 }
@@ -437,8 +438,8 @@ a{
 					padding-bottom: 30px;
     				/*border-bottom: 3px double rgba(154, 158, 165, 0.3);*/
 					.title{
-						padding: 10px 5px;
-					    background-color: #cfd4d4;
+						padding: 10px;
+					    background-color: $main-color;
 					    border-radius: 3px;
 					    color: white;
 					    margin-bottom: 20px;
