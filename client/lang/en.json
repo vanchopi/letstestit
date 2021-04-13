@@ -41,5 +41,6 @@
   "search_by" : "Search by request: ",
   "catalog": "categories",
   "search" : "search",
-  "about": "about"
+  "about": "about",
+  "popular_tests" : "Popular tests"
 }

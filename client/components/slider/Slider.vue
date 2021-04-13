@@ -188,15 +188,14 @@ export default {
   },
   methods: {
     sliderSwitcher( direction ){      
-      console.log('direction', switcher(direction), this.catId);
+      //console.log('direction', );
+      switcher(direction)
       switch(direction) {
         case 'right':
-          /*if(this.catId == this.categories.length - 1){
-            this.ifRightAvaliable = false;
-            return;
-          }*/
-          this.catId++;
-          //console.log('1.length - ', this.categories);
+          if(this.catId == this.categories.length - 2){
+            this.ifRightAvaliable = false;          
+          }          
+          this.catId++;          
           this.ifLeftAvaliable = true;
           if ( this.catId >= this.categories.length ){
               this.catId = this.categories.length - 1 ;
@@ -207,10 +206,9 @@ export default {
           this.getTestsListLocal(this.catId);
           break;
         case 'left': 
-          /*if (this.catId == 0) {            
-            this.ifLeftAvaliable = false;
-            return;
-          }*/       
+          if (this.catId == 1) {            
+            this.ifLeftAvaliable = false;            
+          }          
           this.catId--;
           this.ifRightAvaliable = true;
           if (this.catId < 0) {
@@ -239,14 +237,14 @@ export default {
       }
     },
     getTestsListLocal( num ){        
-        console.log('swithed category id - ', num ,' -', this.categories[num]);
+        //console.log('swithed category id - ', num ,' -', this.categories[num]);
         this.currentCategory = this.categories[num].id;
         this.getTests(this.currentCategory);
     },
     addPopular( arr ){
       arr.unshift({
           id: 0,
-          title: 'Популярные тесты',          
+          title: this.$t('popular_tests'),
           description: '',
           url: '0',
       })
