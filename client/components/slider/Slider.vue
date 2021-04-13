@@ -112,7 +112,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import { sliderAdaptive, switcher, startSwitcher } from './sliderController'
 import { getCategoriesList } from '~/api/categories/category'
 import { getTestsList, getMoreTests } from '~/api/test/test'
@@ -163,17 +163,19 @@ export default {
     loader: true
   }),
 
-  computed: mapGetters({
-    user: 'auth/user'
-  }),
+  computed: {
+    ...mapGetters({
+      user: 'auth/user',      
+    }),    
+    ...mapState({
+      //newCategoriesList: state => state.categories.categories, 
+      commonCategories: state => state.categories.categories,     
+    })
+  },
   created(){
-    if(this.ifCatalog){
-      console.log('catalog', this.ifCatalog);
-    }else{
-      console.log('categories', this.ifCatalog);
-    }    
-    this.getCategoriesList();
-    this.getTests(this.currentCategory);    
+    console.log('slider categories - ', this.commonCategories);
+    this.setCategoriesList();
+    //this.getTests(this.currentCategory);    
   },
   mounted(){    
     startSwitcher();
@@ -250,7 +252,13 @@ export default {
       })
       return arr;
     },
-    async getCategoriesList(){      
+    setCategoriesList(){
+      this.categories = this.commonCategories.slice();
+      this.loader = false;
+      this.categories = this.addPopular(this.categories);
+      this.getTests(this.currentCategory);    
+    },
+    /*async getCategoriesList(){      
       try{
         const  list  =  await getCategoriesList();                        
         console.log(list);
@@ -261,7 +269,7 @@ export default {
       }catch(e){
         console.log(e);
       }
-    },  
+    },*/  
     async getTests( currentCategory ){
       try{
         this.numStep = 0;
