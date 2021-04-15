@@ -7,6 +7,7 @@ export default async ({ store }) => {
     if (locale) {
       axios.defaults.headers.common['Accept-Language'] = locale
     }
+    console.log('language - ', locale);
   }
 
   await loadMessages(store.getters['lang/locale'])

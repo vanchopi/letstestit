@@ -20,7 +20,7 @@ const loader = new Vuex.Store({
     },
     actions: {
         changeLoading({commit}, value){
-            console.log('loader state');
+            //console.log('loader state');
             commit('CHANGE_LOADING', value);
         }
     }

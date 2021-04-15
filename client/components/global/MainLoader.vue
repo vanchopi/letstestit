@@ -34,18 +34,15 @@ export default {
     ...mapState({      
       //loaderState: state => state.loader.ifLoading,
     }),
-    loadingGlobal () {
-      let self = this;
-      setTimeout(function(){
-        self.localLoading = loader.state.ifLoading;
-      }, 500);
-      return loader.state.ifLoading;
+    loadingGlobal () {            
+      this.localLoading = loader.state.ifLoading;
+      return this.localLoading;
     }
   },  
   created(){
       //console.log('pre loader - ', this.loader);
       //this.ploader = this.loader;      
-      console.log('123 - ', this.localLoading);
+      //console.log('123 - ', this.localLoading);
       /*this.$store.subscribe((mutation, state) => {
         if (mutation.type === 'loader/CHANGE_LOADING') {
           console.log('SET_COOKIE', this.loaderState);
@@ -60,11 +57,7 @@ export default {
       console.log('321 - ', this.loaderState);
     },*/
     loadingGlobal (newCount, oldCount) {
-      let self = this;
-      console.log('loading - ', newCount);
-      setTimeout(function(){
-        self.localLoading = newCount;
-      }, 500);
+      this.localLoading = newCount;
     }
   },  
 }

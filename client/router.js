@@ -109,17 +109,17 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-    console.log('beforeEach');    
-    loader.dispatch("changeLoading", true);
+    //console.log('beforeEach');    
+    //loader.dispatch("changeLoading", true);
     next();
 });
 
 router.afterEach((to, from) => {
   /*console.log(' href - ', router.app.path);
   store.dispatch("setBreadCrumbs", window.location.href);*/
-  console.log('afterEach');  
-  loader.dispatch("changeLoading", false); 
-  console.log(loader.state.ifLoading);
+  //console.log('afterEach');  
+  //loader.dispatch("changeLoading", false); 
+  //console.log(loader.state.ifLoading);
 });
 
 /*export function createRouter () {
