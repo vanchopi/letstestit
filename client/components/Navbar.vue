@@ -99,6 +99,7 @@
           :class="{'show': showMobileMenu}"
           @click="showMobileMenu = !showMobileMenu"
     ></div>
+    <main-loader />
   </nav>  
 </template>
 
@@ -106,12 +107,14 @@
 import { mapGetters, mapState } from 'vuex'
 import LocaleDropdown from './LocaleDropdown'
 import Search from './search/Search'
+import MainLoader from '~/components/global/MainLoader'
 import { getCategoriesList } from '~/api/categories/category'
 
 export default {
   components: {
     LocaleDropdown,
-    Search
+    Search,
+    MainLoader
   }, 
 
   data: () => ({

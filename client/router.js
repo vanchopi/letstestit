@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import { scrollBehavior } from '~/utils'
-import store from '~/store/breadcrumbs.js'
+//import store from '~/store/breadcrumbs.js'
+import loader from '~/store/loader.js'
 
 Vue.use(Router)
 
@@ -108,14 +109,17 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-    console.log('beforeEach');
+    //console.log('beforeEach');    
+    //loader.dispatch("changeLoading", true);
     next();
 });
 
 router.afterEach((to, from) => {
   /*console.log(' href - ', router.app.path);
   store.dispatch("setBreadCrumbs", window.location.href);*/
-  //console.log(' store - ', store);
+  //console.log('afterEach');  
+  //loader.dispatch("changeLoading", false); 
+  //console.log(loader.state.ifLoading);
 });
 
 /*export function createRouter () {
