@@ -42,15 +42,7 @@ export default {
   created(){
       //console.log('pre loader - ', this.loader);
       //this.ploader = this.loader;      
-      //console.log('123 - ', this.localLoading);
-      /*this.$store.subscribe((mutation, state) => {
-        if (mutation.type === 'loader/CHANGE_LOADING') {
-          console.log('SET_COOKIE', this.loaderState);
-          //this.$nextTick(function () {
-            //this.$store.dispatch('cookieCheck/reloadProject' );
-          //})
-        }
-      });*/
+      //console.log('123 - ', this.localLoading);      
   },
   watch:{
     /*'loaderState'(){
@@ -85,13 +77,13 @@ export default {
     }
     .cssload-container{
       width: 97px;
-      height: 97px;
+      height: 155px;
     }
     .cssload-container * {
       box-sizing: border-box;
     }
     .cssload-container {
-      margin: 19px auto 0 auto;
+      margin: 0px auto 0 auto;
       max-width: 545px;
     }
 
