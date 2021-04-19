@@ -37,5 +37,6 @@
   "catalog": "categories",
   "search" : "search",
   "about": "about",
-  "popular_tests" : "Popular tests"
+  "popular_tests" : "Popular tests",
+  "ouch": "Ouch! There is nothing in this category yet..."
 }

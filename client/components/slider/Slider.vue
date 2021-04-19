@@ -63,7 +63,7 @@
         -->
 
         <div class="content-categories__wrapper">
-          <ul>
+          <ul v-if="!ifEmptyCategory">
 
             <li v-for="(test, index) of testsList"                 
                 :key=index
@@ -98,13 +98,16 @@
             </li>
 
           </ul>
+          <div v-else class="empty-category__wrapper">
+            <span>{{$t('ouch')}}</span>
+          </div>
         </div>
 
       </div>    
     </div>  
     <div class="show-more__button" 
          @click="getMore()"
-         v-if="ifShowMore"
+         v-if="ifShowMore && !ifEmptyCategory"
       >
       <img src="~assets/images/png/down.png" alt="">
     </div>
@@ -128,6 +131,7 @@ export default {
     ifShowMore: true,
     ifLeftAvaliable: false,
     ifRightAvaliable: true,
+    ifEmptyCategory: false,
     catId: 0,
     showMore: 0,
     tmp: 0,
@@ -276,6 +280,11 @@ export default {
         this.testsList = {};
         const  list  =  await getTestsList( currentCategory );                                      
         this.testsList = list.data.tests;
+        if (this.testsList.length){
+          this.ifEmptyCategory = false;
+        }else{
+          this.ifEmptyCategory = true;
+        }
         return this.testsList;
       }catch(e){
         console.log(e);
