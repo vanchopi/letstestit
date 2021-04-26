@@ -28,14 +28,14 @@
           <ul class="nav-menu__list">
             <li>
               <router-link :to="{ name: 'catalog' }"
-                            @click.native="showMobileMenu = true"
+                            @click.native="showMobileMenu = false"
                 > 
                 КАТЕГОРИИ
               </router-link>
             </li>
             <li>
               <router-link  :to="{ name: 'about' }"
-                            @click.native="showMobileMenu = true"
+                            @click.native="showMobileMenu = false"
                 > 
                 {{$t('about')}}
               </router-link>

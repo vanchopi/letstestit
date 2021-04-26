@@ -1154,6 +1154,9 @@ footer{
 				opacity: 0;
 				visibility: hidden;
 			}
+			&.with-image{
+
+			}
 		}	
 		.quiz-item__info{
 			@include align-center;
@@ -1262,8 +1265,77 @@ footer{
 	}
 }
 @media screen and (min-width: 992px){
+	.quiz-wrapper{	
+		.quiz-item{		
+			.quiz-item__content{
+				&.with-image{
+					@include align-top;
+					justify-content: space-between;
+					.question-img{
+						width: 50%;
+					}
+					.quiz-item__internal{
+						width: 50%;
+					}
+					.title{
+						text-align: left;
+					}
+					.answers{
+						padding: 0 25px;
+					}
+					.img-lightbox{
+						cursor: pointer;
+					}
+				}
+			}
+		}
+	}
 	.dropdown-toggle::after{
 		margin-left: -2px;
+	}
+	.navbar {
+		.menu-block__wrapper{
+			min-height: 48px;
+			padding: 10px 0;
+			ul {
+				justify-content: flex-start;
+				align-items: flex-start;
+				li{
+					width: calc(100% / 4);
+					margin: 4px 0;
+					//text-align: center;					
+					a{
+						position: relative;
+						display: block;
+						width: 100%;
+						padding: 0 20px;
+						&:after{
+							content: '';
+						    position: absolute;
+						    left: 0;
+						    top: 10px;
+						    margin-left: 0px;
+						    width: 4px;
+						    height: 4px;
+						    border-radius: 50%;
+						    background-color: $col-text-dark;
+						    @include main-transition;
+						}
+						&:hover{
+							&:after{
+								background-color: $main-fill-color;
+							}
+						}
+						&.router-link-exact-active{
+							&:after{
+								background-color: $main-fill-color;
+							}		
+						}
+					}
+					
+				}
+			}
+		}
 	}
 }
 @media screen and (max-width: 991px){
@@ -1654,6 +1726,9 @@ footer{
 }
 
 @media screen and (max-width: 576px){
+	body{
+		margin-right: 0!important;
+	}
 	.quiz-wrapper .quiz-item .quiz-item__info .back-bt:before {
 	    content: '';
 	    border: 8px solid transparent;
@@ -1715,7 +1790,7 @@ footer{
 	}
 	footer{
 	&.footer-wrapper{
-		padding-top: 30px;
+		padding-top: 40px;
 		.footer-top__wrapper{
 			.col-md-7{
 				border-bottom: 1px solid rgba(229, 229, 229, 0.4);
@@ -1727,6 +1802,7 @@ footer{
 						justify-content: flex-start;
     					align-items: center;
 						flex-direction: column;
+						padding-bottom: 15px;
 						li{
 							width: auto;
 							border: none;
@@ -1767,7 +1843,10 @@ footer{
 	}
 }
 
-@media screen and (max-width: 480px){
+@media screen and (max-width: 480px){	
+	.slider-wrapper .content-wrapper .content-categories__wrapper ul{
+		padding: 0 15px;
+	}
 	.banner-wrapper .subscribe-txt{
 		display: none;
 	}

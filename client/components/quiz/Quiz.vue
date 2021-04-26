@@ -15,31 +15,44 @@
           <span>/{{testLenght}}</span>
         </div>
       </div>
-      <div class="quiz-item__content" :class="{'fade-out': fade}">
-        <div class="title">
-         {{testPart.question}}
-        </div>
+      <div class="quiz-item__content" :class="{'fade-out': fade, 'with-image': testPart.img != undefined ||  testPart.img != null}">
         <div class="question-img" v-if=" testPart.img != undefined ||  testPart.img != null">
-          <img :src=" imgSrc + '/storage/images/questions/' + testPart.img" alt="">
+          <FsLightbox
+            class="lightbox"
+            type="image"
+            :types="['image']"
+            :toggler="toggler"
+            :sources="[
+            imgSrc + '/storage/images/questions/' + testPart.img,            
+            ]"
+          />
+          <div @click="toggler = !toggler" class="img-lightbox">
+            <img :src=" imgSrc + '/storage/images/questions/' + testPart.img" alt="">
+          </div>          
         </div>
-        <div class="answers">
-          <ul>
-            <li v-for="(item, index) of testPart.answers"
-                :key="index"
-              >
-              <label class="check-container">{{item.dsc}}
-                <input  type="radio" 
-                        name="radio" 
-                        :value="item" 
-                        data-wlradio="0" 
-                        v-model="answer"
-                        :change="getAnswer()"
+        <div class="quiz-item__internal">
+          <div class="title">
+           {{testPart.question}}
+          </div>        
+          <div class="answers">
+            <ul>
+              <li v-for="(item, index) of testPart.answers"
+                  :key="index"
                 >
-                <span class="checkmark"></span>
-              </label>
-            </li>          
-          </ul>        
-        </div>        
+                <label class="check-container">{{item.dsc}}
+                  <input  type="radio" 
+                          name="radio" 
+                          :value="item" 
+                          data-wlradio="0" 
+                          v-model="answer"
+                          :change="getAnswer()"
+                  >
+                  <span class="checkmark"></span>
+                </label>
+              </li>          
+            </ul>        
+          </div>        
+        </div>
       </div>  
       <div class="button-wrapper">
         <button class="custom-bt" @click="getPart(testPart.id)" v-if="quizStep < testLenght - 1">
@@ -61,14 +74,17 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 import { getTest } from '~/api/test/test'
+import FsLightbox from "fslightbox-vue";
 
 export default {
-  components: {    
+  components: { 
+    FsLightbox,
   },
   props: ['info', 'test', 'category', 'restartTest'],
   data: () => ({
     imgSrc: process.env.appRoot ,
-    fade: false,    
+    fade: false,
+    toggler: false,    
     testList: [],
     testPart: [{
       id: 0,      
@@ -148,6 +164,9 @@ export default {
         this.quizStep--;
         this.testPart = this.testList[this.quizStep];
         setTimeout(() => { this.fade = !this.fade; }, 300);
+      }else{
+        this.$router.push({name: 'category', params: {url: this.category}});
+        //console.log(this.category);
       }
     },
     getData(){
