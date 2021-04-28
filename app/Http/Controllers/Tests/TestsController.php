@@ -68,8 +68,13 @@ class TestsController extends Controller
         return $test = Test::select('*')->where('category_id',$id)->orderBy('id', 'DESC')->take($n)->get();        
     }
     static public function getMorePopularTests($lim, $num){
+        $ppt = Test::select('popularity')->where('id', $num)->first();
+        return $test = Test::where( [
+            ['id', '<', $num],
+            ['popularity', '<=', $ppt->popularity],
+        ])->orderBy('popularity', 'DESC')->orderBy('id', 'DESC')->limit($lim)->get();
         //$ppt = Test::select('popularity')->where('id', $num)->first();
-        return $test = Test::where('id', '<', $num)->orderBy('popularity', 'DESC')->orderBy('id', 'DESC')->limit($lim)->get();;
+        //return $test = Test::where('id', '<', $num)->orderBy('popularity', 'DESC')->orderBy('id', 'DESC')->limit($lim)->get();
     }
     static public function getMoreTestsByCategoryId($catId, $lim, $num){          
         $whereData = [

@@ -304,7 +304,7 @@ export default {
     },      
     async getMore(){      
       let id = this.testsList.length ? this.testsList[this.testsList.length - 1].id : null;
-      this.numStep ++;
+      this.numStep++;
       try{
         const  list  =  await getMoreTests(this.numStep, this.currentCategory, false, id);
         for (let i = 0; i < list.data.tests.length; i++){
