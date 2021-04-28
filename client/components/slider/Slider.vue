@@ -167,19 +167,39 @@ export default {
     loader: true
   }),
 
+  async fetch(/*{ store, params }*/) {    
+    this.categories = this.commonCategories.slice();
+    this.loader = false;
+    this.categories = this.addPopular(this.categories);       
+    try{
+      this.numStep = 0;
+      this.testsList = {};
+      const  list  =  await getTestsList( this.currentCategory );                                      
+      this.testsList = list.data.tests;
+      console.log('fetched tests - ', list.data.tests);
+      if (this.testsList.length){
+        this.ifEmptyCategory = false;
+      }else{
+        this.ifEmptyCategory = true;
+      }
+      return this.testsList;
+    }catch(e){
+      console.log(e);
+    }    
+    //this.opa();
+  },
+
   computed: {
     ...mapGetters({
       user: 'auth/user',      
     }),    
     ...mapState({
-      //newCategoriesList: state => state.categories.categories, 
       commonCategories: state => state.categories.categories,     
     })
   },
   created(){
     console.log('slider categories - ', this.commonCategories);
-    this.setCategoriesList();
-    //this.getTests(this.currentCategory);    
+    //this.setCategoriesList();    
   },
   mounted(){    
     startSwitcher();
@@ -193,8 +213,12 @@ export default {
     window.removeEventListener("resize", this.checkWidth);
   },
   methods: {
+    opa(){
+      console.log('! --- opa --- !');
+    },
     sliderSwitcher( direction ){      
       //console.log('direction', );
+
       switcher(direction)
       switch(direction) {
         case 'right':
@@ -256,24 +280,12 @@ export default {
       })
       return arr;
     },
-    setCategoriesList(){
+    /*setCategoriesList(){
       this.categories = this.commonCategories.slice();
       this.loader = false;
       this.categories = this.addPopular(this.categories);
       this.getTests(this.currentCategory);    
-    },
-    /*async getCategoriesList(){      
-      try{
-        const  list  =  await getCategoriesList();                        
-        console.log(list);
-        this.categories = list.data;
-        this.loader = false;
-        this.categories = this.addPopular(this.categories);
-        return this.categories;
-      }catch(e){
-        console.log(e);
-      }
-    },*/  
+    },*/   
     async getTests( currentCategory ){
       try{
         this.numStep = 0;
