@@ -139,6 +139,33 @@ export default {
     loader: false,
   }),
 
+  async fetch(/*{ route, params }*/) {    
+    //console.log('router params - ', this.$route.params.url);
+    this.queryCategory = this.$route.params.url;
+    this.categories = this.categoriesList;
+    let result = this.categories.filter( category => category.url == this.queryCategory);
+    this.currentCategory = this.queryCategory;
+    if(result.length > 0){
+      this.catName = result[0].title;
+    }else{
+      this.catName = 'Название категории';
+    }
+    try{
+      this.numStep = 0;
+      this.testsList = {};
+      const  list  =  await getTestsList( this.currentCategory, true );
+      this.testsList = list.data.tests;
+      if (this.testsList.length){
+        this.ifEmptyCategory = false;
+      }else{
+        this.ifEmptyCategory = true;
+      }                
+      return this.testsList;
+    }catch(e){
+      console.log(e);
+    }
+  },
+
   computed: {
     ...mapGetters({
       user: 'auth/user',      
@@ -150,19 +177,19 @@ export default {
   },
   created(){
     this.queryCategory = this.$route.params.url;
-    this.drawCategoriesList();       
+    //this.drawCategoriesList();       
   },
   mounted(){    
   },
   destroyed() {    
   },
   methods: {
-    getCurrentCategory(){            
+    /*getCurrentCategory(){            
       let result = this.categories.filter( category => category.url == this.queryCategory);
       this.currentCategory = this.queryCategory;
       this.getTests();
       return result.length > 0 ? this.catName = result[0].title : this.catName = 'Название категории';
-    },
+    },*/
     openFilter( id ){
       console.log(' filter ', id);
       this.showFilter[id].filter = !this.showFilter[id].filter;
@@ -175,11 +202,11 @@ export default {
         this.ifShowMore = false;
       }
     },
-    drawCategoriesList(){
+    /*drawCategoriesList(){
         this.categories = this.categoriesList;
         this.getCurrentCategory();  
         //this.loader = false;      
-    },
+    },*/
     async getTests(){
       try{
         this.numStep = 0;
@@ -190,9 +217,7 @@ export default {
           this.ifEmptyCategory = false;
         }else{
           this.ifEmptyCategory = true;
-        }
-        //this.checkIfMoreTests(list.data.quantity);
-        //console.log(' tests ',this.testsList);        
+        }                
         return this.testsList;
       }catch(e){
         console.log(e);

@@ -24,7 +24,7 @@ export default {
     //console.log('params - ', route.params);
     try{
       const  list  =  await getMeta(route.params.url);                               
-      const meta = list.data;
+      const meta = list.data;      
       //console.log('meta - ',  meta);
       return {meta};
     }catch(e){

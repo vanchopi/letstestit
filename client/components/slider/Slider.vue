@@ -176,7 +176,7 @@ export default {
       this.testsList = {};
       const  list  =  await getTestsList( this.currentCategory );                                      
       this.testsList = list.data.tests;
-      console.log('fetched tests - ', list.data.tests);
+      //console.log('fetched tests - ', list.data.tests);
       if (this.testsList.length){
         this.ifEmptyCategory = false;
       }else{
