@@ -1,5 +1,5 @@
 <template>
-  <div class="slider-wrapper search-result__wrapper">
+  <div class="slider-wrapper search-result__wrapper">    
 
     <!--<svg viewBox="0 0 500 150" preserveAspectRatio="none" class="wave-bg" style="width: 100%;">
       <path d="M-3.67,33.05 C240.12,132.72 328.72,-30.09 502.54,33.05 L517.77,-10.36 L0.00,0.00 Z" style="stroke: none;"></path>
@@ -34,7 +34,7 @@
                   Вопросы и предложения
                 </div>
                 <div class="text-content">
-                  Все вопросы и предложения можно отправлять на наш Email - <a class="dark-link" href="mailto::info@letstestit.com">info@letstestit.com</a>. Также это можно сделать воспользовавшись <a class="dark-link" href="#">формой обратной связи</a> на нашем сайте.
+                  Все вопросы и предложения можно отправлять на наш Email - <a class="dark-link" href="mailto::info@letstestit.com">info@letstestit.com</a>. Также это можно сделать воспользовавшись <a class="dark-link" href="#" @click.prevent = "callForm()">формой обратной связи</a> на нашем сайте.
                 </div>
             </div>
             <div class="content-block">
@@ -59,7 +59,8 @@
         <path d="M0.00,49.98 C149.99,150.00 349.20,-49.98 500.00,49.98 L500.00,150.00 L0.00,150.00 Z" style="stroke: none;">
         </path>
       </svg>
-    </div>      
+    </div>  
+    <feedback-form :showForm="showForm" :onCloseForm="onCloseForm"/>     
   </div>
 </template>
 
@@ -67,6 +68,7 @@
 import { mapGetters, mapState } from 'vuex'
 import { getCategoriesList } from '~/api/categories/category'
 import TextLoader from '~/components/global/TextLoader'
+import FeedbackForm from '~/components/FeedbackForm/FeedbackForm'
 
 export default {
   name: 'About',
@@ -74,9 +76,11 @@ export default {
 
   components: {  
     TextLoader,  
+    FeedbackForm,
   },
   data: () => ({
-    imgSrc: process.env.appRoot,    
+    imgSrc: process.env.appRoot,
+    showForm: false,    
   }),
 
   computed: {
@@ -93,11 +97,11 @@ export default {
         this.checkForMore();
     }*/
     'topTestsList'(){
-        console.log('watch top - ', this.topTestsList);
+        //console.log('watch top - ', this.topTestsList);
     }
   },
   created(){ 
-    console.log('about - ', this.topTestsList);
+    //console.log('about - ', this.topTestsList);
     if (this.topTestsList == null){
         this.$store.dispatch("test/setTopList");
     }
@@ -106,7 +110,13 @@ export default {
   },
   destroyed() {      
   },
-  methods: {    
+  methods: {
+    callForm(){
+      this.showForm = true;     
+    },
+    onCloseForm(flag){        
+        this.showForm = flag;
+    } 
   }
 }
 </script>
