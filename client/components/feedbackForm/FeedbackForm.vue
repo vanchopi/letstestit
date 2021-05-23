@@ -4,25 +4,43 @@
     <pop-up v-if="showModal" @close="close()">
         <h3 slot="header">{{$t('contact_us')}}</h3>
         <div class="feedback-form" slot="body">
-            <form @submit.prevent="sendForm">
+            <form @submit.prevent="submitForm()">
                 <div class="form-group custom__1">
                     <div class="form-row">
                         <label for="email" class="required">{{$t('email_address')}}</label>
-                        <input type="email" class="form-control" id="email" name="email">
+                        <input type="email" 
+                               class="form-control"
+                               :class="{ 'form-group--error': $v.form.email.$error }" 
+                               id="email" 
+                               name="email" 
+                               v-model="form.email"
+                        >
                     </div>
                     <div class="form-row">
                         <label for="fio" class="required">{{$t('name')}}</label>
-                        <input type="text" class="form-control" id="fio" name="fio">
+                        <input type="text" 
+                               class="form-control"
+                               :class="{ 'form-group--error': $v.form.name.$error }"
+                               id="fio" 
+                               name="fio" 
+                               v-model="form.name"
+                        >
                     </div>
                     <div class="form-row">
                         <label for="message" class="required">{{$t('message')}}</label>
-                        <textarea name="message" id="message" rows="5"></textarea>
+                        <textarea name="message"
+                                  class="form-control"
+                                  :class="{ 'form-group--error': $v.form.message.$error }" 
+                                  id="message" 
+                                  rows="5" 
+                                  v-model="form.message"
+                        ></textarea>
                     </div>                                        
                 </div>
             </form>
         </div>
         <div class="form-submit__wrapper" slot="footer">
-              <button class="base-button" @click="close()">
+              <button class="base-button" @click="submitForm()">
                 Send
               </button>
         </div>
@@ -32,7 +50,10 @@
 
 <script>
 
+import { mapGetters, mapState, mapActions } from 'vuex'
 import PopUp from '~/components/global/PopUp'
+import {required, email, minLength} from "vuelidate/lib/validators";
+
 export default {
   name: 'FeedbackForm',
 
@@ -43,9 +64,38 @@ export default {
   props: ['showForm', 'onCloseForm'],
   data: () => ({    
     showModal: false,
+    submitStatus: null,
+    form:{
+      name: '',
+      email: '',
+      message: '',
+    }
   }),
+  validations: {
+    form: {
+      email: {
+        required,
+        email
+      },
+      name:{
+        required,
+        minLength: minLength(2)
+      },
+      message:{
+        required,
+        minLength: minLength(1)
+      }
+    }
+  },
+  computed:{
+    ...mapState({
+      //newCategoriesList: state => state.categories.categories, 
+      sendStatus: state => state.form.status,     
+    })
+  },
   created(){
-      this.showModal = this.showForm;      
+      this.showModal = this.showForm;
+      console.log('status', this.sendStatus);
   },
   watch:{
       'showForm'(){
@@ -53,8 +103,31 @@ export default {
       }
   },
   methods:{
-    sendForm(){
-      console.log();
+    ...mapActions('form', ['sendFormData']), 
+    submitForm() {      
+      this.$v.$touch()
+      if (this.$v.$invalid) {
+        this.submitStatus = 'ERROR';
+        console.log('ERROR');
+      } else {
+        this.submitStatus = 'PENDING'
+        /*setTimeout(() => {
+          this.submitStatus = 'OK';
+          console.log('OK');
+          this.cleanForm();
+          this.close();
+        }, 500)*/
+        this.sendFormData(this.form).then((response) => {
+            console.log('vse good', response);
+        }).catch((error) => {
+            console.log('from error - ',error);
+        })
+      }
+    },
+    cleanForm(){
+      this.form.name = '';
+      this.form.email = '';
+      this.form.message = '';
     },
     close(){
         //this.showModal = false;

@@ -21,6 +21,14 @@ a{
 		outline: none;
 	}
 }
+.form-control{
+	transition: border-color .3s ease,
+				box-shadow .3s ease;
+	&.form-group--error{
+		border-color: $main-color-red;
+		box-shadow: 0 0 0 1px $main-color-red;
+	}
+}
 .socials-icons{
 	svg{
 		path{

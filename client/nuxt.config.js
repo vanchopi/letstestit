@@ -46,6 +46,7 @@ module.exports = {
     '~plugins/vform',
     '~plugins/axios',
     '~plugins/fontawesome',
+    '~plugins/vuelidate',
     //'~plugins/nuxt-client-init', // Comment this for SSR
     { src: '~plugins/bootstrap', mode: 'client' }
   ],

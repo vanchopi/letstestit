@@ -1,7 +1,7 @@
 <template>
     <transition name="modal">
         <div class="modal-mask">
-            <div class="modal-wrapper">
+            <div class="modal-wrapper" @click="onClose">
                 <div class="modal-container">
                     <div class="modal-close" @click="$emit('close')">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
@@ -48,6 +48,14 @@ export default {
         this.ploader = this.loader;
       }*/
   },
+  methods:{
+      onClose(e){
+        //console.log(' *** - ', e.target.closest('.modal-container') != null);
+        if(e.target.closest('.modal-container') == null){
+            this.$emit('close');
+        }
+      }
+  }
 }
 </script>
 
@@ -66,8 +74,11 @@ export default {
 }
 
 .modal-wrapper {
-  display: table-cell;
+  @include align-center;
+  justify-content: center;
   vertical-align: middle;
+  overflow: auto;
+  height: 100%;
 }
 
 .modal-container {
