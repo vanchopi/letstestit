@@ -4,7 +4,7 @@
     <pop-up v-if="showModal" @close="close()">
         <h3 slot="header">{{$t('contact_us')}}</h3>
         <div class="feedback-form" slot="body">
-            <form @submit.prevent="submitForm()">
+            <form @submit.prevent="submitForm()" v-if="sendedStatus != 'sended'">
                 <div class="form-group custom__1">
                     <div class="form-row">
                         <label for="email" class="required">{{$t('email_address')}}</label>
@@ -38,9 +38,12 @@
                     </div>                                        
                 </div>
             </form>
+            <div class="message__wrapper" v-else>
+                {{statusMessage}}
+            </div>
         </div>
         <div class="form-submit__wrapper" slot="footer">
-              <button class="base-button" @click="submitForm()">
+              <button class="base-button" @click="submitForm()" v-if="sendedStatus != 'sended'">
                 Send
               </button>
         </div>
@@ -65,6 +68,8 @@ export default {
   data: () => ({    
     showModal: false,
     submitStatus: null,
+    sendedStatus: null,
+    statusMessage: '',
     form:{
       name: '',
       email: '',
@@ -104,25 +109,46 @@ export default {
   },
   methods:{
     ...mapActions('form', ['sendFormData']), 
-    submitForm() {      
+    submitForm() {
+      let self = this;      
       this.$v.$touch()
       if (this.$v.$invalid) {
         this.submitStatus = 'ERROR';
         console.log('ERROR');
       } else {
-        this.submitStatus = 'PENDING'
-        /*setTimeout(() => {
-          this.submitStatus = 'OK';
-          console.log('OK');
-          this.cleanForm();
-          this.close();
-        }, 500)*/
+        this.submitStatus = 'PENDING'        
         this.sendFormData(this.form).then((response) => {
-            console.log('vse good', response);
+            console.log('sended - ', response.data.status);
+            this.changeStatus(response.data.status);
         }).catch((error) => {
             console.log('from error - ',error);
+            this.faildSending();            
         })
       }
+    },
+    changeStatus(status){        
+        if(status == 'success'){
+          this.sendedStatus = 'sended';
+          this.statusMessage = 'сообщение отправлено!';
+          this.submitStatus = 'OK';
+          setTimeout(() => {           
+            this.sendedStatus = null; 
+            this.submitStatus = null;
+            this.cleanForm();
+            this.close();
+          }, 1000)
+        }else{
+          this.faildSending()
+        }
+    },
+    faildSending(){
+        this.sendedStatus = 'sended';
+        this.statusMessage = 'Ой, что-то пошло не так 0_о...';
+        setTimeout(() => {
+          this.sendedStatus = null;
+          this.submitStatus = null;
+          this.statusMessage = '';
+        }, 1000)
     },
     cleanForm(){
       this.form.name = '';
