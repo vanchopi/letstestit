@@ -12,6 +12,7 @@ class InfoController extends Controller
     protected function sendedFormData(Request $request)
     {
         //Mail::to("vanchopi@yahoo.com")->send('opa na');
+
         $to = 'vanchopi93@yandex.com';
         $subject = 'Сообщение с сайта: ' . env('CLIENT_URL');
         $message = 'От: ' . $request->name . "\r\n" . 
@@ -20,9 +21,17 @@ class InfoController extends Controller
 	    $headers =  'From: webmaster@letstestit.ru'       . "\r\n" .
 	                'Reply-To: webmaster@letstestit.ru' . "\r\n" .
 	                'X-Mailer: PHP/' . phpversion();
-	    mail($to, $subject, $message, $headers);
+	    $send = mail($to, $subject, $message, $headers);
+        $status = '';
+        if($send){
+            $status = 'success';
+            $info = Info::create($request->all());
+        }else{
+            $status = 'error';
+        }
         return  $result = [
-        			"status" => 'success'
+        			"status" => $status,
+                    "send" => $send,
         		];
     }
 }

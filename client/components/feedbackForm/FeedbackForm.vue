@@ -110,6 +110,7 @@ export default {
   methods:{
     ...mapActions('form', ['sendFormData']), 
     submitForm() {
+      console.log('submitForm');
       let self = this;      
       this.$v.$touch()
       if (this.$v.$invalid) {
@@ -134,6 +135,7 @@ export default {
           setTimeout(() => {           
             this.sendedStatus = null; 
             this.submitStatus = null;
+            this.$v.$reset();
             this.cleanForm();
             this.close();
           }, 1000)
