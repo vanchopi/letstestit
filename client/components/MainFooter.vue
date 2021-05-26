@@ -1,6 +1,5 @@
 <template>
-  <footer class="footer-wrapper">
-
+  <footer class="footer-wrapper">       
     <div class="footer-top__wrapper">
       <div class="container">
         <div class="row">        
@@ -86,14 +85,14 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 
+
 export default {
-  components: {
-    
+  components: {       
   },
 
   data: () => ({
     appName: process.env.appName,
-    searchStr:'',
+    searchStr:'',    
   }),
 
   watch:{

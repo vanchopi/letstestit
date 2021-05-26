@@ -16,7 +16,7 @@
   "password": "Password",
   "forgot_password": "Forgot Your Password?",
   "confirm_password": "Confirm Password",
-  "name": "Name",
+  "name": "имя",
   "toggle_navigation": "Toggle navigation",
   "home": "Let's test it",
   "you_are_logged_in": "You are logged in!",
@@ -43,5 +43,8 @@
   "search" : "поиск",
   "about": "О проекте",
   "popular_tests" : "Популярные тесты",
-  "ouch": "Упс! Пока в этой категории ничего нет..."
+  "ouch": "Упс! Пока в этой категории ничего нет...",
+  "contact_us": "Свяжитесь с нами",
+  "email_address": "электронная почта",
+  "message": "сообщение"
 }

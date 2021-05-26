@@ -38,5 +38,8 @@
   "search" : "search",
   "about": "about",
   "popular_tests" : "Popular tests",
-  "ouch": "Ouch! There is nothing in this category yet..."
+  "ouch": "Ouch! There is nothing in this category yet...",
+  "contact_us": "contact Us",
+  "email_address": "email address",
+  "message": "message"
 }
