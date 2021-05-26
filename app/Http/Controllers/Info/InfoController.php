@@ -13,7 +13,7 @@ class InfoController extends Controller
     {
         //Mail::to("vanchopi@yahoo.com")->send('opa na');
 
-        $to = 'vanchopi93@yandex.com';
+        $to = 'vanchopi93@yandex.ru';
         $subject = 'Сообщение с сайта: ' . env('CLIENT_URL');
         $message = 'От: ' . $request->name . "\r\n" . 
         		   'E-mail: ' . $request->email . "\r\n" . 
