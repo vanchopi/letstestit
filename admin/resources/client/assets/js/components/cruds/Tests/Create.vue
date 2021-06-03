@@ -311,7 +311,7 @@
                                                                 >
                                                         </div>
                                                         <div class="input-group mb-3">
-                                                            <textarea :name="'num_description' + index" 
+                                                            <!--<textarea :name="'num_description' + index" 
                                                                       :id="'num-description' + index" 
                                                                       :placeholder="'Description for result № ' + index"
                                                                       cols="30" 
@@ -320,7 +320,15 @@
                                                                       v-model="item.description"
                                                                       @input="resultOnInput"
                                                                     >                                                    
-                                                            </textarea>
+                                                            </textarea>-->
+                                                            <text-editor :name="'num_description' + index" 
+                                                                         :id="'num-description' + index" 
+                                                                         :placeholder="'Description for result № ' + index"                       
+                                                                         required="" 
+                                                                         v-model="item.description"
+                                                                         @input="resultOnInput"
+                                                            />
+                                                            --- {{item.description}}
                                                         </div>
 
                                                         <div class="form-group">
@@ -462,11 +470,13 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import CreateImage from './createImage/CreateImage'
+import TextEditor from '../../global/TextEditor'
 import Vue from 'vue'
 
-export default {
+export default {    
     components: {    
         CreateImage,
+        TextEditor,
     },
     data() {
         return {
