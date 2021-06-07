@@ -2423,6 +2423,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
 
 
 
@@ -2779,6 +2781,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             console.log('opa - ', this.selectedSign);
             return this.selectedSign;
             //console.log('results store - ', this.resultsItem);
+        },
+        textEditorOnInput: function textEditorOnInput(data, num) {
+            /*console.log('editor on input - ', data, num);
+            console.log('**** results on input - ', this.results);*/
+            this.results[num].description = data;
+            this.updateResults();
         },
         resultOnInput: function resultOnInput() {
             //console.log('on input fields', this.results);            
@@ -4209,6 +4217,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'TextEditor',
+  props: ['textCallbak', 'num'],
   components: {
     Ckeditor: __WEBPACK_IMPORTED_MODULE_0_vue_ckeditor2__["default"]
   },
@@ -4227,6 +4236,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     onEditorInput: function onEditorInput() {
       console.log('data - ', this.content);
+      this.textCallbak(this.content, this.num);
     }
   }
 });
@@ -37964,7 +37974,10 @@ var render = function() {
                                                   placeholder:
                                                     "Description for result № " +
                                                     index,
-                                                  required: ""
+                                                  required: "",
+                                                  textCallbak:
+                                                    _vm.textEditorOnInput,
+                                                  num: index
                                                 },
                                                 on: {
                                                   input: _vm.resultOnInput

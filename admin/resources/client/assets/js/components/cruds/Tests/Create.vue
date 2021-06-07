@@ -326,6 +326,8 @@
                                                                          :placeholder="'Description for result № ' + index"                       
                                                                          required="" 
                                                                          v-model="item.description"
+                                                                         :textCallbak="textEditorOnInput"
+                                                                         :num="index"
                                                                          @input="resultOnInput"
                                                             />
                                                             --- {{item.description}}
@@ -843,6 +845,12 @@ export default {
             console.log('opa - ', this.selectedSign);
             return this.selectedSign;
             //console.log('results store - ', this.resultsItem);
+        },
+        textEditorOnInput(data, num){
+            /*console.log('editor on input - ', data, num);
+            console.log('**** results on input - ', this.results);*/
+            this.results[num].description = data;
+            this.updateResults();
         },
         resultOnInput(){
             //console.log('on input fields', this.results);            

@@ -9,6 +9,7 @@ import Ckeditor from 'vue-ckeditor2'
 
 export default {
   name: 'TextEditor',
+  props: ['textCallbak', 'num'],
   components: { 
     Ckeditor 
   },
@@ -28,6 +29,7 @@ export default {
   methods:{
       onEditorInput(){
           console.log('data - ', this.content);
+          this.textCallbak(this.content, this.num);
       }
   }
 }
