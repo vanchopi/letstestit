@@ -43150,7 +43150,8 @@ var actions = {
             dispatch = _ref3.dispatch;
 
         axios.get('/api/v1/tests/' + id).then(function (response) {
-            commit('setItem', response.data.data);
+            console.log('test data - ', response.data.tests);
+            commit('setItem', response.data.tests);
         });
 
         dispatch('fetchCategoriesAll');

@@ -204,8 +204,9 @@ const actions = {
     },
     fetchData({ commit, dispatch }, id) {
         axios.get('/api/v1/tests/' + id)
-            .then(response => {                
-                commit('setItem', response.data.data)
+            .then(response => {
+                console.log('test data - ', response.data.tests);                
+                commit('setItem', response.data.tests)
             })
 
         dispatch('fetchCategoriesAll')

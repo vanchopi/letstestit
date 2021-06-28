@@ -26,14 +26,18 @@ class TestsController extends Controller
     }
 
     public function show($id)
-    {
+    {        
         if (Gate::denies('test_view')) {
             return abort(401);
         }
-
         $test = Test::with(['category'])->findOrFail($id);
-
-        return new TestResource($test);
+        //$tests = new TestResource($test);
+        return $response = [
+            'tests' => new TestResource($test),
+            'results' => Result::select('variants')->where('test_id',$id)->first(),
+            'meta' => Meta::where(['model_type' => 'App\Test','model_id' => $id])->get()->first()
+        ];
+        //return new TestResource($test);
     }
 
     public function store(StoreTestsRequest $request)
