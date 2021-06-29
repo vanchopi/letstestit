@@ -206,7 +206,8 @@ const actions = {
         axios.get('/api/v1/tests/' + id)
             .then(response => {
                 console.log('test data - ', response.data.tests);                
-                commit('setItem', response.data.tests)
+                commit('setItem', response.data.tests);
+                commit('setFullSeo', response.data.meta.data);
             })
 
         dispatch('fetchCategoriesAll')
@@ -265,6 +266,9 @@ const actions = {
 const mutations = {
     setItem(state, item) {
         state.item = item
+    },
+    setFullSeo(state, item){
+        state.item.seo = JSON.parse(item)
     },
     setCategory(state, value) {
         state.item.category = value

@@ -330,7 +330,7 @@
                                                                          :num="index"
                                                                          @input="resultOnInput"
                                                             />
-                                                            --- {{item.description}}
+                                                            
                                                         </div>
 
                                                         <div class="form-group">
@@ -655,19 +655,10 @@ export default {
             }
             return subFile;
         },
-        updateQuestionImage(e, index){            
-            /*let imgRecord = {                
-                img: e.target.files[0],
-                id: index
-            }
-            this.resultsItem
-            console.log('imgRecord - ', imgRecord);
-            this.setResultsImage(imgRecord);*/
-            /*this.setQuestions(this.questions);
-            console.log('store', this.item.questions);*/
+        updateQuestionImage(e, index){           
+            
             this.questions[index].img = e.target.files[0];
             console.log('1. questions img - ', this.questions);
-            //console.log('updated result arr - ', this.results);
             this.setQuestions(this.questions);
             console.log('2. questions store - ', this.item.questions);
         },
@@ -678,24 +669,7 @@ export default {
                 id = 'thumb' + index;                                    
             this.results[index].img = e.target.files[0];            
             this.setResults(this.results);
-            console.log('results store - ', this.resultsItem);
-            
-            /*console.log(' loaded img - ', context);            
-
-            reader.onloadend = (function(f, context) {
-                return function(e) {                    
-                    let el = document.getElementById(id),
-                        img = document.getElementById("canvasImg" + index);
-                    el.src = this.result;
-                    img.src = this.result;
-                };                
-            })(file);
-
-            if (file) {
-                reader.readAsDataURL(file);
-            } else {
-                console.log('Ooops');
-            }*/
+            console.log('results store - ', this.resultsItem);            
         },
         removeResultImage(e, id){
 
@@ -799,14 +773,6 @@ export default {
         },
         onChangeType(){          
           let val = this.selectedType;
-          /*switch(val.id) {
-            case 0:  
-              
-              break;
-            case 1:
-              
-              break
-          }*/
           this.setType(this.selectedType.type);          
         },
         updateQuestions() {
@@ -822,7 +788,6 @@ export default {
             this.setQuestions(this.questions);
         },
         checkOnInput( el , num){
-            //console.log('on check changed', el, ' + ' , num);
             for (let i = 0; i < this.quizParams.rows; i++){
                 if (  i == num ){
                     this.questions[el].answers[i].checked = true;
@@ -844,16 +809,12 @@ export default {
             };
             console.log('opa - ', this.selectedSign);
             return this.selectedSign;
-            //console.log('results store - ', this.resultsItem);
         },
         textEditorOnInput(data, num){
-            /*console.log('editor on input - ', data, num);
-            console.log('**** results on input - ', this.results);*/
             this.results[num].description = data;
             this.updateResults();
         },
-        resultOnInput(){
-            //console.log('on input fields', this.results);            
+        resultOnInput(){          
             this.updateResults();
             
         },
