@@ -92,12 +92,12 @@ export default {
     },
     created() {
         // Code...
-        console.log('results - ', this.results);        
+        console.log('!2 results - ', this.results);        
     },
     methods: {
         //
         fillData(){
-          console.log('results - ', this.results);
+          console.log('!3 results - ', this.results);
           this.imgText = {
             title : this.title,
             result: this.results.result,

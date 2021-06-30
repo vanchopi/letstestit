@@ -27,33 +27,31 @@
                                 <div class="box">
                                     <div class="box-header with-border">
                                         <h3 class="box-title">Edit</h3>
-                                    </div>
+                                    </div>                                                              
 
-                                    <div class="box">                            
-
-                                        <div class="box-body">
-                                            <div class="form-group">
-                                                <label for="category">Category id</label>
-                                                <v-select
-                                                        name="category"
-                                                        label="title"
-                                                        @input="updateCategory"
-                                                        :value="item.category"
-                                                        :options="categoriesAll"
-                                                        />
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="title">Title</label>
-                                                <input
-                                                        type="text"
-                                                        class="form-control"
-                                                        name="title"
-                                                        placeholder="Enter Title"
-                                                        :value="item.title"
-                                                        @input="updateTitle"
-                                                        >
-                                            </div>
-                                            <div class="form-group">
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <label for="category">Category id</label>
+                                            <v-select
+                                                    name="category"
+                                                    label="title"
+                                                    @input="updateCategory"
+                                                    :value="item.category"
+                                                    :options="categoriesAll"
+                                                    />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="title">Title</label>
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    name="title"
+                                                    placeholder="Enter Title"
+                                                    :value="item.title"
+                                                    @input="updateTitle"
+                                                    >
+                                        </div>
+                                        <div class="form-group">
                                             <label for="url">Url</label>
                                             <input
                                                     type="text"
@@ -64,90 +62,328 @@
                                                     @input="updateUrl"
                                                     >
                                         </div>
-                                            <div class="form-group">
-                                                <label for="main_image">Main image</label>
-                                                <input
-                                                        type="file"
-                                                        class="form-control"
-                                                        @change="updateMain_image"
-                                                >
-                                                <ul v-if="item.main_image" class="list-unstyled">
-                                                    <li>
-                                                        {{ item.main_image.name || item.main_image.file_name }}
-                                                        <button class="btn btn-xs btn-danger"
-                                                                type="button"
-                                                                @click="removeMain_image"
-                                                        >
-                                                            Remove file
-                                                        </button>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="bg_image">Bg image</label>
-                                                <input
-                                                        type="file"
-                                                        class="form-control"
-                                                        @change="updateBg_image"
-                                                >
-                                                <ul v-if="item.bg_image" class="list-unstyled">
-                                                    <li>
-                                                        {{ item.bg_image.name || item.bg_image.file_name }}
-                                                        <button class="btn btn-xs btn-danger"
-                                                                type="button"
-                                                                @click="removeBg_image"
-                                                        >
-                                                            Remove file
-                                                        </button>
-                                                    </li>
-                                                </ul>
-                                            </div>
+                                        <div class="form-group">
+                                            <label for="main_image">Main image</label>
+                                            <input
+                                                    type="file"
+                                                    class="form-control"
+                                                    @change="updateMain_image"
+                                            >
+                                            <ul v-if="item.main_image" class="list-unstyled">
+                                                <li>
+                                                    {{ item.main_image.name || item.main_image.file_name }}
+                                                    <button class="btn btn-xs btn-danger"
+                                                            type="button"
+                                                            @click="removeMain_image"
+                                                    >
+                                                        Remove file
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="bg_image">Bg image</label>
+                                            <input
+                                                    type="file"
+                                                    class="form-control"
+                                                    @change="updateBg_image"
+                                            >
+                                            <ul v-if="item.bg_image" class="list-unstyled">
+                                                <li>
+                                                    {{ item.bg_image.name || item.bg_image.file_name }}
+                                                    <button class="btn btn-xs btn-danger"
+                                                            type="button"
+                                                            @click="removeBg_image"
+                                                    >
+                                                        Remove file
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
 
-                                            <div class="form-group">
-                                                <label for="popularity">Popularity (step - 0.00001)</label>
-                                                <input  type="number"
-                                                        step="0.00001"
-                                                        class="form-control"
-                                                        name="popularity"
-                                                        placeholder="Enter Popularity(float)"
-                                                        :value="item.popularity"
-                                                        @input="updatePopularity"
-                                                        min="0"
-                                                        >
-                                            </div>
+                                        <div class="form-group">
+                                            <label for="popularity">Popularity (step - 0.00001)</label>
+                                            <input  type="number"
+                                                    step="0.00001"
+                                                    class="form-control"
+                                                    name="popularity"
+                                                    placeholder="Enter Popularity(float)"
+                                                    :value="item.popularity"
+                                                    @input="updatePopularity"
+                                                    min="0"
+                                                    >
+                                        </div>
 
-                                            <div class="form-group __1">
-                                                <div class="col">
-                                                    <label for="type">CHOOSE TEST TYPE </label>
-                                                    <select name="type" 
-                                                            id="type" 
-                                                            disabled="" 
-                                                            v-model="selectedType"
-                                                            @change="onChangeType"
-                                                            class="form-control" 
+                                        <div class="form-group __1">
+                                            <div class="col">
+                                                <label for="type">CHOOSE TEST TYPE </label>
+                                                <select name="type" 
+                                                        id="type" 
+                                                        disabled="" 
+                                                        v-model="selectedType.type"
+                                                        @change="onChangeType"
+                                                        class="form-control" 
+                                                  >
+                                                      <option v-for="type in testTypes"
+                                                              :value="type.type"
                                                       >
-                                                          <option v-for="type in testTypes"
-                                                                  :value="type.type"
-                                                          >
-                                                            {{type.type}}
-                                                          </option>
-                                                    </select>
+                                                        {{type.type}}
+                                                      </option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <hr>
+
+                                        <div class="form-group">
+                                            <label for="questions">Questions:</label>
+                                            <div class="questions-paramrtrs__wrapper">                                        
+                                                <div class="col">
+                                                    <label for="columns">Number of Questions</label>
+                                                    <input type="number" 
+                                                           class="form-control" 
+                                                           name="columns" 
+                                                           placeholder="Number of Questions" 
+                                                           v-model="quizParams.columns"
+                                                           min="1"
+                                                           max="100" 
+                                                           @input="setQuestionsOptions"
+                                                        >
+                                                </div>
+                                                <div class="col">
+                                                    <label for="rows">Answers for one question</label>
+                                                    <input type="number" 
+                                                           class="form-control" 
+                                                           name="rows"
+                                                           placeholder="Answers for one question" 
+                                                           v-model="quizParams.rows"
+                                                           min="1"
+                                                           max="20" 
+                                                           @input="setQuestionsOptions"
+                                                        >
+                                                </div>                                        
+                                            </div>
+                                            <div class="questions-wrapper">
+                                                <ul class="nav nav-tabs"
+                                                    >
+                                                    <li v-for="(item, index) in questions"    
+                                                        class="nav-item"
+                                                        :class="index == 0 ? 'active' : ''"
+                                                        >
+                                                        <a class="nav-link" data-toggle="tab" :href="'#' + item.id ">№{{index }}</a>
+                                                    </li>                                            
+                                                </ul>
+                                                <div class="tab-content">
+                                                    <div v-for="(item, index) in questions"                                                    
+                                                         class="tab-pane" 
+                                                         :class="index == 0 ? 'active' : ''"
+                                                         :id="item.id"
+                                                        >
+                                                        <span>Tabs for question № {{index}}</span>  
+
+                                                        <div class="fields-wrapper">                                                            
+                                                            <div class="input-group mb-3">
+                                                                <label :for="'num_question' + item.id" class="required">Question</label>
+                                                                <input type="text" 
+                                                                       class="form-control" 
+                                                                       placeholder="Question" 
+                                                                        
+                                                                       :name="'num_question' + item.id"
+                                                                       required=""
+                                                                       v-model="item.question" 
+                                                                       @input="answerOnInput"
+                                                                    >
+                                                            </div>
+                                                            <div class="input-group mb-3">
+                                                                <label :for="'question_image' + index">Image for question №{{index}}</label>
+                                                                <input
+                                                                        type="file"
+                                                                        class="form-control"
+                                                                        @change="updateQuestionImage($event, index)"
+                                                                >
+                                                                <ul v-if="item.img" class="list-unstyled">
+                                                                    <li>
+                                                                        {{ item.img.name || item.img.file_name }}
+                                                                        <button class="btn btn-xs btn-danger"
+                                                                                type="button"
+                                                                                @click="removeQuestionImage"
+                                                                        >
+                                                                            Remove file
+                                                                        </button>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="answers-wrapper">
+                                                                <div class="labels-wrapper">
+                                                                    <label :for="'num_answer' + item.id" class="required">Answers</label>
+                                                                    <label v-if="selectedType.id == 0">Correct</label>
+                                                                    <label v-if="selectedType.id == 1">Sign</label>
+                                                                </div>
+                                                                <div v-for="(answer, index) in item.answers"
+                                                                     class="mb-3">  
+                                                                    <div class="fields-wrapper__internal">
+                                                                        <div class="fields-wrapper__item">
+                                                                            <input type="text"
+                                                                                   class="form-control"
+                                                                                   :placeholder="'answer' + ' № ' + index"
+                                                                                   
+                                                                                   :name="'num_answer' + item.id + answer.id"
+                                                                                   required=""
+                                                                                   v-model="answer.dsc"
+                                                                                   @input="answerOnInput"
+                                                                                >
+                                                                        </div>
+                                                                        <div class="fields-wrapper__item"
+                                                                             v-if="selectedType.id == 0"
+                                                                            >  
+                                                                            <label class="check-container">answer № {{index}}
+                                                                                <input  type="radio" 
+                                                                                        :name="'num_checked' + item.id"
+                                                                                        v-model="answer.checked"
+                                                                                        class="hidden"
+                                                                                        @input="checkOnInput(item.id, index)"
+                                                                                >
+                                                                                <span class="checkmark"></span>
+                                                                            </label>                               
+                                                                        </div>
+                                                                        <div class="fields-wrapper__item"
+                                                                             v-if="selectedType.id == 1"
+                                                                            >
+                                                                            <select name="sign" 
+                                                                                  id="sign" 
+                                                                                  v-model="answer.sign"
+                                                                                  @change="onSignType"
+                                                                                  class="form-control" 
+                                                                            >
+                                                                                <option v-for="sign in selectedSign"
+                                                                                        :value="sign"                                              
+                                                                                >
+                                                                                  {{sign.result}}
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>      
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>                                            
                                                 </div>
                                             </div>
+                                        </div>  
 
-                                            <hr>
-                                        </div>
+                                        <hr>
 
-                                        <div class="box-footer">
-                                            <vue-button-spinner
-                                                    class="btn btn-primary btn-sm"
-                                                    :isLoading="loading"
-                                                    :disabled="loading"
-                                                    >
-                                                Save
-                                            </vue-button-spinner>
-                                        </div>
+                                        <div class="form-group">
+                                            <label for="results">Results:</label>
+                                            <div class="questions-paramrtrs__wrapper __results">                                        
+                                                <div class="col">
+                                                    <label for="columns">Number of Results</label>
+                                                    <input type="number" 
+                                                           class="form-control" 
+                                                           name="columns" 
+                                                           placeholder="Number of Results" 
+                                                           v-model="resultsRows"
+                                                           min="1"
+                                                           max="15" 
+                                                           @input="setResultsOptions"
+                                                        >
+                                                </div>
+                                                <div class="col">
+                                                    <a href="https://www.resizepixel.com/ru" target="_blank">Image editor</a>
+                                                </div>
+                                            </div>
+                                            <div class="results-fields__wrapper fields-wrapper">
+                                                <div    v-for="(item, index) in results"
+                                                        class="results-fields__item"                                             
+                                                >
+                                                    <div class="result-fields__internal">
+                                                        <div class="input-group mb-3">
+                                                            <!--<label :for="'num_result' + item.id" class="required">Result №{{index}}</label>-->
+                                                            <input type="text" 
+                                                                   class="form-control" 
+                                                                   :placeholder="'Result № ' + index" 
+                                                                    
+                                                                   :name="'num_result' + item.id"
+                                                                   required=""
+                                                                   v-model="item.result" 
+                                                                   @input="resultOnInput"
+                                                                >
+                                                        </div>
+                                                        <div class="input-group mb-3">
+                                                            <!--<textarea :name="'num_description' + index" 
+                                                                      :id="'num-description' + index" 
+                                                                      :placeholder="'Description for result № ' + index"
+                                                                      cols="30" 
+                                                                      rows="6"
+                                                                      required="" 
+                                                                      v-model="item.description"
+                                                                      @input="resultOnInput"
+                                                                    >                                                    
+                                                            </textarea>-->
+                                                            <text-editor :name="'num_description' + index" 
+                                                                         :id="'num-description' + index" 
+                                                                         :placeholder="'Description for result № ' + index"                       
+                                                                         required="" 
+                                                                         v-model="item.description"
+                                                                         :textCallbak="textEditorOnInput"
+                                                                         :num="index"
+                                                                         @input="resultOnInput"
+                                                            />
+                                                            
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label :for="'result_image' + index">Result Image №{{index}}</label>
+                                                            <input
+                                                                    type="file"
+                                                                    class="form-control"
+                                                                    @change="updateResultImage($event, index)"
+                                                            >
+                                                            <ul v-if="item.img" class="list-unstyled">
+                                                                <li>
+                                                                    {{ item.img.name || item.img.file_name }}
+                                                                    <button class="btn btn-xs btn-danger"
+                                                                            type="button"
+                                                                            @click="removeResultImage"
+                                                                    >
+                                                                        Remove file
+                                                                    </button>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div v-if="selectedType.id == 0" class="input-group mb-3">       
+                                                            <label for="">Num of correct answers</label>
+                                                            <input type="number" 
+                                                                   class="form-control" 
+                                                                   :placeholder="'Max ' + quizParams.columns" 
+                                                                   :name="'num_value' + item.id"
+                                                                   required=""
+                                                                   v-model="item.value"
+                                                                   @input="resultOnInput"
+                                                                   min="1"
+                                                                   :max="quizParams.columns"
+                                                                >
+                                                        </div>
+                                                    </div>
+                                                    <div class="result-fields__img">
+                                                        <div :id="'show-modal' + index" @click="onCreatorOpen(index, item);showModal = true" class="btn btn-primary btn-sm">Result Image Generator</div>                                                         
+                                                        <img :src="results[index].resultThumb.src" alt="">
+                                                    </div>
+                                                </div>                                                
+                                            </div>
+                                        </div>                        
+
+                                        <create-image :showModal="showModal" 
+                                                      :onCloseWindow="onCloseWindow" 
+                                                      :title="txtTitle" 
+                                                      :num="creatorData.index" 
+                                                      :results="creatorData.results" 
+                                                      :onApplyImage="onApplyImage"
+                                        />
+                                        
                                     </div>
+                                        
+                                    
                                 </div>
                             </div>
                             <div class="tab-pane" id="seo">
@@ -214,6 +450,15 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="bt-wrapper">
+                            <vue-button-spinner
+                                    class="btn btn-primary btn-sm"
+                                    :isLoading="loading"
+                                    :disabled="loading"
+                                    >
+                                Save
+                            </vue-button-spinner>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -236,8 +481,71 @@ export default {
         return {
             txtTitle: '', 
             showModal: false,
+            createdImg: '',
+            tmpCanvas: '',        
+            quizParams:{
+                columns: 2,
+                rows: 1,
+            },
+            resultsRows: 1,
             begin: true,
-            selectedType: '',
+            selectedType: {
+                id: 0,
+                type: 'knowledges',
+            },
+            selectedSign:[
+              {
+                id: 0,
+                result: '***',
+              }
+            ],
+            questions: [
+                {
+                    id: 0,
+                    img: null,
+                    question: '',
+                    answers: [
+                        {
+                            id: 0,
+                            dsc: '',
+                            checked: false,
+                            value: 0,
+                            sign: null,
+                        }
+                    ]
+                },
+                {
+                    id: 1,
+                    question: '',
+                    answers: [
+                        {
+                            id: 0,
+                            dsc: '',
+                            checked: false,
+                            value: 0,
+                            sign: null,
+                        }
+                    ]
+                }
+            ],
+            results:[
+                {
+                    id: 0,
+                    result: '',
+                    img: '',
+                    description: '',
+                    value: 0,
+                    sign: '',
+                    resultThumb:{
+                        src: '',
+                    }
+                }
+            ],
+            resultsThumbs:[
+                {
+                    src: ''
+                }
+            ],
             testTypes: [
               { 
                 id: 0,
@@ -254,6 +562,13 @@ export default {
                 description: '',
                 keywords:'',
             },
+            creatorData:{
+                index: null,
+                results: {
+                    result: '',
+                    description: ''
+                }
+            }
         }
     },
     computed: {
@@ -271,23 +586,84 @@ export default {
             this.fetchData(this.$route.params.id)
         },
         "item": function(){
-            if(this.begin){
+            if(this.begin){                
                 this.seo = this.item.seo;
-                this.selectedType = this.item.test_type;
+                //this.selectedType = this.item.test_type;
+                this.setTypeToForm();
+                this.setResultsToForm();
+                this.setQuestionsToForm(); 
+                //call store setters               
                 this.begin = false;
             }
         },
     },
     methods: {
-        ...mapActions('TestsSingle', ['fetchData', 'updateData', 'resetState', 'setCategory', 'setTitle', 'setUrl', 'setType', 'setPopularity', 'setMain_image', 'setBg_image']),
+        ...mapActions('TestsSingle', ['fetchData', 'updateData', 'resetState', 'setCategory', 'setTitle', 'setUrl', 'setPopularity', 'setType', 'setQuestions', 'setResults', 'setSeo', 'setResultsImage' , 'setMain_image', 'setBg_image']),        
+        setTypeToForm(){
+            this.testTypes.forEach((el) => {
+                if (el.type === this.item.test_type){
+                    this.selectedType = el;
+                } 
+            })
+        },
+        setQuestionsToForm(){
+            this.quizParams.columns = JSON.parse(this.item.questions).length;
+            this.quizParams.rows = JSON.parse(this.item.questions)[0].answers.length;
+            this.setQuestionsOptions();
+            this.questions = JSON.parse(this.item.questions);
+            //correct answers
+            //signs
+            //question images
+            console.log('questions - ', this.questions);
+        },
+        setResultsToForm(){
+            let result = this.resultsItem;
+                result.forEach((el) => {
+                    el['resultThumb'] = ''
+                })
+            console.log('1.results - ', this.resultsItem);
+            this.resultsRows = this.resultsItem.length;
+            this.setResultsOptions();
+            this.results = result;
+            //set thumbs
+        },
         updateCategory(value) {
             this.setCategory(value)
         },
         updateTitle(e) {
-            this.setTitle(e.target.value)
+            this.setTitle(e.target.value);
+            this.txtTitle = e.target.value;
+            this.setSeoMask();
+            this.seoOnInput();
         },
         updateUrl(e) {
             this.setUrl(e.target.value);
+        },
+        checkNum( val ){
+            if (val < 0 ){
+              val = 0;
+            }
+            return val;
+        },        
+        onCloseWindow(data){
+            this.showModal = data;
+        },
+        onCreatorOpen( num, data ){
+            //console.log('1. onCreatorOpen - ', num, data );
+            this.creatorData.index = num;
+            this.creatorData.results.result = data.result;
+            this.creatorData.results.description = data.description;
+            //console.log(' creator -  ',this.creatorData);
+        },
+        onApplyImage(data){
+            console.log('image data - ', data);
+            this.results[data.num].resultThumb.src = data.src;
+            console.log('result thumbs - ', this.results);
+            this.setResults(this.results); 
+            console.log('results store - ', this.resultsItem);           
+        },
+        updatePopularity(e){
+            this.setPopularity(parseFloat(this.checkNum(e.target.value)));
         },
         removeMain_image(e, id) {
             this.$swal({
@@ -309,6 +685,38 @@ export default {
             this.setMain_image(e.target.files[0]);
             this.$forceUpdate();
         },
+        fileToJson( file ){
+            let subFile = {
+              'lastMod'    : file.lastModified,
+              'lastModDate': file.lastModifiedDate,
+              'name'       : file.name,
+              'size'       : file.size,
+              'type'       : file.type,
+            }
+            return subFile;
+        },
+        updateQuestionImage(e, index){           
+            
+            this.questions[index].img = e.target.files[0];
+            console.log('1. questions img - ', this.questions);
+            this.setQuestions(this.questions);
+            console.log('2. questions store - ', this.item.questions);
+        },
+        updateResultImage(e, index){
+            var reader  = new FileReader(),
+                context = this,
+                file = e.target.files[0],
+                id = 'thumb' + index;                                    
+            this.results[index].img = e.target.files[0];            
+            this.setResults(this.results);
+            console.log('results store - ', this.resultsItem);            
+        },
+        removeResultImage(e, id){
+
+        },
+        removeQuestionImage(e, id){
+
+        },
         removeBg_image(e, id) {
             this.$swal({
                 title: 'Are you sure?',
@@ -329,15 +737,138 @@ export default {
             this.setBg_image(e.target.files[0]);
             this.$forceUpdate();
         },
-        updatePopularity(e){
-            //this.setPopularity(parseFloat(this.checkNum(e.target.value)));
+        setQuestionsOptions(){            
+            let questions = this.quizParams.columns == '' ? 1 : parseInt(this.quizParams.columns),
+                answers = this.quizParams.rows == '' ? 1 : parseInt(this.quizParams.rows);
+            if(questions < 1) {
+                questions = 1;
+                this.quizParams.columns = questions;    
+            }
+            if(questions > 100) {
+                questions = 100;
+                this.quizParams.columns = questions;    
+            }
+            if(answers < 1){ 
+                answers = 1;
+                this.quizParams.rows = answers;
+            }
+            if(answers > 20){ 
+                answers = 20;
+                this.quizParams.rows = answers;
+            }
+            this.drawColumnsRows(questions, answers);            
+
+        },
+        setResultsOptions(){
+            let results = this.resultsRows == '' ? 1 : parseInt(this.resultsRows);
+            if(results < 1) {
+                results = 1;
+                this.resultsRows = results;   
+            }
+            if(results > 15) {
+                results = 15;
+                this.resultsRows = results;    
+            }
+            this.drawResultsRows(results);
+        },
+        drawResultsRows( results ){
+            this.results = [];
+            for( let i = 0; i < results; i++){
+                this.results[i] = {
+                    id: i,
+                    result: '',
+                    img: '',
+                    description: '',
+                    value: 0,
+                    sign: '',
+                    resultThumb:{
+                        src: ''
+                    }
+                }
+                this.resultsThumbs[i] = {
+                    src: ''
+                }
+            };
+            return this.results;
+        },
+        drawColumnsRows(questions, answers){            
+            this.questions = [];
+            for( let i = 0; i < questions; i++){
+                this.questions[i] = {
+                    id: i,
+                    img: null,
+                    question: '',
+                    answers: []
+                };                
+                for(let j = 0; j < answers; j++){
+                    this.questions[i].answers[j] = {
+                        id: j,
+                        dsc: '',
+                        checked: false,
+                        sign: null,                        
+                    }
+                }
+            }            
+            return this.questions;
         },
         onChangeType(){          
-          /*let val = this.selectedType;
-          this.setType(this.selectedType.type);*/          
+          let val = this.selectedType;
+          this.setType(this.selectedType.type);          
+        },
+        updateQuestions() {
+            this.setQuestions(this.questions);
+            console.log('store', this.item.questions);
+        },
+        answerOnInput(){
+            console.log('on input fields', this.questions);            
+            this.updateQuestions();
+        },
+        onSignType(){
+            console.log('onSignType', this.questions);
+            this.setQuestions(this.questions);
+        },
+        checkOnInput( el , num){
+            for (let i = 0; i < this.quizParams.rows; i++){
+                if (  i == num ){
+                    this.questions[el].answers[i].checked = true;
+                } else{
+                    this.questions[el].answers[i].checked = false;
+                }
+            }
+            this.updateQuestions();
+        },
+        updateResults() {
+            this.setResults(this.results);
+            this.selectedSign = [];
+            for(let i = 0; i < this.results.length; i++ ){
+                console.log(i);
+                this.selectedSign.push({
+                    id: this.results[i].id,
+                    result: this.results[i].result,
+                })
+            };
+            console.log('opa - ', this.selectedSign);
+            return this.selectedSign;
+        },
+        textEditorOnInput(data, num){
+            this.results[num].description = data;
+            this.updateResults();
+        },
+        resultOnInput(){          
+            this.updateResults();
+            
         },
         seoOnInput(){
-
+            this.setSeo(this.seo);
+        },
+        setSeoMask(){
+            let title = this.item.title == null ? '' : this.item.title;
+            return this.seo = {
+                title: `${title}`,
+                h1: `Пройди тест ${title} на сайте letstestit.ru`,
+                description: `Хочешь узнать о себе максимум. Тест ${title} поможет тебе в этом. Сконцентрируйся, и постарайся ответить на все вопросы честно на сайте letstestit.ru`,
+                keywords:`тест ${title}, онлайн тест, пройти тест`,
+            };
         },
         submitForm() {
             this.updateData()

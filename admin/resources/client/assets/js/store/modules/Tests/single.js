@@ -121,7 +121,7 @@ const actions = {
             //console.log('4. all questions - ', state.item.questions);
             //console.log(' 5. questions img - ', questionsImg);
             /*console.log('params main_image - ', params.get('main_image'));*/
-            console.log('results - ', state.resultsItem);
+            console.log('! results - ', state.resultsItem);
             //console.log('variants', params.getAll('variants'));
             //console.log('qestions_img - ', params.getAll('qestions_img'));
 
@@ -206,8 +206,9 @@ const actions = {
         axios.get('/api/v1/tests/' + id)
             .then(response => {
                 console.log('test data - ', response.data.tests);                
+                commit('setResultsItem', response.data.results.variants);
                 commit('setItem', response.data.tests);
-                commit('setFullSeo', response.data.meta.data);
+                commit('setFullSeo', response.data.meta.data);                                
             })
 
         dispatch('fetchCategoriesAll')
@@ -269,6 +270,9 @@ const mutations = {
     },
     setFullSeo(state, item){
         state.item.seo = JSON.parse(item)
+    },
+    setResultsItem(state, item) {
+        state.resultsItem = JSON.parse(item)
     },
     setCategory(state, value) {
         state.item.category = value
