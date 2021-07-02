@@ -239,7 +239,7 @@
                                                                             <label class="check-container">answer № {{index}}
                                                                                 <input  type="radio" 
                                                                                         :name="'num_checked' + item.id"
-                                                                                        v-model="answer.checked"
+                                                                                        :checked="answer.checked"
                                                                                         class="hidden"
                                                                                         @input="checkOnInput(item.id, index)"
                                                                                 >
@@ -294,7 +294,8 @@
                                             </div>
                                             <div class="results-fields__wrapper fields-wrapper">
                                                 <div    v-for="(item, index) in results"
-                                                        class="results-fields__item"                                             
+                                                        class="results-fields__item"
+                                                        :key="index"                                             
                                                 >
                                                     <div class="result-fields__internal">
                                                         <div class="input-group mb-3">
@@ -310,26 +311,18 @@
                                                                 >
                                                         </div>
                                                         <div class="input-group mb-3">
-                                                            <!--<textarea :name="'num_description' + index" 
-                                                                      :id="'num-description' + index" 
-                                                                      :placeholder="'Description for result № ' + index"
-                                                                      cols="30" 
-                                                                      rows="6"
-                                                                      required="" 
-                                                                      v-model="item.description"
-                                                                      @input="resultOnInput"
-                                                                    >                                                    
-                                                            </textarea>-->
+
                                                             <text-editor :name="'num_description' + index" 
                                                                          :id="'num-description' + index" 
                                                                          :placeholder="'Description for result № ' + index"                       
                                                                          required="" 
                                                                          v-model="item.description"
                                                                          :textCallbak="textEditorOnInput"
+                                                                         :cContent = 'item.description'
                                                                          :num="index"
                                                                          @input="resultOnInput"
+                                                                         v-if="govno"
                                                             />
-                                                            
                                                         </div>
 
                                                         <div class="form-group">
@@ -479,6 +472,7 @@ export default {
     },
     data() {
         return {
+            govno: false,
             txtTitle: '', 
             showModal: false,
             createdImg: '',
@@ -592,13 +586,14 @@ export default {
                 this.setTypeToForm();
                 this.setResultsToForm();
                 this.setQuestionsToForm(); 
-                //call store setters               
+                //call all store setters
                 this.begin = false;
             }
         },
     },
     methods: {
-        ...mapActions('TestsSingle', ['fetchData', 'updateData', 'resetState', 'setCategory', 'setTitle', 'setUrl', 'setPopularity', 'setType', 'setQuestions', 'setResults', 'setSeo', 'setResultsImage' , 'setMain_image', 'setBg_image']),        
+        ...mapActions('TestsSingle', ['fetchData', 'updateData', 'resetState', 'setCategory', 'setTitle', 'setUrl', 'setPopularity', 'setType', 'setQuestions', 'setResults', 'setSeo', 'setResultsImage' , 'setMain_image', 'setBg_image']),
+        ...mapActions('EditorSingle', ['setEditorItem']),        
         setTypeToForm(){
             this.testTypes.forEach((el) => {
                 if (el.type === this.item.test_type){
@@ -614,6 +609,7 @@ export default {
             //correct answers
             //signs
             //question images
+            this.answerOnInput();
             console.log('questions - ', this.questions);
         },
         setResultsToForm(){
@@ -625,6 +621,16 @@ export default {
             this.resultsRows = this.resultsItem.length;
             this.setResultsOptions();
             this.results = result;
+            this.govno = true;
+            let arr = [];
+            /*this.results.forEach((el, index) => {
+                arr.push(el.description);
+                //this.govno = (index + 1) + 'govno';// это гавно какое-то...
+                //this.setEditorItem(arr);
+            });*/
+            //this.govno =  1 +'govno';            
+            this.resultOnInput();
+            //return this.results;
             //set thumbs
         },
         updateCategory(value) {

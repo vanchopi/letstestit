@@ -3257,13 +3257,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -3276,6 +3269,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     },
     data: function data() {
         return {
+            govno: false,
             txtTitle: '',
             showModal: false,
             createdImg: '',
@@ -3373,12 +3367,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 this.setTypeToForm();
                 this.setResultsToForm();
                 this.setQuestionsToForm();
-                //call store setters               
+                //call all store setters
                 this.begin = false;
             }
         }
     },
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TestsSingle', ['fetchData', 'updateData', 'resetState', 'setCategory', 'setTitle', 'setUrl', 'setPopularity', 'setType', 'setQuestions', 'setResults', 'setSeo', 'setResultsImage', 'setMain_image', 'setBg_image']), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TestsSingle', ['fetchData', 'updateData', 'resetState', 'setCategory', 'setTitle', 'setUrl', 'setPopularity', 'setType', 'setQuestions', 'setResults', 'setSeo', 'setResultsImage', 'setMain_image', 'setBg_image']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('EditorSingle', ['setEditorItem']), {
         setTypeToForm: function setTypeToForm() {
             var _this = this;
 
@@ -3396,6 +3390,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             //correct answers
             //signs
             //question images
+            this.answerOnInput();
             console.log('questions - ', this.questions);
         },
         setResultsToForm: function setResultsToForm() {
@@ -3407,6 +3402,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.resultsRows = this.resultsItem.length;
             this.setResultsOptions();
             this.results = result;
+            this.govno = true;
+            var arr = [];
+            /*this.results.forEach((el, index) => {
+                arr.push(el.description);
+                //this.govno = (index + 1) + 'govno';// это гавно какое-то...
+                //this.setEditorItem(arr);
+            });*/
+            //this.govno =  1 +'govno';            
+            this.resultOnInput();
+            //return this.results;
             //set thumbs
         },
         updateCategory: function updateCategory(value) {
@@ -4851,25 +4856,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_ckeditor2__ = __webpack_require__("./node_modules/vue-ckeditor2/dist/vue-ckeditor2.esm.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_ckeditor2__ = __webpack_require__("./node_modules/vue-ckeditor2/dist/vue-ckeditor2.esm.js");
 //
 //
 //
 //
 //
 //
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'TextEditor',
-  props: ['textCallbak', 'num'],
+  props: ['textCallbak', 'num', 'cContent'],
   components: {
-    Ckeditor: __WEBPACK_IMPORTED_MODULE_0_vue_ckeditor2__["default"]
+    Ckeditor: __WEBPACK_IMPORTED_MODULE_1_vue_ckeditor2__["default"]
   },
   data: function data() {
     return {
       content: '',
+      edit: false,
       config: {
         toolbar: [['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', 'Custom Button', 'Link', 'Unlink', 'Anchor', 'TextColor', 'BGColor', 'Undo', 'Redo', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock']],
         height: 300
@@ -4879,10 +4887,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     };
   },
 
+  computed: {
+    //...mapGetters('EditorSingle', ['item']),
+  },
+  created: function created() {
+    //this.content = this.contentValue;
+    console.log('! attr ', this.$attrs);
+    this.content = this.cContent != undefined ? this.cContent : '';
+    this.edit = this.content != '' ? true : false;
+  },
+
+  watch: {
+    /*'item': function(){
+        console.log(this.num ,' model - ', this.item);        
+    },*/
+    '$attr.value': function $attrValue() {
+      console.log('value - ', this.$attr.value);
+    }
+  },
   methods: {
+    //...mapActions('EditorSingle', ['setItem']),
     onEditorInput: function onEditorInput() {
-      console.log('data - ', this.content);
+      console.log('data - ', this.edit);
       this.textCallbak(this.content, this.num);
+      /*if(!this.edit){
+        this.textCallbak(this.content, this.num);            
+      }else{
+        this.edit = false;
+      }*/
     }
   }
 });
@@ -37006,18 +37038,6 @@ var render = function() {
                                                                       _c(
                                                                         "input",
                                                                         {
-                                                                          directives: [
-                                                                            {
-                                                                              name:
-                                                                                "model",
-                                                                              rawName:
-                                                                                "v-model",
-                                                                              value:
-                                                                                answer.checked,
-                                                                              expression:
-                                                                                "answer.checked"
-                                                                            }
-                                                                          ],
                                                                           staticClass:
                                                                             "hidden",
                                                                           attrs: {
@@ -37028,10 +37048,8 @@ var render = function() {
                                                                               item.id
                                                                           },
                                                                           domProps: {
-                                                                            checked: _vm._q(
-                                                                              answer.checked,
-                                                                              null
-                                                                            )
+                                                                            checked:
+                                                                              answer.checked
                                                                           },
                                                                           on: {
                                                                             input: function(
@@ -37040,15 +37058,6 @@ var render = function() {
                                                                               return _vm.checkOnInput(
                                                                                 item.id,
                                                                                 index
-                                                                              )
-                                                                            },
-                                                                            change: function(
-                                                                              $event
-                                                                            ) {
-                                                                              return _vm.$set(
-                                                                                answer,
-                                                                                "checked",
-                                                                                null
                                                                               )
                                                                             }
                                                                           }
@@ -37256,7 +37265,10 @@ var render = function() {
                                 _vm._l(_vm.results, function(item, index) {
                                   return _c(
                                     "div",
-                                    { staticClass: "results-fields__item" },
+                                    {
+                                      key: index,
+                                      staticClass: "results-fields__item"
+                                    },
                                     [
                                       _c(
                                         "div",
@@ -37313,34 +37325,42 @@ var render = function() {
                                             "div",
                                             { staticClass: "input-group mb-3" },
                                             [
-                                              _c("text-editor", {
-                                                attrs: {
-                                                  name:
-                                                    "num_description" + index,
-                                                  id: "num-description" + index,
-                                                  placeholder:
-                                                    "Description for result № " +
-                                                    index,
-                                                  required: "",
-                                                  textCallbak:
-                                                    _vm.textEditorOnInput,
-                                                  num: index
-                                                },
-                                                on: {
-                                                  input: _vm.resultOnInput
-                                                },
-                                                model: {
-                                                  value: item.description,
-                                                  callback: function($$v) {
-                                                    _vm.$set(
-                                                      item,
-                                                      "description",
-                                                      $$v
-                                                    )
-                                                  },
-                                                  expression: "item.description"
-                                                }
-                                              })
+                                              _vm.govno
+                                                ? _c("text-editor", {
+                                                    attrs: {
+                                                      name:
+                                                        "num_description" +
+                                                        index,
+                                                      id:
+                                                        "num-description" +
+                                                        index,
+                                                      placeholder:
+                                                        "Description for result № " +
+                                                        index,
+                                                      required: "",
+                                                      textCallbak:
+                                                        _vm.textEditorOnInput,
+                                                      cContent:
+                                                        item.description,
+                                                      num: index
+                                                    },
+                                                    on: {
+                                                      input: _vm.resultOnInput
+                                                    },
+                                                    model: {
+                                                      value: item.description,
+                                                      callback: function($$v) {
+                                                        _vm.$set(
+                                                          item,
+                                                          "description",
+                                                          $$v
+                                                        )
+                                                      },
+                                                      expression:
+                                                        "item.description"
+                                                    }
+                                                  })
+                                                : _vm._e()
                                             ],
                                             1
                                           ),
@@ -43493,8 +43513,10 @@ var routes = [{ path: '/change-password', component: __WEBPACK_IMPORTED_MODULE_2
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__modules_Categories_single__ = __webpack_require__("./resources/client/assets/js/store/modules/Categories/single.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__modules_Tests__ = __webpack_require__("./resources/client/assets/js/store/modules/Tests/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__modules_Tests_single__ = __webpack_require__("./resources/client/assets/js/store/modules/Tests/single.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__modules_Results__ = __webpack_require__("./resources/client/assets/js/store/modules/Results/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__modules_Results_single__ = __webpack_require__("./resources/client/assets/js/store/modules/Results/single.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__modules_Tests_editor__ = __webpack_require__("./resources/client/assets/js/store/modules/Tests/editor.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__modules_Results__ = __webpack_require__("./resources/client/assets/js/store/modules/Results/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__modules_Results_single__ = __webpack_require__("./resources/client/assets/js/store/modules/Results/single.js");
+
 
 
 
@@ -43532,8 +43554,9 @@ var debug = "development" !== 'production';
         CategoriesSingle: __WEBPACK_IMPORTED_MODULE_12__modules_Categories_single__["a" /* default */],
         TestsIndex: __WEBPACK_IMPORTED_MODULE_13__modules_Tests__["a" /* default */],
         TestsSingle: __WEBPACK_IMPORTED_MODULE_14__modules_Tests_single__["a" /* default */],
-        ResultsIndex: __WEBPACK_IMPORTED_MODULE_15__modules_Results__["a" /* default */],
-        ResultsSingle: __WEBPACK_IMPORTED_MODULE_16__modules_Results_single__["a" /* default */]
+        EditorSingle: __WEBPACK_IMPORTED_MODULE_15__modules_Tests_editor__["a" /* default */],
+        ResultsIndex: __WEBPACK_IMPORTED_MODULE_16__modules_Results__["a" /* default */],
+        ResultsSingle: __WEBPACK_IMPORTED_MODULE_17__modules_Results_single__["a" /* default */]
     },
     strict: debug
 }));
@@ -44756,6 +44779,46 @@ var mutations = {
     },
     resetState: function resetState(state) {
         state = Object.assign(state, initialState());
+    }
+};
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    namespaced: true,
+    state: initialState,
+    getters: getters,
+    actions: actions,
+    mutations: mutations
+});
+
+/***/ }),
+
+/***/ "./resources/client/assets/js/store/modules/Tests/editor.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+function initialState() {
+    return {
+        item: null
+    };
+}
+
+var getters = {
+    item: function item(state) {
+        return state.item;
+    }
+};
+
+var actions = {
+    setEditorItem: function setEditorItem(_ref, value) {
+        var commit = _ref.commit;
+
+        commit('setItem', value);
+    }
+};
+
+var mutations = {
+    setItem: function setItem(state, value) {
+        state.item = value;
     }
 };
 

@@ -178,7 +178,8 @@ router.beforeEach((to, from, next) => {
     // set the current language for vuex-i18n. note that translation data
     // for the language might need to be loaded first
     ///Vue.i18n.set(language);    
-    to.params.locale = langs.getters['locale'];
+    //to.params.locale = langs.getters['locale'];
+    to.params.locale = 'ru';// тут надо получать язык 
     console.log('to.params.locale - ', to.params.locale);
     //console.log('to.params - ', to, from);
     next(to.params);
