@@ -3256,7 +3256,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
 
 
 
@@ -3391,14 +3390,14 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             //signs
             //question images
             this.answerOnInput();
-            console.log('questions - ', this.questions);
+            console.log('item - ', this.item);
+            console.log('results - ', this.resultsItem);
         },
         setResultsToForm: function setResultsToForm() {
-            var result = this.resultsItem;
+            var result = _.cloneDeep(this.resultsItem);
             result.forEach(function (el) {
-                el['resultThumb'] = '';
+                el['resultThumb'] = { src: '/storage/images/thumbs/' + el.thumb };
             });
-            console.log('1.results - ', this.resultsItem);
             this.resultsRows = this.resultsItem.length;
             this.setResultsOptions();
             this.results = result;
@@ -3487,9 +3486,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         updateQuestionImage: function updateQuestionImage(e, index) {
 
             this.questions[index].img = e.target.files[0];
-            console.log('1. questions img - ', this.questions);
             this.setQuestions(this.questions);
-            console.log('2. questions store - ', this.item.questions);
         },
         updateResultImage: function updateResultImage(e, index) {
             var reader = new FileReader(),
@@ -37346,18 +37343,6 @@ var render = function() {
                                                     },
                                                     on: {
                                                       input: _vm.resultOnInput
-                                                    },
-                                                    model: {
-                                                      value: item.description,
-                                                      callback: function($$v) {
-                                                        _vm.$set(
-                                                          item,
-                                                          "description",
-                                                          $$v
-                                                        )
-                                                      },
-                                                      expression:
-                                                        "item.description"
                                                     }
                                                   })
                                                 : _vm._e()
@@ -45157,9 +45142,11 @@ var actions = {
 
         axios.get('/api/v1/tests/' + id).then(function (response) {
             console.log('test data - ', response.data.tests);
-            commit('setResultsItem', response.data.results.variants);
+            //commit('setResultsItem', response.data.results.variants);
+            commit('setResultsItem', response.data.results);
             commit('setItem', response.data.tests);
-            commit('setFullSeo', response.data.meta.data);
+            //commit('setFullSeo', response.data.meta.data);
+            commit('setFullSeo', response.data.meta);
         });
 
         dispatch('fetchCategoriesAll');
@@ -45239,10 +45226,12 @@ var mutations = {
         state.item = item;
     },
     setFullSeo: function setFullSeo(state, item) {
-        state.item.seo = JSON.parse(item);
+        //state.item.seo = Object.assign({}, JSON.parse(item))
+        state.item.seo = Object.assign({}, item);
     },
     setResultsItem: function setResultsItem(state, item) {
-        state.resultsItem = JSON.parse(item);
+        //state.resultsItem = JSON.parse(item)/*Object.assign({}, JSON.parse(item))*/
+        state.resultsItem = item;
     },
     setCategory: function setCategory(state, value) {
         state.item.category = value;

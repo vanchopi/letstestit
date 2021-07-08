@@ -31,11 +31,12 @@ class TestsController extends Controller
             return abort(401);
         }
         $test = Test::with(['category'])->findOrFail($id);
+        $result = json_decode((Result::select('variants')->where('test_id',$id)->first())->variants);
         //$tests = new TestResource($test);
         return $response = [
             'tests' => new TestResource($test),
-            'results' => Result::select('variants')->where('test_id',$id)->first(),
-            'meta' => Meta::where(['model_type' => 'App\Test','model_id' => $id])->get()->first()
+            'results' => $result,
+            'meta' => json_decode((Meta::where(['model_type' => 'App\Test','model_id' => $id])->get()->first())->data)
         ];
         //return new TestResource($test);
     }

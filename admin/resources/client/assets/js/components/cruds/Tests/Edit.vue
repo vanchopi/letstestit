@@ -316,7 +316,6 @@
                                                                          :id="'num-description' + index" 
                                                                          :placeholder="'Description for result № ' + index"                       
                                                                          required="" 
-                                                                         v-model="item.description"
                                                                          :textCallbak="textEditorOnInput"
                                                                          :cContent = 'item.description'
                                                                          :num="index"
@@ -610,14 +609,14 @@ export default {
             //signs
             //question images
             this.answerOnInput();
-            console.log('questions - ', this.questions);
+            console.log('item - ', this.item);
+            console.log('results - ', this.resultsItem);
         },
         setResultsToForm(){
-            let result = this.resultsItem;
+            let result = _.cloneDeep(this.resultsItem);
                 result.forEach((el) => {
-                    el['resultThumb'] = ''
+                    el['resultThumb'] = {src:'/storage/images/thumbs/' + el.thumb};
                 })
-            console.log('1.results - ', this.resultsItem);
             this.resultsRows = this.resultsItem.length;
             this.setResultsOptions();
             this.results = result;
@@ -704,9 +703,7 @@ export default {
         updateQuestionImage(e, index){           
             
             this.questions[index].img = e.target.files[0];
-            console.log('1. questions img - ', this.questions);
             this.setQuestions(this.questions);
-            console.log('2. questions store - ', this.item.questions);
         },
         updateResultImage(e, index){
             var reader  = new FileReader(),
