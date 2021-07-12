@@ -565,7 +565,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('TestsSingle', ['item','resultsItem', 'loading', 'categoriesAll']),
+        ...mapGetters('TestsSingle', ['item','resultsItem', 'loading', 'categoriesAll', 'mediaDump']),
     },
     created() {
         this.fetchData(this.$route.params.id)
@@ -608,9 +608,22 @@ export default {
             //correct answers
             //signs
             //question images
+            this.setQuestionImages();
             this.answerOnInput();
             console.log('item - ', this.item);
             console.log('results - ', this.resultsItem);
+        },
+        subSet(el){
+            let imgName = el.img, 
+                result = this.mediaDump.filter(img => img.file_name == imgName);
+            return result.length > 0 ? result[0] : null;
+        },
+        setQuestionImages(){
+            let self = this;
+            console.log(this.questions);
+            this.questions.forEach( (el, i) => {
+                el.img = self.subSet(el);
+            })  
         },
         setResultsToForm(){
             let result = _.cloneDeep(this.resultsItem);
@@ -620,14 +633,7 @@ export default {
             this.resultsRows = this.resultsItem.length;
             this.setResultsOptions();
             this.results = result;
-            this.govno = true;
-            let arr = [];
-            /*this.results.forEach((el, index) => {
-                arr.push(el.description);
-                //this.govno = (index + 1) + 'govno';// это гавно какое-то...
-                //this.setEditorItem(arr);
-            });*/
-            //this.govno =  1 +'govno';            
+            this.govno = true;                        
             this.resultOnInput();
             //return this.results;
             //set thumbs

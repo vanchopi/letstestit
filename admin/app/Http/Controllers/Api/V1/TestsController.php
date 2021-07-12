@@ -32,11 +32,17 @@ class TestsController extends Controller
         }
         $test = Test::with(['category'])->findOrFail($id);
         $result = json_decode((Result::select('variants')->where('test_id',$id)->first())->variants);
+        //$resultsImage = Result::where('test_id', $id)->firstOrFail()->getMedia();
+        $resultsImage = [
+            'results' =>  $test->getMedia('result_image'),
+            'questions' => $test->getMedia('question_image')
+        ];
         //$tests = new TestResource($test);
         return $response = [
             'tests' => new TestResource($test),
             'results' => $result,
-            'meta' => json_decode((Meta::where(['model_type' => 'App\Test','model_id' => $id])->get()->first())->data)
+            'meta' => json_decode((Meta::where(['model_type' => 'App\Test','model_id' => $id])->get()->first())->data),
+            'media' => $resultsImage
         ];
         //return new TestResource($test);
     }
@@ -165,9 +171,9 @@ class TestsController extends Controller
             $test->getFirstMedia('bg_image')->delete();
         }
         if ($request->hasFile('main_image')) {
-            $test->addMedia($request->file('main_image'))->toMediaCollection('main_image');
+            $test->addMedia($request->file('main_image'))->toMediaCollection('main_image', 'cards');
         }if ($request->hasFile('bg_image')) {
-            $test->addMedia($request->file('bg_image'))->toMediaCollection('bg_image');
+            $test->addMedia($request->file('bg_image'))->toMediaCollection('bg_image', 'test_bg');
         }
 
         return (new TestResource($test))

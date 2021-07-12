@@ -14,7 +14,8 @@ function initialState() {
         },
         resultsItem:[],
         categoriesAll: [],
-        
+        mediaDump: [],
+
         loading: false,
     }
 }
@@ -47,7 +48,7 @@ const getters = {
     resultsItem: state => state.resultsItem,
     loading: state => state.loading,
     categoriesAll: state => state.categoriesAll,
-    
+    mediaDump: state => state.mediaDump,
 }
 
 const actions = {
@@ -208,7 +209,9 @@ const actions = {
                 console.log('test data - ', response.data.tests);                
                 //commit('setResultsItem', response.data.results.variants);
                 commit('setResultsItem', response.data.results);
+                dispatch('setResultsItemImages', response.data.media.results);
                 commit('setItem', response.data.tests);
+                dispatch('setQuestionItemImages', response.data.media.questions);
                 //commit('setFullSeo', response.data.meta.data);
                 commit('setFullSeo', response.data.meta);                                
             })
@@ -263,6 +266,12 @@ const actions = {
     
     resetState({ commit }) {
         commit('resetState')
+    },
+    setResultsItemImages({commit}, payload){
+        commit('setResultsItemImages', payload);
+    },
+    setQuestionItemImages({commit, state}, payload){
+        commit('setQuestionItemImages', payload);
     }
 }
 
@@ -277,6 +286,14 @@ const mutations = {
     setResultsItem(state, item) {
         //state.resultsItem = JSON.parse(item)/*Object.assign({}, JSON.parse(item))*/
         state.resultsItem = item
+    },
+    setResultsItemImages(state, payload){        
+        payload.forEach( (el, i) => {
+            state.resultsItem[i].img = el
+        });
+    },
+    setQuestionItemImages(state, payload){        
+        state.mediaDump = payload;
     },
     setCategory(state, value) {
         state.item.category = value

@@ -3346,7 +3346,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         };
     },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('TestsSingle', ['item', 'resultsItem', 'loading', 'categoriesAll'])),
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('TestsSingle', ['item', 'resultsItem', 'loading', 'categoriesAll', 'mediaDump'])),
     created: function created() {
         this.fetchData(this.$route.params.id);
     },
@@ -3389,9 +3389,24 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             //correct answers
             //signs
             //question images
+            this.setQuestionImages();
             this.answerOnInput();
             console.log('item - ', this.item);
             console.log('results - ', this.resultsItem);
+        },
+        subSet: function subSet(el) {
+            var imgName = el.img,
+                result = this.mediaDump.filter(function (img) {
+                return img.file_name == imgName;
+            });
+            return result.length > 0 ? result[0] : null;
+        },
+        setQuestionImages: function setQuestionImages() {
+            var self = this;
+            console.log(this.questions);
+            this.questions.forEach(function (el, i) {
+                el.img = self.subSet(el);
+            });
         },
         setResultsToForm: function setResultsToForm() {
             var result = _.cloneDeep(this.resultsItem);
@@ -3402,13 +3417,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.setResultsOptions();
             this.results = result;
             this.govno = true;
-            var arr = [];
-            /*this.results.forEach((el, index) => {
-                arr.push(el.description);
-                //this.govno = (index + 1) + 'govno';// это гавно какое-то...
-                //this.setEditorItem(arr);
-            });*/
-            //this.govno =  1 +'govno';            
             this.resultOnInput();
             //return this.results;
             //set thumbs
@@ -44944,6 +44952,7 @@ function initialState() {
         },
         resultsItem: [],
         categoriesAll: [],
+        mediaDump: [],
 
         loading: false
     };
@@ -44984,8 +44993,10 @@ var getters = {
     },
     categoriesAll: function categoriesAll(state) {
         return state.categoriesAll;
+    },
+    mediaDump: function mediaDump(state) {
+        return state.mediaDump;
     }
-
 };
 
 var actions = {
@@ -45144,7 +45155,9 @@ var actions = {
             console.log('test data - ', response.data.tests);
             //commit('setResultsItem', response.data.results.variants);
             commit('setResultsItem', response.data.results);
+            dispatch('setResultsItemImages', response.data.media.results);
             commit('setItem', response.data.tests);
+            dispatch('setQuestionItemImages', response.data.media.questions);
             //commit('setFullSeo', response.data.meta.data);
             commit('setFullSeo', response.data.meta);
         });
@@ -45218,6 +45231,17 @@ var actions = {
         var commit = _ref16.commit;
 
         commit('resetState');
+    },
+    setResultsItemImages: function setResultsItemImages(_ref17, payload) {
+        var commit = _ref17.commit;
+
+        commit('setResultsItemImages', payload);
+    },
+    setQuestionItemImages: function setQuestionItemImages(_ref18, payload) {
+        var commit = _ref18.commit,
+            state = _ref18.state;
+
+        commit('setQuestionItemImages', payload);
     }
 };
 
@@ -45232,6 +45256,14 @@ var mutations = {
     setResultsItem: function setResultsItem(state, item) {
         //state.resultsItem = JSON.parse(item)/*Object.assign({}, JSON.parse(item))*/
         state.resultsItem = item;
+    },
+    setResultsItemImages: function setResultsItemImages(state, payload) {
+        payload.forEach(function (el, i) {
+            state.resultsItem[i].img = el;
+        });
+    },
+    setQuestionItemImages: function setQuestionItemImages(state, payload) {
+        state.mediaDump = payload;
     },
     setCategory: function setCategory(state, value) {
         state.item.category = value;
