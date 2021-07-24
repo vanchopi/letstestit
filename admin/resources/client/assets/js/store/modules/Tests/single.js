@@ -33,8 +33,9 @@ const helpers = {
         console.log('1.2 - image arr - ', result);
         return result;
     },
-    recombineQuestions: function( arr ){ 
-        var mass = arr.slice();       
+    recombineQuestions: function( arr ){
+        console.log('mass - ', arr);
+        var mass = arr.map(a => ({...a}));
         for (let i = 0; i < mass.length; i++){
             mass[i].img = mass[i].img != null ? mass[i].img.name : mass[i].img;
         };
@@ -154,26 +155,43 @@ const actions = {
         return new Promise((resolve, reject) => {
             let params = new FormData();
             params.set('_method', 'PUT')
-
+            console.log('0. !!! update - ', state.item);
+            console.log('1. !!! update - ', state.resultsItem);
+            /* filds from item state*/
             for (let fieldName in state.item) {
                 let fieldValue = state.item[fieldName];
-                if (typeof fieldValue !== 'object') {
-                    params.set(fieldName, fieldValue);
-                } else {
-                    if (fieldValue && typeof fieldValue[0] !== 'object') {
+                //console.log('1.1 - fieldName', fieldName);
+                if(fieldName != 'questions'){
+                    if (typeof fieldValue !== 'object') {
                         params.set(fieldName, fieldValue);
                     } else {
-                        for (let index in fieldValue) {
-                            params.set(fieldName + '[' + index + ']', fieldValue[index]);
+                        if (fieldValue && typeof fieldValue[0] !== 'object') {
+                            params.set(fieldName, fieldValue);
+                        } else {
+                            for (let index in fieldValue) {
+                                params.set(fieldName + '[' + index + ']', fieldValue[index]);
+                            }
                         }
                     }
                 }
             }
 
+            let questionsImg = helpers.questionsImagesArr(state.item.questions);
+            console.log('questionsImg - ', questionsImg);
             if (_.isEmpty(state.item.category)) {
                 params.set('category_id', '')
             } else {
                 params.set('category_id', state.item.category.id)
+            }
+            if (_.isEmpty(state.item.questions)) {
+                params.set('questions', '')
+            } else {
+                params.set('questions', JSON.stringify(helpers.recombineQuestions(state.item.questions)))
+            }
+            if (_.isEmpty(state.item.seo)) {
+                params.set('seo', '')
+            } else {
+                params.set('seo', JSON.stringify(state.item.seo))
             }
             if (state.item.main_image === null) {
                 params.delete('main_image');
@@ -182,8 +200,32 @@ const actions = {
                 params.delete('bg_image');
             }
 
-            axios.post('/api/v1/tests/' + state.item.id, params)
-                .then(response => {
+            for (var i = 0; i < state.resultsItem.length; i++) {     
+                var myItemInArr = state.resultsItem[i];     
+                for (var prop in myItemInArr) {                     
+                    if (prop != 'resultThumb') {
+                        params.append(`variants[${i}][${prop}]`, myItemInArr[prop]);
+                        console.log('myItemInArr[prop] - ', myItemInArr[prop]);
+                    }else{                        
+                        let thumb = myItemInArr[prop]; // .src - ?
+                        params.append(`variants[${i}][thumb]`,JSON.stringify(thumb));
+                    }
+                } 
+            } 
+            if(questionsImg.length){           
+                for (var i = 0; i < questionsImg.length; i++) {
+                    params.append(`qestions_img[${i}]`, questionsImg[i].img);
+                    console.log('qestions_img[${i}] - ', questionsImg[i].img);
+                }
+            }else{
+                params.set('qestions_img', '');
+            }
+            console.log('2. !!! update - ', state.item);
+            console.log('3. !!! update - ', state.resultsItem);
+            console.log('variants', params.getAll('variants'));
+            console.log('qestions_img - ', params.getAll('qestions_img'));            
+            axios.post('/api/v1/tests/' + state.item.id, params).then((response)=> {console.log(response)});
+                /*.then(response => {
                     commit('setItem', response.data.data)
                     resolve()
                 })
@@ -200,7 +242,7 @@ const actions = {
                 })
                 .finally(() => {
                     commit('setLoading', false)
-                })
+                })*/
         })
     },
     fetchData({ commit, dispatch }, id) {

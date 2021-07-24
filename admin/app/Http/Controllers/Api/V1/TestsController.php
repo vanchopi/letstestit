@@ -49,7 +49,7 @@ class TestsController extends Controller
 
     public function store(StoreTestsRequest $request)
     {
-        if (Gate::denies('test_create')) {
+        if (Gate::denies('test_create')) { 
             return abort(401);
         }
 
@@ -88,7 +88,7 @@ class TestsController extends Controller
             try{
                 $test->addMedia($request->variants[$i]['img'])->toMediaCollection('result_image', 'results');
             } catch (Exception $e){
-                echo "shit just happened";  
+                echo "shit just happened";
             }
         }
 
@@ -156,15 +156,36 @@ class TestsController extends Controller
             ->setStatusCode(201);
     }
 
-    public function update(UpdateTestsRequest $request, $id)
+    public function update(UpdateTestsRequest $request, $id)// edit
     {
+        echo "********";
+        print_r($request->all());
+        //print_r($request->variants);        
         if (Gate::denies('test_edit')) {
             return abort(401);
         }
 
+        $results = $request->variants;
+        $questionsImg = $request->qestions_img;
+        $seo = $request->seo;
+        $thumbs = [];
+        $targetFolder = explode( "/admin" , $_SERVER['DOCUMENT_ROOT'] )[0].'/admin/storage/app/public/images/thumbs';
+
+        for ($i=0; $i < sizeof($results) ; $i++) {
+            $thumbs[$i] = json_decode($results[$i]['thumb'])->src;            
+        };
+        print_r($thumbs);
+
         $test = Test::findOrFail($id);
         $test->update($request->all());
-        
+
+        if (! $request->input('main_image') && $test->getFirstMedia('main_image')) {
+            echo "opa";
+        }else{
+            echo "!----!";
+        }
+
+        // main image && bg image update
         if (! $request->input('main_image') && $test->getFirstMedia('main_image')) {
             $test->getFirstMedia('main_image')->delete();
         }if (! $request->input('bg_image') && $test->getFirstMedia('bg_image')) {
@@ -176,9 +197,99 @@ class TestsController extends Controller
             $test->addMedia($request->file('bg_image'))->toMediaCollection('bg_image', 'test_bg');
         }
 
+        //results images update 
+        for ($i=0; $i < sizeof($results) ; $i++) {
+            echo "~~~~~~~\n";
+            print_r(gettype($request->variants[$i]['img']));
+            echo "~~~~~~~\n";
+            print_r($request->variants[$i]['img']);
+            /*try{
+                $test->addMedia($request->variants[$i]['img'])->toMediaCollection('result_image', 'results');
+            } catch (Exception $e){
+                echo "shit just happened";
+            }*/
+        }
+
+        //questions images update
+        if($questionsImg != ''){
+            for ($i=0; $i < sizeof($questionsImg) ; $i++) {
+                echo "-------\n";
+                print_r(gettype($request->qestions_img[$i]));
+                echo "-------\n";
+                print_r($request->qestions_img[$i]);
+                /*try{
+                    $test->addMedia($request->qestions_img[$i])->toMediaCollection('question_image', 'questions');
+                } catch (Exception $e){
+                    echo "shit just happened";  
+                }*/
+            }  
+        }
+
+        $subFolder = $test->id;
+        
+        // results
+        $result = Result::where('test_id', $id)->get()->first();
+        $rz = json_decode($result->variants);
+
+        //thumbs
+        for ($i=0; $i < sizeof($thumbs) ; $i++) {            
+            $pos = strpos($thumbs[$i], 'base64');                        
+            if($pos !== false){
+            //if(true){
+                echo "opa----------opa\n";
+                print_r($pos);
+                $data = $thumbs[$i];
+                if (preg_match('/^data:image\/(\w+);base64,/', $data, $type)) {
+                    $data = substr($data, strpos($data, ',') + 1);
+                    $type = strtolower($type[1]); // jpg, png, gif
+
+                    if (!in_array($type, [ 'jpg', 'jpeg', 'gif', 'png' ])) {
+                        echo "invalid image type";
+                        throw new \Exception('invalid image type');
+                    }
+                    $data = str_replace( ' ', '+', $data );
+                    $data = base64_decode($data);
+
+                    if ($data === false) {
+                        echo "base64_decode failed";
+                        throw new \Exception('base64_decode failed');
+                    }
+                } else {
+                    echo "did not match data URI with image data";
+                    throw new \Exception('did not match data URI with image data');
+                }
+
+                $nm = $rz[$i]->thumb;
+                $path = $targetFolder . "/" . $subFolder;
+                $fileName = "thumb" . $subFolder . "-" . $i . ".{$type}";
+                $thumbFile = $targetFolder . '/' . $nm;
+                unlink($thumbFile);
+                if (!file_exists($path)) {
+                    mkdir($path, 0777, true);
+                }
+
+                file_put_contents($path . "/". $fileName , $data);
+
+                $results[$i]['thumb'] = $subFolder . "/" . $fileName;
+            }else{
+                echo "old\n";
+                $results[$i]['thumb'] =  explode( "thumbs/" ,  $thumbs[$i])[1];
+            }          
+        }        
+        
+        $result->variants = json_encode($results);
+        $result->save();
+
+        // meta
+        $meta = Meta::where(['model_type' => 'App\Test','model_id' => $id])->get()->first();
+        $meta->data = $seo;
+        $meta->save();
+
+        /*
         return (new TestResource($test))
             ->response()
-            ->setStatusCode(202);
+            ->setStatusCode(202);*/
+        //return $request;
     }
 
     public function destroy($id) // удаляем: тест, результат, картинки(медиа), мета.

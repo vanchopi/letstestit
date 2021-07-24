@@ -707,7 +707,7 @@ export default {
             return subFile;
         },
         updateQuestionImage(e, index){           
-            
+            console.log(e.target.files[0]);
             this.questions[index].img = e.target.files[0];
             this.setQuestions(this.questions);
         },
