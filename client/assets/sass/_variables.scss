@@ -47,6 +47,16 @@ $main-border: 1px solid rgba(154, 158, 165, 0.3);
 	transition: fill .3s ease;
 }
 
+@mixin reverse-transition{
+	color: $main-fill-color;
+	transition: color .3s ease,
+				border-color .3s ease,
+				background-color .3s ease;
+	&:hover{
+		color: $main-text-color;
+	}
+}
+
 @mixin align-center {
   display: flex;
   align-items: center;

@@ -1022,6 +1022,11 @@ footer{
 		text-shadow: 2px 1px 0px #000000;
 		color: $main-text-color;
 		margin-bottom: 35px;
+		.description__internal{
+			a{
+				@include reverse-transition;
+			}
+		}
 	}
 	.socials-wrapper{
 		ul{
