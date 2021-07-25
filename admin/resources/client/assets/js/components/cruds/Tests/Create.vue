@@ -361,7 +361,7 @@
                                                                    required=""
                                                                    v-model="item.value"
                                                                    @input="resultOnInput"
-                                                                   min="1"
+                                                                   min="0"
                                                                    :max="quizParams.columns"
                                                                 >
                                                         </div>
