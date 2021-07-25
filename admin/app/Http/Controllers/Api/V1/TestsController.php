@@ -284,12 +284,10 @@ class TestsController extends Controller
         $meta = Meta::where(['model_type' => 'App\Test','model_id' => $id])->get()->first();
         $meta->data = $seo;
         $meta->save();
-
-        /*
+        
         return (new TestResource($test))
             ->response()
-            ->setStatusCode(202);*/
-        //return $request;
+            ->setStatusCode(202);
     }
 
     public function destroy($id) // удаляем: тест, результат, картинки(медиа), мета.

@@ -219,13 +219,9 @@ const actions = {
                 }
             }else{
                 params.set('qestions_img', '');
-            }
-            console.log('2. !!! update - ', state.item);
-            console.log('3. !!! update - ', state.resultsItem);
-            console.log('variants', params.getAll('variants'));
-            console.log('qestions_img - ', params.getAll('qestions_img'));            
-            axios.post('/api/v1/tests/' + state.item.id, params).then((response)=> {console.log(response)});
-                /*.then(response => {
+            }            
+            axios.post('/api/v1/tests/' + state.item.id, params)
+                .then(response => {
                     commit('setItem', response.data.data)
                     resolve()
                 })
@@ -242,7 +238,7 @@ const actions = {
                 })
                 .finally(() => {
                     commit('setLoading', false)
-                })*/
+                })
         })
     },
     fetchData({ commit, dispatch }, id) {

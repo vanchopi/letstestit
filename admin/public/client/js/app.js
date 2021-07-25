@@ -37470,7 +37470,7 @@ var render = function() {
                                                       name:
                                                         "num_value" + item.id,
                                                       required: "",
-                                                      min: "1",
+                                                      min: "0",
                                                       max:
                                                         _vm.quizParams.columns
                                                     },
@@ -40071,7 +40071,7 @@ var render = function() {
                                                       name:
                                                         "num_value" + item.id,
                                                       required: "",
-                                                      min: "1",
+                                                      min: "0",
                                                       max:
                                                         _vm.quizParams.columns
                                                     },
@@ -45174,29 +45174,19 @@ var actions = {
             } else {
                 params.set('qestions_img', '');
             }
-            console.log('2. !!! update - ', state.item);
-            console.log('3. !!! update - ', state.resultsItem);
-            console.log('variants', params.getAll('variants'));
-            console.log('qestions_img - ', params.getAll('qestions_img'));
             axios.post('/api/v1/tests/' + state.item.id, params).then(function (response) {
-                console.log(response);
+                commit('setItem', response.data.data);
+                resolve();
+            }).catch(function (error) {
+                var message = error.response.data.message || error.message;
+                var errors = error.response.data.errors;
+
+                dispatch('Alert/setAlert', { message: message, errors: errors, color: 'danger' }, { root: true });
+
+                reject(error);
+            }).finally(function () {
+                commit('setLoading', false);
             });
-            /*.then(response => {
-                commit('setItem', response.data.data)
-                resolve()
-            })
-            .catch(error => {
-                let message = error.response.data.message || error.message
-                let errors  = error.response.data.errors
-                  dispatch(
-                    'Alert/setAlert',
-                    { message: message, errors: errors, color: 'danger' },
-                    { root: true })
-                  reject(error)
-            })
-            .finally(() => {
-                commit('setLoading', false)
-            })*/
         });
     },
     fetchData: function fetchData(_ref3, id) {
