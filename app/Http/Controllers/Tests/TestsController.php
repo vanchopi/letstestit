@@ -44,10 +44,13 @@ class TestsController extends Controller
     }  
 
     static public function getMedias($id){
-    	$media = Media::select(array('collection_name', 'file_name', 'id'))->where(['model_type' => 'App\Test','model_id' => $id])->get();
+    	//$media = Media::select(array('collection_name', 'file_name', 'id'))->where(['model_type' => 'App\Test','model_id' => $id])->get();
+        $main = Media::select(array('file_name', 'id'))->where(['collection_name' => 'main_image','model_id' => $id])->get();
+        $bg = Media::select(array('file_name', 'id'))->where(['collection_name' => 'bg_image','model_id' => $id])->get();
+        //print_r($media);
         $item = (object) [
-            "bg_image" => $media[0]->id . '/' . $media[0]->file_name,
-            "main_image" => $media[1]->id . '/' . $media[1]->file_name,
+            "main_image" => $bg[0]->id . '/' . $bg[0]->file_name,
+            "bg_image" => $main[0]->id . '/' . $main[0]->file_name,            
         ];
         //print_r($item);
     	return $item;

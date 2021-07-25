@@ -3,32 +3,65 @@ import Router from 'vue-router'
 import { scrollBehavior } from '~/utils'
 //import store from '~/store/breadcrumbs.js'
 import loader from '~/store/loader.js'
+import Cookies from 'js-cookie'
+import * as langs from '~/store/lang.js'
+import { cookieFromRequest } from '~/utils'
+import i18n from '~/plugins/i18n'
 
 Vue.use(Router)
 
-const page = path => () => import(`~/pages/${path}`).then(m => m.default || m)
+/*function getCookieValue(a) {
+    var b = document.cookie.match('(^|[^;]+)\\s*' + a + '\\s*=\\s*([^;]+)');
+    return b ? b.pop() : '';
+};*/ // not for ssr mode
 
+const page = path => () => import(`~/pages/${path}`).then(m => m.default || m);
+
+//let defaultLocale =  != undefined ?  : 'en';
+let defaultLocale = langs.state().locale != undefined ? langs.state().locale : 'ru';
+console.log('1. opa - ', langs.state().locale/*, langs12 = cookieFromRequest(req, 'locale')*/);
 const routes = [
+  // 1. main page with language and it redirect 
   { 
-    path: '/', 
+    path: '/:locale', 
     name: 'welcome', 
     component: page('welcome.vue') 
   },
+  {
+    path: "/",
+    redirect: `/${defaultLocale}`
+  },
+  // *** end main page ***
 
+  // 2. catalog page with language and it redirect  
   { 
-    path: '/catalog', 
+    path: '/:locale/catalog', 
     name: 'catalog',
     //title: this.$t('catalog'), 
     component: page('catalog.vue') 
   },
+  {
+    path: "/catalog",
+    redirect: `/${defaultLocale}/catalog`
+  },
+  // *** end catalog page ***
+
+  // 3. category page with language and it redirect  
   { 
-    path: '/catalog/:url', 
+    path: '/:locale/catalog/:url', 
     name: 'category', 
     component: page('category.vue'),
     /*props: { id: null } */
   },
+  {
+    path: "/catalog/:url",
+    redirect: `/${defaultLocale}/catalog/:url`
+  },
+  // *** end category page ***
+
+  // 4. test page with language and it redirect
   { 
-    path: '/catalog/:url1/:url2', 
+    path: '/:locale/catalog/:url1/:url2', 
     name: 'test', 
     component: page('test.vue'),
     /*children: [{
@@ -37,6 +70,12 @@ const routes = [
         component: page('results.vue') 
     }]*/
   },
+  {
+    path: "/catalog/:url1/:url2",
+    redirect: `/${defaultLocale}/catalog/:url1/:url2`
+  },
+  // *** end test page ***
+
   /*{ 
     //path: '/test/:id/results/',
     path: '/catalog/:url1/:url2/result',
@@ -44,16 +83,35 @@ const routes = [
     component: page('results.vue') 
   },*/
 
+  // 5. search page with language and it redirect
   { 
-    path: '/search', 
+    path: '/:locale/search', 
     name: 'search', 
     component: page('search.vue') 
   },
+  {
+    path: "/search",
+    redirect: `/${defaultLocale}/search`
+  },
+  // *** end search page ***
+
+  // 6. about page with language and it redirect
   { 
-    path: '/about', 
+    path: '/:locale/about', 
     name: 'about', 
     component: page('about.vue') 
   },
+  {
+    path: "/about",
+    redirect: `/${defaultLocale}/about`
+  },
+  // *** end about page ***
+  /*{
+    path: "/(.*)",
+    redirect: to => {
+      return "/" + defaultLocale + to.path;
+    }
+  }*/
   /* *****-------------------------------------------***** */
   /*{ 
     path: '/login', 
@@ -111,7 +169,20 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
     //console.log('beforeEach');    
     //loader.dispatch("changeLoading", true);
-    next();
+    /*let lang = to.params.lang;
+    if (!lang) {
+      lang = 'ru';
+    }
+    console.log('lang - ', lang);*/
+
+    // set the current language for vuex-i18n. note that translation data
+    // for the language might need to be loaded first
+    ///Vue.i18n.set(language);    
+    //to.params.locale = langs.getters['locale'];
+    to.params.locale = 'ru';// тут надо получать язык 
+    console.log('to.params.locale - ', to.params.locale);
+    //console.log('to.params - ', to, from);
+    next(to.params);
 });
 
 router.afterEach((to, from) => {

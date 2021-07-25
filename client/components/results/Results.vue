@@ -6,7 +6,9 @@
           <div class="results-wrapper__internal">
             <div class="result">{{ testResults.title }}</div>
             <div class="description">
-              {{ testResults.description }}
+              <div class="description__internal" v-html="testResults.description">
+                {{ testResults.description }}  
+              </div>              
             </div>
             <div class="socials-wrapper __custom">
               <share :network="'facebook'" :values="testResults" />

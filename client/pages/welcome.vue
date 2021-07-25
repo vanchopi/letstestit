@@ -46,6 +46,7 @@ export default {
 
   created(){
     /*console.log('lang - ', this.$i18n);*/
+    console.log('params - ', this.$route.params);
   },
 
 }

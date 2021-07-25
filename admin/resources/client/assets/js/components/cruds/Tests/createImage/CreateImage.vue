@@ -92,12 +92,12 @@ export default {
     },
     created() {
         // Code...
-        console.log('results - ', this.results);        
+        console.log('!2 results - ', this.results);        
     },
     methods: {
         //
         fillData(){
-          console.log('results - ', this.results);
+          console.log('!3 results - ', this.results);
           this.imgText = {
             title : this.title,
             result: this.results.result,
@@ -133,7 +133,8 @@ export default {
 
         },
         generateImg(){            
-            var canvas = document.getElementById("canvas1"),
+            var self = this,
+                canvas = document.getElementById("canvas1"),
                 canvas2 = document.getElementById("canvas2"),                
                 img = document.getElementById("thumb"),
                 resultImg = document.getElementById("resultImg"),
@@ -147,8 +148,8 @@ export default {
                 };
           //console.log('custom img - ', img);
             rasterizeHTML.drawHTML(
-                '<div style="width:'+ wd + 'px; height:'+ ht + 'px; padding: 30px; background-image: url('+ img.src +'); background-size: cover;">' +
-                '<div class="title-wrp" style="display: flex; align-items: center; justify-content: flex-start; padding-bottom: 30px; margin-bottom: 30px; width: calc(100% - 70px); border-bottom: 1px solid white;">'+ 
+                '<div style="width: calc('+ wd + 'px - 60px); height: calc('+ ht + 'px - 60px); padding: 30px; background-image: url('+ img.src +'); background-size: cover;">' +
+                '<div class="title-wrp" style="display: flex; align-items: center; justify-content: flex-start; padding-bottom: 30px; margin-bottom: 30px; width: calc(100%); border-bottom: 1px solid white;">'+ 
                 '<img width="140" src="/logo.png" style="margin-right: 0px;">' + 
                 '<b style="position: absolute; margin-left: 150px; font-size: 28px;">' +
                 '<span style="color: white;">'+ this.imgText.title +'</span>'+
@@ -156,15 +157,42 @@ export default {
                 '</div>'+
                 '<span style="color: white; font-size: 34px; font-weight: bold; margin-bottom: 15px; display: block; font-family: Open Sans,sans-serif;">Мой результат : ' + this.imgText.result + '</span>'+
                 '<span style="color: white; font-size: 28px; font-weight: normal; margin-bottom: 25px; display: block; font-family: Open Sans,sans-serif;">' + this.imgText.description + '</span>'+
+                '<style>'+
+                'body{\
+                    margin: 0;\
+                    padding: 0;\
+                }\
+                svg body{\
+                    width: ' + this.wd + 'px;\
+                    height: ' + this.ht + 'px;\
+                    position: relative;\
+                }\
+                </style>'+
                 '</div>', 
-                canvas).then(function(renderResult){
+                canvas,{
+                  width: this.wd + 50,
+                  height: this.ht + 50,
+                }
+                ).then(function(renderResult){
+                console.log('renderResult - ', renderResult);
                 let contextCanvas2 = canvas2.getContext('2d');                                   
                 var img2 = new Image;
-                img2.onload = function() {
-                    contextCanvas2.drawImage(img2, -10, -10, wd + 10, ht + 10); // width > 1000px
-                    resultImg.src = canvas2.toDataURL('image/png');
-                };
                 img2.src = canvas.toDataURL('image/png');
+                img2.onload = function() {
+                    //contextCanvas2.drawImage(img2, -10, -10, wd + 10, ht + 10); // width > 1000px
+                    contextCanvas2.drawImage(
+                      renderResult.image,
+                      0, 
+                      0, 
+                      self.wd, // cuted
+                      self.ht, 
+                      0,
+                      0, 
+                      self.wd, //inserted
+                      self.ht
+                    );
+                    resultImg.src = canvas2.toDataURL('image/png');                    
+                };                
             })
         },
         applyImage(){
