@@ -161,14 +161,21 @@ textarea{
   border: $main-border;
 }
 .form-submit__wrapper{
-    width: 120px;
+    min-width: 120px;
     .base-button{
         background-color: $main-color;
         border-color: $main-color;
+        padding: 0 8px;
         &:hover{
           background-color: $card-test-title;
           border-color: $main-fill-color;
         }
     }
+}
+@media screen and (max-width: 576px){
+  .modal-container .modal-close{
+    top: calc(-37px/2);
+    right: calc(-37px/2);
+  }
 }
 </style>

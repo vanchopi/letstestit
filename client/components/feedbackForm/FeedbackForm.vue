@@ -44,7 +44,7 @@
         </div>
         <div class="form-submit__wrapper" slot="footer">
               <button class="base-button" @click="submitForm()" v-if="sendedStatus != 'sended'">
-                Send
+                {{$t('send')}}
               </button>
         </div>
     </pop-up>
