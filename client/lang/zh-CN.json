@@ -41,5 +41,9 @@
   "ouch": "Ouch! There is nothing in this category yet...",
   "contact_us": "contact Us",
   "email_address": "email address",
-  "message": "message"
+  "message": "message",
+  "to_main": "Go to main page",
+  "ouch1": "Ouch! Page not found...",
+  "ouch2": "Ouch! An error occurred...",
+  "send": "Send"
 }

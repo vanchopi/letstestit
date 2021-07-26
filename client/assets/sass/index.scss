@@ -243,12 +243,13 @@ a{
 			li{
 				margin-left: 30px;
 				&:before{
-					top: calc(50% - 1px);
+					top: calc(50% - 2px);
 				    margin-left: -15px;
 				    width: 6px;
 				    height: 6px;
 				}
 				a, span{
+					display: block;
 					font-weight: normal;
 					font-size: 24px;
 					text-shadow: 2px 1px 1px #000000;
@@ -264,7 +265,7 @@ a{
 		@include align-center;
 		justify-content: flex-start;
 		flex-wrap: wrap;
-		height: 40px;
+		min-height: 40px;
 		li{
 			position: relative;
 			margin-left: 18px;
@@ -1741,7 +1742,7 @@ footer{
 @media screen and (max-width: 576px){
 	body{
 		margin-right: 0!important;
-	}
+	}	
 	.quiz-wrapper .quiz-item .quiz-item__info .back-bt:before {
 	    content: '';
 	    border: 8px solid transparent;
@@ -1863,6 +1864,9 @@ footer{
 	.banner-wrapper .subscribe-txt{
 		display: none;
 	}
+	.quiz-wrapper{
+		padding: 30px 0 50px 0;
+	}
 	.light {
 		.catalog-slider__wrapper{
 			&.about-wrapper {
@@ -1898,8 +1902,9 @@ footer{
 					}
 					a,
 					span{
+						display: block;
 						font-size: 14px;
-						line-height: 16px;
+						line-height: 19px;
 					}
 					/*&:first-child{
 						margin-left: 25px;
