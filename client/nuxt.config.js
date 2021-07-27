@@ -52,8 +52,14 @@ module.exports = {
   ],
 
   modules: [
-    '@nuxtjs/router'
+    '@nuxtjs/router',
+    '@nuxtjs/google-analytics'
   ],
+
+  googleAnalytics: {
+    id: process.env.GOOGLE_ANALYTICS_ID,
+    dev: process.env.GOOGLE_ANALYTICS_DEV
+  },
 
   build: {
     extractCSS: true
