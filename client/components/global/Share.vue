@@ -38,7 +38,7 @@ export default {
   },
   methods:{
       combineData(){
-          let url = window.location.href.indexOf('http://localhost:3000') > -1 ? window.location.href : 'http://letstestit.ru' + window.location.href.split('http://localhost:3000')[1];
+          let url = window.location.href.indexOf('http://localhost:3000') != -1 ? 'http://letstestit.ru' + window.location.href.split('http://localhost:3000')[1] : window.location.href;
           if (this.values.correct !== null){
               this.dsc = 'Результат - ' + this.values.correct + ' ' + 'из'/*this.$t('from')*/ + ' ' + this.values.questions + ' - ' + this.values.title + ', в тесте: ' + this.values.name;
           }else{
