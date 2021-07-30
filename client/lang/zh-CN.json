@@ -45,5 +45,6 @@
   "to_main": "Go to main page",
   "ouch1": "Ouch! Page not found...",
   "ouch2": "Ouch! An error occurred...",
-  "send": "Send"
+  "send": "Send",
+  "from": "from"
 }

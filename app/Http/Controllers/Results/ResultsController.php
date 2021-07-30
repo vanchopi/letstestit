@@ -21,11 +21,14 @@ class ResultsController extends Controller
     	$questions = json_decode($test->questions);
     	//$testAnswers = 
     	$img = self::getMedias($request->id);
+        $correct = null;
     	//echo "********";
     	//print_r(json_decode($result->variants));
     	switch ($type) {
 		    case 'knowledges':
 		        $num = self::checkKnowledges($result, $userAnswers, $questions);
+                $correct = $num['correct'];
+                $num = $num['num'];
 		        break;
 		    case 'tree':
 		        $num = self::checkTree($result, $userAnswers, $questions);
@@ -46,6 +49,9 @@ class ResultsController extends Controller
             'quote'=>  $result[$num]->result,
             'url'=>  'https://letstestit.ru',
             'hashtags'=> 'letstestit',
+            'questions' => sizeof($questions),
+            'correct' => $correct,
+            'name' => $test->title,
 	    ];
 	    //print_r($results);
         return response()->json($results);        
@@ -110,7 +116,10 @@ class ResultsController extends Controller
 			$numResult = 0;
 			//echo "5.*";
 		}    	
-    	return $numResult;
+    	return $result = [
+            'num' => $numResult,
+            'correct' => $correct,
+        ];
     }
 
     static public function subSort($arr, $keyVal){

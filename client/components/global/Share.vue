@@ -1,10 +1,10 @@
 <template>
   <share-network
       :network="network"
-      :url="values.url"
-      :title="values.title"
+      :url="url"
+      :title="dsc"
       :description="values.description"
-      :quote="values.quote"
+      :quote="dsc"
       :hashtags="values.hashtags"
       :media="values.media"
       class="social-item"
@@ -24,18 +24,31 @@ export default {
   },
 
   props: ['values', 'network'],
-  data: () => ({    
-    //ploader: true,
+  data: () => ({
+    dsc: '',
+    url: '',
   }),
   created(){    
-    //console.log('values',this.values);    
+    this.combineData();
   },
   watch:{
-      /*'loader'(){
-        console.log('loader from slider component - ',this.loader);
-        this.ploader = this.loader;
-      }*/
+      'values'(){
+          //this.combineDsc();
+      }
   },
+  methods:{
+      combineData(){
+          let url = window.location.href.indexOf('http://localhost:3000') > 0 ? window.location.href : 'http://letstestit.ru' + window.location.href.split('http://localhost:3000')[1];
+          if (this.values.correct !== null){
+              this.dsc = 'Результат - ' + this.values.correct + ' ' + 'из'/*this.$t('from')*/ + ' ' + this.values.questions + ' - ' + this.values.title + ', в тесте: ' + this.values.name;
+          }else{
+              this.dsc = 'Результат - ' + this.values.title + ', в тесте: ' + this.values.name;
+          }
+          console.log('href - ', url);
+          this.url = url;
+          return this.dsc;
+      }
+  }
 }
 </script>
 
