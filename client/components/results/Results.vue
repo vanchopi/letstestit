@@ -5,6 +5,7 @@
       <div class="results-wrapper">  
           <div class="results-wrapper__internal">
             <div class="result">{{ testResults.title }}</div>
+            <div v-if="testResults.correct !== null" class="correct-results">{{ testResults.correct }} {{ $t('from') }} {{testResults.questions}}</div>
             <div class="description">
               <div class="description__internal" v-html="testResults.description">
                 {{ testResults.description }}  
