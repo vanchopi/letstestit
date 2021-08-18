@@ -191,7 +191,7 @@ export default {
                       self.wd, //inserted
                       self.ht
                     );
-                    resultImg.src = canvas2.toDataURL('image/png');                    
+                    resultImg.src = canvas2.toDataURL('image/jpeg', 0.8);                    
                 };                
             })
         },
