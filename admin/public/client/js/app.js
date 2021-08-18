@@ -4069,7 +4069,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     contextCanvas2.drawImage(renderResult.image, 0, 0, self.wd, // cuted
                     self.ht, 0, 0, self.wd, //inserted
                     self.ht);
-                    resultImg.src = canvas2.toDataURL('image/png');
+                    resultImg.src = canvas2.toDataURL('image/jpeg', 0.8);
                 };
             });
         },
