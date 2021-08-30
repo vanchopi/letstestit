@@ -15,7 +15,8 @@ class SearchController extends Controller
     {
         $tests = [];
         $result = [];
-        $tests = Test::search($request->search)->paginate(2);
+        $lim = env('ITEMS_IN_SEARCH');
+        $tests = Test::search($request->search)->paginate($lim);
 
         $updatedTests = $tests->getCollection();
         for ($i=0; $i < count($updatedTests); $i++) {
