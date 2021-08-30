@@ -14,7 +14,7 @@ class TestsController extends Controller
     //
     public function getTestsList(Request $request){
         $tests = [];
-        $n = 3;
+        $n = env('ITEMS_ON_PAGE');
         $num = $request->category;
 
         if (!$request->url){
@@ -127,7 +127,7 @@ class TestsController extends Controller
         $ifUrl = $request->url;
         $num = $request->id;
         $cat = $request->category;
-        $lim = 3;
+        $lim = env('ITEMS_ON_PAGE');
         $tests = [];
         if($request->id > 0){            
             switch (true) {
