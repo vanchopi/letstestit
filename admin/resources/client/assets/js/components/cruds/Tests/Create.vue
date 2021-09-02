@@ -250,18 +250,29 @@
                                                                         <div class="fields-wrapper__item"
                                                                              v-if="selectedType.id == 1"
                                                                             >
-                                                                            <select name="sign" 
+                                                                            <!--<select name="sign" 
                                                                                   id="sign" 
                                                                                   v-model="answer.sign"
                                                                                   @change="onSignType"
                                                                                   class="form-control" 
-                                                                            >
+                                                                            ><-- signs 
                                                                                 <option v-for="sign in selectedSign"
                                                                                         :value="sign"                                              
                                                                                 >
                                                                                   {{sign.result}}
-                                                                                </option>
-                                                                            </select>
+                                                                                </option>                                                                                
+                                                                            </select> -->                                                                            
+                                                                            <treeselect
+                                                                                name="sign"
+                                                                                :multiple="true"
+                                                                                value-format="object"
+                                                                                v-model="answer.sign"
+                                                                                :options="selectedSign"
+                                                                                placeholder="Выберете признак"
+                                                                                @select="onSignType"
+                                                                                @deselect="onSignType"
+                                                                            >                                                                                
+                                                                            </treeselect>
                                                                         </div>
                                                                     </div>      
                                                                 </div>
@@ -471,6 +482,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import Treeselect from '@riophae/vue-treeselect'
 import CreateImage from './createImage/CreateImage'
 import TextEditor from '../../global/TextEditor'
 import Vue from 'vue'
@@ -479,6 +491,7 @@ export default {
     components: {    
         CreateImage,
         TextEditor,
+        Treeselect,
     },
     data() {
         return {
@@ -509,9 +522,10 @@ export default {
             selectedSign:[
               {
                 id: 0,
-                result: '***',
+                label: '',
               }
             ],
+            SignsToStore: null,
             questions: [
                 {
                     id: 0,
@@ -804,7 +818,7 @@ export default {
                 console.log(i);
                 this.selectedSign.push({
                     id: this.results[i].id,
-                    result: this.results[i].result,
+                    label: this.results[i].result,
                 })
             };
             console.log('opa - ', this.selectedSign);
@@ -846,7 +860,8 @@ export default {
 </script>
 
 
-<style scoped lang="scss">
+<style lang="scss">
+    @import '~@riophae/vue-treeselect/dist/vue-treeselect.css';
     .half-fields__wrapper{
         label{
             display: block;
@@ -983,5 +998,12 @@ export default {
                 margin-right: 10px;
             }
         }
+    }
+    .vue-treeselect__control{
+        height: 34px;
+        border-radius: 0;
+    }
+    .vue-treeselect__menu{
+        border-radius: 0;
     }
 </style>
