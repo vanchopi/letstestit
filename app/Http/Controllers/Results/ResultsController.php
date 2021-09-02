@@ -138,9 +138,16 @@ class ResultsController extends Controller
         $numResult = 0;
         $num = sizeof($result);        
         $signs = [];
+        $gavno = [];
         for ($i=0; $i < sizeof($userAnswers); $i++) { 
-            $signs[$i] = $userAnswers[$i]['sign']['id'];
-        }        
+            if(isset($userAnswers[$i]['sign']["id"])){
+                $signs[$i] = $userAnswers[$i]['sign']['id'];
+            }else{
+                for ($j=0; $j < sizeof($userAnswers[$i]['sign']); $j++) {
+                    array_push($signs, $userAnswers[$i]['sign'][$j]['id']);
+                }
+            }
+        }
         $unic = array_count_values($signs);
         arsort($unic);
         $keyArr = [];
@@ -148,13 +155,7 @@ class ResultsController extends Controller
         foreach($unic as $key=>$value){   
             $keyArr[$n] = $key;
             $n++;
-        } 
-        /*echo "--***--**---***---***--\n";
-        print_r($unic);
-        echo "--\n";
-        print_r($keyArr);
-        echo "--" . $keyArr[0] . "--\n";
-        echo "--***--**---***---***--\n";*/
+        }        
         return $keyArr[0];
     }
 }
