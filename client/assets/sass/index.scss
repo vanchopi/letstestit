@@ -939,6 +939,7 @@ a{
 				overflow: hidden;
 				width: 100%;
 				max-width: 170px;
+				min-width: 80px;
 				position: relative;
 				/*.overlay{
 					position: absolute;
@@ -975,7 +976,7 @@ a{
 					margin-bottom: 15px;
 					padding-bottom: 5px;
 					border-bottom: 2px solid $main-fill-color;
-					font-size: 21px;
+					font-size: 28px;
 					font-weight: 500;
 				}
 				span{
@@ -1719,6 +1720,9 @@ footer{
 }
 
 @media screen and (max-width: 768px){
+	.categories-list__wrapper ul li .dsc-wrp b{
+		font-size: 21px;
+	}
 	.light {
 		.catalog-slider__wrapper{
 			&.about-wrapper {
@@ -1982,7 +1986,38 @@ footer{
 	}
 }
 
-@media screen and (max-width: 480px){	
+@media screen and (max-width: 480px){
+	.slider-wrapper .switcher-wrapper .arrows-wrapper .arrow{
+		opacity: 1;
+	}
+	.slider-wrapper .switcher-wrapper .container{
+		border-radius: 0;
+		border-right: none;
+		border-left: none;
+	}
+	.main-list__wrapper{
+		padding: 0px 0;
+	}
+	.categories-list__wrapper ul {
+		li{
+			padding: 25px 0;
+			&.item{
+				align-items: flex-start;
+			}
+			.dsc-wrp {
+				padding: 0 20px;
+				b{
+					font-size: 17px;
+					line-height: 20px;
+					margin-bottom: 10px;
+				}
+				span{
+					font-size: 14px;
+					line-height: 18px;
+				}
+			}			
+		}
+	}
 	.slider-wrapper .content-wrapper .content-categories__wrapper ul{
 		padding: 0 15px;
 	}

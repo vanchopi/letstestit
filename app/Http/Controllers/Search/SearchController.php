@@ -15,7 +15,7 @@ class SearchController extends Controller
     {
         $tests = [];
         $result = [];
-        $lim = env('ITEMS_IN_SEARCH');
+        $lim = env('ITEMS_IN_SEARCH') ?? 3;
         $tests = Test::search($request->search)->paginate($lim);
 
         $updatedTests = $tests->getCollection();

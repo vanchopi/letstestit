@@ -75,6 +75,7 @@
 import { mapGetters, mapState } from 'vuex'
 import { getTest } from '~/api/test/test'
 import FsLightbox from "fslightbox-vue";
+//import loader from '~/store/loader.js'
 
 export default {
   components: { 
@@ -151,6 +152,7 @@ export default {
         console.log('this.testList.category_url - ', this.test);
         //this.$router.push({name: 'results', query:{id: this.query}, params:{id: this.query, url1: this.category, answers: this.userAnswers}});
         console.log('id - ', this.query);
+        //loader.dispatch("changeLoading", true);
         this.$store.dispatch("test/setTestResults", { id: this.query, answers: this.userAnswers });
       }
     },    
