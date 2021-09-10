@@ -6,20 +6,20 @@
         <div class="switcher-wrapper__internal" id="swither-wrapper-internal">          
           <div class="arrows-wrapper">
             <div class="arrow left" 
-                 :class="{'disabled': !ifLeftAvaliable}"
+                 :class="[ (!ifLeftAvaliable ? 'disabled' :''), (onLoad ? 'on-load' : '')]"
                  @click="sliderSwitcher('left')"
               >
-              <img src="~assets/images/png/arrow-l.png" alt="">
+              <img src="~assets/images/png/arrow-l.png" alt="arrow">
             </div>
             <div class="arrow right" 
-                 :class="{'disabled': !ifRightAvaliable}"
+                 :class="[ (!ifRightAvaliable ? 'disabled' : ''), (onLoad ? 'on-load' : '') ]"
                  @click="sliderSwitcher('right')"
               >
-              <img src="~assets/images/png/arrow-r.png" alt="">
+              <img src="~assets/images/png/arrow-r.png" alt="arrow">
             </div>
           </div>
           <div class="description-wrapper">
-            <text-loader :loader="loader"/>
+            <text-loader :loader="onLoad"/>
             <ul id="switch-category">
               <li v-for="(item, index) of categories" 
                   :key=index
@@ -89,7 +89,7 @@
                     </div>
                   </div>
                   <div class="description-wrapper__bottom">
-                    <router-link :to="{ name: 'test', query: { id: test.id, }, params: { url1:test.category_url, url2: test.url, img: test.main_image} }" class="button"> 
+                    <router-link :to="{ name: 'test', query: { id: test.id, }, params: { url1:test.category_url, url2: test.url, img: test.main_image} }" class="base-button"> 
                       УЗНАТЬ
                     </router-link>
                   </div>
@@ -133,6 +133,7 @@ export default {
     ifRightAvaliable: true,
     ifEmptyCategory: false,
     catId: 0,
+    onLoad: true,
     showMore: 0,
     tmp: 0,
     showFilter: [
@@ -170,13 +171,13 @@ export default {
   async fetch(/*{ store, params }*/) {    
     this.categories = this.commonCategories.slice();
     this.loader = false;
+    this.onLoad = false;
     this.categories = this.addPopular(this.categories);       
     try{
       this.numStep = 0;
       this.testsList = {};
       const  list  =  await getTestsList( this.currentCategory );                                      
-      this.testsList = list.data.tests;
-      //console.log('fetched tests - ', list.data.tests);
+      this.testsList = list.data.tests;      
       if (this.testsList.length){
         this.ifEmptyCategory = false;
       }else{
@@ -186,7 +187,6 @@ export default {
     }catch(e){
       console.log(e);
     }    
-    //this.opa();
   },
 
   computed: {
@@ -198,8 +198,7 @@ export default {
     })
   },
   created(){
-    console.log('slider categories - ', this.commonCategories);
-    //this.setCategoriesList();    
+    console.log('slider categories - ', this.commonCategories); 
   },
   mounted(){    
     startSwitcher();
@@ -214,12 +213,10 @@ export default {
   },
   methods: {
     opa(){
-      console.log('! --- opa --- !');
     },
-    sliderSwitcher( direction ){      
-      //console.log('direction', );
-
-      switcher(direction)
+    sliderSwitcher( direction ){   
+      this.onLoad = true;
+      switcher(direction);
       switch(direction) {
         case 'right':
           if(this.catId == this.categories.length - 2){
@@ -266,8 +263,7 @@ export default {
         this.ifShowMore = false;
       }
     },
-    getTestsListLocal( num ){        
-        //console.log('swithed category id - ', num ,' -', this.categories[num]);
+    getTestsListLocal( num ){
         this.currentCategory = this.categories[num].id;
         this.getTests(this.currentCategory);
     },
@@ -279,18 +275,13 @@ export default {
           url: '0',
       })
       return arr;
-    },
-    /*setCategoriesList(){
-      this.categories = this.commonCategories.slice();
-      this.loader = false;
-      this.categories = this.addPopular(this.categories);
-      this.getTests(this.currentCategory);    
-    },*/   
+    },   
     async getTests( currentCategory ){
       try{
         this.numStep = 0;
         this.testsList = {};
-        const  list  =  await getTestsList( currentCategory );                                      
+        const  list  =  await getTestsList( currentCategory );
+        this.onLoad = false;
         this.testsList = list.data.tests;
         if (this.testsList.length){
           this.ifEmptyCategory = false;
@@ -320,6 +311,9 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="scss">
+  .on-load{
+    opacity: 0.5 !important;
+    pointer-events: none;
+  }
 </style>

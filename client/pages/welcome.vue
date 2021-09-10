@@ -1,6 +1,7 @@
 <template>
   <div>    
     
+    <main-list />
     <slider :ifCatalog="false" />
         
   </div>
@@ -9,12 +10,14 @@
 <script>
 import { mapGetters } from 'vuex'
 import Slider from '~/components/slider/Slider'
+import MainList from '~/components/MainList'
 
 export default {
   layout: 'default',
 
   components: {
-    Slider
+    Slider,
+    MainList
   },
 
   head () {
