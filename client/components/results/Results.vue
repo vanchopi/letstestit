@@ -35,8 +35,9 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex'
-import { ShareNetwork } from '@/../node_modules/vue-social-sharing/dist/vue-social-sharing'
+import { ShareNetwork } from 'vue-social-sharing/dist/vue-social-sharing'
 import share from '~/components/global/Share'
+//import loader from '~/store/loader.js'
 
 export default {
   components: {
@@ -74,6 +75,7 @@ export default {
     //this.query = this.$route.params.id;
     //console.log('---',this.query);
     console.log(' test results - ', this.testResults);
+    //loader.dispatch("changeLoading", false);
   },
   mounted() {
     

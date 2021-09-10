@@ -23,8 +23,8 @@
                   КОНТАКТЫ:
                 </div>
                 <div class="mail">
-                  <a href="mailto:test@test.ru?subject=Lets test it">
-                    info@letstestit.com
+                  <a href="mailto:info@letstestit.ru?subject=Let's test it">
+                    info@letstestit.ru
                   </a>
                 </div>
               </div>
@@ -75,7 +75,7 @@
       </div>
     </div>    
     <div class="footer-bottom__wrapper">
-       <span class="copyright">© 2020 Let's Test It</span>
+       <span class="copyright">© 2021 Let's Test It</span>
     </div>
     </div>
     

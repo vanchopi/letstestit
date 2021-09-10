@@ -2,29 +2,7 @@
   <div class="slider-wrapper" id="slider">   
 
     <div class="switcher-wrapper">
-      <div class="container">
-        <!--
-        <div class="switcher-wrapper__internal" id="swither-wrapper-internal">          
-          <div class="arrows-wrapper">
-            <div class="arrow left" @click="sliderSwitcher('left')">
-              <img src="~assets/images/png/arrow-l.png" alt="">
-            </div>
-            <div class="arrow right" @click="sliderSwitcher('right')">
-              <img src="~assets/images/png/arrow-r.png" alt="">
-            </div>
-          </div>
-          <div class="description-wrapper">
-            <text-loader :loader="loader"/>
-            <ul id="switch-category">
-              <li v-for="(item, index) of newCategoriesList" 
-                  :key=index
-                >
-                {{ item.txt }}
-              
-              </li>
-            </ul>
-          </div>
-        </div>-->
+      <div class="container">        
         <div class="category-title">
           <span v-if="true">Категории</span>
           <span v-else>123</span>

@@ -308,6 +308,8 @@ a{
 .banner-wrapper{
 	background-color: $main-color;
 	padding-top: 17px;
+	padding-bottom: 17px;
+	border-bottom: 1px solid $main-fill-color;
 	.container{
 		position: relative;
 		padding-top: 0;
@@ -538,7 +540,7 @@ a{
 	}
 }
 .catalog-slider__wrapper{	
-	background: $page-bg;
+	/*background: $page-bg;*/
 	.category-title{
 		text-shadow: 1px 1px 1px #000000;
 		padding: 45px 0;
@@ -557,6 +559,11 @@ a{
 		.switcher-wrapper{
 			background: none;
 			min-height: auto;
+			border: none;
+			.container{
+				background-color: transparent;
+				border: none;
+			}
 		}	
 		.content-wrapper{
 			background: none;
@@ -605,14 +612,26 @@ a{
 		right: 0;
 		margin: auto;
 		cursor: pointer;
+		opacity: 1;
+		transition: opacity .3s ease;
+		&:hover{
+			opacity: 0.8;
+		}
 	}
 	.switcher-wrapper__internal{
 		position: relative;
 	}
 	.switcher-wrapper{
 		width: 100%;
-		background-color: $main-color;
+		//background-color: $main-color;
 		min-height: 234px;
+		//border-top: 1px solid $main-fill-color;
+		//border-bottom: 1px solid $main-fill-color;
+		.container{
+			background-color: $main-color;
+			border: 1px solid $main-fill-color;
+			border-radius: 10px;
+		}
 		.arrows-wrapper{			
 			.arrow{
 				@include align-center;
@@ -629,6 +648,9 @@ a{
 			    user-select: none;
 			    opacity: 1;
 			    transition: opacity .3s ease;
+			    &:hover{
+			    	opacity: 0.8;
+			    }
 				&.left{
 					left: 0;
 				}
@@ -682,7 +704,7 @@ a{
 	.content-wrapper{
 		/*background-image: url(~assets/images/png/puzzle-bg.png);*/
 		/*background-color: $main-color-bg;*/
-		background: $page-bg;
+		/*background: $page-bg;*/
 		background-size: auto;
 		padding: 57px 0 150px 0;
 		min-height: 650px;
@@ -873,11 +895,107 @@ a{
 									@include align-center;
 									justify-content: center;
 								}
+								.base-button{
+									max-width: 185px;
+									height: 47px;
+								}
 							}
 						}
 						
 					}
 				}
+			}
+		}
+	}
+}
+
+/* main page catalog list*/
+.main-list__wrapper{
+	padding: 50px 0;	
+}
+
+.categories-list__wrapper{
+	ul{
+		width: 100%;
+		li{
+			width: 100%;
+			padding: 30px 0;
+			&.item/*,
+			.container*/{
+				@include align-center;
+				justify-content: flex-start;
+			}
+			&.odd{
+
+			}
+			&.even{
+				//background-color: $main-color;
+				&.item/*,
+				.container*/{
+					flex-direction: row-reverse;
+				}
+				.dsc-wrp{
+					text-align: right;
+				}
+			}
+			.img-wrp{
+				border-radius: 50%;
+				overflow: hidden;
+				width: 100%;
+				max-width: 170px;
+				min-width: 80px;
+				position: relative;
+				/*.overlay{
+					position: absolute;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					background-color: rgba(255,255,255, 0);
+					transition: background-color .3s ease;
+				}*/
+				img{
+					opacity: 1;
+					transition: opacity .3s ease;
+				}
+				&:hover{
+					/*.overlay{
+						background-color: rgba(255,255,255, 0.5);		
+					}*/
+					img{
+						opacity: 0.8;
+					}
+				}
+			}
+			img{
+				width: 100%;
+			}
+			.dsc-wrp{
+				padding: 0 25px;
+				.description{	
+					/*text-shadow: 2px 2px 1px #000000;*/
+				}
+				b{
+					display: block;
+					margin-bottom: 15px;
+					padding-bottom: 5px;
+					border-bottom: 2px solid $main-fill-color;
+					font-size: 28px;
+					font-weight: 500;
+				}
+				span{
+					display: block;
+					font-size: 16px;
+				    font-weight: 300;
+				}
+				.dark-link{
+					font-size: 14px;
+				    margin-top: 5px;
+				    display: block;
+				}
+			}
+			a{
+
 			}
 		}
 	}
@@ -1606,6 +1724,9 @@ footer{
 }
 
 @media screen and (max-width: 768px){
+	.categories-list__wrapper ul li .dsc-wrp b{
+		font-size: 21px;
+	}
 	.light {
 		.catalog-slider__wrapper{
 			&.about-wrapper {
@@ -1869,7 +1990,38 @@ footer{
 	}
 }
 
-@media screen and (max-width: 480px){	
+@media screen and (max-width: 480px){
+	.slider-wrapper .switcher-wrapper .arrows-wrapper .arrow{
+		opacity: 1;
+	}
+	.slider-wrapper .switcher-wrapper .container{
+		border-radius: 0;
+		border-right: none;
+		border-left: none;
+	}
+	.main-list__wrapper{
+		padding: 0px 0;
+	}
+	.categories-list__wrapper ul {
+		li{
+			padding: 25px 0;
+			&.item{
+				align-items: flex-start;
+			}
+			.dsc-wrp {
+				padding: 0 20px;
+				b{
+					font-size: 17px;
+					line-height: 20px;
+					margin-bottom: 10px;
+				}
+				span{
+					font-size: 14px;
+					line-height: 18px;
+				}
+			}			
+		}
+	}
 	.slider-wrapper .content-wrapper .content-categories__wrapper ul{
 		padding: 0 15px;
 	}

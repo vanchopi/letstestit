@@ -62,7 +62,7 @@
                     </div>
                   </div>
                   <div class="description-wrapper__bottom">
-                    <router-link :to="{ name: 'test', query: { id: test.id, }, params: { url1:test.category_url, url2: test.url, img: test.main_image} }" class="button">
+                    <router-link :to="{ name: 'test', query: { id: test.id, }, params: { url1:test.category_url, url2: test.url, img: test.main_image} }" class="base-button">
                       УЗНАТЬ
                     </router-link>
                   </div>
