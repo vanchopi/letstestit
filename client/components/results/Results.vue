@@ -44,6 +44,17 @@ export default {
     share
   },
   props: ['info'],
+  head () {
+    return {       
+      meta: [        
+        /*{
+          hid: 'og:image',
+          property: 'og:image',
+          content:  this.$store.state.test.results.media || '',
+        },*/        
+      ] 
+    }
+  },
   data: () => ({
     imgSrc: process.env.appRoot,   
     /*values: {
