@@ -148,10 +148,10 @@ export default {
                 };
           //console.log('custom img - ', img);
             rasterizeHTML.drawHTML(
-                '<div style="width: calc('+ wd + 'px - 60px); height: calc('+ ht + 'px - 60px); padding: 30px; background-image: url('+ img.src +'); background-size: cover;">' +
+                '<div style="width: calc('+ wd + 'px - 60px); height: calc('+ ht + 'px - 60px); padding: 30px; background-image: url('+ img.src +'); background-size: cover; text-shadow: 2px 2px 1px #000;">' +
                 '<div class="title-wrp" style="display: flex; align-items: center; justify-content: flex-start; padding-bottom: 30px; margin-bottom: 30px; width: calc(100%); border-bottom: 1px solid white;">'+ 
                 '<img width="140" src="/logo.png" style="margin-right: 0px;">' + 
-                '<b style="position: absolute; margin-left: 150px; font-size: 28px;">' +
+                '<b style="position: relative; margin-left: 20px; font-size: 28px; margin-top: 4px">' +
                 '<span style="color: white;">'+ this.imgText.title +'</span>'+
                 '</b>'+
                 '</div>'+
