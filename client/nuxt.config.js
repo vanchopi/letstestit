@@ -13,7 +13,7 @@ module.exports = {
     appRoot: process.env.CLIENT_URL || process.env.APP_URL,
     appName: process.env.APP_NAME || 'letstestit',
     appLocale: process.env.APP_LOCALE || 'ru',
-    githubAuth: !!process.env.GITHUB_CLIENT_ID,    
+    githubAuth: !!process.env.GITHUB_CLIENT_ID,     
   },
 
   head: {
@@ -22,8 +22,9 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'opa' },
-      { hid: 'keywords', name: 'keywords' , content: ''}
+      { hid: 'description', name: 'description', content: '' },
+      { hid: 'keywords', name: 'keywords' , content: ''},
+      { hid: 'og:image', property: 'og:image', content: process.env.APP_IMG || '' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
