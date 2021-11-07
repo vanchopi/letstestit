@@ -8,6 +8,7 @@
               <span class="cssload-loading"></span>
             </li>            
           </ul>
+          <div class="txt-container" v-if="txt != ''">{{txt}}</div>
       </div>
   </div>
 </template>
@@ -22,6 +23,7 @@ export default {
 
   props: {
     //loader: false
+    txt: String
   },
   data: () => ({    
     ploader: true,
