@@ -37,7 +37,7 @@
 import { mapGetters, mapState } from 'vuex'
 import { ShareNetwork } from 'vue-social-sharing/dist/vue-social-sharing'
 import share from '~/components/global/Share'
-//import loader from '~/store/loader.js'
+import loader from '~/store/loader.js'
 
 export default {
   components: {
@@ -69,6 +69,8 @@ export default {
   watch:{
       'testResults'(){
         console.log('data - ', this.testResults);
+        loader.dispatch("changeLoading", false);
+        //this.$store.dispatch("test/chageTxtLoading", '');
       }
   },
   computed:{
@@ -86,7 +88,7 @@ export default {
     //this.query = this.$route.params.id;
     //console.log('---',this.query);
     console.log(' test results - ', this.testResults);
-    //loader.dispatch("changeLoading", false);
+    loader.dispatch("changeLoading", false);
   },
   mounted() {
     
