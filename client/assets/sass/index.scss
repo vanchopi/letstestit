@@ -1211,10 +1211,10 @@ footer{
     display: block;
     position: relative;
     padding-left: 63px;
-    line-height: 42px;
+    line-height: 36px;
     cursor: pointer;
     font-weight: 500;
-	font-size: 36px;   
+	font-size: 29px;   
     user-select: none;
     text-transform: none;
     color: $col-text-second;
@@ -1305,7 +1305,7 @@ footer{
 			@include align-center;
 			justify-content: space-between;
 			padding: 0 66px;
-			margin-bottom: 48px;
+			margin-bottom: 28px;
 			.back-bt{
 				@include align-center;
 				justify-content: flex-start;
