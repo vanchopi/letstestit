@@ -38,7 +38,7 @@ export default {
     top: 0;
     left: 0;
     z-index: 10;
-    background-color: $main-color;
+    background-color: $body-bg;
     opacity: 0;
     visibility: hidden;
     transition: visibility .3s ease,
