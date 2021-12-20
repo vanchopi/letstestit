@@ -22,6 +22,7 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'yandex-verification', content: '58befd31e95624ce' },
       { hid: 'description', name: 'description', content: '' },
       { hid: 'keywords', name: 'keywords' , content: ''},
       { hid: 'og:image', property: 'og:image', content: process.env.APP_IMG || '' }
