@@ -22,3 +22,5 @@ yarn-error.log
 /dist
 /public/_nuxt
 *.code-workspace
+client/ssl.letstestit.ru.crt
+client/ssl.letstestit.ru.key
