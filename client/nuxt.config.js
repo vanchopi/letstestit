@@ -23,6 +23,7 @@ module.exports = {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { name: 'yandex-verification', content: '58befd31e95624ce' },
+      { name: 'Content-Security-Policy', content: 'upgrade-insecure-requests' },
       { hid: 'description', name: 'description', content: '' },
       { hid: 'keywords', name: 'keywords' , content: ''},
       { hid: 'og:image', property: 'og:image', content: process.env.APP_IMG || '' }
@@ -66,7 +67,11 @@ module.exports = {
   build: {
     extractCSS: true
   },
-
+  server: {
+    port: process.env.SERVER_PORT || 3000, // default: 3000
+    // host: '0.0.0.0', // default: localhost,
+    // timing: false
+  },
   hooks: {
     generate: {
       done (generator) {
