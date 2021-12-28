@@ -1,8 +1,8 @@
 require('dotenv').config()
 const { join } = require('path')
-const { copySync, removeSync } = require('fs-extra')
-import path from 'path'
-import fs from 'fs'
+const path = require('path')
+const { copySync, removeSync} = require('fs-extra')
+const fs = require('fs')
 
 module.exports = {
   //mode: 'spa', // Comment this for SSR
@@ -72,9 +72,11 @@ module.exports = {
   server: {
     port: process.env.SERVER_PORT || 3000, // default: 3000
     // host: '0.0.0.0', // default: localhost,
-    // timing: false,
-    key: fs.readFileSync(path.resolve(__dirname, 'ssl.letstestit.ru.key')),
-    cert: fs.readFileSync(path.resolve(__dirname, 'ssl.letstestit.ru.crt'))
+    // timing: false
+    https: {
+      key: fs.readFileSync(path.resolve(process.env.SSL_PATH, 'ssl.letstestit.ru.key')),
+      cert: fs.readFileSync(path.resolve(process.env.SSL_PATH, 'ssl.letstestit.ru.crt'))
+    }
   },
   hooks: {
     generate: {
