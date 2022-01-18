@@ -49579,7 +49579,8 @@ var actions = {
             }
             //console.log('4. all questions - ', state.item.questions);
             //console.log(' 5. questions img - ', questionsImg);
-            /*console.log('params main_image - ', params.get('main_image'));*/
+            console.log('params main_image - ', params.get('main_image'));
+            console.log('params bg_image - ', params.get('bg_image'));
             console.log('! results - ', state.resultsItem);
             //console.log('variants', params.getAll('variants'));
             //console.log('qestions_img - ', params.getAll('qestions_img'));
