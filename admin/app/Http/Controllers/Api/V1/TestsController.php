@@ -59,8 +59,9 @@ class TestsController extends Controller
         $thumbs = [];
         $targetFolder = explode( "/admin" , $_SERVER['DOCUMENT_ROOT'] )[0].'/admin/storage/app/public/images/thumbs';
         //$variants = json_decode($results);
-
+        echo "*******";        
         print_r(gettype($request->main_image));
+        echo "*******";
 
         echo "--------";
         print_r($questionsImg);
