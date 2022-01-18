@@ -5,7 +5,7 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": "^7.2",
+        "php": "^8.0",
         "algolia/algoliasearch-client-php": "^2.7",
         "fideloper/proxy": "^4.0",
         "fruitcake/laravel-cors": "^1.0",

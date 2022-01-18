@@ -31,8 +31,10 @@ class Test extends Model implements HasMedia
             'category_id' => 'integer|exists:categories,id|max:4294967295|nullable',
             'title' => 'max:191|nullable',
             'url' => 'max:191|nullable',
-            'main_image' => 'file|image|nullable',
-            'bg_image' => 'file|image|nullable'
+            // 'main_image' => 'file|image|nullable',
+            // 'bg_image' => 'file|image|nullable'
+            'main_image' => 'file|nullable|mimes:jpeg,png,jpg,gif,svg|max:8048',
+            'bg_image' => 'file|nullable|mimes:jpeg,png,jpg,gif,svg|max:8048'
         ];
     }
 
