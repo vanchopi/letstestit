@@ -32,6 +32,7 @@ class InfoController extends Controller
         return  $result = [
         			"status" => $status,
                     "send" => $send,
+                    "info"=> $to . ' ' . $subject,
         		];
     }
 }
