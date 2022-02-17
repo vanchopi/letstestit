@@ -34,7 +34,7 @@
                   Вопросы и предложения
                 </div>
                 <div class="text-content">
-                  Все вопросы и предложения можно отправлять на наш Email - <a class="dark-link" href="mailto::info@letstestit.ru">info@letstestit.ru</a>. Также это можно сделать воспользовавшись <a class="dark-link" href="#" @click.prevent = "callForm()">формой обратной связи</a> на нашем сайте.
+                  Все вопросы и предложения можно отправлять на наш Email - <a class="dark-link" :href="`mailto:${mail}?subject=Let's test it. About.`">{{mail}}</a>. Также это можно сделать воспользовавшись <a class="dark-link" href="#" @click.prevent = "callForm()">формой обратной связи</a> на нашем сайте.
                 </div>
             </div>
             <div class="content-block">
@@ -80,7 +80,8 @@ export default {
   },
   data: () => ({
     imgSrc: process.env.appRoot,
-    showForm: false,    
+    showForm: false,
+    mail: process.env.mail,    
   }),
 
   computed: {

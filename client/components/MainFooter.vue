@@ -23,8 +23,8 @@
                   КОНТАКТЫ:
                 </div>
                 <div class="mail">
-                  <a href="mailto:info@letstestit.ru?subject=Let's test it">
-                    info@letstestit.ru
+                  <a :href="`mailto:${mail}?subject=Let's test it`">
+                    {{mail}}
                   </a>
                 </div>
               </div>
@@ -92,6 +92,7 @@ export default {
 
   data: () => ({
     appName: process.env.appName,
+    mail: process.env.mail,
     searchStr:'',    
   }),
 

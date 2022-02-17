@@ -15,7 +15,8 @@ module.exports = {
     appRoot: process.env.CLIENT_URL || process.env.APP_URL,
     appName: process.env.APP_NAME || 'letstestit',
     appLocale: process.env.APP_LOCALE || 'ru',
-    githubAuth: !!process.env.GITHUB_CLIENT_ID,     
+    githubAuth: !!process.env.GITHUB_CLIENT_ID,
+    mail: process.env.MAIL_MAIN_HOST
   },
 
   head: {
