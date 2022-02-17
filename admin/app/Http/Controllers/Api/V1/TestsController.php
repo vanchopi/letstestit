@@ -57,10 +57,12 @@ class TestsController extends Controller
         $questionsImg = $request->qestions_img;
         $seo = $request->seo;
         $thumbs = [];
-        $targetFolder = explode( "/admin" , $_SERVER['DOCUMENT_ROOT'] )[0].'/admin/storage/app/public/images/thumbs';
+        $targetFolder = env('IF_SERVER') ? explode( "/admin/public" , $_SERVER['DOCUMENT_ROOT'] )[0].'/admin/storage/app/public/images/thumbs' : explode( "/admin" , $_SERVER['DOCUMENT_ROOT'] )[0].'/admin/storage/app/public/images/thumbs';
+        //$targetFolder = explode( "/admin/public" , $_SERVER['DOCUMENT_ROOT'] )[0].'/admin/storage/app/public/images/thumbs'; //server
         //$variants = json_decode($results);
         echo "*******";        
-        print_r(gettype($request->main_image));
+        print_r($request->main_image);
+        print_r($request->bg_image);
         echo "*******";
 
         echo "--------";
