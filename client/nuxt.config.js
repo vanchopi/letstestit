@@ -24,7 +24,7 @@ const config = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { name: 'yandex-verification', content: '58befd31e95624ce' },
+      { name: 'yandex-verification', content: process.env.YANDEX_ID },
       { name: 'Content-Security-Policy', content: 'upgrade-insecure-requests' },
       { hid: 'description', name: 'description', content: '' },
       { hid: 'keywords', name: 'keywords' , content: ''},
@@ -92,10 +92,11 @@ const config = {
 
 if(process.env.APP_STATUS != "dev"){
   let https = {
-      key: fs.readFileSync(path.resolve(process.env.SSL_PATH, 'ssl.letstestit.ru.key')),
-      cert: fs.readFileSync(path.resolve(process.env.SSL_PATH, 'ssl.letstestit.ru.crt'))
-  }
-  config.mode = 'spa'; // Comment this for SSR
+        key: fs.readFileSync(path.resolve(process.env.SSL_PATH, 'ssl.letstestit.ru.key')),
+        cert: fs.readFileSync(path.resolve(process.env.SSL_PATH, 'ssl.letstestit.ru.crt'))
+    },
+    plug = '~plugins/nuxt-client-init';
+  config.mode = 'spa';
 
   config.server = {   
     ...https
@@ -104,9 +105,10 @@ if(process.env.APP_STATUS != "dev"){
     //   cert: fs.readFileSync(path.resolve(process.env.SSL_PATH, 'ssl.letstestit.ru.crt'))
     // }
   };
-  config.plugins = {
-    ...'~plugins/nuxt-client-init'
-  } 
+  config.plugins.push('~plugins/nuxt-client-init');
+  // config.plugins = [
+  //   ...plug
+  // ]
 }
 
 module.exports = {
