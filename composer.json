@@ -13,6 +13,7 @@
         "laravel/scout": "^8.6",
         "laravel/socialite": "^4.0",
         "laravel/tinker": "~1.0",
+        "phpmailer/phpmailer": "^6.6",
         "spatie/laravel-cors": "1.6.*",
         "tymon/jwt-auth": "^1.0.0-rc.5"
     },

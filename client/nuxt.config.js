@@ -4,8 +4,7 @@ const path = require('path')
 const { copySync, removeSync} = require('fs-extra')
 const fs = require('fs')
 
-module.exports = {
-  //mode: 'spa', // Comment this for SSR
+const config = { 
 
   srcDir: __dirname,
 
@@ -73,11 +72,7 @@ module.exports = {
   server: {
     port: process.env.SERVER_PORT || 3000, // default: 3000
     // host: '0.0.0.0', // default: localhost,
-    // timing: false
-    https: {
-      key: fs.readFileSync(path.resolve(process.env.SSL_PATH, 'ssl.letstestit.ru.key')),
-      cert: fs.readFileSync(path.resolve(process.env.SSL_PATH, 'ssl.letstestit.ru.crt'))
-    }
+    // timing: false    
   },
   hooks: {
     generate: {
@@ -93,4 +88,27 @@ module.exports = {
       }
     }
   }
+}
+
+if(process.env.APP_STATUS != "dev"){
+  let https = {
+      key: fs.readFileSync(path.resolve(process.env.SSL_PATH, 'ssl.letstestit.ru.key')),
+      cert: fs.readFileSync(path.resolve(process.env.SSL_PATH, 'ssl.letstestit.ru.crt'))
+  }
+  config.mode = 'spa'; // Comment this for SSR
+
+  config.server = {   
+    ...https
+    // ...https: {
+    //   key: fs.readFileSync(path.resolve(process.env.SSL_PATH, 'ssl.letstestit.ru.key')),
+    //   cert: fs.readFileSync(path.resolve(process.env.SSL_PATH, 'ssl.letstestit.ru.crt'))
+    // }
+  };
+  config.plugins = {
+    ...'~plugins/nuxt-client-init'
+  } 
+}
+
+module.exports = {
+  ...config
 }
