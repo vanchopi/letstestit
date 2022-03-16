@@ -94,10 +94,7 @@ if(process.env.APP_STATUS != "dev"){
   let https = {
         key: fs.readFileSync(path.resolve(process.env.SSL_PATH, 'ssl.letstestit.ru.key')),
         cert: fs.readFileSync(path.resolve(process.env.SSL_PATH, 'ssl.letstestit.ru.crt'))
-    },
-    plug = '~plugins/nuxt-client-init';
-  config.mode = 'spa';
-
+    };
   config.server = {   
     ...https
     // ...https: {
@@ -105,10 +102,9 @@ if(process.env.APP_STATUS != "dev"){
     //   cert: fs.readFileSync(path.resolve(process.env.SSL_PATH, 'ssl.letstestit.ru.crt'))
     // }
   };
-  config.plugins.push('~plugins/nuxt-client-init');
-  // config.plugins = [
-  //   ...plug
-  // ]
+}else{
+  // config.mode = 'spa'; // Comment this for SSR  
+  // config.plugins.push('~plugins/nuxt-client-init'); // Comment this for SSR  
 }
 
 module.exports = {
