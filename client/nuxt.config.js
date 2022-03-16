@@ -90,17 +90,10 @@ const config = {
   }
 }
 
-if(process.env.APP_STATUS != "dev"){
-  let https = {
-        key: fs.readFileSync(path.resolve(process.env.SSL_PATH, 'ssl.letstestit.ru.key')),
-        cert: fs.readFileSync(path.resolve(process.env.SSL_PATH, 'ssl.letstestit.ru.crt'))
-    };
-  config.server = {   
-    ...https
-    // ...https: {
-    //   key: fs.readFileSync(path.resolve(process.env.SSL_PATH, 'ssl.letstestit.ru.key')),
-    //   cert: fs.readFileSync(path.resolve(process.env.SSL_PATH, 'ssl.letstestit.ru.crt'))
-    // }
+if(process.env.APP_STATUS != "dev"){  
+  config.server.https = {
+      key: fs.readFileSync(path.resolve(process.env.SSL_PATH, 'ssl.letstestit.ru.key')),
+      cert: fs.readFileSync(path.resolve(process.env.SSL_PATH, 'ssl.letstestit.ru.crt'))    
   };
 }else{
   // config.mode = 'spa'; // Comment this for SSR  
