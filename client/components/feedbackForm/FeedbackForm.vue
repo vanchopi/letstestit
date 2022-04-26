@@ -6,6 +6,7 @@
         <div class="feedback-form" slot="body">
             <form @submit.prevent="submitForm()" v-if="sendedStatus != 'sended'">
                 <div class="form-group custom__1">
+                    <recaptcha />
                     <div class="form-row">
                         <label for="email" class="required">{{$t('email_address')}}</label>
                         <input type="email" 
@@ -102,29 +103,50 @@ export default {
       this.showModal = this.showForm;
       console.log('status', this.sendStatus);
   },
+  async mounted() {
+    try {
+      await this.$recaptcha.init()
+    } catch (e) {
+      console.log(e);
+    }
+  },
   watch:{
       'showForm'(){
           this.showModal = this.showForm;    
       }
   },
+  beforeDestroy() {
+      this.$recaptcha.destroy()
+  },
   methods:{
     ...mapActions('form', ['sendFormData']), 
     submitForm() {
-      console.log('submitForm');
-      let self = this;      
-      this.$v.$touch()
-      if (this.$v.$invalid) {
-        this.submitStatus = 'ERROR';
-        console.log('ERROR');
-      } else {
-        this.submitStatus = 'PENDING'        
-        this.sendFormData(this.form).then((response) => {
-            console.log('sended - ', response.data.status);
-            this.changeStatus(response.data.status);
-        }).catch((error) => {
-            console.log('from error - ',error);
-            this.faildSending();            
-        })
+      this.captchaChecking().then((token)=>{
+        let self = this;      
+        this.$v.$touch()
+        if (this.$v.$invalid) {
+          this.submitStatus = 'ERROR';
+          console.log('ERROR');
+        } else {
+          this.submitStatus = 'PENDING'        
+          this.sendFormData(this.form).then((response) => {
+              this.changeStatus(response.data.status);
+          }).catch((error) => {
+              console.log('from error - ',error);
+              this.faildSending();            
+          })
+        }
+      }).catch((err)=>{
+        console.log(err);
+      })
+    },
+    async captchaChecking(){
+      try {
+        const token = await this.$recaptcha.execute('feadBackForm');
+        return token;
+      } catch (error) {
+        console.log('Login error:', error);
+        throw error;
       }
     },
     changeStatus(status){        

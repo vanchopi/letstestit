@@ -6,6 +6,7 @@
           <form ref="form" action=""
                 @submit.prevent="searchOnSubmit"
               >
+              <recaptcha />
               <input type="text" placeholder="Search..."
                      v-model="searchStr"
               >              
@@ -25,14 +26,17 @@
 </template>
 
 <script>
+
+
 export default {
   name: 'Search',
-
+  components: {  },
   props: ['ifShow', "onSearchClose"],
   data: () => ({    
     ploader: true,
     showSearch: false,
     searchStr: '',
+    recaptchaKey: process.env.appRoot,
   }),
   created(){    
       this.showSearch = this.ifShow;
@@ -46,19 +50,34 @@ export default {
           this.$store.dispatch("search/setRequest", this.searchStr );*/
       }
   },
-  methods:{
-      onClose(){
-          this.onSearchClose();
-      },
-      searchOnSubmit(){
-          this.onClose();
-          if(!this.searchStr == ''){
-            this.$router.push({name: 'search', query:{q: this.searchStr}});
-          }else{
-            console.log('empty search request');
-          }
-      }
-  }
+  async mounted() {
+    try {
+      await this.$recaptcha.init()
+    } catch (e) {
+      console.log(e);
+    }
+  },
+    beforeDestroy() {
+        this.$recaptcha.destroy()
+    },
+    methods:{
+        onClose(){
+            this.onSearchClose();
+        },
+        async searchOnSubmit(){
+            try {
+                const token = await this.$recaptcha.execute('search');
+                this.onClose();
+                if(!this.searchStr == '' && token){
+                    this.$router.push({name: 'search', query:{q: this.searchStr}});
+                }else{
+                    console.log('empty search request');
+                }
+            } catch (error) {
+                console.log('Login error:', error)
+            }          
+        }
+    }
 }
 </script>
 
