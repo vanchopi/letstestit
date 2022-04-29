@@ -15,7 +15,8 @@ const config = {
     appName: process.env.APP_NAME || 'letstestit',
     appLocale: process.env.APP_LOCALE || 'ru',
     githubAuth: !!process.env.GITHUB_CLIENT_ID,
-    mail: process.env.MAIL_MAIN_HOST
+    mail: process.env.MAIL_MAIN_HOST,
+    recaptcha: process.env.RECAPTCHA_ID || ''
   },
 
   head: {
@@ -58,8 +59,17 @@ const config = {
 
   modules: [
     '@nuxtjs/router',
-    '@nuxtjs/google-analytics'
+    '@nuxtjs/google-analytics',
+    '@nuxtjs/recaptcha',
   ],
+
+  recaptcha: {
+    hideBadge: true,
+    // language: 'en',
+    siteKey: process.env.RECAPTCHA_ID,
+    version: 3,
+    // size: 'invisible'
+  },
 
   googleAnalytics: {
     id: process.env.GOOGLE_ANALYTICS_ID,

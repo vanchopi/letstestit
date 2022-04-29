@@ -40,6 +40,7 @@ export default {
   data: () => ({
     title: process.env.appName,
     searchStr: '',
+    token: null,
   }),
 
   computed: mapGetters({
@@ -49,16 +50,18 @@ export default {
   watch:{ 
     '$route.query'(){
       this.searchStr = this.$route.query.q;
+      this.token = this.$route.query.token;
       this.$store.dispatch("search/setRequest", this.searchStr );
-      this.$store.dispatch("search/fetchSearchResult", { str:this.searchStr } );
+      this.$store.dispatch("search/fetchSearchResult", { str:this.searchStr, token: this.token } );
       //console.log('router serach result - ', this.searchStr);  
     }
   },
 
   created(){
     this.searchStr = this.$route.query.q;
+    this.token = this.$route.query.token;
     this.$store.dispatch("search/setRequest", this.searchStr );
-    this.$store.dispatch("search/fetchSearchResult", { str:this.searchStr });
+    this.$store.dispatch("search/fetchSearchResult", { str:this.searchStr, token: this.token });
     //console.log(' serach result - ', this.searchStr);
   }
 }

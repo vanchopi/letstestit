@@ -21,6 +21,12 @@ a{
 		outline: none;
 	}
 }
+.g-recaptcha,
+.grecaptcha-badge { 
+    visibility: hidden;
+    position: fixed;
+    top: -100%;
+}
 .form-control{
 	transition: border-color .3s ease,
 				box-shadow .3s ease;

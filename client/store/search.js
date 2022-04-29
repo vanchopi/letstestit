@@ -55,18 +55,19 @@ const getters = {
 }
 
 const actions = {
-	async fetchSearchResult( context, {str, page = 1} ){				
+	async fetchSearchResult( context, {str, token, page = 1} ){
+		console.log('fetchSearchResult');
 		try{
-			const  list  =  await search(str, page);
+			const  list  =  await search(str, token, page);
         	//console.log(list);
 			context.commit('FETCH_RESULT', list.data);
 		}catch(e){
 			console.log(e);
 		}
 	},
-	async moreSearchResult(context, {str, page} ){
+	async moreSearchResult(context, {str, token, page} ){
 		try{
-			const  list  =  await search(str, page);
+			const  list  =  await search(str, token,  page);
         	//console.log(list);
 			context.commit('FETCH_MORE_RESULT', list.data);
 		}catch(e){

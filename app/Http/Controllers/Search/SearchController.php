@@ -13,20 +13,24 @@ class SearchController extends Controller
 {
     protected function getSearchResult(Request $request)
     {
-        $tests = [];
-        $result = [];
-        $lim = env('ITEMS_IN_SEARCH') ?? 3;
-        $tests = Test::search($request->search)->paginate($lim);
+        if($request->token != NULL){
+            $tests = [];
+            $result = [];
+            $lim = env('ITEMS_IN_SEARCH') ?? 3;
+            $tests = Test::search($request->search)->paginate($lim);
 
-        $updatedTests = $tests->getCollection();
-        for ($i=0; $i < count($updatedTests); $i++) {
-            $media = self::getMedias($updatedTests[$i]->id);
-            $updatedTests[$i]->bg_image = $media->bg_image;
-            $updatedTests[$i]->main_image = $media->main_image;
-            $updatedTests[$i]['category_url'] = self::getCategoryUrl($updatedTests[$i]->category_id);
-        }
-        $tests->setCollection($updatedTests);
-        return $tests;
+            $updatedTests = $tests->getCollection();
+            for ($i=0; $i < count($updatedTests); $i++) {
+                $media = self::getMedias($updatedTests[$i]->id);
+                $updatedTests[$i]->bg_image = $media->bg_image;
+                $updatedTests[$i]->main_image = $media->main_image;
+                $updatedTests[$i]['category_url'] = self::getCategoryUrl($updatedTests[$i]->category_id);
+            }
+            $tests->setCollection($updatedTests);
+            return $tests;
+        }else{
+            return [];
+        }        
     }
 
     static public function getMedias($id){
