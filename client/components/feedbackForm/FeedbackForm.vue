@@ -128,7 +128,8 @@ export default {
           this.submitStatus = 'ERROR';
           console.log('ERROR');
         } else {
-          this.submitStatus = 'PENDING'        
+          this.submitStatus = 'PENDING' ;
+          this.form.token = token;       
           this.sendFormData(this.form).then((response) => {
               this.changeStatus(response.data.status);
           }).catch((error) => {
@@ -178,6 +179,7 @@ export default {
       this.form.name = '';
       this.form.email = '';
       this.form.message = '';
+      this.form.token = null;
     },
     close(){
         //this.showModal = false;

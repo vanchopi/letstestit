@@ -69,13 +69,13 @@ export default {
                 const token = await this.$recaptcha.execute('search');
                 this.onClose();
                 if(!this.searchStr == '' && token){
-                    this.$router.push({name: 'search', query:{q: this.searchStr}});
+                    this.$router.push({name: 'search', query:{q: this.searchStr, token: token}});
                 }else{
                     console.log('empty search request');
                 }
             } catch (error) {
                 console.log('Login error:', error)
-            }          
+            }
         }
     }
 }

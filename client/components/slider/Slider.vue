@@ -198,7 +198,7 @@ export default {
     })
   },
   created(){
-    console.log('slider categories - ', this.commonCategories); 
+    // console.log('slider categories - ', this.commonCategories); 
   },
   mounted(){    
     startSwitcher();
