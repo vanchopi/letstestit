@@ -24,6 +24,7 @@ const actions = {
 			data.set('name', payload.name);
 			data.set('email', payload.email);
 			data.set('message', payload.message);
+			data.set('token', payload.token);
 			sendForm( data ).then((response) => {
 				resolve(response);
 				console.log(response);	

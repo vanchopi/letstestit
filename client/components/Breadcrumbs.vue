@@ -61,7 +61,7 @@ export default {
         links.forEach((link, index) => {
               if (path == ''){path = this.language}
               path = `${path}/${link}`
-              console.log('path - ', path);
+              // console.log('path - ', path);
               let match = this.$router.match(path),
                   title = '';          
               if (match.name !== null) {
@@ -116,7 +116,7 @@ export default {
   methods: {
     test(){
         const fullPath = this.$route.fullPath;
-        console.log('fullPath - ', fullPath);
+        // console.log('fullPath - ', fullPath);
     }
   }
 }
