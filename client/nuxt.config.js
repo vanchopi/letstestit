@@ -61,6 +61,7 @@ const config = {
     '@nuxtjs/router',
     '@nuxtjs/google-analytics',
     '@nuxtjs/recaptcha',
+    '@nuxtjs/yandex-metrika',
   ],
 
   recaptcha: {
@@ -74,6 +75,10 @@ const config = {
   googleAnalytics: {
     id: process.env.GOOGLE_ANALYTICS_ID,
     dev: process.env.GOOGLE_ANALYTICS_DEV
+  },
+
+  yandexMetrika: {
+    id: process.env.YANDEX_METRIKA_ID,
   },
 
   build: {
