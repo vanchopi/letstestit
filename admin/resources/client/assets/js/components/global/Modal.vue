@@ -18,9 +18,10 @@
               </div>
 
               <div class="modal-footer">
-                <!--<slot name="footer">
-                  default footer                  
-                </slot>-->
+                <div class="btn-actions-wrapper">
+                  <slot name="footer">               
+                  </slot>
+                </div>
                 <div class="btn btn-primary btn-sm" @click="closeWindow">
                   Close
                 </div>

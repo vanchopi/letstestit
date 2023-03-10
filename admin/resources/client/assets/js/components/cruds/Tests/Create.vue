@@ -20,6 +20,9 @@
                             </li>  
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#seo">SEO</a>
+                            </li>  
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#adv">Реклама</a>
                             </li>                                          
                         </ul>
                         <div class="tab-content">
@@ -461,6 +464,17 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="tab-pane" id="adv">
+                                <div class="box">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Реклама</h3>
+                                    </div>
+
+                                    <div class="box-body half-fields__wrapper">
+                                        <TabAdvertisment />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="bt-wrapper">
@@ -482,6 +496,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import TabAdvertisment from "./Tabs/TabAdvertisment.vue";
 import Treeselect from '@riophae/vue-treeselect'
 import CreateImage from './createImage/CreateImage'
 import TextEditor from '../../global/TextEditor'
@@ -492,6 +507,7 @@ export default {
         CreateImage,
         TextEditor,
         Treeselect,
+        TabAdvertisment,
     },
     data() {
         return {
@@ -868,6 +884,7 @@ export default {
             width: 100%;
             margin-bottom: 5px;
         }
+        input,
         textarea{
             width: 100%;
             max-width: 615px;

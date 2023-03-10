@@ -108,8 +108,22 @@
 .modal-footer{
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   width: 100%;
+  &:before,
+  &:after{
+    content: none;
+  }
+  .btn-actions-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+      a{
+        &:first-child{
+        margin-right: 10px;
+      }
+    }
+  }
 }
 
 .modal-default-button {

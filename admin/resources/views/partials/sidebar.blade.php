@@ -53,7 +53,6 @@
                     <span>@lang('quickadmin.tests.title')</span>
                 </router-link>
             </li>
-
             <li>
                 <router-link :to="{ name: 'auth.change_password' }">
                     <i class="fa fa-key"></i>

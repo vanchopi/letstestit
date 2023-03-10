@@ -54,10 +54,10 @@
             <canvas :width="wd" :height="ht" id="canvas1" style='position: relative; left:0px; top:0px; display: none;'></canvas>
             <canvas :width="wd" :height="ht" id="canvas2" style='position: relative; left:0px; top:0px; display: none;'></canvas>
             <img id="resultImg" src="" alt="">
-            <div class="btn-wrp">
-              <a class="btn btn-primary btn-sm" href="#" @click.prevent="generateImg">Generate image</a>
-              <a class="btn btn-success btn-sm" href="#" @click.prevent="applyImage">Apply image</a>
-            </div>
+          </div>
+          <div slot="footer" class="">
+            <a class="btn btn-primary btn-sm" href="#" @click.prevent="generateImg">Generate image</a>
+            <a class="btn btn-success btn-sm" href="#" @click.prevent="applyImage">Apply image</a>
           </div>
       </modal-window>  
 </template>
@@ -73,7 +73,6 @@ export default {
     props: ['showModal', 'onCloseWindow', 'title', 'num', 'results', 'onApplyImage'],
     data() {
         return {
-            // Code...
             showModalLocal: false,
             imgText:{
               title: '',
@@ -90,14 +89,8 @@ export default {
         this.fillData();
       }
     },
-    created() {
-        // Code...
-        console.log('!2 results - ', this.results);        
-    },
     methods: {
-        //
         fillData(){
-          console.log('!3 results - ', this.results);
           this.imgText = {
             title : this.title,
             result: this.results.result,
@@ -146,7 +139,6 @@ export default {
                     width: this.wd,
                     height: this.ht,
                 };
-          //console.log('custom img - ', img);
             rasterizeHTML.drawHTML(
                 '<div style="width: calc('+ wd + 'px - 60px); height: calc('+ ht + 'px - 60px); padding: 30px; background-image: url('+ img.src +'); background-size: cover; text-shadow: 2px 2px 1px #000;">' +
                 '<div class="title-wrp" style="display: flex; align-items: center; justify-content: flex-start; padding-bottom: 30px; margin-bottom: 30px; width: calc(100%); border-bottom: 1px solid white;">'+ 

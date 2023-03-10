@@ -11,10 +11,10 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
+mix.js('resources/js/app.js', 'public/js').vue()
    .sass('resources/sass/app.scss', 'public/css');
 
-mix.js('resources/client/assets/js/app.js', 'public/client/js')
+mix.js('resources/client/assets/js/app.js', 'public/client/js').vue()
     .sass('resources/client/assets/sass/app.scss', 'public/client/css')
     .extract([
         'axios',
@@ -36,3 +36,9 @@ mix.autoload({
     'jquery': ['$', 'window.jQuery', 'jQuery'],
     'moment': ['moment','window.moment'],
 });
+
+mix.webpackConfig({
+    stats: {
+        warnings: false,
+    }
+ });

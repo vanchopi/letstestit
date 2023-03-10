@@ -58,7 +58,7 @@ if (date_format && time_format && datetime_format) {
 //     key: 'your-pusher-key'
 // });
 
-window.Vue = require('vue')
+import Vue from 'vue'
 Vue.prototype.$eventHub = new Vue()
 
 import router from './routes'
@@ -80,10 +80,15 @@ Vue.use(VueSweetalert2)
 Vue.use(abilitiesPlugin, ability)
 Vue.use(VueCkeditor)
 
-Vue.component('back-buttton', require('./components/BackButton.vue'))
-Vue.component('bootstrap-alert', require('./components/Alert.vue'))
-Vue.component('event-hub', require('./components/EventHub.vue'))
-Vue.component('vue-button-spinner', require('./components/VueButtonSpinner.vue'))
+import BackButtton from './components/BackButton.vue'
+import BootstrapAlert from './components/Alert.vue'
+import EventHub from './components/EventHub.vue'
+import VueButtonSpinner from './components/VueButtonSpinner.vue'
+
+Vue.component('back-buttton', BackButtton)
+Vue.component('bootstrap-alert', BootstrapAlert)
+Vue.component('event-hub', EventHub)
+Vue.component('vue-button-spinner', VueButtonSpinner)
 Vue.component('v-select', vSelect)
 Vue.component('vue-ckeditor', VueCkeditor)
 

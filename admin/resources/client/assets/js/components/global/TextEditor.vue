@@ -10,7 +10,28 @@ import Ckeditor from 'vue-ckeditor2'
 
 export default {
   name: 'TextEditor',
-  props: ['textCallbak', 'num', 'cContent'],  
+  props: {
+    textCallbak: {
+      type: Function,
+      default: () => {},
+      required: true,
+    },
+    num: {
+      type: String,
+      default: "",
+      required: false,
+    },
+    cContent:{
+      type: String,
+      default: "",
+      required: false,
+    },
+    windowHeight: {
+      type: Number,
+      default: 300,
+      required: false,
+    }
+  },  
   components: { 
     Ckeditor 
   },
@@ -22,7 +43,7 @@ export default {
         toolbar: [
             [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', 'Custom Button', 'Link', 'Unlink', 'Anchor', 'TextColor', 'BGColor', 'Undo', 'Redo', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', ],
         ],
-        height: 300,
+        height: this.windowHeight,
         /*customConfig: '/ckeditor/custom_config.js',
         extraPlugins: 'custom_plugin'*/
       }
@@ -33,7 +54,6 @@ export default {
   },
   created(){
     //this.content = this.contentValue;
-    console.log('! attr ',  this.$attrs);
     this.content = this.cContent != undefined ? this.cContent : '';
     this.edit = this.content != '' ? true : false;
   },
@@ -41,14 +61,10 @@ export default {
     /*'item': function(){
         console.log(this.num ,' model - ', this.item);        
     },*/
-    '$attr.value': function(){
-        console.log('value - ', this.$attr.value);
-    }
   },
   methods:{
       //...mapActions('EditorSingle', ['setItem']),
       onEditorInput(){
-          console.log('data - ', this.edit);
           this.textCallbak(this.content, this.num);            
           /*if(!this.edit){
             this.textCallbak(this.content, this.num);            
