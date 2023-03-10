@@ -12645,7 +12645,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 function initialState() {
   return {
-    rules: null
+    rules: null,
+    loading: false
   };
 }
 var getters = {
@@ -12655,8 +12656,28 @@ var getters = {
 };
 var actions = {
   sendForm: function sendForm(_ref, payload) {
-    var commit = _ref.commit;
+    var commit = _ref.commit,
+      dispatch = _ref.dispatch;
     console.log('sendForm - ', payload);
+    return new Promise(function (resolve, reject) {
+      axios.post('/api/v1/affilates', payload).then(function (response) {
+        commit('resetState');
+        resolve();
+      })["catch"](function (error) {
+        var message = error.response.data.message || error.message;
+        var errors = error.response.data.errors;
+        dispatch('Alert/setAlert', {
+          message: message,
+          errors: errors,
+          color: 'danger'
+        }, {
+          root: true
+        });
+        reject(error);
+      })["finally"](function () {
+        commit('setLoading', false);
+      });
+    });
   },
   resetState: function resetState(_ref2) {
     var commit = _ref2.commit;
@@ -12666,6 +12687,9 @@ var actions = {
 var mutations = {
   setRules: function setRules(state, rules) {
     state.rules = rules;
+  },
+  setLoading: function setLoading(state, loading) {
+    state.loading = loading;
   },
   resetState: function resetState(state) {
     state = Object.assign(state, initialState());

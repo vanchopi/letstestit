@@ -1,6 +1,7 @@
 function initialState() {
     return {
         rules: null,
+        loading: false,
     }
 }
 
@@ -9,8 +10,29 @@ const getters = {
 }
 
 const actions = {
-    sendForm({commit}, payload){
+    sendForm({commit, dispatch}, payload){
         console.log('sendForm - ', payload);
+        return new Promise((resolve, reject) => {
+            axios.post('/api/v1/affilates', payload)
+                .then(response => {
+                    commit('resetState')
+                    resolve()
+                })
+                .catch(error => {
+                    let message = error.response.data.message || error.message
+                    let errors  = error.response.data.errors
+
+                    dispatch(
+                        'Alert/setAlert',
+                        { message: message, errors: errors, color: 'danger' },
+                        { root: true })
+
+                    reject(error)
+                })
+                .finally(() => {
+                    commit('setLoading', false)
+                })
+        });
     },
     resetState({ commit }) {
         commit('resetState')
@@ -20,6 +42,9 @@ const actions = {
 const mutations = {
     setRules(state, rules) {
         state.rules = rules
+    },
+    setLoading(state, loading) {
+        state.loading = loading
     },
     resetState(state) {
         state = Object.assign(state, initialState())

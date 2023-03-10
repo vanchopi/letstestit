@@ -517,6 +517,21 @@
   margin-right: 10px;
 }
 
+body .v-select .dropdown-toggle {
+  padding: 0;
+  border: none;
+  position: relative;
+  margin-top: -3px;
+}
+
+.row.row-alert {
+  position: absolute;
+  z-index: 2;
+  width: 1000px;
+  top: 0;
+  right: 0;
+}
+
 .modal-default-button {
   display: flex;
   align-items: center;

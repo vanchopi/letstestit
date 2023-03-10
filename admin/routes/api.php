@@ -8,4 +8,5 @@ Route::group(['prefix' => '/v1', 'middleware' => ['auth:api'], 'namespace' => 'A
     Route::apiResource('users', 'UsersController');
     Route::apiResource('categories', 'CategoriesController');
     Route::apiResource('tests', 'TestsController');
+    Route::apiResource('affilates', 'AffilatesController');
 });
