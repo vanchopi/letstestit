@@ -26,6 +26,7 @@ const config = {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { name: 'yandex-verification', content: process.env.YANDEX_ID },
+      { name: 'verify-admitad', content: process.env.ADMITAD_ID },
       { name: 'Content-Security-Policy', content: 'upgrade-insecure-requests' },
       { hid: 'description', name: 'description', content: '' },
       { hid: 'keywords', name: 'keywords' , content: ''},
@@ -61,6 +62,7 @@ const config = {
     '@nuxtjs/router',
     '@nuxtjs/google-analytics',
     '@nuxtjs/recaptcha',
+    '@nuxtjs/yandex-metrika',
   ],
 
   recaptcha: {
@@ -74,6 +76,10 @@ const config = {
   googleAnalytics: {
     id: process.env.GOOGLE_ANALYTICS_ID,
     dev: process.env.GOOGLE_ANALYTICS_DEV
+  },
+
+  yandexMetrika: {
+    id: process.env.YANDEX_METRIKA_ID,
   },
 
   build: {
