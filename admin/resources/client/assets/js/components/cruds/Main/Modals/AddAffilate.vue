@@ -56,6 +56,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import ModalWindow from '../../../global/Modal';
 import TextEditor from '../../../global/TextEditor';
 export default {
@@ -100,8 +101,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions('Affilates', ['sendForm']),
     addAffilate(){
-      console.log('addAffilate', this.affilate);
+      this.sendForm(this.affilate);
     },
     setImage(e){
       this.affilate[this.fileField] = e.target.files[0];

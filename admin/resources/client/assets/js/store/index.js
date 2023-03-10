@@ -16,6 +16,7 @@ import TestsSingle from './modules/Tests/single'
 import EditorSingle from './modules/Tests/editor'
 import ResultsIndex from './modules/Results'
 import ResultsSingle from './modules/Results/single'
+import Affilates from './modules/Affilates'
 
 Vue.use(Vuex)
 
@@ -24,6 +25,7 @@ const debug = process.env.NODE_ENV !== 'production'
 export default new Vuex.Store({
     modules: {
         Alert,
+        Affilates,
         ChangePassword,
         Rules,
         PermissionsIndex,
