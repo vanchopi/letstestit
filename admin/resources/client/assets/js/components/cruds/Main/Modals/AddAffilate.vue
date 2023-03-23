@@ -75,7 +75,12 @@ export default {
       type: Function,
       default: () => {},
       required: true,
-    } 
+    },
+    onUpdate: {
+      type: Function,
+      default: () => {},
+      required: true,
+    }  
   },
   data(){
     return {
@@ -103,7 +108,13 @@ export default {
   methods: {
     ...mapActions('Affilates', ['sendForm']),
     addAffilate(){
-      this.sendForm(this.affilate);
+      this.sendForm(this.affilate).then((response) => {
+        console.log(response);
+        this.onCloseWindow();
+        this.onUpdate();
+      }).catch( error => {
+        console.log(error);
+      })
     },
     setImage(e){
       this.affilate[this.fileField] = e.target.files[0];

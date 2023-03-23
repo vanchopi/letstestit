@@ -5111,6 +5111,11 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       type: Function,
       "default": function _default() {},
       required: true
+    },
+    onUpdate: {
+      type: Function,
+      "default": function _default() {},
+      required: true
     }
   },
   data: function data() {
@@ -5138,7 +5143,14 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
   },
   methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapActions)('Affilates', ['sendForm'])), {}, {
     addAffilate: function addAffilate() {
-      this.sendForm(this.affilate);
+      var _this = this;
+      this.sendForm(this.affilate).then(function (response) {
+        console.log(response);
+        _this.onCloseWindow();
+        _this.onUpdate();
+      })["catch"](function (error) {
+        console.log(error);
+      });
     },
     setImage: function setImage(e) {
       this.affilate[this.fileField] = e.target.files[0];
@@ -5171,7 +5183,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _Modals_AddAffilate_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Modals/AddAffilate.vue */ "./resources/client/assets/js/components/cruds/Main/Modals/AddAffilate.vue");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Affilates",
@@ -5179,6 +5199,11 @@ __webpack_require__.r(__webpack_exports__);
     AddAffilate: _Modals_AddAffilate_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   props: {},
+  computed: {
+    affilates: function affilates() {
+      return this.$store.state.Affilates.affilates;
+    }
+  },
   data: function data() {
     return {
       result: null,
@@ -5189,11 +5214,17 @@ __webpack_require__.r(__webpack_exports__);
       }]
     };
   },
-  methods: {
+  created: function created() {
+    this.getAffilates();
+  },
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)('Affilates', ['get'])), {}, {
     onCloseWindow: function onCloseWindow() {
       this.showModal = false;
+    },
+    getAffilates: function getAffilates() {
+      this.get();
     }
-  }
+  })
 });
 
 /***/ }),
@@ -8664,10 +8695,15 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', [_c('AddAffilate', {
+  return _c('div', [_c('div', {
+    staticClass: "list-wrapper"
+  }, _vm._l(_vm.affilates, function (affilate) {
+    return _c('div', [_vm._v("\n      " + _vm._s(affilate) + "\n      "), _c('hr')]);
+  }), 0), _vm._v(" "), _c('AddAffilate', {
     attrs: {
       "showModal": _vm.showModal,
-      "onCloseWindow": _vm.onCloseWindow
+      "onCloseWindow": _vm.onCloseWindow,
+      "onUpdate": _vm.getAffilates
     }
   }), _vm._v(" "), _c('a', {
     staticClass: "btn btn-primary btn-sm",
@@ -12646,7 +12682,8 @@ __webpack_require__.r(__webpack_exports__);
 function initialState() {
   return {
     rules: null,
-    loading: false
+    loading: false,
+    affilates: null
   };
 }
 var getters = {
@@ -12684,8 +12721,22 @@ var actions = {
       });
     });
   },
-  resetState: function resetState(_ref2) {
-    var commit = _ref2.commit;
+  get: function get(_ref2) {
+    var commit = _ref2.commit,
+      state = _ref2.state;
+    commit('setLoading', true);
+    axios.get('/api/v1/affilates').then(function (response) {
+      commit('setAffilates', response.data.data);
+    })["catch"](function (error) {
+      message = error.response.data.message || error.message;
+      commit('setError', message);
+      console.log(message);
+    })["finally"](function () {
+      commit('setLoading', false);
+    });
+  },
+  resetState: function resetState(_ref3) {
+    var commit = _ref3.commit;
     commit('resetState');
   }
 };
@@ -12698,6 +12749,9 @@ var mutations = {
   },
   resetState: function resetState(state) {
     state = Object.assign(state, initialState());
+  },
+  setAffilates: function setAffilates(state, payload) {
+    state.affilates = payload;
   }
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({

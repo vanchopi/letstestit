@@ -18,20 +18,21 @@ class AffilatesController extends Controller
 {
     public function index()
     {
-        // return new AffilateResource(Affilate::with(['category'])->get());
+        return new AffilateResource(Affilate::with([])->get());
     }
 
     public function show($id)
     {        
-        
+        $affilate = Affilate::with([])->findOrFail($id);
+
+        return new AffilateResource($affilate);
     }
 
     public function store(StoreAffilatesRequest $request)
     {
         // if (Gate::denies('affilate_create')) { 
         //     return abort(401);
-        // } 
-        print_r($request->all());  
+        // }  
 
         $affilate = Affilate::create($request->all());
 

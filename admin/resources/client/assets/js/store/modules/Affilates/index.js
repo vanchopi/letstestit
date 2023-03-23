@@ -2,6 +2,7 @@ function initialState() {
     return {
         rules: null,
         loading: false,
+        affilates: null,
     }
 }
 
@@ -39,6 +40,22 @@ const actions = {
                 })
         });
     },
+    get({ commit, state }){
+        commit('setLoading', true)
+
+        axios.get('/api/v1/affilates')
+            .then(response => {
+                commit('setAffilates', response.data.data)
+            })
+            .catch(error => {
+                message = error.response.data.message || error.message
+                commit('setError', message)
+                console.log(message)
+            })
+            .finally(() => {
+                commit('setLoading', false)
+            })
+    },
     resetState({ commit }) {
         commit('resetState')
     }
@@ -53,6 +70,9 @@ const mutations = {
     },
     resetState(state) {
         state = Object.assign(state, initialState())
+    },
+    setAffilates(state, payload){
+        state.affilates = payload;
     }
 }
 

@@ -16,9 +16,7 @@ use Illuminate\Support\Facades\Gate;
 class CategoriesController extends Controller
 {
     public function index()
-    {
-        
-
+    {       
         return new CategoryResource(Category::with([])->get());
     }
 

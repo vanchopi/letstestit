@@ -22,7 +22,7 @@ class Affilate extends Model implements HasMedia
             'link' => 'max:65535|nullable',
             'description' => 'max:65535|nullable',
             'type' => 'max:191|nullable',
-            // 'affilate_image' => 'file|nullable|mimes:jpeg,png,jpg,gif,svg|max:8048',
+            'affilate_image' => 'file|nullable|mimes:jpeg,png,jpg,gif,svg|max:8048',
         ];
     }
 
@@ -32,7 +32,7 @@ class Affilate extends Model implements HasMedia
             'link' => 'max:65535|nullable',
             'description' => 'max:65535|nullable',
             'type' => 'max:191|nullable',
-            // 'affilate_image' => 'nullable'
+            'affilate_image' => 'nullable'
         ];
     }
 

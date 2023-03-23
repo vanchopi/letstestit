@@ -21,6 +21,8 @@ class CreateAffilatesTable extends Migration
             $table->string('link')->nullable();
             $table->string('type')->nullable();
             $table->timestamps();
+
+            $table->index(['deleted_at']);
         });
     }
 
