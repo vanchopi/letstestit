@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Affilate;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Test as TestResource;
-use App\Http\Requests\Admin\StoreTestsRequest;
-use App\Http\Requests\Admin\UpdateTestsRequest;
+use App\Http\Resources\Affilate as AffilateResource;
+use App\Http\Requests\Admin\StoreAffilatesRequest;
+use App\Http\Requests\Admin\UpdateAffilatesRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\URL;
@@ -17,7 +18,7 @@ class AffilatesController extends Controller
 {
     public function index()
     {
-        // return new TestResource(Test::with(['category'])->get());
+        // return new AffilateResource(Affilate::with(['category'])->get());
     }
 
     public function show($id)
@@ -25,22 +26,25 @@ class AffilatesController extends Controller
         
     }
 
-    public function store(StoreTestsRequest $request)
+    public function store(StoreAffilatesRequest $request)
     {
-        if (Gate::denies('test_create')) { 
-            return abort(401);
-        }        
+        // if (Gate::denies('affilate_create')) { 
+        //     return abort(401);
+        // } 
+        print_r($request->all());  
 
-        $test = Test::create($request->all());        
+        $affilate = Affilate::create($request->all());
+
+        if ($request->hasFile('affilate_image')) {
+            $affilate->addMedia($request->file('affilate_image'))->toMediaCollection('affilate_image', 'affilates');
+        } 
         
-        
-        
-        return (new TestResource($test))
+        return (new AffilateResource($affilate))
             ->response()
             ->setStatusCode(201);
     }
 
-    public function update(UpdateTestsRequest $request, $id)
+    public function update(UpdateAffilatesRequest $request, $id)
     {
         
     }

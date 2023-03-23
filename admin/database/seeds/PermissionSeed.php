@@ -39,6 +39,7 @@ class PermissionSeed extends Seeder
             ['id' => 24, 'title' => 'test_edit',],
             ['id' => 25, 'title' => 'test_view',],
             ['id' => 26, 'title' => 'test_delete',],
+            ['id' => 27, 'title' => 'affilate_create',],
 
         ];
 

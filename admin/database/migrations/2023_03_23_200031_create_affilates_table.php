@@ -16,6 +16,7 @@ class CreateAffilatesTable extends Migration
         Schema::create('affilates', function (Blueprint $table) {
             $table->increments('id');
             $table->string('description')->nullable();
+            $table->string('affilate_image')->nullable();
             $table->string('img')->nullable();
             $table->string('link')->nullable();
             $table->string('type')->nullable();

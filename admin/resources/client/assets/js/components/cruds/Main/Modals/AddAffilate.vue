@@ -83,19 +83,19 @@ export default {
       imgCounter: 0,
       affilate: {
         link: null,
-        img: null,
+        affilate_image: null,
         type: null,
         description: "",
       },
       labelList: {
         link: "ссылка",
-        img: "картинка",
+        affilate_image: "картинка",
         type: "тип",
         description: "описание",
       },
       types: ["banner", "context", "общий"],
       inputFields: ["link"],
-      fileField: ["img"],
+      fileField: ["affilate_image"],
       dropDownFields: ["type"],
       descriptionFields: ["description"],
     }

@@ -13,7 +13,12 @@ const actions = {
     sendForm({commit, dispatch}, payload){
         console.log('sendForm - ', payload);
         return new Promise((resolve, reject) => {
-            axios.post('/api/v1/affilates', payload)
+            let params = new FormData();
+            for( let prop in payload){
+                params.set(prop, payload[prop]);
+            }
+            // console.log(params);
+            axios.post('/api/v1/affilates', params)
                 .then(response => {
                     commit('resetState')
                     resolve()

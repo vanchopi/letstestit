@@ -93,6 +93,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'affilates' =>[
+            'driver'     => 'local',
+            'root'       => storage_path('app/public/images/affilates'),
+            'url'        => env('APP_URL') . '/storage/images/affilates',
+            'visibility' => 'public',
+        ],
+
         'results' =>[
             'driver'     => 'local',
             'root'       => storage_path('app/public/images/results'),

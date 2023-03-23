@@ -5119,19 +5119,19 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       imgCounter: 0,
       affilate: {
         link: null,
-        img: null,
+        affilate_image: null,
         type: null,
         description: ""
       },
       labelList: {
         link: "ссылка",
-        img: "картинка",
+        affilate_image: "картинка",
         type: "тип",
         description: "описание"
       },
       types: ["banner", "context", "общий"],
       inputFields: ["link"],
-      fileField: ["img"],
+      fileField: ["affilate_image"],
       dropDownFields: ["type"],
       descriptionFields: ["description"]
     };
@@ -12660,7 +12660,12 @@ var actions = {
       dispatch = _ref.dispatch;
     console.log('sendForm - ', payload);
     return new Promise(function (resolve, reject) {
-      axios.post('/api/v1/affilates', payload).then(function (response) {
+      var params = new FormData();
+      for (var prop in payload) {
+        params.set(prop, payload[prop]);
+      }
+      // console.log(params);
+      axios.post('/api/v1/affilates', params).then(function (response) {
         commit('resetState');
         resolve();
       })["catch"](function (error) {
