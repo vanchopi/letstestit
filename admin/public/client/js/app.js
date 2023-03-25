@@ -8697,9 +8697,15 @@ var render = function render() {
     _c = _vm._self._c;
   return _c('div', [_c('div', {
     staticClass: "list-wrapper"
-  }, _vm._l(_vm.affilates, function (affilate) {
-    return _c('div', [_vm._v("\n      " + _vm._s(affilate) + "\n      "), _c('hr')]);
-  }), 0), _vm._v(" "), _c('AddAffilate', {
+  }, [_c('table', {
+    staticClass: "table"
+  }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l(_vm.affilates, function (affilate) {
+    return _c('tr', [_c('td', [_vm._v(_vm._s(affilate.id))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(affilate.link))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(affilate.type))]), _vm._v(" "), _c('td', {
+      domProps: {
+        "innerHTML": _vm._s(affilate.affilate_image_link)
+      }
+    }), _vm._v(" "), _c('td', [_vm._v("---")])]);
+  }), 0)]), _vm._v(" "), _c('hr')]), _vm._v(" "), _c('AddAffilate', {
     attrs: {
       "showModal": _vm.showModal,
       "onCloseWindow": _vm.onCloseWindow,
@@ -8718,7 +8724,31 @@ var render = function render() {
     }
   }, [_vm._v("Добавить партнерскую программу")])], 1);
 };
-var staticRenderFns = [];
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('thead', [_c('tr', [_c('th', {
+    attrs: {
+      "scope": "col"
+    }
+  }, [_vm._v("id")]), _vm._v(" "), _c('th', {
+    attrs: {
+      "scope": "col"
+    }
+  }, [_vm._v("Ссылка")]), _vm._v(" "), _c('th', {
+    attrs: {
+      "scope": "col"
+    }
+  }, [_vm._v("Тип")]), _vm._v(" "), _c('th', {
+    attrs: {
+      "scope": "col"
+    }
+  }, [_vm._v("Картинка")]), _vm._v(" "), _c('th', {
+    attrs: {
+      "scope": "col"
+    }
+  }, [_vm._v("Действия")])])]);
+}];
 render._withStripped = true;
 
 

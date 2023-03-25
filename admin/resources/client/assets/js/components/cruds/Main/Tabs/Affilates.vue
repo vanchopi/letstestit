@@ -1,10 +1,31 @@
 <template>
   <div>
     <div class="list-wrapper">
-      <div v-for="affilate in affilates">
+      <!-- <div v-for="affilate in affilates">
         {{affilate}}
         <hr />
-      </div>
+      </div> -->
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">Ссылка</th>
+            <th scope="col">Тип</th>
+            <th scope="col">Картинка</th>
+            <th scope="col">Действия</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="affilate in affilates">
+            <td>{{affilate.id}}</td>
+            <td>{{affilate.link}}</td>
+            <td>{{affilate.type}}</td>
+            <td v-html="affilate.affilate_image_link"></td>
+            <td>---</td>
+          </tr>
+        </tbody>
+      </table>
+      <hr />
     </div>
     <AddAffilate 
       :showModal="showModal"
