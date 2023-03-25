@@ -1,10 +1,6 @@
 <template>
   <div>
     <div class="list-wrapper">
-      <!-- <div v-for="affilate in affilates">
-        {{affilate}}
-        <hr />
-      </div> -->
       <table class="table">
         <thead>
           <tr>
@@ -21,7 +17,12 @@
             <td>{{affilate.link}}</td>
             <td>{{affilate.type}}</td>
             <td v-html="affilate.affilate_image_link"></td>
-            <td>---</td>
+            <td>
+              <div>
+                <button type="button" class="btn btn-primary" @click="onEdit(affilate.id)">Edit</button>
+                <button type="button" class="btn btn-danger" @click="onDelete(affilate.id)">Delete</button>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -73,6 +74,17 @@ export default {
     },
     getAffilates(){
       this.get();
+    },
+    onEdit(id){
+      console.log('onEdit');
+    },
+    onDelete(id){
+      let text = "Вы уверены, что хотите удалить программу?";
+      if (confirm(text) == true) {
+        console.log('onDelete');
+      } else {
+        return false
+      }      
     }
   }
 };

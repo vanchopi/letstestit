@@ -109,7 +109,6 @@ export default {
     ...mapActions('Affilates', ['sendForm']),
     addAffilate(){
       this.sendForm(this.affilate).then((response) => {
-        console.log(response);
         this.onCloseWindow();
         this.onUpdate();
       }).catch( error => {

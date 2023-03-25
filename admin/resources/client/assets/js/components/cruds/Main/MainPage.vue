@@ -16,6 +16,9 @@
               >
               <li class="nav-item active">
                   <a class="nav-link" data-toggle="tab" href="#affilates">Партнерки</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href="#main">Главная</a>
               </li>                                          
             </ul>
             <div class="tab-content">
@@ -29,6 +32,16 @@
                   </div>
                 </div>
               </div>
+              <div class="tab-pane" id="main">
+                <div class="box">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">Главная</h3>
+                  </div>
+                  <div class="box-body">
+                    <Main />
+                  </div>
+                </div>
+              </div>
             </div>
           </form>
         </div>
@@ -38,11 +51,13 @@
 </template>
 
 <script>
-import Affilates from "./Tabs/Affilates.vue"
+import Affilates from "./Tabs/Affilates.vue";
+import Main from "./Tabs/Main.vue";
 export default {
   name: "MainPage",
   components: {
     Affilates,
+    Main,
   },
   props: {    
   },
